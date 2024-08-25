@@ -84,6 +84,7 @@
 
 	.node {
 		padding: 2px;
+		font-family: monospace;
 	}
 
 	.submodule-name {

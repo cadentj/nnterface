@@ -1,23 +1,37 @@
 <script lang="ts">
     import { useDnD } from "./utils";
     import Tree from "./tree/Tree.svelte";
-    import {setContext} from "svelte";
+    import { setContext } from "svelte";
+    import * as Tabs from "$lib/components/ui/tabs";
 
     const type = useDnD();
 
-    setContext("type", type)
+    setContext("type", type);
 </script>
 
 <aside>
-    <Tree />
+    <Tabs.Root value="model" class="w-[400px]">
+        <Tabs.List>
+            <Tabs.Trigger value="model">Model</Tabs.Trigger>
+            <Tabs.Trigger value="protocols">Protocols</Tabs.Trigger>
+            <Tabs.Trigger value="operators">Operators</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="model">
+            <Tree />
+        </Tabs.Content>
+        <Tabs.Content value="protocols">
+            Protocols
+        </Tabs.Content>
+        <Tabs.Content value="operators">
+            Change your password here.
+        </Tabs.Content>
+    </Tabs.Root>
 </aside>
 
 <style>
     aside {
         width: 100%;
         height: 100%;
-        background: #f4f4f4;
-        font-size: 12px;
         display: flex;
         flex-direction: column;
         /* justify-content: center; */

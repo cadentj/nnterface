@@ -8,12 +8,20 @@
     MiniMap,
     useSvelteFlow,
     type Node,
+    type NodeTypes,
+    type Viewport,
   } from "@xyflow/svelte";
 
   import "@xyflow/svelte/dist/style.css";
   import { useDnD } from "./utils";
   import Sidebar from "./Sidebar.svelte";
   import * as Resizable from "$lib/components/ui/resizable";
+
+  import TokenNode from "./nodes/token-node/TokenNode.svelte";
+
+  const nodeTypes: NodeTypes = {
+    text: TokenNode,
+  };
 
   const nodes = writable([
     {
@@ -33,6 +41,14 @@
       type: "output",
       data: { label: "Output Node" },
       position: { x: 300, y: 150 },
+    },
+    {
+      id: "4",
+      type: "text",
+      data: {
+        text: "hello",
+      },
+      position: { x: -100, y: -50 },
     },
   ]);
 
@@ -62,6 +78,12 @@
       event.dataTransfer.dropEffect = "move";
     }
   };
+
+  const initialViewport = {
+    zoom: 1.2,
+    x: 400,
+    y: 400,
+  } satisfies Viewport;
 
   const onDrop = (event: DragEvent) => {
     event.preventDefault();
@@ -93,13 +115,14 @@
       <Sidebar />
     </Resizable.Pane>
 
-    <Resizable.Handle withHandle/>
+    <Resizable.Handle withHandle />
 
     <Resizable.Pane defaultSize={75}>
       <SvelteFlow
         {nodes}
+        {nodeTypes}
         {edges}
-        fitView
+        {initialViewport}
         on:dragover={onDragOver}
         on:drop={onDrop}
       >
