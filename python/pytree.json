@@ -1,0 +1,738 @@
+{
+    "name": "model",
+    "type": "Module",
+    "submodules": [
+        {
+            "name": "model.transformer",
+            "type": "Module",
+            "submodules": [
+                {
+                    "name": "model.transformer.wte",
+                    "type": "Module"
+                },
+                {
+                    "name": "model.transformer.wpe",
+                    "type": "Module"
+                },
+                {
+                    "name": "model.transformer.drop",
+                    "type": "Module"
+                },
+                {
+                    "name": "model.transformer.h",
+                    "type": "ModuleList",
+                    "submodules": [
+                        {
+                            "name": "model.transformer.h.0",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.0.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.0.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.0.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.0.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.0.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.0.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.0.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.0.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.0.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.0.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.0.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.0.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.1",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.1.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.1.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.1.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.1.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.1.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.1.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.1.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.1.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.1.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.1.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.1.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.1.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.2",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.2.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.2.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.2.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.2.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.2.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.2.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.2.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.2.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.2.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.2.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.2.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.2.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.3",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.3.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.3.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.3.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.3.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.3.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.3.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.3.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.3.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.3.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.3.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.3.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.3.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.4",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.4.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.4.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.4.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.4.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.4.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.4.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.4.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.4.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.4.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.4.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.4.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.4.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.5",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.5.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.5.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.5.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.5.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.5.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.5.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.5.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.5.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.5.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.5.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.5.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.5.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.6",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.6.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.6.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.6.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.6.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.6.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.6.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.6.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.6.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.6.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.6.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.6.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.6.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.7",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.7.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.7.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.7.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.7.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.7.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.7.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.7.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.7.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.7.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.7.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.7.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.7.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.8",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.8.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.8.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.8.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.8.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.8.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.8.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.8.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.8.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.8.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.8.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.8.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.8.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.9",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.9.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.9.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.9.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.9.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.9.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.9.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.9.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.9.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.9.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.9.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.9.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.9.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.10",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.10.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.10.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.10.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.10.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.10.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.10.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.10.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.10.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.10.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.10.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.10.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.10.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "model.transformer.h.11",
+                            "type": "Module",
+                            "submodules": [
+                                {
+                                    "name": "model.transformer.h.11.ln_1",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.11.attn",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.11.attn.c_attn",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.11.attn.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.11.attn.attn_dropout",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.11.attn.resid_dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "model.transformer.h.11.ln_2",
+                                    "type": "Module"
+                                },
+                                {
+                                    "name": "model.transformer.h.11.mlp",
+                                    "type": "Module",
+                                    "submodules": [
+                                        {
+                                            "name": "model.transformer.h.11.mlp.c_fc",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.11.mlp.c_proj",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.11.mlp.act",
+                                            "type": "Module"
+                                        },
+                                        {
+                                            "name": "model.transformer.h.11.mlp.dropout",
+                                            "type": "Module"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "model.transformer.ln_f",
+                    "type": "Module"
+                }
+            ]
+        },
+        {
+            "name": "model.lm_head",
+            "type": "Module"
+        },
+        {
+            "name": "model.generator",
+            "type": "Module"
+        }
+    ]
+}
