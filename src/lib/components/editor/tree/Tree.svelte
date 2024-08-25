@@ -67,7 +67,7 @@
 </script>
 
 <div>
-    <Node {tree} on:toggle={rebuildTree} on:nodeDragStart={(event) => {console.log(event.detail.name)}}/>
+    <Node {tree} on:toggle={rebuildTree}/>
 </div>
 
 <style>

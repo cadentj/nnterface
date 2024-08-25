@@ -15,7 +15,7 @@
 <style>
     aside {
         width: 100%;
-        height: 50%;
+        height: 100%;
         background: #f4f4f4;
         font-size: 12px;
         display: flex;

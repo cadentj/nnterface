@@ -3,21 +3,9 @@
 	import { getContext } from "svelte";
 
 	export let tree;
-	const dispatch = createEventDispatcher();
 	const toggleExpansion = () => {
 		tree.expanded = !tree.expanded;
 	};
-
-	// const toggleCheck = () => {
-	// 	// update the current node's state here, the UI only need to represent it,
-	// 	// don't need to bind the check state to the UI
-	// 	tree.checked = !tree.checked;
-
-	// 	// emit node 'toggle' event, notify parent compnent to rebuild the entire tree's state
-	// 	dispatch("toggle", {
-	// 		node: tree,
-	// 	});
-	// };
 
 	const type = getContext("type");
 
@@ -35,43 +23,35 @@
 <ul>
 	<li>
 		{#if tree.submodules}
-			<!-- <input
-				type="checkbox"
-				data-label={tree.name}
-				checked={tree.checked}
-				indeterminate={tree.indeterminate}
-				on:click={toggleCheck}
-			/> -->
-			<span
+			<button
 				on:click={toggleExpansion}
 				class="arrow"
 				class:arrowDown={tree.expanded}
 			/>
-			<span
-				on:dragstart={(event) => onDragStart(event, tree.name)}
+			<button
+				on:dragstart={(event) => onDragStart(event, tree.atomic)}
 				draggable={true}
+				class="node"
 			>
-				{tree.name}
-			</span>
+				<span class="submodule-name">{tree.name}</span>
+				<small
+					>&lbrace; input: {tree.input}, output: {tree.output} &rbrace;</small
+				>
+			</button>
 			{#if tree.expanded}
 				{#each tree.submodules as child}
 					<svelte:self tree={child} on:toggle />
 				{/each}
 			{/if}
 		{:else}
-			<!-- <input
-				type="checkbox"
-				data-label={tree.name}
-				checked={tree.checked}
-				indeterminate={tree.indeterminate}
-				on:click={toggleCheck}
-			/> -->
-			<span
-				on:dragstart={(event) => onDragStart(event, tree.name)}
+			<button
+				on:dragstart={(event) => onDragStart(event, tree.atomic)}
 				draggable={true}
+				class="node"
 			>
-				{tree.name}
-			</span>
+				<span class="submodule-name">{tree.name}</span>
+				<small>{tree.input} {tree.output}</small>
+			</button>
 		{/if}
 	</li>
 </ul>
@@ -96,5 +76,18 @@
 	.arrowDown::before {
 		--tw-content: "-";
 		content: var(--tw-content);
+	}
+
+	li {
+		padding: 3px;
+	}
+
+	.node {
+		padding: 2px;
+	}
+
+	.submodule-name {
+		padding: 2px;
+		background-color: rgba(22, 101, 52, 0.5);
 	}
 </style>

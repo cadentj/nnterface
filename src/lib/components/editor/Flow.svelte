@@ -93,9 +93,9 @@
       <Sidebar />
     </Resizable.Pane>
 
-    <Resizable.Handle />
+    <Resizable.Handle withHandle/>
 
-    <Resizable.Pane defaultSize={70}>
+    <Resizable.Pane defaultSize={75}>
       <SvelteFlow
         {nodes}
         {edges}
