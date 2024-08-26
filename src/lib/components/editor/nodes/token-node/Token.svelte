@@ -20,12 +20,30 @@
 <style>
   .token {
     display: inline;
-    cursor: pointer;
+    cursor: text;
     user-select: none;
-    border: 1px solid #0000006e;
+    padding: 2px 0px;
+    /* margin: 2px; */
+    border-radius: 3px 3px 0 0; /* Top-left and top-right corners rounded */
+    background-color: #ffdd57; /* Light yellow background */
+    border: .25px solid #0000006e;
+    position: relative;
   }
 
   .highlighted {
-    background-color: yellow;
+    background-color: #ffa500; /* Highlight color */
+  }
+
+  .token::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 4px;
+    background-color: #ffdd57;
+    border-radius: 0 0 50% 50%; /* Bottom-left and bottom-right corners rounded */
+    z-index: -1;
   }
 </style>

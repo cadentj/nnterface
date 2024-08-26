@@ -31,7 +31,7 @@
     .tokenized-text {
       margin-top: 10px;
       padding: 10px;
-      border: 1px solid #000;
+      border: .5px solid #000;
       border-radius: 5px;
       line-height: 1.5;
     }

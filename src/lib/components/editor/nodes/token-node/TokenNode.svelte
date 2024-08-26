@@ -34,12 +34,21 @@
             text: token,
         }));
     };
+
+    // const connections = useHandleConnections({ nodeId: 'node-id', type: 'target' });
+
+    // $: {
+    //     // This will be called whenever connections change
+    //     // for the target handle in the node with id 'node-id'
+    //     console.log($connections);
+    // }
 </script>
 
 <div class="custom">
     <Dialog.Root>
         <Dialog.Content>
-            <div class="label">text</div>
+            <Dialog.Title>Prompt</Dialog.Title>
+            <Dialog.Description>Interventions will only be executed on the highlighted tokens.</Dialog.Description>
             {#if tokens.length == 0}
                 <Textarea
                     value={data.text}
@@ -63,15 +72,16 @@
                             clearHighlights();
                             tokens = [];
                         }}
+                        variant="outline"
                     >
-                        Edit
+                        Reset
                     </Button>
                 </div>
             </div>
         </Dialog.Content>
 
         <div class="header">
-            <div class="label">text</div>
+            <div class="label">Prompt</div>
             <Dialog.Trigger>
                 <Button variant="ghost" size="icon">
                     <TextCursorInput class="h-4 w-4" />
@@ -99,11 +109,6 @@
         background-color: #eee;
         padding: 10px;
         border-radius: 10px;
-    }
-
-    .visible-but-disabled {
-        color: black;
-        pointer-events: none;
     }
 
     .header {

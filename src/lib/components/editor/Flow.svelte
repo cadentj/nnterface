@@ -18,9 +18,14 @@
   import * as Resizable from "$lib/components/ui/resizable";
 
   import TokenNode from "./nodes/token-node/TokenNode.svelte";
+  import ProtocolEdge from "./edges/ProtocolEdge.svelte";
 
   const nodeTypes: NodeTypes = {
     text: TokenNode,
+  };
+
+  const edgeTypes = {
+    protocol: ProtocolEdge
   };
 
   const nodes = writable([
@@ -61,7 +66,7 @@
     },
     {
       id: "1-3",
-      type: "smoothstep",
+      type: "protocol",
       source: "1",
       target: "3",
     },
@@ -122,6 +127,7 @@
         {nodes}
         {nodeTypes}
         {edges}
+        {edgeTypes}
         {initialViewport}
         on:dragover={onDragOver}
         on:drop={onDrop}

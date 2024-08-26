@@ -3,6 +3,7 @@
     import Tree from "./tree/Tree.svelte";
     import { setContext } from "svelte";
     import * as Tabs from "$lib/components/ui/tabs";
+    import { Button } from "$lib/components/ui/button";
 
     const type = useDnD();
 
@@ -26,6 +27,9 @@
             Change your password here.
         </Tabs.Content>
     </Tabs.Root>
+    <Button class="test">
+        Run
+    </Button>
 </aside>
 
 <style>
@@ -38,5 +42,10 @@
         /* align-items: center; */
         padding-top: 3rem;
         padding-left: 3rem;
+    }
+
+    .test {
+        position: absolute;
+        bottom: 10px;
     }
 </style>
