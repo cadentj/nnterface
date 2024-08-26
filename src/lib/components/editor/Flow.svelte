@@ -7,9 +7,12 @@
     BackgroundVariant,
     MiniMap,
     useSvelteFlow,
+    MarkerType,
     type Node,
     type NodeTypes,
     type Viewport,
+    type DefaultEdgeOptions,
+    useInternalNode,
   } from "@xyflow/svelte";
 
   import "@xyflow/svelte/dist/style.css";
@@ -17,15 +20,19 @@
   import Sidebar from "./Sidebar.svelte";
   import * as Resizable from "$lib/components/ui/resizable";
 
+  import LoopContext from "./contexts/LoopContext.svelte";
+
   import TokenNode from "./nodes/token-node/TokenNode.svelte";
   import ProtocolEdge from "./edges/ProtocolEdge.svelte";
+  import { compile } from "./compile";
 
   const nodeTypes: NodeTypes = {
     text: TokenNode,
+    context: LoopContext,
   };
 
   const edgeTypes = {
-    protocol: ProtocolEdge
+    protocol: ProtocolEdge,
   };
 
   const nodes = writable([
@@ -43,9 +50,11 @@
     },
     {
       id: "3",
-      type: "output",
+      type: "context",
       data: { label: "Output Node" },
       position: { x: 300, y: 150 },
+      style:
+        "background: #fff; border: 1px solid black; border-radius: 15px; font-size: 12px;",
     },
     {
       id: "4",
@@ -57,12 +66,21 @@
     },
   ]);
 
+  const defaultEdgeOptions: DefaultEdgeOptions = {
+    markerEnd: {
+      type: MarkerType.ArrowClosed,
+    },
+  };
+
   const edges = writable([
     {
       id: "1-2",
       type: "default",
       source: "1",
       target: "2",
+      markerEnd: {
+        type: MarkerType.ArrowClosed,
+      },
     },
     {
       id: "1-3",
@@ -72,7 +90,22 @@
     },
   ]);
 
-  const { screenToFlowPosition } = useSvelteFlow();
+  const { screenToFlowPosition, getIntersectingNodes } = useSvelteFlow();
+
+  function onNodeDrag({ detail: { targetNode } }) {
+    const intersections = getIntersectingNodes(targetNode, false).map(
+      (n) => n.id,
+    );
+
+    $nodes.forEach((n) => {
+      n.class = intersections.includes(n.id) ? "highlight" : "";
+
+      if (intersections.includes(n.id)) {
+        console.log("intersecting!");
+      }
+    });
+    $nodes = $nodes;
+  }
 
   const type = useDnD();
 
@@ -112,12 +145,16 @@
     $nodes.push(newNode);
     $nodes = $nodes;
   };
+
+  const run = () => {
+    compile(nodes, edges);
+  };
 </script>
 
 <main>
   <Resizable.PaneGroup direction="horizontal">
     <Resizable.Pane>
-      <Sidebar />
+      <Sidebar {run} />
     </Resizable.Pane>
 
     <Resizable.Handle withHandle />
@@ -128,9 +165,11 @@
         {nodeTypes}
         {edges}
         {edgeTypes}
+        {defaultEdgeOptions}
         {initialViewport}
         on:dragover={onDragOver}
         on:drop={onDrop}
+        on:nodedrag={onNodeDrag}
       >
         <Controls />
         <Background variant={BackgroundVariant.Dots} />
@@ -145,5 +184,10 @@
     height: 100vh;
     display: flex;
     flex-direction: column-reverse;
+  }
+
+  :global(.svelte-flow.intersection-flow .svelte-flow__node.highlight) {
+    background-color: #ff0072 !important;
+    color: white;
   }
 </style>

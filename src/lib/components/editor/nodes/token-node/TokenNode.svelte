@@ -35,13 +35,6 @@
         }));
     };
 
-    // const connections = useHandleConnections({ nodeId: 'node-id', type: 'target' });
-
-    // $: {
-    //     // This will be called whenever connections change
-    //     // for the target handle in the node with id 'node-id'
-    //     console.log($connections);
-    // }
 </script>
 
 <div class="custom">

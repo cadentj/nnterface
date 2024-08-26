@@ -7,6 +7,8 @@
 
     const type = useDnD();
 
+    export let run;
+
     setContext("type", type);
 </script>
 
@@ -27,7 +29,7 @@
             Change your password here.
         </Tabs.Content>
     </Tabs.Root>
-    <Button class="test">
+    <Button class="test" on:click={run}>
         Run
     </Button>
 </aside>

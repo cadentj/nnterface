@@ -20,11 +20,7 @@
     export let markerEnd: $$Props["markerEnd"] = undefined;
     export let style: $$Props["style"] = undefined;
 
-    // Set the default edge type
-    export let data: $$Props["data"];
-    data = {
-        protocol: "get",
-    };
+    let protocol = "get"
 
     $: [edgePath, labelX, labelY] = getBezierPath({
         sourceX,
@@ -34,6 +30,7 @@
         targetY,
         targetPosition,
     });
+
 </script>
 
 <BaseEdge path={edgePath} {markerEnd} {style} />
@@ -44,12 +41,12 @@
     >
         <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild let:builder>
-              <Button variant="outline" builders={[builder]}>{data.protocol}</Button>
+              <Button variant="outline" builders={[builder]}>{protocol}</Button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Content class="w-56">
               <DropdownMenu.Label>Select Protocol</DropdownMenu.Label>
               <DropdownMenu.Separator />
-              <DropdownMenu.RadioGroup bind:value={data.protocol}>
+              <DropdownMenu.RadioGroup bind:value={protocol}>
                 <DropdownMenu.RadioItem value="get">Get</DropdownMenu.RadioItem>
                 <DropdownMenu.RadioItem value="set">Set</DropdownMenu.RadioItem>
                 <DropdownMenu.RadioItem value="apply">Apply</DropdownMenu.RadioItem>

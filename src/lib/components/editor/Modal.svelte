@@ -1,1 +1,0 @@
-<!-- MODAL: https://svelte.dev/examples/modal -->
