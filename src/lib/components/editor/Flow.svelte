@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { writable } from "svelte/store";
   import {
     SvelteFlow,
     Controls,
@@ -7,12 +6,9 @@
     BackgroundVariant,
     MiniMap,
     useSvelteFlow,
-    MarkerType,
     type Node,
-    type NodeTypes,
+    type XYPosition,
     type Viewport,
-    type DefaultEdgeOptions,
-    useInternalNode,
   } from "@xyflow/svelte";
 
   import "@xyflow/svelte/dist/style.css";
@@ -20,90 +16,41 @@
   import Sidebar from "./Sidebar.svelte";
   import * as Resizable from "$lib/components/ui/resizable";
 
-  import LoopContext from "./contexts/LoopContext.svelte";
+  import {
+    nodeTypes,
+    nodes,
+    edgeTypes,
+    edges,
+    defaultEdgeOptions,
+  } from "./flow";
 
-  import TokenNode from "./nodes/token-node/TokenNode.svelte";
-  import ProtocolEdge from "./edges/ProtocolEdge.svelte";
-  import { compile } from "./compile";
+  const { screenToFlowPosition, getIntersectingNodes, toObject, getNode } =
+    useSvelteFlow();
 
-  const nodeTypes: NodeTypes = {
-    text: TokenNode,
-    context: LoopContext,
-  };
 
-  const edgeTypes = {
-    protocol: ProtocolEdge,
-  };
-
-  const nodes = writable([
-    {
-      id: "1",
-      type: "input",
-      data: { label: "Input Node" },
-      position: { x: 150, y: 5 },
-    },
-    {
-      id: "2",
-      type: "default",
-      data: { label: "Default Node" },
-      position: { x: 0, y: 150 },
-    },
-    {
-      id: "3",
-      type: "context",
-      data: { label: "Output Node" },
-      position: { x: 300, y: 150 },
-      style:
-        "background: #fff; border: 1px solid black; border-radius: 15px; font-size: 12px;",
-    },
-    {
-      id: "4",
-      type: "text",
-      data: {
-        text: "hello",
-      },
-      position: { x: -100, y: -50 },
-    },
-  ]);
-
-  const defaultEdgeOptions: DefaultEdgeOptions = {
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-    },
-  };
-
-  const edges = writable([
-    {
-      id: "1-2",
-      type: "default",
-      source: "1",
-      target: "2",
-      markerEnd: {
-        type: MarkerType.ArrowClosed,
-      },
-    },
-    {
-      id: "1-3",
-      type: "protocol",
-      source: "1",
-      target: "3",
-    },
-  ]);
-
-  const { screenToFlowPosition, getIntersectingNodes } = useSvelteFlow();
-
-  function onNodeDrag({ detail: { targetNode } }) {
+  function onNodeDragStop({ detail: { targetNode } }) {
     const intersections = getIntersectingNodes(targetNode, false).map(
       (n) => n.id,
     );
 
     $nodes.forEach((n) => {
-      n.class = intersections.includes(n.id) ? "highlight" : "";
+      for (const i of intersections) {
+        if (n.id === targetNode.id) {
 
-      if (intersections.includes(n.id)) {
-        console.log("intersecting!");
+          // Position of the child node
+          // is at the top left of the parent node.
+          const parentNode = getNode(i);
+          n.parentId = i;
+          n.position = {
+            x: 0 + (targetNode.position.x - parentNode.position.x),
+            y: 0 + (targetNode.position.y - parentNode.position.y),
+          } satisfies XYPosition;
+          
+  
+        }
       }
     });
+
     $nodes = $nodes;
   }
 
@@ -145,16 +92,12 @@
     $nodes.push(newNode);
     $nodes = $nodes;
   };
-
-  const run = () => {
-    compile(nodes, edges);
-  };
 </script>
 
 <main>
   <Resizable.PaneGroup direction="horizontal">
     <Resizable.Pane>
-      <Sidebar {run} />
+      <Sidebar {toObject} />
     </Resizable.Pane>
 
     <Resizable.Handle withHandle />
@@ -169,7 +112,7 @@
         {initialViewport}
         on:dragover={onDragOver}
         on:drop={onDrop}
-        on:nodedrag={onNodeDrag}
+        on:nodedragstop={onNodeDragStop}
       >
         <Controls />
         <Background variant={BackgroundVariant.Dots} />
