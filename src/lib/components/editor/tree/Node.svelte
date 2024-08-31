@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
 	import { getContext } from "svelte";
+	
 
 	export let tree;
 	const toggleExpansion = () => {

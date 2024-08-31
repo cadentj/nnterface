@@ -6,11 +6,11 @@
     BackgroundVariant,
     MiniMap,
     useSvelteFlow,
+    ControlButton,
     type Node,
-    type XYPosition,
     type Viewport,
   } from "@xyflow/svelte";
-
+  import { Play } from "lucide-svelte";
   import "@xyflow/svelte/dist/style.css";
   import { useDnD } from "./utils";
   import Sidebar from "./Sidebar.svelte";
@@ -27,33 +27,51 @@
   const { screenToFlowPosition, getIntersectingNodes, toObject, getNode } =
     useSvelteFlow();
 
-
   function onNodeDragStop({ detail: { targetNode } }) {
-    const intersections = getIntersectingNodes(targetNode, false).map(
+    const intersections = getIntersectingNodes(targetNode, true).map(
       (n) => n.id,
     );
 
-    $nodes.forEach((n) => {
-      for (const i of intersections) {
-        if (n.id === targetNode.id) {
+    console.log(targetNode.id, "intersects with", intersections);
+    let updatedNodes = [...$nodes];
 
-          // Position of the child node
-          // is at the top left of the parent node.
-          const parentNode = getNode(i);
-          n.parentId = i;
-          n.position = {
-            x: 0 + (targetNode.position.x - parentNode.position.x),
-            y: 0 + (targetNode.position.y - parentNode.position.y),
-          } satisfies XYPosition;
-          
-  
+    for (const i of intersections) {
+
+      // Dragging the parent can overlap with its children
+      // Skip the parent node
+      const parentNode = getNode(i);
+      if ("parentId" in parentNode && parentNode.parentId != undefined) {
+        if (parentNode.parentId == targetNode.id) {
+          continue;
         }
       }
-    });
 
-    $nodes = $nodes;
+      // Get the index of the target in the nodes array
+      const targetNodeIndex = updatedNodes.findIndex(
+        (n) => n.id === targetNode.id,
+      );
+
+      // Update the node's parent and position
+      const movedNode = updatedNodes[targetNodeIndex];
+      movedNode.parentId = i;
+
+      movedNode.position = {
+        x: targetNode.position.x - parentNode.position.x,
+        y: targetNode.position.y - parentNode.position.y,
+      };
+
+      // Remove the node from its current position
+      updatedNodes.splice(targetNodeIndex, 1);
+
+      // Find the new position to insert the node (right after its new parent)
+      const parentIndex = updatedNodes.findIndex((n) => n.id === i);
+      updatedNodes.splice(parentIndex + 1, 0, movedNode);
+
+    }
+
+    // Update the nodes array
+    $nodes = updatedNodes;
   }
-
   const type = useDnD();
 
   const onDragOver = (event: DragEvent) => {
@@ -82,22 +100,38 @@
       y: event.clientY,
     });
 
+    const numNodes = ($nodes.length + 5).toString();
+    console.log(numNodes);
     const newNode = {
-      id: `${Math.random()}`,
+      id: numNodes,
       position,
       data: { label: `${$type}` }, // NOTE: This is a small change from the examples.
-      origin: [0.5, 0.0],
+      origin: [0.5, 0.5],
     } satisfies Node;
 
     $nodes.push(newNode);
     $nodes = $nodes;
   };
+
+
+  async function createItem() {
+        const response = await fetch('/api/editor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name: 'New Item', description: 'This is a new item' }),
+        });
+        const result = await response.json();
+        console.log(result);
+    }
+
 </script>
 
 <main>
   <Resizable.PaneGroup direction="horizontal">
     <Resizable.Pane>
-      <Sidebar {toObject} />
+      <Sidebar />
     </Resizable.Pane>
 
     <Resizable.Handle withHandle />
@@ -114,7 +148,11 @@
         on:drop={onDrop}
         on:nodedragstop={onNodeDragStop}
       >
-        <Controls />
+        <Controls>
+          <ControlButton on:click={() => createItem()}>
+            <Play style="color: green;"/>
+          </ControlButton>
+        </Controls>
         <Background variant={BackgroundVariant.Dots} />
         <MiniMap />
       </SvelteFlow>

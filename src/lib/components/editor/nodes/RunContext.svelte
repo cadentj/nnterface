@@ -17,7 +17,7 @@
         minWidth={100}
         minHeight={30}
         isVisible={selected}
-        handleStyle="border: 1px solid black; background-color: white"
+        handleStyle="border: 1px solid black; background-color: rgba(0, 128, 0, 0.5);"
     />
 
     <Handle type="target" position={Position.Left} />

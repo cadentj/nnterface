@@ -22,11 +22,14 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@codemirror/commands": "^6.6.0",
+		"@codemirror/lang-python": "^6.1.6",
 		"@xyflow/svelte": "^0.1.16",
 		"bits-ui": "^0.21.13",
 		"clsx": "^2.1.1",
 		"lucide-svelte": "^0.435.0",
 		"paneforge": "^0.0.5",
+		"svelte-codemirror-editor": "^1.4.0",
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.2.1"
 	}

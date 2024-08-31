@@ -3,11 +3,12 @@
     import Tree from "./tree/Tree.svelte";
     import { setContext } from "svelte";
     import * as Tabs from "$lib/components/ui/tabs";
-    import { Button } from "$lib/components/ui/button";
+
+    import BlockList from "./BlockList.svelte";
 
     const type = useDnD();
 
-    export let run;
+    const demoBlocks = ["text", "Block 2", "Block 3", "Block 4"];
 
     setContext("type", type);
 </script>
@@ -16,22 +17,19 @@
     <Tabs.Root value="model" class="w-[400px]">
         <Tabs.List>
             <Tabs.Trigger value="model">Model</Tabs.Trigger>
-            <Tabs.Trigger value="protocols">Protocols</Tabs.Trigger>
+            <Tabs.Trigger value="control">Control</Tabs.Trigger>
             <Tabs.Trigger value="operators">Operators</Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="model">
             <Tree />
         </Tabs.Content>
-        <Tabs.Content value="protocols">
-            Protocols
+        <Tabs.Content value="control">
+            <BlockList blocks={demoBlocks}/>
         </Tabs.Content>
         <Tabs.Content value="operators">
             Change your password here.
         </Tabs.Content>
     </Tabs.Root>
-    <Button class="test" on:click={run}>
-        Run
-    </Button>
 </aside>
 
 <style>

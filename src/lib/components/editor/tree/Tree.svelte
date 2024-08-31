@@ -2,7 +2,6 @@
 
 <script>
     import Node from "./Node.svelte";
-    import { createEventDispatcher } from "svelte";
 
     // TODO: Add actual loading for firebase tree
     import pytree from "./pytree.json";
