@@ -14,7 +14,7 @@
   import { Play } from "lucide-svelte";
   import "@xyflow/svelte/dist/style.css";
   import { useDnD } from "./utils";
-  import Sidebar from "./Sidebar.svelte";
+  import Sidebar from "./sidebar.svelte";
   import * as Resizable from "$lib/components/ui/resizable";
 
   import {

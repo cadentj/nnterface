@@ -15,7 +15,7 @@
     import { Button } from "$lib/components/ui/button";
     import { Pencil } from "lucide-svelte";
 
-    import Badges from "./Badges.svelte";
+    import Badges from "./badges.svelte";
 
     type $$Props = NodeProps;
 

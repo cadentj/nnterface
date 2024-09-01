@@ -6,11 +6,11 @@ import {
     type NodeTypes
 } from "@xyflow/svelte";
 
-import ModuleNode from "./nodes/ModuleNode.svelte";
-import InputNode from "./nodes/InputNode.svelte";
-import LoopContext from "./nodes/LoopContext.svelte";
-import FunctionContext from "./nodes/function-node/FunctionContext.svelte";
-import RunContext from "./nodes/RunContext.svelte";
+import ModuleNode from "./nodes/module-node.svelte";
+import InputNode from "./nodes/input-node.svelte";
+import LoopContext from "./nodes/loop-context.svelte";
+import FunctionContext from "./nodes/function-node/function-context.svelte";
+import RunContext from "./nodes/run-context.svelte";
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,
