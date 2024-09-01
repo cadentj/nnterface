@@ -8,6 +8,7 @@
     useSvelteFlow,
     ControlButton,
     type Node,
+    type ColorMode,
     type Viewport,
   } from "@xyflow/svelte";
   import { Play } from "lucide-svelte";
@@ -19,7 +20,6 @@
   import {
     nodeTypes,
     nodes,
-    edgeTypes,
     edges,
     defaultEdgeOptions,
   } from "./flow";
@@ -83,9 +83,9 @@
   };
 
   const initialViewport = {
-    zoom: 1.2,
-    x: 400,
-    y: 400,
+    zoom: 1,
+    x: 0,
+    y: 0,
   } satisfies Viewport;
 
   const onDrop = (event: DragEvent) => {
@@ -100,12 +100,12 @@
       y: event.clientY,
     });
 
-    const numNodes = ($nodes.length + 5).toString();
-    console.log(numNodes);
+    const numNodes = ($nodes.length + 3).toString();
+
     const newNode = {
+      ...$type,
       id: numNodes,
-      position,
-      data: { label: `${$type}` }, // NOTE: This is a small change from the examples.
+      position: position,
       origin: [0.5, 0.5],
     } satisfies Node;
 
@@ -126,6 +126,7 @@
         console.log(result);
     }
 
+    let colorMode: ColorMode = 'dark';
 </script>
 
 <main>
@@ -136,17 +137,17 @@
 
     <Resizable.Handle withHandle />
 
-    <Resizable.Pane defaultSize={75}>
+    <Resizable.Pane defaultSize={80}>
       <SvelteFlow
         {nodes}
         {nodeTypes}
         {edges}
-        {edgeTypes}
         {defaultEdgeOptions}
         {initialViewport}
         on:dragover={onDragOver}
         on:drop={onDrop}
         on:nodedragstop={onNodeDragStop}
+        fitView
       >
         <Controls>
           <ControlButton on:click={() => createItem()}>
@@ -165,10 +166,5 @@
     height: 100vh;
     display: flex;
     flex-direction: column-reverse;
-  }
-
-  :global(.svelte-flow.intersection-flow .svelte-flow__node.highlight) {
-    background-color: #ff0072 !important;
-    color: white;
   }
 </style>

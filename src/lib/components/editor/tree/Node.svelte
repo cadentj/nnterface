@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { getContext } from "svelte";
+	import type { Writable } from "svelte/store";
+	import type { Node } from "@xyflow/svelte";
+	import { createEmptyNode } from "../utils"
 	
 
 	export let tree;
@@ -7,14 +10,22 @@
 		tree.expanded = !tree.expanded;
 	};
 
-	const type = getContext("type");
+	const type: Writable<Node | null> = getContext("type");
 
 	const onDragStart = (event: DragEvent, name: string) => {
 		if (!event.dataTransfer) {
 			return null;
 		}
-
-		type.set(name);
+		
+		const newNode: Node = createEmptyNode("default");
+		const moduleNode = {
+			...newNode,
+			type: "module",
+			data: {
+				label: name
+			},
+		};
+		type.set(moduleNode);
 
 		event.dataTransfer.effectAllowed = "move";
 	};

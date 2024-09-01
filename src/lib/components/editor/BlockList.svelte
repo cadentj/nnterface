@@ -1,25 +1,26 @@
 <script lang="ts">
 	import { getContext } from "svelte";
+	import type { Writable } from "svelte/store";
+	import type { Node } from "@xyflow/svelte";
+	import { createEmptyNode } from "./utils";
 
-	const type = getContext("type");
+	const type: Writable<Node | null> = getContext("type");
 
 	export let blocks: string[] = [];
 
 	const onDragStart = (event: DragEvent, name: string) => {
-		if (!event.dataTransfer) {
-			return null;
+		if (event.dataTransfer) {
+			const newNode: Node = createEmptyNode(name);
+			type.set(newNode);
+			event.dataTransfer.effectAllowed = "move";
 		}
-
-		type.set(name);
-
-		event.dataTransfer.effectAllowed = "move";
 	};
 </script>
 
-<div>
+<div class="block-container">
 	{#each blocks as block}
 		<button
-			class="block"
+			class="my-3 p-2 block"
 			draggable="true"
 			on:dragstart={(event) => onDragStart(event, block)}
 		>
@@ -29,13 +30,13 @@
 </div>
 
 <style>
+	.block-container {
+		display: flex;
+		flex-direction: column;
+	}
+
 	.block {
-		display: inline-block;
-		padding: 10px 20px;
-		margin: 5px;
-		border-radius: 5px;
-		background-color: #ffb347;
-		border: 1px solid #ffa500;
-		cursor: move;
+		height: 50px;
+		border: 1px solid #000;
 	}
 </style>
