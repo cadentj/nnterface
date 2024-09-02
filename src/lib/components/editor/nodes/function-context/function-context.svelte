@@ -20,7 +20,7 @@
     export let selected: $$Props["selected"] = undefined;
 </script>
 
-<div class="border rounded-md block">
+<div class="block">
     <ContextNode {selected}>
         <Dialog.Root>
             <Dialog.Content>
@@ -51,11 +51,5 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
-
-    .block {
-        height: 100%;
-        background-color: hsl(var(--node-background));
-        border-radius: var(--radius);
     }
 </style>

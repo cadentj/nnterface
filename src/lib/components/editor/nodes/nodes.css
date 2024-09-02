@@ -1,0 +1,13 @@
+.block {
+    height: 100%;
+    background-color: hsl(var(--node-background));
+    border-radius: var(--radius);
+    border: 1px solid hsl(var(--border));
+}
+
+.context {
+    height: 100%;
+    background-color: hsl(var(--node-background));
+    border-radius: var(--radius);
+    border: 1px solid hsl(var(--border));
+}

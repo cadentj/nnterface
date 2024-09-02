@@ -7,9 +7,13 @@
 
     type $$Props = NodeProps;
 
+    export let data: $$Props["data"] = undefined;
     export let selected: $$Props["selected"] = undefined;
 </script>
 
-<ContextNode selected={selected}>
-    Hello
-</ContextNode>
+<div class="block">
+    <ContextNode selected={selected}>
+        {data.label}
+    </ContextNode>
+    
+</div>

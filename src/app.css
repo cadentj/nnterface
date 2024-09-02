@@ -34,9 +34,11 @@
         --ring: 240 10% 3.9%;
 
         --radius: 0.5rem;
+    }
 
-        /* EDITOR STYLES */
+    :root {
         --node-background: 0 0% 100%;
+        --context-background: 0 0% 100% 0.5;
     }
 
     .dark {
@@ -68,9 +70,11 @@
         --destructive-foreground: 0 0% 98%;
 
         --ring: 240 4.9% 83.9%;
+    }
 
-        /* EDITOR STYLES */
+    .dark {
         --node-background: 0, 0%, 12%, 1;
+        --node-background: 0, 0%, 12%, 0.5;
     }
 }
 

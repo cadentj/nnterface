@@ -6,73 +6,69 @@
     BackgroundVariant,
     useSvelteFlow,
     ControlButton,
+    type XYPosition,
     type Node,
     type ColorMode,
     type Viewport,
   } from "@xyflow/svelte";
   import { Play } from "lucide-svelte";
   import "@xyflow/svelte/dist/style.css";
-  import { useDnD } from "./utils";
+  import "./nodes/nodes.css";
+  import { useDnD, updateNodePosition } from "./utils";
   import Sidebar from "./sidebar.svelte";
   import * as Resizable from "$lib/components/ui/resizable";
 
   import { toggleMode } from "mode-watcher";
 
-  import {
-    nodeTypes,
-    nodes,
-    edges,
-    defaultEdgeOptions,
-  } from "./flow";
+  import { nodeTypes, nodes, edges, defaultEdgeOptions } from "./flow";
 
-  const { screenToFlowPosition, getIntersectingNodes, toObject, getNode } =
+  const { screenToFlowPosition, getIntersectingNodes, updateNode, getNode } =
     useSvelteFlow();
 
-  function onNodeDragStop({ detail: { targetNode } }) {
-    const intersections = getIntersectingNodes(targetNode, true).map(
-      (n) => n.id,
-    );
+  const onNodeDragStop = ({ detail: { targetNode } }) => {
+    const intersections = getIntersectingNodes(targetNode, false);
 
-    console.log(targetNode.id, "intersects with", intersections);
-    let updatedNodes = [...$nodes];
+    console.log("intersections", intersections.map((node) => node.id));
 
-    for (const i of intersections) {
+    if (intersections.length === 0) {
+      if (targetNode.parentId != undefined) {
+        console.log("four")
+        const parentNode: Node = getNode(targetNode.parentId);
 
-      // Dragging the parent can overlap with its children
-      // Skip the parent node
-      const parentNode = getNode(i);
-      if ("parentId" in parentNode && parentNode.parentId != undefined) {
-        if (parentNode.parentId == targetNode.id) {
-          continue;
-        }
+        const newPosition = {
+          x: targetNode.position.x + parentNode.position.x,
+          y: targetNode.position.y + parentNode.position.y,
+        } satisfies XYPosition;
+
+        updateNode(targetNode.id, {position: newPosition});
+        updateNode(targetNode.id, {parentId: undefined});
       }
-
-      // Get the index of the target in the nodes array
-      const targetNodeIndex = updatedNodes.findIndex(
-        (n) => n.id === targetNode.id,
-      );
-
-      // Update the node's parent and position
-      const movedNode = updatedNodes[targetNodeIndex];
-      movedNode.parentId = i;
-
-      movedNode.position = {
-        x: targetNode.position.x - parentNode.position.x,
-        y: targetNode.position.y - parentNode.position.y,
-      };
-
-      // Remove the node from its current position
-      updatedNodes.splice(targetNodeIndex, 1);
-
-      // Find the new position to insert the node (right after its new parent)
-      const parentIndex = updatedNodes.findIndex((n) => n.id === i);
-      updatedNodes.splice(parentIndex + 1, 0, movedNode);
+      console.log("five")
+      return;
 
     }
 
-    // Update the nodes array
-    $nodes = updatedNodes;
-  }
+    let updatedNodes: Node[] = [...$nodes];
+    const parentNode: Node = intersections[intersections.length - 1];
+
+    if (
+      parentNode.parentId != undefined &&
+      parentNode.parentId === targetNode.id
+    ) {
+      console.log("one")
+      // Skip the parent node
+      return;
+    } else if (parentNode.id === targetNode.parentId) {
+      console.log("two")
+      // Already a child of the parent
+      return;
+    } else {
+      console.log("three", parentNode.id)
+      updatedNodes = updateNodePosition(updatedNodes, targetNode, parentNode);
+      $nodes = updatedNodes;
+    }
+  };
+
   const type = useDnD();
 
   const onDragOver = (event: DragEvent) => {
@@ -107,36 +103,23 @@
       ...$type,
       id: numNodes,
       position: position,
-      origin: [0.5, 0.5],
+      origin: [0, 0],
     } satisfies Node;
 
     $nodes.push(newNode);
     $nodes = $nodes;
   };
 
-
-  async function createItem() {
-        const response = await fetch('/api/editor', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name: 'New Item', description: 'This is a new item' }),
-        });
-        const result = await response.json();
-        console.log(result);
-    }
-
-    let colorMode: ColorMode = 'dark';
+  let colorMode: ColorMode = "light";
 
   const toggleColorMode = () => {
-    colorMode = colorMode === 'dark' ? 'light' : 'dark';
-    
+    colorMode = colorMode === "dark" ? "light" : "dark";
+
     toggleMode();
   };
 </script>
 
-<main class="editor">
+<main>
   <Resizable.PaneGroup direction="horizontal">
     <Resizable.Pane>
       <Sidebar />
@@ -159,7 +142,7 @@
       >
         <Controls>
           <ControlButton on:click={toggleColorMode}>
-            <Play style="color: green;"/>
+            <Play style="color: green;" />
           </ControlButton>
         </Controls>
         <Background variant={BackgroundVariant.Dots} />

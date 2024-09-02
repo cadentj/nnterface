@@ -20,7 +20,7 @@
 
 </script>
 
-<div class="custom">
+<div class="block px-3 py-5">
     <Dialog.Root>
         <Dialog.Content>
             <Dialog.Title>Prompt</Dialog.Title>
@@ -53,12 +53,6 @@
 </div>
 
 <style>
-    .custom {
-        background-color: #eee;
-        padding: 10px;
-        border-radius: 10px;
-    }
-
     .header {
         display: flex;
         justify-content: space-between;

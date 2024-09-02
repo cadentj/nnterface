@@ -7,7 +7,7 @@
     minWidth={100}
     minHeight={30}
     isVisible={selected}
-    handleStyle="border: 1px solid black; background-color: white"
+    handleStyle="border: 1px solid black; background-color: white; height: 10px; width: 10px;"
 />
 
 <slot />

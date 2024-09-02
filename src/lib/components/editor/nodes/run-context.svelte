@@ -11,15 +11,9 @@
     export let selected: $$Props["selected"] = undefined;
 </script>
 
-<ContextNode selected={selected}>
-    {data.label}
-</ContextNode>
-
-
-<style>
-    .block {
-        height: 3rem;
-        width: 12rem;
-        background-color: green;
-    }
-</style>
+<div class="block">
+    <ContextNode selected={selected}>
+        {data.label}
+    </ContextNode>
+    
+</div>

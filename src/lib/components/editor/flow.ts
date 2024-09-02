@@ -1,9 +1,10 @@
-import { writable } from "svelte/store";
+import { writable, type Writable } from "svelte/store";
 
 import {
     MarkerType,
     type DefaultEdgeOptions,
     type NodeTypes,
+    type Node,
 } from "@xyflow/svelte";
 
 import ModuleNode from "./nodes/module-node.svelte";
@@ -20,7 +21,7 @@ export const nodeTypes: NodeTypes = {
     run: RunContext,
 };
 
-export const nodes = writable([
+export const nodes: Writable<Node[]>  = writable([
     {
         id: "0",
         type: "text",
