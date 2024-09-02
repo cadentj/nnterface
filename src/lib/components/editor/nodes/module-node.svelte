@@ -9,20 +9,29 @@
     const DEFAULT_HANDLE_STYLE = "width: 10px; height: 10px; bottom: -5px;";
 </script>
 
-<div style="background: #DDD; padding: 25px">
+<div class="block">
     <div>{data.label}</div>
     <Handle
-        id="red"
-        type="source"
-        position={Position.Bottom}
-        style="{DEFAULT_HANDLE_STYLE}; left: 40%; background: red;"
+        id="red"    
+        type="target"
+        position={Position.Top}
+        style="{DEFAULT_HANDLE_STYLE}; background: red;"
         {isConnectable}
     />
     <Handle
         id="blue"
         type="source"
         position={Position.Bottom}
-        style="{DEFAULT_HANDLE_STYLE}; left: 80%; background: blue;"
+        style="{DEFAULT_HANDLE_STYLE}; background: blue;"
         {isConnectable}
     />
 </div>
+
+<style>
+    .block {
+        height: 30px;
+        width: 100px;
+        background-color: hsl(var(--node-background));
+        border-radius: var(--radius);
+    }
+</style>

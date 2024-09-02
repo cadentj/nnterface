@@ -8,7 +8,7 @@ export const createEmptyNode = (name: string): Node => ({
   origin: [0.5, 0.5],
   type: name,
   data: { 
-      label: "Empty",
+      label: name,
   }
 });
 

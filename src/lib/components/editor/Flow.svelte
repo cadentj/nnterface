@@ -4,7 +4,6 @@
     Controls,
     Background,
     BackgroundVariant,
-    MiniMap,
     useSvelteFlow,
     ControlButton,
     type Node,
@@ -16,6 +15,8 @@
   import { useDnD } from "./utils";
   import Sidebar from "./sidebar.svelte";
   import * as Resizable from "$lib/components/ui/resizable";
+
+  import { toggleMode } from "mode-watcher";
 
   import {
     nodeTypes,
@@ -127,9 +128,15 @@
     }
 
     let colorMode: ColorMode = 'dark';
+
+  const toggleColorMode = () => {
+    colorMode = colorMode === 'dark' ? 'light' : 'dark';
+    
+    toggleMode();
+  };
 </script>
 
-<main>
+<main class="editor">
   <Resizable.PaneGroup direction="horizontal">
     <Resizable.Pane>
       <Sidebar />
@@ -143,6 +150,7 @@
         {nodeTypes}
         {edges}
         {defaultEdgeOptions}
+        {colorMode}
         {initialViewport}
         on:dragover={onDragOver}
         on:drop={onDrop}
@@ -150,12 +158,11 @@
         fitView
       >
         <Controls>
-          <ControlButton on:click={() => createItem()}>
+          <ControlButton on:click={toggleColorMode}>
             <Play style="color: green;"/>
           </ControlButton>
         </Controls>
         <Background variant={BackgroundVariant.Dots} />
-        <MiniMap />
       </SvelteFlow>
     </Resizable.Pane>
   </Resizable.PaneGroup>

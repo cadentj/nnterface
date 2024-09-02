@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { useDnD } from "./utils";
-    import Tree from "./model-selector/tree.svelte";
+    import { useDnD } from "./utils";   
+
+    import ModelSelector from "./model-selector/model-selector.svelte";
     import { setContext } from "svelte";
     import * as Tabs from "$lib/components/ui/tabs";
     import BlockList from "./block-list.svelte";
@@ -18,21 +19,7 @@
         <Tabs.Trigger value="operators" class="w-full">Operators</Tabs.Trigger>
     </Tabs.List>
     <Tabs.Content value="model">
-        <div class="mb-4">
-            <Select.Root>
-                <small>Model</small>
-                <Select.Trigger class="margin">
-                    <Select.Value placeholder="Select a Model"/>
-                </Select.Trigger>
-                <Select.Content>
-                    <Select.Item value="light">Light</Select.Item>
-                    <Select.Item value="dark">Dark</Select.Item>
-                    <Select.Item value="system">System</Select.Item>
-                </Select.Content>
-            </Select.Root>
-        </div>
-
-        <Tree/>
+        <ModelSelector/>
     </Tabs.Content>
     <Tabs.Content value="operators">
         <BlockList blocks={demoBlocks} />

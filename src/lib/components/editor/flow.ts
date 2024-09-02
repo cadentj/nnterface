@@ -3,13 +3,13 @@ import { writable } from "svelte/store";
 import {
     MarkerType,
     type DefaultEdgeOptions,
-    type NodeTypes
+    type NodeTypes,
 } from "@xyflow/svelte";
 
 import ModuleNode from "./nodes/module-node.svelte";
 import InputNode from "./nodes/input-node.svelte";
 import LoopContext from "./nodes/loop-context.svelte";
-import FunctionContext from "./nodes/function-node/function-context.svelte";
+import FunctionContext from "./nodes/function-context/function-context.svelte";
 import RunContext from "./nodes/run-context.svelte";
 
 export const nodeTypes: NodeTypes = {
@@ -40,8 +40,6 @@ export const nodes = writable([
         type: "function",
         data: { label: "Function" },
         position: { x: 0, y: 300 },
-        style:
-            "background-color: rgba(0, 128, 0, 0.5); border: 1px solid black; border-radius: 15px; font-size: 12px;",
     },
 
 ]);
