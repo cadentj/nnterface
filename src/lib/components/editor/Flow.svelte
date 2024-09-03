@@ -11,7 +11,6 @@
   } from "@xyflow/svelte";
   import { Play } from "lucide-svelte";
   import "@xyflow/svelte/dist/style.css";
-  import "./nodes/nodes.css";
   import { type Writable } from "svelte/store";
   import { useDnD } from "./utils";
   import Sidebar from "./sidebar.svelte";
@@ -72,7 +71,6 @@
     colorMode = colorMode === "dark" ? "light" : "dark";
     setMode(colorMode);
   };
-
 </script>
 
 <main>
@@ -84,24 +82,24 @@
     <Resizable.Handle withHandle />
 
     <Resizable.Pane defaultSize={75}>
-        <SvelteFlow
-          {nodes}
-          {nodeTypes}
-          {edges}
-          {defaultEdgeOptions}
-          {colorMode}
-          {initialViewport}
-          on:dragover={onDragOver}
-          on:drop={onDrop}
-          fitView
-        >
-          <Controls>
-            <ControlButton on:click={toggleColorMode}>
-              <Play style="color: green;" />  
-            </ControlButton>
-          </Controls>
-          <Background variant={BackgroundVariant.Dots} />
-        </SvelteFlow>
+      <SvelteFlow
+        {nodes}
+        {nodeTypes}
+        {edges}
+        {defaultEdgeOptions}
+        {colorMode}
+        {initialViewport}
+        on:dragover={onDragOver}
+        on:drop={onDrop}
+        fitView
+      >
+        <Controls>
+          <ControlButton on:click={toggleColorMode}>
+            <Play style="color: green;" />
+          </ControlButton>
+        </Controls>
+        <Background variant={BackgroundVariant.Dots} />
+      </SvelteFlow>
     </Resizable.Pane>
   </Resizable.PaneGroup>
 </main>

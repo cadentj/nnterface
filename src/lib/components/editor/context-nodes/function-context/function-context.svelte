@@ -20,6 +20,8 @@
 
 
     let badges: string[] = [];
+
+    $$restProps;
 </script>
 
 <ContextNode {selected} {id}>

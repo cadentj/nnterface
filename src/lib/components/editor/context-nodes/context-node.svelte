@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Handle, Position, NodeResizer } from "@xyflow/svelte";
-    import "./nodes.css";
-    import NodeMenu from "./node-menu.svelte";
+    import "../styles/nodes.css";
+    import NodeMenu from "../nodes/node-menu.svelte";
 
     export let id: string = "";
     export let selected: boolean = false;

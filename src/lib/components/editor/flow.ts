@@ -5,15 +5,14 @@ import {
     type DefaultEdgeOptions,
     type NodeTypes,
     type Node,
-    type Edge,
     type Viewport,
 } from "@xyflow/svelte";
 
 import ModuleNode from "./nodes/module-node.svelte";
 import InputNode from "./nodes/input-node.svelte";
-import LoopContext from "./nodes/loop-context.svelte";
-import FunctionContext from "./nodes/function-context/function-context.svelte";
-import RunContext from "./nodes/run-context.svelte";
+import LoopContext from "./context-nodes/loop-context.svelte";
+import FunctionContext from "./context-nodes/function-context/function-context.svelte";
+import RunContext from "./context-nodes/run-context.svelte";
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,

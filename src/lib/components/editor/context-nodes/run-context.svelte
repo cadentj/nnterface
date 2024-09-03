@@ -9,6 +9,8 @@
 
     export let data: $$Props["data"] = undefined;
     export let selected: $$Props["selected"] = undefined;
+
+    $$restProps;
 </script>
 
 <ContextNode selected={selected}>

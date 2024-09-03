@@ -1,7 +1,7 @@
 <script lang="ts">
     import { useNodes } from "@xyflow/svelte";
     import * as ContextMenu from "$lib/components/ui/context-menu";
-    import "./nodes.css";
+    import "../styles/nodes.css";
     
     export let id: string = "";
     export let nodeType: string = "";
