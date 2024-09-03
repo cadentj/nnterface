@@ -14,7 +14,7 @@
   import { type Writable } from "svelte/store";
   import { useDnD } from "./utils";
   import Sidebar from "./sidebar.svelte";
-  import * as Resizable from "$lib/components/ui/resizable";
+  import Layout from "./layout.svelte";
 
   import { setMode } from "mode-watcher";
 
@@ -71,43 +71,38 @@
     colorMode = colorMode === "dark" ? "light" : "dark";
     setMode(colorMode);
   };
+
+  let showViewPane: boolean = false;
+
+  const toggleViewPane = () => {
+    showViewPane = !showViewPane;
+  };
 </script>
 
-<main>
-  <Resizable.PaneGroup direction="horizontal">
-    <Resizable.Pane>
-      <Sidebar />
-    </Resizable.Pane>
+<Layout showViewPane={showViewPane}>
+  <Sidebar slot="sidebar" />
 
-    <Resizable.Handle withHandle />
-
-    <Resizable.Pane defaultSize={75}>
-      <SvelteFlow
-        {nodes}
-        {nodeTypes}
-        {edges}
-        {defaultEdgeOptions}
-        {colorMode}
-        {initialViewport}
-        on:dragover={onDragOver}
-        on:drop={onDrop}
-        fitView
-      >
-        <Controls>
-          <ControlButton on:click={toggleColorMode}>
-            <Play style="color: green;" />
-          </ControlButton>
-        </Controls>
-        <Background variant={BackgroundVariant.Dots} />
-      </SvelteFlow>
-    </Resizable.Pane>
-  </Resizable.PaneGroup>
-</main>
-
-<style>
-  main {
-    height: 100vh;
-    display: flex;
-    flex-direction: column-reverse;
-  }
-</style>
+  <SvelteFlow
+    {nodes}
+    {nodeTypes}
+    {edges}
+    {defaultEdgeOptions}
+    {colorMode}
+    {initialViewport}
+    on:dragover={onDragOver}
+    on:drop={onDrop}
+    fitView
+    slot="flow"
+  >
+    <Controls>
+      <ControlButton on:click={toggleColorMode}>
+        <Play style="color: green;" />
+      </ControlButton>
+      <ControlButton on:click={toggleViewPane}>
+        <Play style="color: red;" />
+      </ControlButton>
+    </Controls>
+    <Background variant={BackgroundVariant.Dots} />
+  </SvelteFlow>
+  <div slot="view">Pane Three</div>
+</Layout>
