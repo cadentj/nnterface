@@ -5,6 +5,8 @@ import {
     type DefaultEdgeOptions,
     type NodeTypes,
     type Node,
+    type Edge,
+    type Viewport,
 } from "@xyflow/svelte";
 
 import ModuleNode from "./nodes/module-node.svelte";
@@ -21,47 +23,63 @@ export const nodeTypes: NodeTypes = {
     run: RunContext,
 };
 
-export const nodes: Writable<Node[]>  = writable([
+
+const contexts: string[] = ["loop", "function", "run"];
+
+const nodes: Writable<Node[]> = writable([
     {
         id: "0",
         type: "text",
         data: {
-            text: "hello",
+            text: "Alice and Bob went to the store.",
         },
+        origin: [0.0, 0.0],
         position: { x: 0, y: -300 },
-    },
-    {
-        id: "1",
-        type: "default",
-        data: { label: "Module" },
-        position: { x: 0, y: 0 },
-    },
-    {
-        id: "2",
-        type: "function",
-        data: { label: "Function" },
-        position: { x: 0, y: 300 },
-    },
-
+    }
 ]);
 
-export const edges = writable([
-    {
-        id: "0-1",
-        type: "default",
-        source: "0",
-        target: "1",
-    },
-    {
-        id: "1-2",
-        type: "default",
-        source: "1",
-        target: "2",
-    },
-]);
+class NodeManager {
+
+    private nodes: Writable<Node[]>;
+
+    constructor(nodes: Writable<Node[]>) {
+        this.nodes = nodes;
+    }
+
+    addNode(node: Node) {
+        if (node.type && contexts.includes(node.type)) { // Ensure node.type is defined
+            this.addContextNode(node);
+        } else {
+            this.nodes.update((nodes) => {
+                return [...nodes, node];
+            });
+        }
+    }
+
+    private addContextNode(node: Node) {
+        // add context nodes to the start of the list
+        this.nodes.update((nodes) => {
+            return [node, ...nodes];
+        });
+    }
+
+    getNodes() {
+        return this.nodes;
+    }
+}
+
+export const nodeManager = new NodeManager(nodes);
+
+export const edges = writable([]);
 
 export const defaultEdgeOptions: DefaultEdgeOptions = {
     markerEnd: {
         type: MarkerType.ArrowClosed,
     },
 };
+
+export const initialViewport = {
+    zoom: 1,
+    x: 0,
+    y: 0,
+} satisfies Viewport;

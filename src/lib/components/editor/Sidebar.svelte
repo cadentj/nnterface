@@ -22,6 +22,7 @@
         <ModelSelector/>
     </Tabs.Content>
     <Tabs.Content value="operators">
+        <small>Blocks</small>
         <BlockList blocks={demoBlocks} />
     </Tabs.Content>
 </Tabs.Root>

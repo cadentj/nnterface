@@ -20,7 +20,7 @@
 <div class="block-container">
 	{#each blocks as block}
 		<button
-			class="my-3 p-2 block"
+			class="my-3 p-2 h-10 bg-secondary border rounded-md"
 			draggable="true"
 			on:dragstart={(event) => onDragStart(event, block)}
 		>
@@ -33,10 +33,5 @@
 	.block-container {
 		display: flex;
 		flex-direction: column;
-	}
-
-	.block {
-		height: 50px;
-		border: 1px solid #000;
 	}
 </style>

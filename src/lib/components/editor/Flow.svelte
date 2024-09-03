@@ -6,68 +6,30 @@
     BackgroundVariant,
     useSvelteFlow,
     ControlButton,
-    type XYPosition,
     type Node,
     type ColorMode,
-    type Viewport,
   } from "@xyflow/svelte";
   import { Play } from "lucide-svelte";
   import "@xyflow/svelte/dist/style.css";
   import "./nodes/nodes.css";
-  import { useDnD, updateNodePosition } from "./utils";
+  import { type Writable } from "svelte/store";
+  import { useDnD } from "./utils";
   import Sidebar from "./sidebar.svelte";
   import * as Resizable from "$lib/components/ui/resizable";
 
-  import { toggleMode } from "mode-watcher";
+  import { setMode } from "mode-watcher";
 
-  import { nodeTypes, nodes, edges, defaultEdgeOptions } from "./flow";
+  import {
+    nodeTypes,
+    nodeManager,
+    edges,
+    defaultEdgeOptions,
+    initialViewport,
+  } from "./flow";
 
-  const { screenToFlowPosition, getIntersectingNodes, updateNode, getNode } =
-    useSvelteFlow();
+  const { screenToFlowPosition } = useSvelteFlow();
 
-  const onNodeDragStop = ({ detail: { targetNode } }) => {
-    const intersections = getIntersectingNodes(targetNode, false);
-
-    console.log("intersections", intersections.map((node) => node.id));
-
-    if (intersections.length === 0) {
-      if (targetNode.parentId != undefined) {
-        console.log("four")
-        const parentNode: Node = getNode(targetNode.parentId);
-
-        const newPosition = {
-          x: targetNode.position.x + parentNode.position.x,
-          y: targetNode.position.y + parentNode.position.y,
-        } satisfies XYPosition;
-
-        updateNode(targetNode.id, {position: newPosition});
-        updateNode(targetNode.id, {parentId: undefined});
-      }
-      console.log("five")
-      return;
-
-    }
-
-    let updatedNodes: Node[] = [...$nodes];
-    const parentNode: Node = intersections[intersections.length - 1];
-
-    if (
-      parentNode.parentId != undefined &&
-      parentNode.parentId === targetNode.id
-    ) {
-      console.log("one")
-      // Skip the parent node
-      return;
-    } else if (parentNode.id === targetNode.parentId) {
-      console.log("two")
-      // Already a child of the parent
-      return;
-    } else {
-      console.log("three", parentNode.id)
-      updatedNodes = updateNodePosition(updatedNodes, targetNode, parentNode);
-      $nodes = updatedNodes;
-    }
-  };
+  const nodes: Writable<Node[]> = nodeManager.getNodes();
 
   const type = useDnD();
 
@@ -78,12 +40,6 @@
       event.dataTransfer.dropEffect = "move";
     }
   };
-
-  const initialViewport = {
-    zoom: 1,
-    x: 0,
-    y: 0,
-  } satisfies Viewport;
 
   const onDrop = (event: DragEvent) => {
     event.preventDefault();
@@ -106,17 +62,17 @@
       origin: [0, 0],
     } satisfies Node;
 
-    $nodes.push(newNode);
-    $nodes = $nodes;
+    nodeManager.addNode(newNode);
   };
 
-  let colorMode: ColorMode = "light";
+  let colorMode: ColorMode = "dark";
+  setMode(colorMode);
 
   const toggleColorMode = () => {
     colorMode = colorMode === "dark" ? "light" : "dark";
-
-    toggleMode();
+    setMode(colorMode);
   };
+
 </script>
 
 <main>
@@ -127,26 +83,25 @@
 
     <Resizable.Handle withHandle />
 
-    <Resizable.Pane defaultSize={80}>
-      <SvelteFlow
-        {nodes}
-        {nodeTypes}
-        {edges}
-        {defaultEdgeOptions}
-        {colorMode}
-        {initialViewport}
-        on:dragover={onDragOver}
-        on:drop={onDrop}
-        on:nodedragstop={onNodeDragStop}
-        fitView
-      >
-        <Controls>
-          <ControlButton on:click={toggleColorMode}>
-            <Play style="color: green;" />
-          </ControlButton>
-        </Controls>
-        <Background variant={BackgroundVariant.Dots} />
-      </SvelteFlow>
+    <Resizable.Pane defaultSize={75}>
+        <SvelteFlow
+          {nodes}
+          {nodeTypes}
+          {edges}
+          {defaultEdgeOptions}
+          {colorMode}
+          {initialViewport}
+          on:dragover={onDragOver}
+          on:drop={onDrop}
+          fitView
+        >
+          <Controls>
+            <ControlButton on:click={toggleColorMode}>
+              <Play style="color: green;" />  
+            </ControlButton>
+          </Controls>
+          <Background variant={BackgroundVariant.Dots} />
+        </SvelteFlow>
     </Resizable.Pane>
   </Resizable.PaneGroup>
 </main>

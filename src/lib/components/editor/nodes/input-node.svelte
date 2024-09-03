@@ -10,6 +10,7 @@
     import { Button } from "$lib/components/ui/button/index.js";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Textarea } from "$lib/components/ui/textarea";
+    import NodeMenu from "./node-menu.svelte";
 
     type $$Props = NodeProps;
 
@@ -18,9 +19,11 @@
 
     const { updateNodeData } = useSvelteFlow();
 
+    $$restProps;
 </script>
 
-<div class="block px-3 py-5">
+<!-- <div class="block px-3 py-5"> -->
+<NodeMenu id={id} nodeType={"block"}>
     <Dialog.Root>
         <Dialog.Content>
             <Dialog.Title>Prompt</Dialog.Title>
@@ -50,7 +53,7 @@
     </div>
         <Handle type="source" position={Position.Bottom} />
     </Dialog.Root>
-</div>
+</NodeMenu>
 
 <style>
     .header {

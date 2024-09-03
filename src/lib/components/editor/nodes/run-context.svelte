@@ -11,9 +11,6 @@
     export let selected: $$Props["selected"] = undefined;
 </script>
 
-<div class="block">
-    <ContextNode selected={selected}>
-        {data.label}
-    </ContextNode>
-    
-</div>
+<ContextNode selected={selected}>
+    {data.label}
+</ContextNode>

@@ -3,11 +3,16 @@
     background-color: hsl(var(--node-background));
     border-radius: var(--radius);
     border: 1px solid hsl(var(--border));
+    min-height: 3rem;
+    min-width: 10rem;
+    @apply px-3
 }
 
 .context {
+    min-height: 3rem;
+    min-width: 10rem;
     height: 100%;
-    background-color: hsl(var(--node-background));
+    background-color: hsl(var(--context-background));
     border-radius: var(--radius);
     border: 1px solid hsl(var(--border));
 }
