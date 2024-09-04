@@ -1,10 +1,14 @@
 <script lang="ts">
-    import { Handle, Position, NodeResizer } from "@xyflow/svelte";
+    import { Handle, Position, NodeResizer, useHandleConnections } from "@xyflow/svelte";
     import "../styles/nodes.css";
     import NodeMenu from "../nodes/node-menu.svelte";
 
     export let id: string = "";
     export let selected: boolean = false;
+
+    const connections = useHandleConnections({ nodeId: id, type: "target" });
+    $: isConnectable = $connections.length === 0;
+
 </script>
 
 <NodeMenu id={id} nodeType={"context"}>
@@ -17,6 +21,6 @@
 
     <slot />
 
-    <Handle type="target" position={Position.Top} />
+    <Handle type="target" position={Position.Top} {isConnectable}/>
     <Handle type="source" position={Position.Bottom} />
 </NodeMenu>

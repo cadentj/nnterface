@@ -11,12 +11,12 @@ import {
 import ModuleNode from "./nodes/module-node.svelte";
 import InputNode from "./nodes/input-node.svelte";
 import LoopContext from "./context-nodes/loop-context.svelte";
-import FunctionContext from "./context-nodes/function-context/function-context.svelte";
+import FunctionContext from "./context-nodes/function-context.svelte";
 import RunContext from "./context-nodes/run-context.svelte";
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,
-    text: InputNode,
+    input: InputNode,
     loop: LoopContext,
     function: FunctionContext,
     run: RunContext,
@@ -28,13 +28,13 @@ const contexts: string[] = ["loop", "function", "run"];
 const nodes: Writable<Node[]> = writable([
     {
         id: "0",
-        type: "text",
+        type: "input",
         data: {
             text: "Alice and Bob went to the store.",
         },
         origin: [0.0, 0.0],
         position: { x: 0, y: -300 },
-    }
+    },
 ]);
 
 class NodeManager {

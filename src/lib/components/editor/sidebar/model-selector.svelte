@@ -1,6 +1,6 @@
 <script>
     import * as Select from "$lib/components/ui/select";
-    import Tree from "./tree.svelte";
+    import Tree from "./utils/tree.svelte";
 </script>
 
 

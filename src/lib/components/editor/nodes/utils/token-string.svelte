@@ -1,5 +1,5 @@
 <script>
-    import Token from './Token.svelte';
+    import Token from './token.svelte';
 
     export let tokens;
     export let highlightedTokens;

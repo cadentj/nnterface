@@ -2,22 +2,22 @@
     import type { NodeProps } from "@xyflow/svelte";
     import CodeMirror from "svelte-codemirror-editor";
     import { python } from "@codemirror/lang-python";
-    import ContextNode from "../context-node.svelte";
+    import ContextNode from "./context-node.svelte";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Pencil } from "lucide-svelte";
-    import Badges from "./badges.svelte";
+    import Badges from "./utils/badges.svelte";
     import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
 
     import { mode } from "mode-watcher";
 
     type $$Props = NodeProps;
 
-    export let id: $$Props["id"] = undefined;
-    export let data: $$Props["data"] = undefined;
+    export let id: $$Props["id"];
+    export let data: $$Props["data"];
     export let value: string = "";
     $: data.value = value;
 
-    export let selected: $$Props["selected"] = undefined;
+    export let selected: $$Props["selected"];
 
     let badges: string[] = [];
 

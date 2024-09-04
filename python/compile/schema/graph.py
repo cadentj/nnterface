@@ -1,27 +1,9 @@
-from typing import Dict, List, Optional, Union, Literal
+from typing import Dict, List, Optional, Union
 from collections import defaultdict
 
 from pydantic import BaseModel, model_validator, Field
 
-
-# class NodeData(BaseModel):
-#     text: Optional[str] = ""
-#     label: Optional[str] = ""
-#     value: Optional[str] = ""
-
-
-class Node(BaseModel):
-    id: str
-    type: str
-
-
-# Specific node types
-class InputNode(Node):
-    type: Literal["text"] 
-
-
-class FunctionNode(Node):
-    type: Literal["function"]   
+from .nodes import Node, InputNode, FunctionNode, ModuleNode, LoopNode, RunNode
 
 
 class EdgeData(BaseModel):
@@ -35,7 +17,7 @@ class Edge(BaseModel):
 
 
 class Graph(BaseModel):
-    nodes: List[Union[InputNode, FunctionNode]]
+    nodes: List[Union[InputNode, FunctionNode, ModuleNode, LoopNode, RunNode]]
     edges: List[Edge]
     adjacency_list: Dict[Node, List[Node]] = Field(default=None)
 

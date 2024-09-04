@@ -1,10 +1,10 @@
 <!-- FROM: https://svelte.dev/repl/eca6f6392e294247b4f379fde3069274?version=3.46.6 -->
 
 <script>
-    import Node from "./Node.svelte";
+    import Node from "./node.svelte";
 
     // TODO: Add actual loading for firebase tree
-    import pytree from "./pytree.json";
+    import pytree from "../pytree.json";
 
     let tree = pytree;
 

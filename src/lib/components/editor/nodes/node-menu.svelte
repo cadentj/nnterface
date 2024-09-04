@@ -5,6 +5,9 @@
     
     export let id: string = "";
     export let nodeType: string = "";
+    export let selected: boolean = false;
+
+    $: borderStyle = selected ? " border-white" : " border-transparent";
 
     const nodes = useNodes();
 
@@ -20,10 +23,12 @@
             }
         }
     }
+
+
 </script>
 
 <ContextMenu.Root>
-    <ContextMenu.Trigger class={nodeType}>
+    <ContextMenu.Trigger class={nodeType + borderStyle}>
 
         <slot />
 

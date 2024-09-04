@@ -7,7 +7,6 @@
     } from "@xyflow/svelte";
 
     import TextCursorInput from "lucide-svelte/icons/text-cursor-input";
-    import { Button } from "$lib/components/ui/button/index.js";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Textarea } from "$lib/components/ui/textarea";
     import NodeMenu from "./node-menu.svelte";
@@ -22,7 +21,7 @@
     $$restProps;
 </script>
 
-<NodeMenu {id} nodeType={"block py-3"}>
+<NodeMenu {id} nodeType="block py-3">
     <Dialog.Root>
         <Dialog.Content>
             <Dialog.Title>Prompt</Dialog.Title>
