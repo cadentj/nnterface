@@ -2,7 +2,6 @@
     import type{
          NodeProps,
     } from "@xyflow/svelte";
-
     import ContextNode from "./context-node.svelte";
 
     type $$Props = NodeProps;

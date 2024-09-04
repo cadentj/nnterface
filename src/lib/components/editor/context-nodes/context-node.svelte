@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Handle, Position, NodeResizer, useHandleConnections } from "@xyflow/svelte";
     import "../styles/nodes.css";
-    import NodeMenu from "../nodes/node-menu.svelte";
+    import NodeMenu from "../nodes/node.svelte";
 
     export let id: string = "";
     export let selected: boolean = false;
@@ -11,7 +11,7 @@
 
 </script>
 
-<NodeMenu id={id} nodeType={"context"}>
+<NodeMenu id={id} selected={selected} nodeType={"context"}>
     <NodeResizer
         minWidth={100}
         minHeight={30}

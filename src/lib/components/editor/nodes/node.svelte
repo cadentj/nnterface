@@ -2,34 +2,31 @@
     import { useNodes } from "@xyflow/svelte";
     import * as ContextMenu from "$lib/components/ui/context-menu";
     import "../styles/nodes.css";
-    
+
     export let id: string = "";
     export let nodeType: string = "";
     export let selected: boolean = false;
 
-    $: borderStyle = selected ? " border-white" : " border-transparent";
+    $: borderStyle = selected ? " !border-current" : " !default-border";
 
-    const nodes = useNodes();
+    // const nodes = useNodes();
 
-    function swap(id: string, direction: "forward" | "backward") {
-        for (let i = 0; i < $nodes.length; i++) {
-            if ($nodes[i].id === id) {
-                if (direction === "forward" && i < $nodes.length - 1) {
-                    [$nodes[i], $nodes[i + 1]] = [$nodes[i + 1], $nodes[i]];
-                } else if (direction === "backward" && i > 0) {
-                    [$nodes[i], $nodes[i - 1]] = [$nodes[i - 1], $nodes[i]];
-                }
-                return;
-            }
-        }
-    }
-
-
+    // function swap(id: string, direction: "forward" | "backward") {
+    //     for (let i = 0; i < $nodes.length; i++) {
+    //         if ($nodes[i].id === id) {
+    //             if (direction === "forward" && i < $nodes.length - 1) {
+    //                 [$nodes[i], $nodes[i + 1]] = [$nodes[i + 1], $nodes[i]];
+    //             } else if (direction === "backward" && i > 0) {
+    //                 [$nodes[i], $nodes[i - 1]] = [$nodes[i - 1], $nodes[i]];
+    //             }
+    //             return;
+    //         }
+    //     }
+    // }
 </script>
 
 <ContextMenu.Root>
     <ContextMenu.Trigger class={nodeType + borderStyle}>
-
         <slot />
 
         <ContextMenu.Content>
@@ -42,3 +39,9 @@
         </ContextMenu.Content>
     </ContextMenu.Trigger>
 </ContextMenu.Root>
+
+<style>
+    .default-border {
+        border-color: hsl(var(--border));
+    }
+</style>

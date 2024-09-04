@@ -125,3 +125,13 @@
   </SvelteFlow>
   <div slot="view">Pane Three</div>
 </Layout>
+
+<style>
+  :global( .svelte-flow__node-input) {
+    border: unset; /* Remove all default styles */
+  }
+
+  :global( .svelte-flow__node-input.selected) {
+    border: unset; /* Remove all default styles */
+  }
+</style>
