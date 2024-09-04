@@ -36,12 +36,12 @@
             />
         </Dialog.Content>
 
-        <div class="header">
-            <div class="label">Prompt</div>
+        <div style="justify-content: space-between; display: flex;" class="mb-2">
+            Prompt
             <Dialog.Trigger>
-                <Button variant="ghost" size="icon">
+                <button>
                     <TextCursorInput class="h-4 w-4" />
-                </Button>
+                </button>
             </Dialog.Trigger>
         </div>
         <div>
@@ -55,16 +55,3 @@
         <Handle type="source" position={Position.Bottom} />
     </Dialog.Root>
 </NodeMenu>
-
-<style>
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .label {
-        font-size: 12px;
-        margin-bottom: 5px;
-    }
-</style>

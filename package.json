@@ -22,9 +22,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@babel/runtime": "^7.25.6",
 		"@codemirror/commands": "^6.6.0",
 		"@codemirror/lang-python": "^6.1.6",
-		"@codemirror/theme-one-dark": "^6.1.2",
+		"@uiw/codemirror-theme-github": "^4.23.0",
 		"@xyflow/svelte": "^0.1.16",
 		"bits-ui": "^0.21.13",
 		"clsx": "^2.1.1",

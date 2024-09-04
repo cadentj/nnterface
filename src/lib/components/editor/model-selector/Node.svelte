@@ -45,9 +45,9 @@
 				class="module-block"
 			>
 				<span class="submodule-name">{tree.name}</span>
-				<small
+				<!-- <small
 					>&lbrace; input: {tree.input}, output: {tree.output} &rbrace;</small
-				>
+				> -->
 			</button>
 			{#if tree.expanded}
 				{#each tree.submodules as child}
@@ -61,7 +61,7 @@
 				class="module-block"
 			>
 				<span class="submodule-name">{tree.name}</span>
-				<small>{tree.input} {tree.output}</small>
+				<!-- <small>{tree.input} {tree.output}</small> -->
 			</button>
 		{/if}
 	</li>

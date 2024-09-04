@@ -7,7 +7,7 @@
     import { Button } from "$lib/components/ui/button";
     import { Pencil } from "lucide-svelte";
     import Badges from "./badges.svelte";
-    import { oneDark } from "@codemirror/theme-one-dark";
+    import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
 
     import { mode } from "mode-watcher";
 
@@ -45,6 +45,7 @@
                             },
                         }}
                         lang={python()}
+                        theme={$mode === "light" ? githubLight : githubDark}
                     />
                 </div>
                 <div class="col-span-1">

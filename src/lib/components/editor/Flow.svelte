@@ -9,7 +9,7 @@
     type Node,
     type ColorMode,
   } from "@xyflow/svelte";
-  import { Play } from "lucide-svelte";
+  import { Play, Sun, Moon } from "lucide-svelte";
   import "@xyflow/svelte/dist/style.css";
   import { type Writable } from "svelte/store";
   import { useDnD } from "./utils";
@@ -96,10 +96,14 @@
   >
     <Controls>
       <ControlButton on:click={toggleColorMode}>
-        <Play style="color: green;" />
+        {#if colorMode === "dark"}
+          <Sun />
+        {:else}
+          <Moon/>
+        {/if}
       </ControlButton>
       <ControlButton on:click={toggleViewPane}>
-        <Play style="color: red;" />
+        <Play style="color: green;" />
       </ControlButton>
     </Controls>
     <Background variant={BackgroundVariant.Dots} />

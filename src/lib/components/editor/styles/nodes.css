@@ -3,17 +3,20 @@
     min-width: 10rem;
     height: 100%;
     border: 1px solid hsl(var(--border));
+    
     @apply p-3;
 }
 
 .block {
-    @apply node;
     background-color: hsl(var(--node-background));
     border-radius: var(--radius);
     text-align: center;
+
+    @apply node;
 }
 
 .context {
-    @apply node;
     background-color: rgba(152, 87, 146, 0.3);
+
+    @apply node;
 }
