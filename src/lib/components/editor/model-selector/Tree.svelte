@@ -68,6 +68,3 @@
 <div>
     <Node {tree} on:toggle={rebuildTree}/>
 </div>
-
-<style>
-</style>

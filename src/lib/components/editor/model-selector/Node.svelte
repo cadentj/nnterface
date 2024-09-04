@@ -42,7 +42,7 @@
 			<button
 				on:dragstart={(event) => onDragStart(event, tree.atomic)}
 				draggable={true}
-				class="node"
+				class="module-block"
 			>
 				<span class="submodule-name">{tree.name}</span>
 				<small
@@ -58,7 +58,7 @@
 			<button
 				on:dragstart={(event) => onDragStart(event, tree.atomic)}
 				draggable={true}
-				class="node"
+				class="module-block"
 			>
 				<span class="submodule-name">{tree.name}</span>
 				<small>{tree.input} {tree.output}</small>
@@ -93,7 +93,7 @@
 		padding: 3px;
 	}
 
-	.node {
+	.module-block {
 		padding: 2px;
 		font-family: monospace;
 	}

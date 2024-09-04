@@ -22,12 +22,13 @@
     $$restProps;
 </script>
 
-<!-- <div class="block px-3 py-5"> -->
-<NodeMenu id={id} nodeType={"block"}>
+<NodeMenu {id} nodeType={"block py-3"}>
     <Dialog.Root>
         <Dialog.Content>
             <Dialog.Title>Prompt</Dialog.Title>
-            <Dialog.Description>Interventions will only be executed on the highlighted tokens.</Dialog.Description>
+            <Dialog.Description
+                >Interventions will only be executed on the highlighted tokens.</Dialog.Description
+            >
             <Textarea
                 value={data.text}
                 on:input={(evt) =>
@@ -50,7 +51,7 @@
                     updateNodeData(id, { text: evt.currentTarget.value })}
                 class="resize-none"
             />
-    </div>
+        </div>
         <Handle type="source" position={Position.Bottom} />
     </Dialog.Root>
 </NodeMenu>

@@ -9,7 +9,7 @@
         <Resizable.Pane defaultSize={1 / 5}>
             <slot name="sidebar" />
         </Resizable.Pane>
-        <Resizable.Handle disabled />
+        <Resizable.Handle withHandle />
 
         {#if showViewPane}
             <Resizable.Pane defaultSize={2 / 5}>

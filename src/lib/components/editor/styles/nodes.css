@@ -1,18 +1,19 @@
-.block {
-    height: 100%;
-    background-color: hsl(var(--node-background));
-    border-radius: var(--radius);
-    border: 1px solid hsl(var(--border));
+.node {
     min-height: 3rem;
     min-width: 10rem;
-    @apply px-3
+    height: 100%;
+    border: 1px solid hsl(var(--border));
+    @apply p-3;
+}
+
+.block {
+    @apply node;
+    background-color: hsl(var(--node-background));
+    border-radius: var(--radius);
+    text-align: center;
 }
 
 .context {
-    min-height: 3rem;
-    min-width: 10rem;
-    height: 100%;
-    background-color: hsl(var(--context-background));
-    border-radius: var(--radius);
-    border: 1px solid hsl(var(--border));
+    @apply node;
+    background-color: rgba(152, 87, 146, 0.3);
 }

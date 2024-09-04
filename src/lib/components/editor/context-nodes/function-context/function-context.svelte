@@ -18,7 +18,6 @@
     export let value: string = data.value;
     export let selected: $$Props["selected"] = undefined;
 
-
     let badges: string[] = [];
 
     $$restProps;
@@ -54,25 +53,13 @@
                 </div>
             </div>
         </Dialog.Content>
-        <div class="header">
-            <div style="padding: 10px">{data.label}</div>
+        <div style="justify-content: space-between; display: flex;">
+            {data.label}
             <Dialog.Trigger>
-                <Button size="icon" variant="ghost">
+                <button>
                     <Pencil class="h-4 w-4" />
-                </Button>
+                </button>
             </Dialog.Trigger>
         </div>
     </Dialog.Root>
 </ContextNode>
-
-<style>
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .content {
-        width: 1000px;
-    }
-</style>
