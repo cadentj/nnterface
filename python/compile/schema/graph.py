@@ -1,20 +1,27 @@
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Optional, Union, Literal
+from collections import defaultdict
 
 from pydantic import BaseModel, model_validator, Field
 
 
-# Note that I ignore most of the Node/Edge props.
-
-class NodeData(BaseModel):
-    text: Optional[str] = ""
-    label: Optional[str] = ""
-    value: Optional[str] = ""
+# class NodeData(BaseModel):
+#     text: Optional[str] = ""
+#     label: Optional[str] = ""
+#     value: Optional[str] = ""
 
 
 class Node(BaseModel):
     id: str
     type: str
-    data: NodeData
+
+
+# Specific node types
+class InputNode(Node):
+    type: Literal["text"] 
+
+
+class FunctionNode(Node):
+    type: Literal["function"]   
 
 
 class EdgeData(BaseModel):
@@ -28,10 +35,16 @@ class Edge(BaseModel):
 
 
 class Graph(BaseModel):
-    nodes: List[Node]
-    edges: List[Edge] 
-    adjacency_list: Dict[Node, List[Node]] = None
+    nodes: List[Union[InputNode, FunctionNode]]
+    edges: List[Edge]
+    adjacency_list: Dict[Node, List[Node]] = Field(default=None)
 
-    # @model_validator(mode="after")
-    # def build_adjacency_list(self):
-    #     pass
+    @model_validator(mode="after")
+    def build_adjacency_list(self):
+        adjacency_list = defaultdict(list)
+
+        for edge in self.edges:
+            adjacency_list[edge.source].append(edge.target)
+
+        self.adjacency_list = dict(adjacency_list)
+        return self

@@ -1,16 +1,17 @@
+import logging
+
 from fastapi import FastAPI
 from nnsight import LanguageModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from compile import compile, Graph
-from logger import load_logger
 
 app = FastAPI()
 
 model: AutoModelForCausalLM = None
 tok: AutoTokenizer = None
 
-logger = load_logger()
+logger = logging.getLogger("uvicorn")
 
 def load(repo_id: str):
     global model, tok
