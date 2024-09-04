@@ -9,7 +9,7 @@
     type Node,
     type ColorMode,
   } from "@xyflow/svelte";
-  import { Play, Sun, Moon } from "lucide-svelte";
+  import { Play, Sun, Moon, Terminal } from "lucide-svelte";
   import "@xyflow/svelte/dist/style.css";
   import { type Writable } from "svelte/store";
   import { useDnD } from "./utils";
@@ -26,7 +26,7 @@
     initialViewport,
   } from "./flow";
 
-  const { screenToFlowPosition } = useSvelteFlow();
+  const { screenToFlowPosition, toObject } = useSvelteFlow();
 
   const nodes: Writable<Node[]> = nodeManager.getNodes();
 
@@ -64,6 +64,18 @@
     nodeManager.addNode(newNode);
   };
 
+  async function createItem() {
+    const response = await fetch("/api/editor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(toObject()),
+    });
+    const result = await response.json();
+    console.log(result);
+  }
+
   let colorMode: ColorMode = "dark";
   setMode(colorMode);
 
@@ -79,7 +91,7 @@
   };
 </script>
 
-<Layout showViewPane={showViewPane}>
+<Layout {showViewPane}>
   <Sidebar slot="sidebar" />
 
   <SvelteFlow
@@ -99,10 +111,13 @@
         {#if colorMode === "dark"}
           <Sun />
         {:else}
-          <Moon/>
+          <Moon />
         {/if}
       </ControlButton>
       <ControlButton on:click={toggleViewPane}>
+        <Terminal />
+      </ControlButton>
+      <ControlButton on:click={createItem}>
         <Play style="color: green;" />
       </ControlButton>
     </Controls>

@@ -4,7 +4,6 @@
     import { python } from "@codemirror/lang-python";
     import ContextNode from "../context-node.svelte";
     import * as Dialog from "$lib/components/ui/dialog";
-    import { Button } from "$lib/components/ui/button";
     import { Pencil } from "lucide-svelte";
     import Badges from "./badges.svelte";
     import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
@@ -15,7 +14,9 @@
 
     export let id: $$Props["id"] = undefined;
     export let data: $$Props["data"] = undefined;
-    export let value: string = data.value;
+    export let value: string = "";
+    $: data.value = value;
+
     export let selected: $$Props["selected"] = undefined;
 
     let badges: string[] = [];
@@ -37,7 +38,7 @@
                 <div class="col-span-2">
                     <small>Code</small>
                     <CodeMirror
-                        bind:value
+                        bind:value={value}
                         styles={{
                             "&": {
                                 maxWidth: "100%",
