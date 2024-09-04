@@ -1,37 +1,37 @@
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
 
-from pydantic import BaseModel
-
-class Measured(BaseModel):
-    width: int
-    height: int
+from pydantic import BaseModel, model_validator, Field
 
 
-class Position(BaseModel):
-    x: int
-    y: int
-
+# Note that I ignore most of the Node/Edge props.
 
 class NodeData(BaseModel):
-    text: str
+    text: Optional[str] = ""
+    label: Optional[str] = ""
+    value: Optional[str] = ""
 
 
 class Node(BaseModel):
     id: str
     type: str
     data: NodeData
-    origin: Tuple[int, int]
-    position: Position
-    measured: Measured
 
 
-class Viewport(BaseModel):
-    x: int
-    y: int
-    zoom: float
+class EdgeData(BaseModel):
+    label: Optional[str] = ""
+
+
+class Edge(BaseModel):
+    id: str
+    source: str
+    target: str
 
 
 class Graph(BaseModel):
     nodes: List[Node]
-    edges: List[Dict]  # Assuming edges are complex objects that can be defined later
-    viewport: Viewport
+    edges: List[Edge] 
+    adjacency_list: Dict[Node, List[Node]] = None
+
+    # @model_validator(mode="after")
+    # def build_adjacency_list(self):
+    #     pass

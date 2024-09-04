@@ -12,7 +12,7 @@
         <Resizable.Handle withHandle />
 
         {#if showViewPane}
-            <Resizable.Pane defaultSize={2 / 5}>
+            <Resizable.Pane defaultSize={5 / 10}>
                 <slot name="flow" />
             </Resizable.Pane>
         {:else}
@@ -23,7 +23,7 @@
 
         {#if showViewPane}
             <Resizable.Handle withHandle />
-            <Resizable.Pane defaultSize={2 / 5}>
+            <Resizable.Pane defaultSize={3 / 10}>
                 <slot name="view" />
             </Resizable.Pane>
         {/if}

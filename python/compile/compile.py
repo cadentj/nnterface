@@ -1,4 +1,12 @@
-from typing import Dict
+from .schema import Graph
+from .schema.graph import NodeData
 
-def compile(graph: Dict): 
-    print(graph)
+
+TRACE = "with model.trace({input}):"
+
+NodeData(text="hello")
+
+
+def compile(graph: Graph) -> str: 
+
+    pass
