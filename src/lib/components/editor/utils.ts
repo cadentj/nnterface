@@ -1,6 +1,8 @@
 import { getContext } from 'svelte';
 import type { Writable } from 'svelte/store';
-import type { Node } from "@xyflow/svelte";
+import  { type Node, useSvelteFlow, useNodes } from "@xyflow/svelte";
+
+
 
 export const createEmptyNode = (name: string): Node => ({
   id: "",
@@ -12,18 +14,19 @@ export const createEmptyNode = (name: string): Node => ({
   }
 });
 
-export const updateNodeOrder = (nodes: Node[], targetNode: Node, parentNode: Node): Node[] => {
-  const targetIndex = nodes.findIndex(n => n.id === targetNode.id);
-  const parentIndex = nodes.findIndex(n => n.id === parentNode.id);
+export const checkIntersections = (nodes, getIntersectingNodes) => {
 
-  const [movedNode] = nodes.splice(targetIndex, 1);
+  nodes.update((nodes) => {
+    return nodes.map((node) => {
+      const intersectingNodes = getIntersectingNodes(node.id, false);
+      if (intersectingNodes.length > 1) {
+        console.log("Intersecting nodes: ", intersectingNodes);
+      }
+      return node;
+    });
+  });
 
-  movedNode.data.parent = parentNode.id;
-  
-  nodes.splice(parentIndex + 1, 0, movedNode);
-
-  return nodes;
-};
+}
 
 
 

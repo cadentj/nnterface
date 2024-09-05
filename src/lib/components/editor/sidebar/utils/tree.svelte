@@ -1,70 +1,39 @@
 <!-- FROM: https://svelte.dev/repl/eca6f6392e294247b4f379fde3069274?version=3.46.6 -->
 
-<script>
+<script lang="ts">
     import Node from "./node.svelte";
-
-    // TODO: Add actual loading for firebase tree
     import pytree from "../pytree.json";
 
     let tree = pytree;
 
-    const treeMap = {
-        // child.label: parent node
-    };
-    function initTreeMap(tree) {
+    const treeMap = {};
+
+    let nLayers: number = 0;
+
+    function initTreeMap(
+        tree: any,
+        parent: any = null,
+        isListChild: boolean = false,
+    ) {
         if (tree.submodules) {
-            for (const child of tree.submodules) {
-                treeMap[child.name] = tree;
-                initTreeMap(child);
-            }
-        }
-    }
-    initTreeMap(tree);
-
-    function rebuildSubmodules(node, checkAsParent = true) {
-        if (node.submodules) {
-            for (const child of node.submodules) {
-                if (checkAsParent) child.checked = !!node.checked;
-                rebuildSubmodules(child, checkAsParent);
-            }
-            node.indeterminate =
-                node.submodules.some((c) => c.indeterminate) ||
-                (node.submodules.some((c) => !!c.checked) &&
-                    node.submodules.some((c) => !c.checked));
-        }
-    }
-
-    function rebuildTree(e, checkAsParent = true) {
-        const node = e.detail.node;
-        let parent = treeMap[node.name];
-        rebuildSubmodules(node, checkAsParent);
-        while (parent) {
-            const allCheck = parent.submodules.every((c) => !!c.checked);
-            if (allCheck) {
-                parent.indeterminate = false;
-                parent.checked = true;
-            } else {
-                const haveCheckedOrIndetermine = parent.submodules.some(
-                    (c) => !!c.checked || c.indeterminate,
-                );
-                if (haveCheckedOrIndetermine) {
-                    parent.indeterminate = true;
-                } else {
-                    parent.indeterminate = false;
+            if (tree.type === "ModuleList" && tree.submodules.length > 0) {
+                if (parent && parent.submodules) {
+                    const index = parent.submodules.indexOf(tree);
+                    nLayers = tree.submodules.length;
+                    if (index !== -1) parent.submodules[index] =  tree.submodules[0];
                 }
-                parent.checked = false;
+                initTreeMap(tree.submodules[0], parent, isListChild);
+            } else {
+                for (const child of tree.submodules) {
+                    if (isListChild) child.name = isListChild + child.name;
+                    treeMap[child.name] = tree;
+                    initTreeMap(child, tree, isListChild);
+                }
             }
-
-            parent = treeMap[parent.name];
         }
-        tree = tree;
-        // see console the tree state when there's a state changed
-        // console.log(tree)
     }
-    // init the tree state
-    rebuildTree({ detail: { node: tree } }, false);
+
+    initTreeMap(tree);
 </script>
 
-<div>
-    <Node {tree} on:toggle={rebuildTree}/>
-</div>
+<Node tree={tree} nLayers={nLayers}/>

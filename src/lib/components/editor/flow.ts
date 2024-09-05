@@ -10,6 +10,7 @@ import {
 
 import ModuleNode from "./nodes/module-node.svelte";
 import InputNode from "./nodes/input-node.svelte";
+import VariableModuleNode from "./nodes/variable-module-node.svelte";
 import LoopContext from "./context-nodes/loop-context.svelte";
 import FunctionContext from "./context-nodes/function-context.svelte";
 import RunContext from "./context-nodes/run-context.svelte";
@@ -20,6 +21,7 @@ export const nodeTypes: NodeTypes = {
     loop: LoopContext,
     function: FunctionContext,
     run: RunContext,
+    variable: VariableModuleNode,
 };
 
 

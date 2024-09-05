@@ -2,10 +2,14 @@
 	import { getContext } from "svelte";
 	import type { Writable } from "svelte/store";
 	import type { Node } from "@xyflow/svelte";
-	import { createEmptyNode } from "../../utils"
-	
+	import { createEmptyNode } from "../../utils";
 
 	export let tree;
+	export let nLayers: number = 0;
+
+	let isVariableModule = tree.atomic.includes(".0");
+	tree.name = isVariableModule ? tree.name.replace(".0", `.[0-${nLayers}]`) : tree.name;
+
 	const toggleExpansion = () => {
 		tree.expanded = !tree.expanded;
 	};
@@ -16,13 +20,13 @@
 		if (!event.dataTransfer) {
 			return null;
 		}
-		
+
 		const newNode: Node = createEmptyNode("default");
 		const moduleNode = {
 			...newNode,
-			type: "module",
+			type: isVariableModule ? "variable" : "module",
 			data: {
-				label: name
+				label: name,
 			},
 		};
 		type.set(moduleNode);
@@ -51,7 +55,7 @@
 			</button>
 			{#if tree.expanded}
 				{#each tree.submodules as child}
-					<svelte:self tree={child} on:toggle />
+					<svelte:self tree={child} nLayers={nLayers} on:toggle />
 				{/each}
 			{/if}
 		{:else}
