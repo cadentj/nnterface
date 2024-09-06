@@ -1,7 +1,7 @@
 <!-- FROM: https://svelte.dev/repl/eca6f6392e294247b4f379fde3069274?version=3.46.6 -->
 
 <script lang="ts">
-    import Node from "./node.svelte";
+    import Node from "./block.svelte";
     import pytree from "../pytree.json";
 
     let tree = pytree;

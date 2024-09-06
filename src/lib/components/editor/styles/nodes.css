@@ -16,7 +16,7 @@
 }
 
 .context {
-    background-color: rgba(152, 87, 146, 0.3);
+    background-color: rgba(152, 87, 146, 0.1);
 
     @apply node;
 }

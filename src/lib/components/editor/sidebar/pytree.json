@@ -1,945 +1,524 @@
 {
-    "name": "gpt2",
-    "atomic": "gpt2",
+    "name": "model",
+    "atomic": "model",
     "type": "Module",
     "input": "(1, 1)",
-    "output": "(1, 1, 50257)",
+    "output": "(1, 1, 50304)",
     "submodules": [
         {
-            "name": "transformer",
-            "atomic": ".transformer",
+            "name": "gpt_neox",
+            "atomic": ".gpt_neox",
             "type": "Module",
             "input": "(1, 1)",
-            "output": "(1, 1, 768)",
+            "output": "(1, 1, 128)",
             "submodules": [
                 {
-                    "name": "wte",
-                    "atomic": ".transformer.wte",
+                    "name": "embed_in",
+                    "atomic": ".gpt_neox.embed_in",
                     "type": "Module",
                     "input": "(1, 1)",
-                    "output": "(1, 1, 768)"
+                    "output": "(1, 1, 128)"
                 },
                 {
-                    "name": "wpe",
-                    "atomic": ".transformer.wpe",
-                    "type": "Module",
-                    "input": "(1, 1)",
-                    "output": "(1, 1, 768)"
-                },
-                {
-                    "name": "h",
-                    "atomic": ".transformer.h",
+                    "name": "layers",
+                    "atomic": ".gpt_neox.layers",
                     "type": "ModuleList",
                     "input": null,
                     "output": null,
                     "submodules": [
                         {
-                            "name": "h.0",
-                            "atomic": ".transformer.h.0",
+                            "name": "layers.0",
+                            "atomic": ".gpt_neox.layers.0",
                             "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
+                            "input": "(1, 1, 128)",
+                            "output": "(1, 1, 128)",
                             "submodules": [
                                 {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.0.ln_1",
+                                    "name": "input_layernorm",
+                                    "atomic": ".gpt_neox.layers.0.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
                                 },
                                 {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.0.attn",
+                                    "name": "post_attention_layernorm",
+                                    "atomic": ".gpt_neox.layers.0.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
+                                },
+                                {
+                                    "name": "attention",
+                                    "atomic": ".gpt_neox.layers.0.attention",
+                                    "type": "Module",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.0.attn.c_attn",
+                                            "name": "rotary_emb",
+                                            "atomic": ".gpt_neox.layers.0.attention.rotary_emb",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
+                                            "input": "(1, 4, 1, 32)",
+                                            "output": "(1, 8)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.0.attn.c_proj",
+                                            "name": "query_key_value",
+                                            "atomic": ".gpt_neox.layers.0.attention.query_key_value",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 384)"
+                                        },
+                                        {
+                                            "name": "dense",
+                                            "atomic": ".gpt_neox.layers.0.attention.dense",
+                                            "type": "Module",
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 128)"
                                         }
                                     ]
                                 },
                                 {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.0.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
                                     "name": "mlp",
-                                    "atomic": ".transformer.h.0.mlp",
+                                    "atomic": ".gpt_neox.layers.0.mlp",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.0.mlp.c_fc",
+                                            "name": "dense_h_to_4h",
+                                            "atomic": ".gpt_neox.layers.0.mlp.dense_h_to_4h",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 512)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.0.mlp.c_proj",
+                                            "name": "dense_4h_to_h",
+                                            "atomic": ".gpt_neox.layers.0.mlp.dense_4h_to_h",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "act",
-                                            "atomic": ".transformer.h.0.mlp.act",
+                                            "atomic": ".gpt_neox.layers.0.mlp.act",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 512)"
                                         }
                                     ]
                                 }
                             ]
                         },
                         {
-                            "name": "h.1",
-                            "atomic": ".transformer.h.1",
+                            "name": "layers.1",
+                            "atomic": ".gpt_neox.layers.1",
                             "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
+                            "input": "(1, 1, 128)",
+                            "output": "(1, 1, 128)",
                             "submodules": [
                                 {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.1.ln_1",
+                                    "name": "input_layernorm",
+                                    "atomic": ".gpt_neox.layers.1.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
                                 },
                                 {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.1.attn",
+                                    "name": "post_attention_layernorm",
+                                    "atomic": ".gpt_neox.layers.1.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
+                                },
+                                {
+                                    "name": "attention",
+                                    "atomic": ".gpt_neox.layers.1.attention",
+                                    "type": "Module",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.1.attn.c_attn",
+                                            "name": "rotary_emb",
+                                            "atomic": ".gpt_neox.layers.1.attention.rotary_emb",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
+                                            "input": "(1, 4, 1, 32)",
+                                            "output": "(1, 8)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.1.attn.c_proj",
+                                            "name": "query_key_value",
+                                            "atomic": ".gpt_neox.layers.1.attention.query_key_value",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 384)"
+                                        },
+                                        {
+                                            "name": "dense",
+                                            "atomic": ".gpt_neox.layers.1.attention.dense",
+                                            "type": "Module",
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 128)"
                                         }
                                     ]
                                 },
                                 {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.1.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
                                     "name": "mlp",
-                                    "atomic": ".transformer.h.1.mlp",
+                                    "atomic": ".gpt_neox.layers.1.mlp",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.1.mlp.c_fc",
+                                            "name": "dense_h_to_4h",
+                                            "atomic": ".gpt_neox.layers.1.mlp.dense_h_to_4h",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 512)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.1.mlp.c_proj",
+                                            "name": "dense_4h_to_h",
+                                            "atomic": ".gpt_neox.layers.1.mlp.dense_4h_to_h",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "act",
-                                            "atomic": ".transformer.h.1.mlp.act",
+                                            "atomic": ".gpt_neox.layers.1.mlp.act",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 512)"
                                         }
                                     ]
                                 }
                             ]
                         },
                         {
-                            "name": "h.2",
-                            "atomic": ".transformer.h.2",
+                            "name": "layers.2",
+                            "atomic": ".gpt_neox.layers.2",
                             "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
+                            "input": "(1, 1, 128)",
+                            "output": "(1, 1, 128)",
                             "submodules": [
                                 {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.2.ln_1",
+                                    "name": "input_layernorm",
+                                    "atomic": ".gpt_neox.layers.2.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
                                 },
                                 {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.2.attn",
+                                    "name": "post_attention_layernorm",
+                                    "atomic": ".gpt_neox.layers.2.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
+                                },
+                                {
+                                    "name": "attention",
+                                    "atomic": ".gpt_neox.layers.2.attention",
+                                    "type": "Module",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.2.attn.c_attn",
+                                            "name": "rotary_emb",
+                                            "atomic": ".gpt_neox.layers.2.attention.rotary_emb",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
+                                            "input": "(1, 4, 1, 32)",
+                                            "output": "(1, 8)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.2.attn.c_proj",
+                                            "name": "query_key_value",
+                                            "atomic": ".gpt_neox.layers.2.attention.query_key_value",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 384)"
+                                        },
+                                        {
+                                            "name": "dense",
+                                            "atomic": ".gpt_neox.layers.2.attention.dense",
+                                            "type": "Module",
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 128)"
                                         }
                                     ]
                                 },
                                 {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.2.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
                                     "name": "mlp",
-                                    "atomic": ".transformer.h.2.mlp",
+                                    "atomic": ".gpt_neox.layers.2.mlp",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.2.mlp.c_fc",
+                                            "name": "dense_h_to_4h",
+                                            "atomic": ".gpt_neox.layers.2.mlp.dense_h_to_4h",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 512)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.2.mlp.c_proj",
+                                            "name": "dense_4h_to_h",
+                                            "atomic": ".gpt_neox.layers.2.mlp.dense_4h_to_h",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "act",
-                                            "atomic": ".transformer.h.2.mlp.act",
+                                            "atomic": ".gpt_neox.layers.2.mlp.act",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 512)"
                                         }
                                     ]
                                 }
                             ]
                         },
                         {
-                            "name": "h.3",
-                            "atomic": ".transformer.h.3",
+                            "name": "layers.3",
+                            "atomic": ".gpt_neox.layers.3",
                             "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
+                            "input": "(1, 1, 128)",
+                            "output": "(1, 1, 128)",
                             "submodules": [
                                 {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.3.ln_1",
+                                    "name": "input_layernorm",
+                                    "atomic": ".gpt_neox.layers.3.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
                                 },
                                 {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.3.attn",
+                                    "name": "post_attention_layernorm",
+                                    "atomic": ".gpt_neox.layers.3.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
+                                },
+                                {
+                                    "name": "attention",
+                                    "atomic": ".gpt_neox.layers.3.attention",
+                                    "type": "Module",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.3.attn.c_attn",
+                                            "name": "rotary_emb",
+                                            "atomic": ".gpt_neox.layers.3.attention.rotary_emb",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
+                                            "input": "(1, 4, 1, 32)",
+                                            "output": "(1, 8)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.3.attn.c_proj",
+                                            "name": "query_key_value",
+                                            "atomic": ".gpt_neox.layers.3.attention.query_key_value",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 384)"
+                                        },
+                                        {
+                                            "name": "dense",
+                                            "atomic": ".gpt_neox.layers.3.attention.dense",
+                                            "type": "Module",
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 128)"
                                         }
                                     ]
                                 },
                                 {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.3.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
                                     "name": "mlp",
-                                    "atomic": ".transformer.h.3.mlp",
+                                    "atomic": ".gpt_neox.layers.3.mlp",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.3.mlp.c_fc",
+                                            "name": "dense_h_to_4h",
+                                            "atomic": ".gpt_neox.layers.3.mlp.dense_h_to_4h",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 512)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.3.mlp.c_proj",
+                                            "name": "dense_4h_to_h",
+                                            "atomic": ".gpt_neox.layers.3.mlp.dense_4h_to_h",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "act",
-                                            "atomic": ".transformer.h.3.mlp.act",
+                                            "atomic": ".gpt_neox.layers.3.mlp.act",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 512)"
                                         }
                                     ]
                                 }
                             ]
                         },
                         {
-                            "name": "h.4",
-                            "atomic": ".transformer.h.4",
+                            "name": "layers.4",
+                            "atomic": ".gpt_neox.layers.4",
                             "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
+                            "input": "(1, 1, 128)",
+                            "output": "(1, 1, 128)",
                             "submodules": [
                                 {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.4.ln_1",
+                                    "name": "input_layernorm",
+                                    "atomic": ".gpt_neox.layers.4.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
                                 },
                                 {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.4.attn",
+                                    "name": "post_attention_layernorm",
+                                    "atomic": ".gpt_neox.layers.4.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
+                                },
+                                {
+                                    "name": "attention",
+                                    "atomic": ".gpt_neox.layers.4.attention",
+                                    "type": "Module",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.4.attn.c_attn",
+                                            "name": "rotary_emb",
+                                            "atomic": ".gpt_neox.layers.4.attention.rotary_emb",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
+                                            "input": "(1, 4, 1, 32)",
+                                            "output": "(1, 8)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.4.attn.c_proj",
+                                            "name": "query_key_value",
+                                            "atomic": ".gpt_neox.layers.4.attention.query_key_value",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 384)"
+                                        },
+                                        {
+                                            "name": "dense",
+                                            "atomic": ".gpt_neox.layers.4.attention.dense",
+                                            "type": "Module",
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 128)"
                                         }
                                     ]
                                 },
                                 {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.4.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
                                     "name": "mlp",
-                                    "atomic": ".transformer.h.4.mlp",
+                                    "atomic": ".gpt_neox.layers.4.mlp",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.4.mlp.c_fc",
+                                            "name": "dense_h_to_4h",
+                                            "atomic": ".gpt_neox.layers.4.mlp.dense_h_to_4h",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 512)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.4.mlp.c_proj",
+                                            "name": "dense_4h_to_h",
+                                            "atomic": ".gpt_neox.layers.4.mlp.dense_4h_to_h",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "act",
-                                            "atomic": ".transformer.h.4.mlp.act",
+                                            "atomic": ".gpt_neox.layers.4.mlp.act",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 512)"
                                         }
                                     ]
                                 }
                             ]
                         },
                         {
-                            "name": "h.5",
-                            "atomic": ".transformer.h.5",
+                            "name": "layers.5",
+                            "atomic": ".gpt_neox.layers.5",
                             "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
+                            "input": "(1, 1, 128)",
+                            "output": "(1, 1, 128)",
                             "submodules": [
                                 {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.5.ln_1",
+                                    "name": "input_layernorm",
+                                    "atomic": ".gpt_neox.layers.5.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
                                 },
                                 {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.5.attn",
+                                    "name": "post_attention_layernorm",
+                                    "atomic": ".gpt_neox.layers.5.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)"
+                                },
+                                {
+                                    "name": "attention",
+                                    "atomic": ".gpt_neox.layers.5.attention",
+                                    "type": "Module",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.5.attn.c_attn",
+                                            "name": "rotary_emb",
+                                            "atomic": ".gpt_neox.layers.5.attention.rotary_emb",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
+                                            "input": "(1, 4, 1, 32)",
+                                            "output": "(1, 8)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.5.attn.c_proj",
+                                            "name": "query_key_value",
+                                            "atomic": ".gpt_neox.layers.5.attention.query_key_value",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 384)"
+                                        },
+                                        {
+                                            "name": "dense",
+                                            "atomic": ".gpt_neox.layers.5.attention.dense",
+                                            "type": "Module",
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 128)"
                                         }
                                     ]
-                                },
-                                {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.5.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
                                 },
                                 {
                                     "name": "mlp",
-                                    "atomic": ".transformer.h.5.mlp",
+                                    "atomic": ".gpt_neox.layers.5.mlp",
                                     "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
+                                    "input": "(1, 1, 128)",
+                                    "output": "(1, 1, 128)",
                                     "submodules": [
                                         {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.5.mlp.c_fc",
+                                            "name": "dense_h_to_4h",
+                                            "atomic": ".gpt_neox.layers.5.mlp.dense_h_to_4h",
                                             "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 128)",
+                                            "output": "(1, 1, 512)"
                                         },
                                         {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.5.mlp.c_proj",
+                                            "name": "dense_4h_to_h",
+                                            "atomic": ".gpt_neox.layers.5.mlp.dense_4h_to_h",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "act",
-                                            "atomic": ".transformer.h.5.mlp.act",
+                                            "atomic": ".gpt_neox.layers.5.mlp.act",
                                             "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "h.6",
-                            "atomic": ".transformer.h.6",
-                            "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
-                            "submodules": [
-                                {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.6.ln_1",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.6.attn",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.6.attn.c_attn",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.6.attn.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.6.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "mlp",
-                                    "atomic": ".transformer.h.6.mlp",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.6.mlp.c_fc",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.6.mlp.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
-                                        },
-                                        {
-                                            "name": "act",
-                                            "atomic": ".transformer.h.6.mlp.act",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "h.7",
-                            "atomic": ".transformer.h.7",
-                            "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
-                            "submodules": [
-                                {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.7.ln_1",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.7.attn",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.7.attn.c_attn",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.7.attn.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.7.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "mlp",
-                                    "atomic": ".transformer.h.7.mlp",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.7.mlp.c_fc",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.7.mlp.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
-                                        },
-                                        {
-                                            "name": "act",
-                                            "atomic": ".transformer.h.7.mlp.act",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "h.8",
-                            "atomic": ".transformer.h.8",
-                            "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
-                            "submodules": [
-                                {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.8.ln_1",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.8.attn",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.8.attn.c_attn",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.8.attn.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.8.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "mlp",
-                                    "atomic": ".transformer.h.8.mlp",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.8.mlp.c_fc",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.8.mlp.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
-                                        },
-                                        {
-                                            "name": "act",
-                                            "atomic": ".transformer.h.8.mlp.act",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "h.9",
-                            "atomic": ".transformer.h.9",
-                            "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
-                            "submodules": [
-                                {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.9.ln_1",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.9.attn",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.9.attn.c_attn",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.9.attn.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.9.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "mlp",
-                                    "atomic": ".transformer.h.9.mlp",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.9.mlp.c_fc",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.9.mlp.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
-                                        },
-                                        {
-                                            "name": "act",
-                                            "atomic": ".transformer.h.9.mlp.act",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "h.10",
-                            "atomic": ".transformer.h.10",
-                            "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
-                            "submodules": [
-                                {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.10.ln_1",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.10.attn",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.10.attn.c_attn",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.10.attn.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.10.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "mlp",
-                                    "atomic": ".transformer.h.10.mlp",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.10.mlp.c_fc",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.10.mlp.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
-                                        },
-                                        {
-                                            "name": "act",
-                                            "atomic": ".transformer.h.10.mlp.act",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "h.11",
-                            "atomic": ".transformer.h.11",
-                            "type": "Module",
-                            "input": "(1, 1, 768)",
-                            "output": "(1, 1, 768)",
-                            "submodules": [
-                                {
-                                    "name": "ln_1",
-                                    "atomic": ".transformer.h.11.ln_1",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "attn",
-                                    "atomic": ".transformer.h.11.attn",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_attn",
-                                            "atomic": ".transformer.h.11.attn.c_attn",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 2304)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.11.attn.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 768)"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "ln_2",
-                                    "atomic": ".transformer.h.11.ln_2",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)"
-                                },
-                                {
-                                    "name": "mlp",
-                                    "atomic": ".transformer.h.11.mlp",
-                                    "type": "Module",
-                                    "input": "(1, 1, 768)",
-                                    "output": "(1, 1, 768)",
-                                    "submodules": [
-                                        {
-                                            "name": "c_fc",
-                                            "atomic": ".transformer.h.11.mlp.c_fc",
-                                            "type": "Module",
-                                            "input": "(1, 1, 768)",
-                                            "output": "(1, 1, 3072)"
-                                        },
-                                        {
-                                            "name": "c_proj",
-                                            "atomic": ".transformer.h.11.mlp.c_proj",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 768)"
-                                        },
-                                        {
-                                            "name": "act",
-                                            "atomic": ".transformer.h.11.mlp.act",
-                                            "type": "Module",
-                                            "input": "(1, 1, 3072)",
-                                            "output": "(1, 1, 3072)"
+                                            "input": "(1, 1, 512)",
+                                            "output": "(1, 1, 512)"
                                         }
                                     ]
                                 }
@@ -948,20 +527,20 @@
                     ]
                 },
                 {
-                    "name": "ln_f",
-                    "atomic": ".transformer.ln_f",
+                    "name": "final_layer_norm",
+                    "atomic": ".gpt_neox.final_layer_norm",
                     "type": "Module",
-                    "input": "(1, 1, 768)",
-                    "output": "(1, 1, 768)"
+                    "input": "(1, 1, 128)",
+                    "output": "(1, 1, 128)"
                 }
             ]
         },
         {
-            "name": "lm_head",
-            "atomic": ".lm_head",
+            "name": "embed_out",
+            "atomic": ".embed_out",
             "type": "Module",
-            "input": "(1, 1, 768)",
-            "output": "(1, 1, 50257)"
+            "input": "(1, 1, 128)",
+            "output": "(1, 1, 50304)"
         }
     ]
 }

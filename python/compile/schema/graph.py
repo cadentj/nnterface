@@ -1,32 +1,29 @@
-from typing import Dict, List, Optional, Union
-from collections import defaultdict
+from typing import List, Union
 
-from pydantic import BaseModel, model_validator, Field
+from pydantic import BaseModel, model_validator
 
-from .nodes import Node, InputNode, FunctionNode, ModuleNode, LoopNode, RunNode
+from .nodes import (
+    InputNode,
+    FunctionNode,
+    ModuleNode,
+    LoopNode,
+    RunNode,
+)
 
-
-class EdgeData(BaseModel):
-    label: Optional[str] = ""
-
-
-class Edge(BaseModel):
-    id: str
-    source: str
-    target: str
+from .edges import Edge
 
 
 class Graph(BaseModel):
     nodes: List[Union[InputNode, FunctionNode, ModuleNode, LoopNode, RunNode]]
     edges: List[Edge]
-    adjacency_list: Dict[Node, List[Node]] = Field(default=None)
 
     @model_validator(mode="after")
-    def build_adjacency_list(self):
-        adjacency_list = defaultdict(list)
+    def unfold(self):
+        for node in self.nodes:
+            current_node = node
+            while hasattr(current_node, "parent"):
+                parent = current_node.parents[0]
+                self.edges.append(Edge(source=parent, target=node.id))
+                current_node = parent
 
-        for edge in self.edges:
-            adjacency_list[edge.source].append(edge.target)
-
-        self.adjacency_list = dict(adjacency_list)
         return self

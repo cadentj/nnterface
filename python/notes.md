@@ -38,3 +38,12 @@ Creates a loop in python code.
 ## Function Context
 
 Executes modules as apply module if placed in the function. Else applies a function given some inputs.
+
+
+# Compiling
+
+1. check for functions. bundle functions at the top of the execution.
+2. go to the input nodes. input nodes represent a single invoke. 
+3. track the edge from input nodes to modules. the modules represent the context of an invoke.
+4. check whether the modules are within a run context. bundle multiple inputs under the same run context as different invokes.
+5. 

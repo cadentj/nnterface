@@ -14,16 +14,23 @@ export const createEmptyNode = (name: string): Node => ({
   }
 });
 
-export const checkIntersections = (nodes, getIntersectingNodes) => {
+const clearParents = (nodes) => {
+  return nodes.map((node) => {
+    node.data.parents = [""];
+    return node;
+  });
+}
 
-  nodes.update((nodes) => {
-    return nodes.map((node) => {
-      const intersectingNodes = getIntersectingNodes(node.id, false);
-      if (intersectingNodes.length > 1) {
-        console.log("Intersecting nodes: ", intersectingNodes);
-      }
-      return node;
-    });
+export const updateIntersections = (nodes, getIntersectingNodes) => {
+
+  nodes = clearParents(nodes);
+
+  return nodes.map((node) => {
+    const intersectingNodes = getIntersectingNodes(node, false, nodes);
+    if (intersectingNodes.length >= 1) {
+      node.data.parents = intersectingNodes.map((n) => n.id);  
+    }
+    return node;
   });
 
 }

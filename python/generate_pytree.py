@@ -79,7 +79,7 @@ def get_shapes(repo_id):
 
         return model, shapes
 
-model, shapes = get_shapes('gpt2')
+model, shapes = get_shapes('EleutherAI/pythia-14m')
 
 # %%
 
@@ -125,7 +125,7 @@ model = NNsight(model)
 
 # %%
 
-graph = generate_pytree(model, atomic='gpt2', path='gpt2')
+graph = generate_pytree(model, atomic='model', path='model')
 
 with open('pytree.json', 'w') as f:
     json.dump(graph, f, indent=4)

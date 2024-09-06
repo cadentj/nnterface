@@ -7,8 +7,11 @@
 	export let tree;
 	export let nLayers: number = 0;
 
-	let isVariableModule = tree.atomic.includes(".0");
-	tree.name = isVariableModule ? tree.name.replace(".0", `.[0-${nLayers}]`) : tree.name;
+	let isVariable: boolean = tree.atomic.includes(".0");
+	if (isVariable) {
+		tree.name = tree.name.replace(".0", `.[0-${nLayers}]`);
+		tree.atomic = tree.atomic.replace(".0", `.n`);
+	}
 
 	const toggleExpansion = () => {
 		tree.expanded = !tree.expanded;
@@ -24,9 +27,10 @@
 		const newNode: Node = createEmptyNode("default");
 		const moduleNode = {
 			...newNode,
-			type: isVariableModule ? "variable" : "module",
+			type: "module",
 			data: {
 				label: name,
+				variable: isVariable,
 			},
 		};
 		type.set(moduleNode);

@@ -12,7 +12,7 @@
   import { Play, Sun, Moon, Terminal } from "lucide-svelte";
   import "@xyflow/svelte/dist/base.css";
   import { type Writable } from "svelte/store";
-  import { useDnD, checkIntersections } from "./utils";
+  import { useDnD, updateIntersections } from "./utils";
   import Sidebar from "./sidebar/sidebar.svelte";
   import Layout from "./layout.svelte";
 
@@ -29,10 +29,6 @@
   const { screenToFlowPosition, toObject, getIntersectingNodes } = useSvelteFlow();
 
   const nodes: Writable<Node[]> = nodeManager.getNodes();
-
-  const updateIntersections = () => { 
-    $nodes = getIntersectingNodes($nodes, getIntersectingNodes);
-  }
 
   const type = useDnD();
 
@@ -69,7 +65,7 @@
   };
 
   async function createItem() {
-    const response = await fetch("/api/editor", {
+    const response = await fetch("/api/compile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,6 +74,11 @@
     });
     const result = await response.json();
     console.log(result);
+  }
+
+  const updateNodeIntersections = () => { 
+    $nodes = updateIntersections($nodes, getIntersectingNodes);
+    createItem();
   }
 
   let colorMode: ColorMode = "dark";
@@ -121,7 +122,7 @@
       <ControlButton on:click={toggleViewPane}>
         <Terminal />
       </ControlButton>
-      <ControlButton on:click={updateIntersections}>
+      <ControlButton on:click={updateNodeIntersections}>
         <Play style="color: green;" />
       </ControlButton>
     </Controls>

@@ -1,4 +1,4 @@
-import { writable, type Writable } from "svelte/store";
+import { writable, get, type Writable } from "svelte/store";
 
 import {
     MarkerType,
@@ -8,12 +8,11 @@ import {
     type Viewport,
 } from "@xyflow/svelte";
 
-import ModuleNode from "./nodes/module-node.svelte";
-import InputNode from "./nodes/input-node.svelte";
-import VariableModuleNode from "./nodes/variable-module-node.svelte";
-import LoopContext from "./context-nodes/loop-context.svelte";
-import FunctionContext from "./context-nodes/function-context.svelte";
-import RunContext from "./context-nodes/run-context.svelte";
+import ModuleNode from "./nodes/module.svelte";
+import InputNode from "./nodes/input.svelte";
+import LoopContext from "./context-nodes/loop.svelte";
+import FunctionContext from "./context-nodes/function.svelte";
+import RunContext from "./context-nodes/run.svelte";
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,
@@ -21,9 +20,7 @@ export const nodeTypes: NodeTypes = {
     loop: LoopContext,
     function: FunctionContext,
     run: RunContext,
-    variable: VariableModuleNode,
 };
-
 
 const contexts: string[] = ["loop", "function", "run"];
 
@@ -33,6 +30,7 @@ const nodes: Writable<Node[]> = writable([
         type: "input",
         data: {
             text: "Alice and Bob went to the store.",
+            label: "input"
         },
         origin: [0.0, 0.0],
         position: { x: 0, y: -300 },
@@ -40,7 +38,7 @@ const nodes: Writable<Node[]> = writable([
 ]);
 
 class NodeManager {
-
+    private nContexts: number = 0;
     private nodes: Writable<Node[]>;
 
     constructor(nodes: Writable<Node[]>) {
@@ -58,9 +56,21 @@ class NodeManager {
     }
 
     private addContextNode(node: Node) {
-        // add context nodes to the start of the list
+        // Increment the context count
+        this.nContexts += 1;
+        
         this.nodes.update((nodes) => {
-            return [node, ...nodes];
+            if (nodes.length === 1) {
+                // If there's only one node, add the new node at the beginning
+                return [node, ...nodes];
+            } else {
+                // Otherwise, insert the new node at position nContexts
+                return [
+                    ...nodes.slice(0, this.nContexts), // Elements before nContexts
+                    node,                              // The new node to insert
+                    ...nodes.slice(this.nContexts)     // The rest of the elements after nContexts
+                ];
+            }
         });
     }
 

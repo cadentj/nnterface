@@ -6,12 +6,12 @@
     export let id: string = "";
     export let selected: boolean = false;
 
-    const connections = useHandleConnections({ nodeId: id, type: "target" });
-    $: isConnectable = $connections.length === 0;
+    // const connections = useHandleConnections({ nodeId: id, type: "target" });
+    // $: isConnectable = $connections.length === 0;
 
 </script>
 
-<NodeMenu id={id} selected={selected} nodeType={"context"}>
+<NodeMenu id={id} nodeType={"context"}>
     <NodeResizer
         minWidth={100}
         minHeight={30}
@@ -21,6 +21,6 @@
 
     <slot />
 
-    <Handle type="target" position={Position.Top} {isConnectable}/>
+    <Handle type="target" position={Position.Top}/>
     <Handle type="source" position={Position.Bottom} />
 </NodeMenu>
