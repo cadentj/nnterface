@@ -35,7 +35,9 @@ export const updateIntersections = (nodes, getIntersectingNodes) => {
 
 }
 
-
+export const useConnectionType = () => {
+  return getContext('connection') as Writable<Node | null>;
+};
 
 export const useDnD = () => {
   return getContext('dnd') as Writable<Node | null>;

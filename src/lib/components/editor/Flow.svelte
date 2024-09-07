@@ -12,9 +12,10 @@
   import { Play, Sun, Moon, Terminal } from "lucide-svelte";
   import "@xyflow/svelte/dist/base.css";
   import { type Writable } from "svelte/store";
-  import { useDnD, updateIntersections } from "./utils";
+  import { useDnD, useConnectionType, updateIntersections } from "./utils";
   import Sidebar from "./sidebar/sidebar.svelte";
   import Layout from "./layout.svelte";
+  import ConnectionProvider from "./connection-provider.svelte";
 
   import { setMode } from "mode-watcher";
 
@@ -25,8 +26,10 @@
     defaultEdgeOptions,
     initialViewport,
   } from "./flow";
+    import connections from "./connections";
 
-  const { screenToFlowPosition, toObject, getIntersectingNodes } = useSvelteFlow();
+  const { screenToFlowPosition, toObject, getIntersectingNodes, getNode } =
+    useSvelteFlow();
 
   const nodes: Writable<Node[]> = nodeManager.getNodes();
 
@@ -76,10 +79,10 @@
     console.log(result);
   }
 
-  const updateNodeIntersections = () => { 
+  const updateNodeIntersections = () => {
     $nodes = updateIntersections($nodes, getIntersectingNodes);
     createItem();
-  }
+  };
 
   let colorMode: ColorMode = "dark";
   setMode(colorMode);
@@ -94,49 +97,66 @@
   const toggleViewPane = () => {
     showViewPane = !showViewPane;
   };
+
+  const connectionType = useConnectionType();
+
+  const handleConnectStart = (params) => {
+    const node = getNode(params.nodeId);
+    const nodeType = node?.data.label;
+
+    connectionType.set(connections[nodeType]);
+  };
+
+  const handleConnectEnd = () => {
+    connectionType.set(null);
+  };
 </script>
 
-<Layout {showViewPane}>
-  <Sidebar slot="sidebar" />
 
-  <SvelteFlow
-    {nodes}
-    {nodeTypes}
-    {edges}
-    {defaultEdgeOptions}
-    {colorMode}
-    {initialViewport}
-    on:dragover={onDragOver}
-    on:drop={onDrop}
-    fitView
-    slot="flow"
-  >
-    <Controls>
-      <ControlButton on:click={toggleColorMode}>
-        {#if colorMode === "dark"}
-          <Sun />
-        {:else}
-          <Moon />
-        {/if}
-      </ControlButton>
-      <ControlButton on:click={toggleViewPane}>
-        <Terminal />
-      </ControlButton>
-      <ControlButton on:click={updateNodeIntersections}>
-        <Play style="color: green;" />
-      </ControlButton>
-    </Controls>
-    <Background variant={BackgroundVariant.Dots} />
-  </SvelteFlow>
-  <div slot="view">Pane Three</div>
-</Layout>
+  <Layout {showViewPane}>
+    <Sidebar slot="sidebar" />
+
+    <SvelteFlow
+      {nodes}
+      {nodeTypes}
+      {edges}
+      {defaultEdgeOptions}
+      {colorMode}
+      {initialViewport}
+      on:dragover={onDragOver}
+      on:drop={onDrop}
+      onconnectstart={(_, params) => handleConnectStart(params)}
+      onconnectend={handleConnectEnd}
+      fitView
+      slot="flow"
+    >
+      <Controls>
+        <ControlButton on:click={toggleColorMode}>
+          {#if colorMode === "dark"}
+            <Sun />
+          {:else}
+            <Moon />
+          {/if}
+        </ControlButton>
+        <ControlButton on:click={toggleViewPane}>
+          <Terminal />
+        </ControlButton>
+        <ControlButton on:click={updateNodeIntersections}>
+          <Play style="color: green;" />
+        </ControlButton>
+      </Controls>
+      <Background variant={BackgroundVariant.Dots} />
+    </SvelteFlow>
+    <div slot="view">Pane Three</div>
+  </Layout>
+
 
 <style>
-  :global( .svelte-flow__node-input) {
+  :global(.svelte-flow__node-input) {
     border: unset; /* Remove all default styles */
   }
 
-  :global( .svelte-flow__node-input.selected) {
+  :global(.svelte-flow__node-input.selected) {
     border: unset; /* Remove all default styles */
   }
 </style>

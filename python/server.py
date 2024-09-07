@@ -21,8 +21,8 @@ def load(repo_id: str):
 @app.post("/compile")
 async def create_item(graph: Graph):
 
-    # sorted_nodes = compile(graph)
-    # logger.info(f"Sorted_nodes: {sorted_nodes}")
+    sorted_nodes = compile(graph, logger)
+    logger.info(f"Sorted_nodes: {sorted_nodes}")
     
     return {"message": f"Item created: {graph}"}
 

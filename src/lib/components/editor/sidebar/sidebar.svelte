@@ -7,7 +7,7 @@
     import BlockList from "./block-list.svelte";
     const type = useDnD();
 
-    const demoBlocks = ["input", "run", "function", "loop"];
+    const demoBlocks = ["input", "run", "function", "loop", "parallel"];
 
     setContext("type", type);
 </script>

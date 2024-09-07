@@ -2,6 +2,8 @@ from pydantic import BaseModel
 from typing import Literal, Optional, List
 from abc import ABC, abstractmethod
 
+SPACES = "  "
+
 ### BASE SCHEMA ###
 
 class NodeData(BaseModel):
@@ -19,7 +21,9 @@ class Node(BaseModel, ABC):
         pass
 
     def indent(self):
-        return "\t" * len(self.data.parents)
+        if self.data.parents != [""]:
+            return SPACES * len(self.data.parents)
+        return ""
 
     def compile(self, args: List["Node"]):
         return self.indent() + self.generate(args)
@@ -27,18 +31,18 @@ class Node(BaseModel, ABC):
 ### MODULE NODE SCHEMA ###
 
 class ModuleData(NodeData):
-    # module: str
-    location: Literal["input", "output"]
+    location: Literal["input", "output"] = "output"
     mode: Literal["act", "grad"] = "act"
     save: bool = False
 
 class ModuleNode(Node):
     type: Literal["module"]
-    code: str = "{module}.{location}"
+    data: ModuleData
+    code: str = "{id} = {module}.{location}"
 
     def generate(self, args: List[Node]):
         return self.code.format(
-            module=self.label, location=self.location
+            id=self.id, module=self.data.label, location=self.data.location
         )
 
 ### INPUT NODE SCHEMA ###
@@ -48,7 +52,8 @@ class InputData(NodeData):
 
 class InputNode(Node):
     type: Literal["input"] 
-    code: str = "{id} = {text}"
+    data: InputData 
+    code: str = "{id} = '{text}'"
 
     def generate(self, args: List[Node]):
         return self.code.format(

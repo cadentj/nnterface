@@ -13,6 +13,7 @@ import InputNode from "./nodes/input.svelte";
 import LoopContext from "./context-nodes/loop.svelte";
 import FunctionContext from "./context-nodes/function.svelte";
 import RunContext from "./context-nodes/run.svelte";
+import ParallelContext from "./context-nodes/parallel.svelte";
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,
@@ -20,9 +21,10 @@ export const nodeTypes: NodeTypes = {
     loop: LoopContext,
     function: FunctionContext,
     run: RunContext,
+    parallel: ParallelContext,
 };
 
-const contexts: string[] = ["loop", "function", "run"];
+const contexts: string[] = ["loop", "function", "run", "parallel"];
 
 const nodes: Writable<Node[]> = writable([
     {

@@ -1,10 +1,11 @@
 <script lang="ts">
     import {
-        Handle,
         Position,
         type NodeProps,
         useSvelteFlow,
     } from "@xyflow/svelte";
+
+    import Handle from "../utils/handle.svelte";
 
     import TextCursorInput from "lucide-svelte/icons/text-cursor-input";
     import * as Dialog from "$lib/components/ui/dialog";
@@ -52,6 +53,6 @@
                 class="resize-none"
             />
         </div>
-        <Handle type="source" position={Position.Bottom} />
+        <Handle type="source" position={Position.Bottom} label={data.label}/>
     </Dialog.Root>
 </NodeMenu>

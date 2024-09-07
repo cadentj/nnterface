@@ -3,10 +3,13 @@
 
     import Flow from "$lib/components/editor/flow.svelte";
     import DnDProvider from "$lib/components/editor/dnd-provider.svelte";
+    import ConnectionProvider from "$lib/components/editor/connection-provider.svelte";
 </script>
 
 <SvelteFlowProvider>
-    <DnDProvider>
-        <Flow />
-    </DnDProvider>
+    <ConnectionProvider>
+        <DnDProvider>
+            <Flow />
+        </DnDProvider>
+    </ConnectionProvider>
 </SvelteFlowProvider>

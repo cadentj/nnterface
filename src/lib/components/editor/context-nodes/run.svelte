@@ -13,6 +13,6 @@
     $$restProps;
 </script>
 
-<ContextNode selected={selected}>
+<ContextNode selected={selected} label={data.label}>
     {data.label}
 </ContextNode>

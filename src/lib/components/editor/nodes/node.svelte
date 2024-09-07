@@ -6,6 +6,7 @@
     export let id: string = "";
     export let nodeType: string = "";
     export let selected: boolean = false;
+    export let isValid: boolean = false;
 
     $: borderStyle = selected ? " !border-current" : " !default-border";
 
