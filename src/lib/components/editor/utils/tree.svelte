@@ -2,7 +2,7 @@
 
 <script lang="ts">
     import Node from "./block.svelte";
-    import pytree from "../pytree.json";
+    import pytree from "$lib/stores/editor/pytree.json";
 
     let tree = pytree;
 

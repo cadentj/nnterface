@@ -3,7 +3,7 @@
     min-width: 10rem;
     height: 100%;
     border: 1px solid hsl(var(--border));
-    
+
     @apply p-3;
 }
 

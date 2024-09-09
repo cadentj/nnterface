@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { useDnD } from "../utils";   
+    import { useDnD } from "../util";   
 
     import ModelSelector from "./model-tab.svelte";
     import { setContext } from "svelte";
     import * as Tabs from "$lib/components/ui/tabs";
-    import BlockList from "./block-list.svelte";
-    import FunctionTab from "./function-tab/function-tab.svelte";
+    import BlockList from "./blocks-tab.svelte";
+    import FunctionTab from "./function-tab.svelte";
     const type = useDnD();
 
     const demoBlocks = ["input", "run", "loop", "batch"];
@@ -13,7 +13,7 @@
     setContext("type", type);
 </script>
 
-<Tabs.Root value="model" class="pt-5 px-5">
+<Tabs.Root value="model" class="pt-5 px-5" id="sidebar">
     <Tabs.List class="w-full">
         <Tabs.Trigger value="model" class="w-full">Model</Tabs.Trigger>
         <Tabs.Trigger value="operators" class="w-full">Operators</Tabs.Trigger>

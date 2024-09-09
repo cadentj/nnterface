@@ -10,20 +10,18 @@
     import TextCursorInput from "lucide-svelte/icons/text-cursor-input";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Textarea } from "$lib/components/ui/textarea";
-    import NodeMenu from "./node.svelte";
 
     type $$Props = NodeProps;
 
     export let id: $$Props["id"];
     export let data: $$Props["data"];
-    export let selected: $$Props["selected"];
 
     const { updateNodeData } = useSvelteFlow();
 
     $$restProps;
 </script>
 
-<NodeMenu id={id} selected={selected} nodeType="block py-3">
+<div class="block">
     <Dialog.Root>
         <Dialog.Content>
             <Dialog.Title>Prompt</Dialog.Title>
@@ -55,4 +53,4 @@
         </div>
         <Handle type="source" position={Position.Bottom} label={data.label}/>
     </Dialog.Root>
-</NodeMenu>
+</div>

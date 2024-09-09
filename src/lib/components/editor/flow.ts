@@ -1,4 +1,4 @@
-import { writable, type Writable, get } from "svelte/store";
+import { writable, type Writable } from "svelte/store";
 
 import {
     MarkerType,
@@ -6,19 +6,20 @@ import {
     type NodeTypes,
     type Node,
     type Viewport,
-    useNodes,
 } from "@xyflow/svelte";
 
-import ModuleNode from "./nodes/module.svelte";
-import InputNode from "./nodes/input.svelte";
-import ContextNode from "./nodes/context.svelte";
-import Function from "./nodes/function.svelte";
+import {
+    ModuleNode,
+    InputNode,
+    ContextNode,
+    FunctionNode,
+} from "./nodes";
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,
     input: InputNode,
     context: ContextNode,
-    function: Function,
+    function: FunctionNode,
 };
 
 export const nodes: Writable<Node[]> = writable([
@@ -57,18 +58,7 @@ export const moveNode = (currentId: string, direction: "forward" | "backward") =
 
         return nodes;
     });
-
-    // const targetIndex = nodes.findIndex((node) => node.id === targetId);
-    // const target = nodes[targetIndex];
-
-    // const nextIndex = direction === "forward" ? targetIndex + 1 : targetIndex - 1;
-    // const next = nodes[nextIndex];
-
-    // nodes[targetIndex] = next;
-    // nodes[nextIndex] = target;
-
-
-    // return nodes;
+    
 };
 
 export const edges = writable([]);
@@ -84,3 +74,16 @@ export const initialViewport = {
     x: 0,
     y: 0,
 } satisfies Viewport;
+
+
+export const connections = {
+    "input" : [
+        "run", "batch", "model"
+    ],
+    "run" : [
+        "function"
+    ],
+    "model" : [
+        "function"
+    ],
+}

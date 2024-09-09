@@ -1,7 +1,7 @@
 <script lang="ts">
     import CodeMirror from "svelte-codemirror-editor";
     import { python } from "@codemirror/lang-python";
-    import Badges from "../utils/badges.svelte";
+    import Badges from "./badges.svelte";
     import { githubLight, githubDark } from "@uiw/codemirror-theme-github";
 
     import { mode } from "mode-watcher";

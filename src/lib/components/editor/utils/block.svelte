@@ -2,7 +2,7 @@
 	import { getContext } from "svelte";
 	import type { Writable } from "svelte/store";
 	import type { Node } from "@xyflow/svelte";
-	import { createEmptyNode } from "../../utils";
+	import { createEmptyNode } from "$lib/components/editor/util";
 
 	export let tree;
 	export let nLayers: number = 0;

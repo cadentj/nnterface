@@ -2,36 +2,18 @@
     import {
         Handle,
         Position,
-        useHandleConnections,
         type NodeProps,
-        useNodes,
     } from "@xyflow/svelte";
-
-    import "../styles/nodes.css";
-    import NodeMenu from "./node.svelte";
-
-    import { moveNode } from "../flow";
-
-
-    const swap = () => {
-        // $nodes = moveNode($nodes, "4", "backward");
-        moveNode("4", "backward");
-    };
 
     type $$Props = NodeProps;
 
-    export let id: $$Props["id"];
     export let data: $$Props["data"];
-    export let selected: $$Props["selected"];
-
-    // const connections = useHandleConnections({ nodeId: id, type: "target" });
-    // $: isConnectable = $connections.length === 0;
 
     $$restProps;
 </script>
 
-<NodeMenu id={id} selected={selected} nodeType="block">
-    <div>{data.label}</div>
+<div class="block">
+    {data.label}
     <Handle
         type="source"
         position={Position.Top}
@@ -79,5 +61,4 @@
             data.location = "";
         }}
     />
-
-</NodeMenu>
+</div>

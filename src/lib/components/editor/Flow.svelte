@@ -1,70 +1,30 @@
 <script lang="ts">
   import {
     SvelteFlow,
-    Controls,
-    Background,
-    BackgroundVariant,
     useSvelteFlow,
-    ControlButton,
-    type IsValidConnection,
-    type Node,
     type ColorMode,
   } from "@xyflow/svelte";
-  import { Play, Sun, Moon, Terminal } from "lucide-svelte";
-  import "@xyflow/svelte/dist/base.css";
-  import { type Writable } from "svelte/store";
-  import { useDnD, useConnectionType, updateIntersections } from "./utils";
-  import Sidebar from "./sidebar/sidebar.svelte";
-  import Layout from "./layout.svelte";
-
-  import { setMode } from "mode-watcher";
-
   import {
     nodeTypes,
     nodes,
-    moveNode,
     edges,
     defaultEdgeOptions,
     initialViewport,
   } from "./flow";
-  import connections from "./connections";
+  import {
+    DnDHandler,
+    ContextMenu,
+    ConnectionHandler,
+    Layout,
+    FlowMenu
+  } from "./utils";
+  import { updateIntersections } from "./util";
+  import Sidebar from "./sidebar/sidebar.svelte";
 
-  const { screenToFlowPosition, toObject, getIntersectingNodes, getNode } =
-    useSvelteFlow();
+  import "@xyflow/svelte/dist/base.css";
+  import "./flow.css";
 
-  const type = useDnD();
-
-  const onDragOver = (event: DragEvent) => {
-    event.preventDefault();
-
-    if (event.dataTransfer) {
-      event.dataTransfer.dropEffect = "move";
-    }
-  };
-
-  const onDrop = (event: DragEvent) => {
-    event.preventDefault();
-
-    if (!$type) {
-      return;
-    }
-
-    const position = screenToFlowPosition({
-      x: event.clientX,
-      y: event.clientY,
-    });
-
-    const numNodes = ($nodes.length + 3).toString();
-
-    const newNode = {
-      ...$type,
-      id: numNodes,
-      position: position,
-      origin: [0, 0],
-    } satisfies Node;
-
-    $nodes = [...$nodes, newNode];
-  };
+  const { toObject, getIntersectingNodes } = useSvelteFlow();
 
   async function createItem() {
     const response = await fetch("/api/compile", {
@@ -83,81 +43,49 @@
     createItem();
   };
 
+  let contextMenu: ContextMenu;
+  let connectionHandler: ConnectionHandler;
+
   let colorMode: ColorMode = "dark";
-  setMode(colorMode);
-
-  const toggleColorMode = () => {
-    colorMode = colorMode === "dark" ? "light" : "dark";
-    setMode(colorMode);
-  };
-
+  let width: number;
+  let height: number;
   let showViewPane: boolean = false;
-
-  const toggleViewPane = () => {
-    showViewPane = !showViewPane;
-  };
-
-  const connectionType = useConnectionType();
-
-  const handleConnectStart = (params) => {
-    const node = getNode(params.nodeId);
-    const nodeType = node?.data.label;
-
-    connectionType.set(connections[nodeType]);
-  };
-
-  const isValidConnection: IsValidConnection = (connection) => {
-    const sourceLabel = getNode(connection.source)?.data.label;
-    const targetLabel = getNode(connection.target)?.data.label;
-
-    const validConnections = connections[sourceLabel];
-
-    if (validConnections.includes(targetLabel)) {
-      return true;
-    }
-    return false;
-  };
-
-  const handleConnectEnd = () => {
-    connectionType.set(null);
-  };
 </script>
 
 <Layout {showViewPane}>
   <Sidebar slot="sidebar" />
 
-  <SvelteFlow
-    {nodes}
-    {nodeTypes}
-    {edges}
-    {defaultEdgeOptions}
-    {colorMode}
-    {initialViewport}
-    on:dragover={onDragOver}
-    on:drop={onDrop}
-    onconnectstart={(_, params) => handleConnectStart(params)}
-    onconnectend={handleConnectEnd}
-    {isValidConnection}
-    fitView
+  <div
+    style="height:100vh;"
+    bind:clientWidth={width}
+    bind:clientHeight={height}
     slot="flow"
   >
-    <Controls>
-      <ControlButton on:click={toggleColorMode}>
-        {#if colorMode === "dark"}
-          <Sun />
-        {:else}
-          <Moon />
-        {/if}
-      </ControlButton>
-      <ControlButton on:click={toggleViewPane}>
-        <Terminal />
-      </ControlButton>
-      <ControlButton on:click={() => {moveNode("4", "backward")}}>
-        <Play style="color: green;" />
-      </ControlButton>
-    </Controls>
-    <Background variant={BackgroundVariant.Dots} />
-  </SvelteFlow>
+    <DnDHandler>
+      <ConnectionHandler bind:this={connectionHandler} />
+      <SvelteFlow
+        {nodes}
+        {nodeTypes}
+        {edges}
+        {defaultEdgeOptions}
+        {colorMode}
+        {initialViewport}
+        isValidConnection={(connection) => connectionHandler?.isValidConnection?.(connection)}
+        on:nodedragstart={contextMenu.closeMenu}
+        on:nodeclick={contextMenu.closeMenu}
+        on:nodecontextmenu={contextMenu.handleContextMenu}
+        on:paneclick={contextMenu.closeMenu}
+        onconnectstart={(_, params) => connectionHandler.handleConnectStart(params)}
+        on:connectend={connectionHandler.handleConnectEnd}
+        fitView
+      >
+        <FlowMenu bind:showViewPane bind:colorMode />
+
+        <ContextMenu bind:this={contextMenu} {width} {height} />
+      </SvelteFlow>
+    </DnDHandler>
+  </div>
+
   <div slot="view">Pane Three</div>
 </Layout>
 
@@ -166,7 +94,7 @@
     border: unset; /* Remove all default styles */
   }
 
-  :global(.svelte-flow__node-input.selected) {
-    border: unset; /* Remove all default styles */
+  :global(.svelte-flow__node.selected) {
+    @apply border-current rounded-lg;
   }
 </style>

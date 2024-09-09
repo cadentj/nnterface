@@ -1,13 +1,13 @@
 <script lang="ts">
-    import CodeEditor from "./code-editor.svelte";
+    import CodeEditor from "../utils/code-editor.svelte";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Pencil } from "lucide-svelte";
     import { getContext } from "svelte";
-    import { createEmptyNode } from "$lib/components/editor/utils"
+    import { createEmptyNode } from "$lib/components/editor/util"
     import { writable, type Writable } from "svelte/store";
 
     type FunctionBlock = {
-        name: string;
+        label: string;
         inputs: string[];
         code: string;
     };
@@ -16,7 +16,7 @@
 
     const functions: Writable<FunctionBlock[]> = writable([
         {
-            name: "Add",
+            label: "Add",
             inputs: ["a", "b"],
             code: "return a + b",
         },
@@ -25,7 +25,7 @@
     export const save = () => {
         functions.update((fns) => {
             fns.push({
-                name: "New Function",
+                label: "New Function",
                 inputs: [],
                 code: "",
             });
@@ -36,9 +36,7 @@
     const onDragStart = (event: DragEvent, functionBlock: FunctionBlock) => {
 		if (event.dataTransfer) {
 			let newNode: Node = createEmptyNode("function"); 
-            newNode.data.label = functionBlock.name;
-            newNode.data.inputs = functionBlock.inputs;
-            newNode.data.code = functionBlock.code;
+            newNode.data = functionBlock;
 			type.set(newNode);
 			event.dataTransfer.effectAllowed = "move";
 		}
@@ -56,7 +54,7 @@
                 draggable="true"
                 on:dragstart={(event) => onDragStart(event, f)}
             >
-                {f.name}
+                {f.label}
             </button>
         {/each}
     </div>

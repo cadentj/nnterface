@@ -2,7 +2,7 @@
 	import { getContext } from "svelte";
 	import type { Writable } from "svelte/store";
 	import type { Node } from "@xyflow/svelte";
-	import { createEmptyNode } from "../utils";
+	import { createEmptyNode } from "../util";
 
 	const type: Writable<Node | null> = getContext("type");
 
@@ -15,12 +15,11 @@
 		if (event.dataTransfer) {
 			let newNode: Node = createEmptyNode(name);
 
-			if (contexts.includes( newNode.type)) {
+			if (contexts.includes(newNode.type)) {
 				newNode.type = "context";
 			}
 
 			type.set(newNode);
-
 
 			event.dataTransfer.effectAllowed = "move";
 		}
