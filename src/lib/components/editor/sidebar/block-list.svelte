@@ -8,10 +8,20 @@
 
 	export let blocks: string[] = [];
 
+	// TEMPORARY
+	const contexts: string[] = ["run", "batch", "loop"];
+
 	const onDragStart = (event: DragEvent, name: string) => {
 		if (event.dataTransfer) {
-			const newNode: Node = createEmptyNode(name);
+			let newNode: Node = createEmptyNode(name);
+
+			if (contexts.includes( newNode.type)) {
+				newNode.type = "context";
+			}
+
 			type.set(newNode);
+
+
 			event.dataTransfer.effectAllowed = "move";
 		}
 	};

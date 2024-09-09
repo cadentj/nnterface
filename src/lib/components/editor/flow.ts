@@ -1,4 +1,4 @@
-import { writable, get, type Writable } from "svelte/store";
+import { writable, type Writable, get } from "svelte/store";
 
 import {
     MarkerType,
@@ -6,27 +6,22 @@ import {
     type NodeTypes,
     type Node,
     type Viewport,
+    useNodes,
 } from "@xyflow/svelte";
 
 import ModuleNode from "./nodes/module.svelte";
 import InputNode from "./nodes/input.svelte";
-import LoopContext from "./context-nodes/loop.svelte";
-import FunctionContext from "./context-nodes/function.svelte";
-import RunContext from "./context-nodes/run.svelte";
-import ParallelContext from "./context-nodes/parallel.svelte";
+import ContextNode from "./nodes/context.svelte";
+import Function from "./nodes/function.svelte";
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,
     input: InputNode,
-    loop: LoopContext,
-    function: FunctionContext,
-    run: RunContext,
-    parallel: ParallelContext,
+    context: ContextNode,
+    function: Function,
 };
 
-const contexts: string[] = ["loop", "function", "run", "parallel"];
-
-const nodes: Writable<Node[]> = writable([
+export const nodes: Writable<Node[]> = writable([
     {
         id: "0",
         type: "input",
@@ -39,49 +34,42 @@ const nodes: Writable<Node[]> = writable([
     },
 ]);
 
-class NodeManager {
-    private nContexts: number = 0;
-    private nodes: Writable<Node[]>;
+export const moveNode = (currentId: string, direction: "forward" | "backward") => {
 
-    constructor(nodes: Writable<Node[]>) {
-        this.nodes = nodes;
-    }
-
-    addNode(node: Node) {
-        if (node.type && contexts.includes(node.type)) { // Ensure node.type is defined
-            this.addContextNode(node);
-        } else {
-            this.nodes.update((nodes) => {
-                return [...nodes, node];
-            });
+    nodes.update((nodes) => {
+        // Find current node given id
+        const currentIndex = nodes.findIndex((node) => node.id === currentId);  
+        if (currentIndex === -1) {
+            return nodes;
         }
-    }
+        const currentNode = nodes[currentIndex];
 
-    private addContextNode(node: Node) {
-        // Increment the context count
-        this.nContexts += 1;
-        
-        this.nodes.update((nodes) => {
-            if (nodes.length === 1) {
-                // If there's only one node, add the new node at the beginning
-                return [node, ...nodes];
-            } else {
-                // Otherwise, insert the new node at position nContexts
-                return [
-                    ...nodes.slice(0, this.nContexts), // Elements before nContexts
-                    node,                              // The new node to insert
-                    ...nodes.slice(this.nContexts)     // The rest of the elements after nContexts
-                ];
-            }
-        });
-    }
+        // Find swap location and node
+        const targetIndex = direction === "forward" ? currentIndex + 1 : currentIndex - 1;
+        if (targetIndex < 0 || targetIndex >= nodes.length) {
+            return nodes;
+        }
+        const targetNode = nodes[targetIndex];
 
-    getNodes() {
-        return this.nodes;
-    }
-}
+        // Swap nodes
+        nodes[currentIndex] = targetNode;
+        nodes[targetIndex] = currentNode;
 
-export const nodeManager = new NodeManager(nodes);
+        return nodes;
+    });
+
+    // const targetIndex = nodes.findIndex((node) => node.id === targetId);
+    // const target = nodes[targetIndex];
+
+    // const nextIndex = direction === "forward" ? targetIndex + 1 : targetIndex - 1;
+    // const next = nodes[nextIndex];
+
+    // nodes[targetIndex] = next;
+    // nodes[nextIndex] = target;
+
+
+    // return nodes;
+};
 
 export const edges = writable([]);
 

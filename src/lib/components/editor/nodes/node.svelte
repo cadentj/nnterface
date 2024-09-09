@@ -1,29 +1,21 @@
 <script lang="ts">
-    import { useNodes } from "@xyflow/svelte";
     import * as ContextMenu from "$lib/components/ui/context-menu";
     import "../styles/nodes.css";
+
 
     export let id: string = "";
     export let nodeType: string = "";
     export let selected: boolean = false;
-    export let isValid: boolean = false;
 
     $: borderStyle = selected ? " !border-current" : " !default-border";
 
-    // const nodes = useNodes();
+    import { moveNode } from "../flow";
 
-    // function swap(id: string, direction: "forward" | "backward") {
-    //     for (let i = 0; i < $nodes.length; i++) {
-    //         if ($nodes[i].id === id) {
-    //             if (direction === "forward" && i < $nodes.length - 1) {
-    //                 [$nodes[i], $nodes[i + 1]] = [$nodes[i + 1], $nodes[i]];
-    //             } else if (direction === "backward" && i > 0) {
-    //                 [$nodes[i], $nodes[i - 1]] = [$nodes[i - 1], $nodes[i]];
-    //             }
-    //             return;
-    //         }
-    //     }
-    // }
+    const swap = () => {
+        // $nodes = moveNode($nodes, "4", "backward");
+        moveNode("4", "backward");
+    };
+
 </script>
 
 <ContextMenu.Root>
@@ -31,18 +23,13 @@
         <slot />
 
         <ContextMenu.Content>
-            <ContextMenu.Item on:click={() => console.log("forward")}
+            <ContextMenu.Item on:click={swap}
                 >Move Forward</ContextMenu.Item
             >
-            <ContextMenu.Item on:click={() => console.log("backward")}
+            <ContextMenu.Item on:click={() => console.log("clicked")}
                 >Move Back</ContextMenu.Item
             >
         </ContextMenu.Content>
     </ContextMenu.Trigger>
 </ContextMenu.Root>
 
-<style>
-    .default-border {
-        border-color: hsl(var(--border));
-    }
-</style>

@@ -31,7 +31,7 @@ class Node(BaseModel, ABC):
 ### MODULE NODE SCHEMA ###
 
 class ModuleData(NodeData):
-    location: Literal["input", "output"] = "output"
+    location: Literal["input", "output"]
     mode: Literal["act", "grad"] = "act"
     save: bool = False
 

@@ -1,5 +1,11 @@
 export default {
     "input" : [
-        "run", "batch"
-    ]
+        "run", "batch", "model"
+    ],
+    "run" : [
+        "function"
+    ],
+    "model" : [
+        "function"
+    ],
 }
