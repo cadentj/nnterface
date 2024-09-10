@@ -32,7 +32,7 @@
 
         const newNode = {
             ...$type,
-            id: numNodes,
+            id: `${$type.data.label}` + numNodes,
             position: position,
             origin: [0, 0],
         } satisfies Node;

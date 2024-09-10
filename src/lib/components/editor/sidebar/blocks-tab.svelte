@@ -21,6 +21,8 @@
 
 			type.set(newNode);
 
+			console.log(newNode);
+
 			event.dataTransfer.effectAllowed = "move";
 		}
 	};

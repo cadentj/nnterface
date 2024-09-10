@@ -4,17 +4,16 @@ from pydantic import BaseModel, model_validator
 
 from .nodes import (
     InputNode,
-    FunctionNode,
     ModuleNode,
-    LoopNode,
     RunNode,
+    BatchNode
 )
 
 from .edges import Edge
 
 
 class Graph(BaseModel):
-    nodes: List[Union[InputNode, FunctionNode, ModuleNode, LoopNode, RunNode]]
+    nodes: List[Union[InputNode, ModuleNode, RunNode, BatchNode]]
     edges: List[Edge]
 
     @model_validator(mode="after")
@@ -25,8 +24,8 @@ class Graph(BaseModel):
         for node in self.nodes:
             current_node = node
             while current_node.data.parents != [""]:
-                parent = current_node.data.parents[0]
-                self.edges.append(Edge(source=parent, target=node.id))
+                parent = current_node.data.parents[-1]
+                self.edges.append(Edge(source=parent, target=current_node.id))
                 current_node = nodes[parent]
 
         return self

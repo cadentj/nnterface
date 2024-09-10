@@ -27,6 +27,9 @@
   const { toObject, getIntersectingNodes } = useSvelteFlow();
 
   async function createItem() {
+
+    console.log(toObject());
+
     const response = await fetch("/api/compile", {
       method: "POST",
       headers: {
@@ -79,7 +82,7 @@
         onconnectstart={(_, params) => connectionHandler.handleConnectStart(params)}
         fitView
       >
-        <FlowMenu bind:showViewPane bind:colorMode />
+        <FlowMenu bind:showViewPane bind:colorMode compile={updateNodeIntersections}/>
         <ContextMenu bind:this={contextMenu} {width} {height} />
       </SvelteFlow>
     </DnDHandler>

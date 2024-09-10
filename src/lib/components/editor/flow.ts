@@ -24,7 +24,7 @@ export const nodeTypes: NodeTypes = {
 
 export const nodes: Writable<Node[]> = writable([
     {
-        id: "0",
+        id: "input0",
         type: "input",
         data: {
             text: "Alice and Bob went to the store.",

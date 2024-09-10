@@ -18,11 +18,25 @@ def load(repo_id: str):
     model = LanguageModel(repo_id, dispatch=True)
     tok = model.tokenizer
 
+def run(code: str): 
+    global model
+    exec(code)
+
+
 @app.post("/compile")
 async def create_item(graph: Graph):
 
-    sorted_nodes = compile(graph, logger)
-    logger.info(f"Sorted_nodes: {sorted_nodes}")
+    compiled, sorted_nodes = compile(graph)
+    code = "\n".join(compiled)
+
+    logger.info(f"Sorted_nodes: {code}")
+    logger.info(f"Compiled: {sorted_nodes}")
+    # p = [f"{edge.source},{edge.target}" for edge in graph.edges]
+    # logger.info(f"edges: {"\n".join(p)}")
+    
+
+    # load("EleutherAI/pythia-14m")
+    # run(code)
     
     return {"message": f"Item created: {graph}"}
 

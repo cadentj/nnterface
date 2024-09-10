@@ -15,8 +15,8 @@
 
 <div class="block">
     {data.moduleName}
-    <!-- <Handle
-        id="input-source"
+    <Handle
+        id="a"
         type="source"
         label={data.label}
         position={Position.Top}
@@ -29,7 +29,7 @@
     />
 
     <Handle
-        id="output-source"
+        id="b"
         type="source"
         label={data.label}
         position={Position.Bottom}
@@ -42,7 +42,7 @@
     />
 
     <Handle
-        id="input-target"
+        id="c"
         type="target"
         label={data.label}
         position={Position.Top}
@@ -55,7 +55,7 @@
     />
 
     <Handle
-        id="output-target"
+        id="d"
         type="target"
         label={data.label}
         position={Position.Bottom}
@@ -65,5 +65,5 @@
         ondisconnect={() => {
             data.location = "";
         }}
-    /> -->
+    />
 </div>

@@ -11,6 +11,8 @@
     import { Play, Sun, Moon, Terminal } from "lucide-svelte";
 
     export let colorMode: ColorMode;
+    export let compile: () => void;
+    
     setMode(colorMode);
 
     const toggleColorMode = () => {
@@ -36,7 +38,7 @@
     <ControlButton on:click={toggleViewPane}>
         <Terminal />
     </ControlButton>
-    <ControlButton on:click={() => {console.log("sent")}}>
+    <ControlButton on:click={compile}>
         <Play style="color: green;" />
     </ControlButton>
 </Controls>

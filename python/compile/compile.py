@@ -1,11 +1,9 @@
 from collections import defaultdict, deque
-from typing import List
+from typing import List, Dict
 
-from .schema import Graph
+from .schema import Graph, Edge
 
 REPO_ID = "EleutherAI/pythia-14m"
-
-_logger = None
 
 def get_adj_list(graph: Graph, reverse: bool = False) -> dict:
     adj_list = defaultdict(list)
@@ -31,11 +29,7 @@ def get_in_degree(graph: Graph) -> dict:
     return in_degree
 
 
-def get_leaf_nodes(adj_list: dict, node_ids: List[str]) -> list:
-    return [node_id for node_id in node_ids if node_id not in adj_list]
-
-
-def topological_sort(graph: Graph, logger) -> List[str]:
+def topological_sort(graph: Graph) -> List[str]:
     """
     Perform topological sort on the graph using Kahn's algorithm.
     Returns a list of nodes in topologically sorted order.
@@ -43,10 +37,18 @@ def topological_sort(graph: Graph, logger) -> List[str]:
     adj_list = get_adj_list(graph)
     in_degree = get_in_degree(graph)
 
-    queue = deque([node_id for node_id, degree in in_degree.items() if degree == 0])
-    topological_order = []
+    zero_degree = [
+        node_id 
+        for node_id, degree 
+        in in_degree.items()
+        if (degree == 0)
+    ]
+    zero_degree = sorted(zero_degree, key=lambda x: 0 if "input" in x else 1)
 
-    logger.info(f"adj: {graph.edges}")
+    queue = deque(zero_degree)
+    print(queue, flush=True)
+
+    topological_order = []
 
     while queue:
         node_id = queue.popleft()
@@ -65,8 +67,8 @@ def topological_sort(graph: Graph, logger) -> List[str]:
         )
 
 
-def compile(graph: Graph, logger) -> tuple:
-    sorted_nodes = topological_sort(graph, logger)
+def compile(graph: Graph) -> tuple:
+    sorted_nodes = topological_sort(graph)
     r_adj_list = get_adj_list(graph, reverse=True)
     nodes = {node.id: node for node in graph.nodes}
 
@@ -74,7 +76,8 @@ def compile(graph: Graph, logger) -> tuple:
 
     for node in sorted_nodes:
         input_ids = r_adj_list.get(node, [])
-        inputs = [nodes[input_node] for input_node in input_ids]
-        code.append(nodes[node].compile(inputs))
+        print(node, input_ids, flush=True)
+        # inputs = [nodes[input_node] for input_node in input_ids]
+        # code.append(nodes[node].compile(inputs))
 
-    return code
+    return code, sorted_nodes

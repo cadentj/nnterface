@@ -1,7 +1,7 @@
 <script lang="ts">
     import CodeEditor from "../utils/code-editor.svelte";
     import * as Dialog from "$lib/components/ui/dialog";
-    import { Pencil } from "lucide-svelte";
+    import { Pencil, Trash2 } from "lucide-svelte";
     import { getContext } from "svelte";
     import { createEmptyNode } from "$lib/components/editor/flow-utils";
     import { writable, type Writable } from "svelte/store";
@@ -15,7 +15,6 @@
     const type: Writable<Node | null> = getContext("type");
 
     let open: boolean = false;
-
     let openIndex: number = -1;
 
     const functions: Writable<FunctionBlock[]> = writable([
@@ -40,6 +39,13 @@
             code: "return x / y",
         },
     ]);
+
+    const deleteFunction = (index: number) => {
+        functions.update((fns) => {
+            fns.splice(index, 1);
+            return fns;
+        });
+    };
 
     const onDragStart = (event: DragEvent, functionBlock: FunctionBlock) => {
         if (event.dataTransfer) {
@@ -70,10 +76,12 @@
                         <Pencil class="h-4 w-4" />
                     </button>
                 </Dialog.Trigger>
+                <button on:click={() => {deleteFunction(index)}}>
+                    <Trash2 class="h-4 w-4" />
+                </button>
             </div>
         {/each}
     </div>
-
 
     <Dialog.Trigger on:click={() => { openIndex = -1 }}>
         <button>
