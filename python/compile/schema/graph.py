@@ -21,11 +21,18 @@ class Graph(BaseModel):
 
         nodes = {node.id : node for node in self.nodes}
 
+        edges = set()
+
         for node in self.nodes:
             current_node = node
             while current_node.data.parents != [""]:
-                parent = current_node.data.parents[-1]
-                self.edges.append(Edge(source=parent, target=current_node.id))
-                current_node = nodes[parent]
+                parent_id = current_node.data.parents[-1]
+                edges.add((parent_id, current_node.id))
+                current_node = nodes[parent_id]
+
+        self.edges.extend([
+            Edge(source=edge[0], target=edge[1])
+            for edge in edges
+        ])
 
         return self

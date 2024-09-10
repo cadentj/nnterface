@@ -1,7 +1,8 @@
 from collections import defaultdict, deque
 from typing import List, Dict
 
-from .schema import Graph, Edge
+from .schema import Graph
+from .schema.nodes import FunctionNode, InputNode, RunNode, BatchNode
 
 REPO_ID = "EleutherAI/pythia-14m"
 
@@ -60,24 +61,53 @@ def topological_sort(graph: Graph) -> List[str]:
                 queue.append(neighbor)
 
     if len(topological_order) == len(graph.nodes):
-        return topological_order
+        return topological_order, zero_degree
     else:
         raise ValueError(
             "The graph has at least one cycle and cannot be topologically sorted."
         )
 
 
+
+def precompile(graph: Graph) -> List[str]:
+
+    return [
+        node.generate([], init=True) 
+        for node in graph.nodes
+        if (
+            isinstance(node, InputNode)
+            or isinstance(node, FunctionNode)    
+        )
+    ]
+
+
 def compile(graph: Graph) -> tuple:
-    sorted_nodes = topological_sort(graph)
-    r_adj_list = get_adj_list(graph, reverse=True)
+    sorted_nodes, zero_degree = topological_sort(graph)
+    adj_list = get_adj_list(graph)
     nodes = {node.id: node for node in graph.nodes}
+
+    init = precompile(graph)
 
     code = []
 
-    for node in sorted_nodes:
-        input_ids = r_adj_list.get(node, [])
-        print(node, input_ids, flush=True)
-        # inputs = [nodes[input_node] for input_node in input_ids]
-        # code.append(nodes[node].compile(inputs))
+    visited = set()
+    def _dfs(node_id: str, previous: str = None):
+        nonlocal visited, code
+        visited.add(node_id)
 
-    return code, sorted_nodes
+        line = nodes[node_id].compile([nodes[previous]]) if previous else nodes[node_id].compile([])
+        code.append(line)
+
+        for neighbor in adj_list.get(node_id, []):
+            # if (neighbor not in visited):
+                _dfs(neighbor, node_id)
+
+    for node_id in zero_degree:
+        if "run" in node_id:
+            init.append(nodes[node_id].compile([]))
+            continue
+        _dfs(node_id)
+
+    code = init + code
+
+    return "\n".join(code), sorted_nodes

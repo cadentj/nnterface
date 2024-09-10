@@ -27,11 +27,10 @@ def run(code: str):
 async def create_item(graph: Graph):
 
     compiled, sorted_nodes = compile(graph)
-    code = "\n".join(compiled)
+    # code = "\n".join(compiled)
 
-    logger.info(f"Sorted_nodes: {code}")
-    logger.info(f"Compiled: {sorted_nodes}")
-    # p = [f"{edge.source},{edge.target}" for edge in graph.edges]
+
+    # p = [f"{edge.source},{edge.target}" for edge in sorted_nodes]
     # logger.info(f"edges: {"\n".join(p)}")
     
 

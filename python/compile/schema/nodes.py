@@ -43,9 +43,6 @@ class ModuleNode(Node):
 
     def generate(self, args: List[Node]):
 
-        if len(args) >= 1: 
-            return "PENISPENIS"
-
         return self.code.format(
             id=self.id, module=self.data.moduleName, location=self.data.location
         )
@@ -61,10 +58,12 @@ class InputNode(Node):
     data: InputData
     code: str = "{id} = '{text}'"
 
-    def generate(self, args: List[Node]):
-        return self.code.format(
-            id=self.id, text=self.data.text
-        )
+    def generate(self, args: List[Node], init: bool = False):
+        if init: 
+            return self.code.format(
+                id=self.id, text=self.data.text
+            )
+        return ""
 
 ### LOOP SCHEMA ###
 
@@ -79,15 +78,19 @@ class InputNode(Node):
 
 ### FUNCTION SCHEMA ###
 
-# class FunctionNode(Node):
-#     type: Literal["function"]
-#     define: str = "def {id}({args}):\n{body}" 
-#     code: str = "{id}({args})"
+class FunctionNode(Node):
+    type: Literal["function"]
+    define: str = "def {id}({args}):\n{body}" 
+    code: str = "{id} = {id}({args})"
 
-#     def generate(self, args: List[Node]):
-#         return self.code.format(
-#             id=self.id, args=args
-#         )
+    def generate(self, args: List[Node], init: bool = False):
+        if init:
+            return self.define.format(
+                id=self.id, args=args, body=""
+            )
+        return self.code.format(
+            id=self.id, args=args
+        )
 
 ### RUN SCHEMA ###
 
@@ -105,9 +108,9 @@ class RunNode(Node):
             return self.code.format(
                 id=self.id, input=""
             )
-
+        input_node = args[0]
         return self.code.format(
-            id=self.id, input=args[0].id
+            id=self.id, input=input_node.id
         )
     
 ### BATCH SCHEMA ###
@@ -122,8 +125,8 @@ class BatchNode(Node):
 
     def generate(self, args: List[Node]):
         input_node = args[0]
-        assert isinstance(input_node, InputNode)
 
         return self.code.format(
             id=self.id, input=input_node.id
         )
+    
