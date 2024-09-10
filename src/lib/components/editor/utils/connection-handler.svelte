@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { useConnectionType } from "../util";
+    import { useConnectionType } from "../flow-utils";
     import { useSvelteFlow, type IsValidConnection } from "@xyflow/svelte";
     import { connections } from "../flow";
 
@@ -15,15 +15,19 @@
     };
 
     export const isValidConnection: IsValidConnection = (connection) => {
-        const sourceLabel = getNode(connection.source)?.data.label;
-        const targetLabel = getNode(connection.target)?.data.label;
+        const sourceNode = getNode(connection.source);
+        const targetNode = getNode(connection.target);
 
-        const validConnections = connections[sourceLabel];
-
-        if (validConnections.includes(targetLabel)) {
-            return true;
+        if (!sourceNode || !targetNode) {
+            return false; // Safely handle missing nodes
         }
-        return false;
+
+        const sourceLabel = sourceNode.data.label;
+        const targetLabel = targetNode.data.label;
+
+        const validConnections = connections[sourceLabel] || [];
+
+        return validConnections.includes(targetLabel);
     };
 
     export const handleConnectEnd = () => {

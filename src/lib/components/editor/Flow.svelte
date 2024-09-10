@@ -18,7 +18,7 @@
     Layout,
     FlowMenu
   } from "./utils";
-  import { updateIntersections } from "./util";
+  import { updateIntersections } from "./flow-utils";
   import Sidebar from "./sidebar/sidebar.svelte";
 
   import "@xyflow/svelte/dist/base.css";
@@ -70,17 +70,16 @@
         {defaultEdgeOptions}
         {colorMode}
         {initialViewport}
-        isValidConnection={(connection) => connectionHandler?.isValidConnection?.(connection)}
-        on:nodedragstart={contextMenu.closeMenu}
         on:nodeclick={contextMenu.closeMenu}
-        on:nodecontextmenu={contextMenu.handleContextMenu}
         on:paneclick={contextMenu.closeMenu}
+        on:nodedragstart={contextMenu.closeMenu}
+        on:nodecontextmenu={contextMenu.handleContextMenu}
+        onconnectend={(event) => {connectionHandler?.handleConnectEnd()}}
+        isValidConnection={(connection) => connectionHandler.isValidConnection(connection)}
         onconnectstart={(_, params) => connectionHandler.handleConnectStart(params)}
-        on:connectend={connectionHandler.handleConnectEnd}
         fitView
       >
         <FlowMenu bind:showViewPane bind:colorMode />
-
         <ContextMenu bind:this={contextMenu} {width} {height} />
       </SvelteFlow>
     </DnDHandler>
@@ -95,6 +94,6 @@
   }
 
   :global(.svelte-flow__node.selected) {
-    @apply border-current rounded-lg;
+    @apply !border-current rounded-lg;
   }
 </style>

@@ -1,9 +1,10 @@
 <script lang="ts">
     import {
-        Handle,
         Position,
         type NodeProps,
     } from "@xyflow/svelte";
+
+    import Handle from "../utils/handle.svelte";
 
     type $$Props = NodeProps;
 
@@ -13,11 +14,12 @@
 </script>
 
 <div class="block">
-    {data.label}
-    <Handle
+    {data.moduleName}
+    <!-- <Handle
+        id="input-source"
         type="source"
+        label={data.label}
         position={Position.Top}
-        class="w-3 h-3 !bg-blue-600 rounded-full border-none"
         onconnect={() => {
             data.location = "input";
         }}
@@ -27,9 +29,10 @@
     />
 
     <Handle
+        id="output-source"
         type="source"
+        label={data.label}
         position={Position.Bottom}
-        class="w-3 h-3 !bg-red-600 rounded-full border-none"
         onconnect={() => {
             data.location = "output";
         }}
@@ -39,9 +42,10 @@
     />
 
     <Handle
+        id="input-target"
         type="target"
+        label={data.label}
         position={Position.Top}
-        class="w-3 h-3 !bg-blue-600 rounded-full border-none"
         onconnect={() => {
             data.location = "input";
         }}
@@ -51,14 +55,15 @@
     />
 
     <Handle
+        id="output-target"
         type="target"
+        label={data.label}
         position={Position.Bottom}
-        class="w-3 h-3 !bg-red-600 rounded-full border-none"
         onconnect={() => {
             data.location = "output";
         }}
         ondisconnect={() => {
             data.location = "";
         }}
-    />
+    /> -->
 </div>

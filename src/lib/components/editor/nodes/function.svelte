@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { Handle, Position, type NodeProps } from "@xyflow/svelte";
-
+    import { Position, type NodeProps } from "@xyflow/svelte";
+    import Handle from "../utils/handle.svelte";
     type $$Props = NodeProps;
 
     export let data: $$Props["data"];
@@ -14,14 +14,14 @@
 </script>
 
 <div class="block">
-    {data.label}
+    {data.functionName}
 
     {#each data.inputs as input, index}
         <Handle
             id={input}
-            type="source"
+            label="function"
+            type="target"
             position={Position.Top}
-            class="w-3 h-3 !bg-blue-600 rounded-full border-none"
             style="left: {calculateHandlePosition(index, data.inputs.length)}"
         >
             {input}
@@ -29,8 +29,8 @@
     {/each}
 
     <Handle
-        type="target"
+        type="source"
         position={Position.Bottom}
-        class="w-3 h-3 !bg-red-600 rounded-full border-none"
+        label={data.label}
     />
 </div>

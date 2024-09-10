@@ -78,12 +78,18 @@ export const initialViewport = {
 
 export const connections = {
     "input" : [
-        "run", "batch", "model"
+        "run", "batch"
     ],
     "run" : [
         "function"
     ],
-    "model" : [
+    "batch" : [
         "function"
     ],
+    "module" : [
+        "function", "module"
+    ],
+    "function" : [
+        "function"
+    ]
 }

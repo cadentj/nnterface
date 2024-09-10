@@ -2,7 +2,7 @@
 	import { getContext } from "svelte";
 	import type { Writable } from "svelte/store";
 	import type { Node } from "@xyflow/svelte";
-	import { createEmptyNode } from "$lib/components/editor/util";
+	import { createEmptyNode } from "$lib/components/editor/flow-utils";
 
 	export let tree;
 	export let nLayers: number = 0;
@@ -29,7 +29,8 @@
 			...newNode,
 			type: "module",
 			data: {
-				label: name,
+				label: "module",
+				moduleName: name,
 				variable: isVariable,
 			},
 		};

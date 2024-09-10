@@ -2,7 +2,7 @@
     import { useSvelteFlow } from "@xyflow/svelte";
     import { useNodes, type Node } from "@xyflow/svelte";
 
-    import { useDnD } from "../util";
+    import { useDnD } from "../flow-utils";
     const { screenToFlowPosition } = useSvelteFlow();
 
     const nodes = useNodes();
@@ -28,7 +28,7 @@
             y: event.clientY,
         });
 
-        const numNodes = ($nodes.length + 3).toString();
+        const numNodes = ($nodes.length).toString();
 
         const newNode = {
             ...$type,
