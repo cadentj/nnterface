@@ -1,118 +1,175 @@
-from pydantic import BaseModel
-from typing import Literal, Optional, List
-from abc import ABC, abstractmethod
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic.alias_generators import to_camel
+
+from typing import Literal, Optional, List, Dict
 
 SPACES = "  "
 
+
 ### BASE SCHEMA ###
 
+
 class NodeData(BaseModel):
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+    )
+
     parents: List[str]
-    label: str
 
-class Node(BaseModel, ABC):
+class Node(BaseModel):
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+    )
+        
     id: Optional[str]
-    data: NodeData
-    type: str
-    code: str
+    parent: str = None
 
-    @abstractmethod
-    def generate(self, args: List["Node"]):
-        pass
+    @model_validator(mode="after")
+    def set_parent(self):
+        self.parent = self.data.parents[-1]
+        return self
 
     def indent(self):
         if self.data.parents != [""]:
             return SPACES * len(self.data.parents)
         return ""
 
-    def compile(self, args: List["Node"]):
-        return self.indent() + self.generate(args)
+    def generate(self):
+        return self.indent() + self.compile()
+
+    def precompile(self, lookup: Dict[str, "Node"]):
+        raise NotImplementedError
+
+    def compile(self):
+        raise NotImplementedError
+    
+class SessionNode(Node): 
+    id: Literal["session"]
+    type: Literal["context"] = "context"
+    data: NodeData = Field(default_factory=lambda: NodeData(parents=[""]))
 
 ### MODULE NODE SCHEMA ###
 
 class ModuleData(NodeData):
+    label: Literal["module"]
+    module_name: str
     location: Literal["input", "output"] = "output"
-    mode: Literal["act", "grad"] = "act"
+    is_variable: bool
+
+    loopVariable: str
+
     save: bool = False
-    moduleName: str
+    mode: Literal["act", "grad"] = "act"
+
 
 class ModuleNode(Node):
     type: Literal["module"]
     data: ModuleData
-    code: str = "{id} = {module}.{location}"
 
-    def generate(self, args: List[Node]):
+    getter: str = "{id} = {module}.{location}"
+    looped_getter: str = "{id} = {module}.{location}[{loopVariable}]"
+    setter: str = "{module}.{location} = {arg}"
 
-        return self.code.format(
-            id=self.id, module=self.data.moduleName, location=self.data.location
+    code: str = None
+
+    def _set(self, arg: Node): 
+        self.code = self.setter.format(
+            module=self.data.module_name, 
+            location=self.data.location, 
+            arg=arg.id
         )
+
+    def _get(self):
+        pass
+
+    def precompile(self, lookup: Dict[str, Node]):
+        module_nodes = [lookup[src] for src in self.source if "module" in src]
+
+        if len(module_nodes) == 0:
+            self._get()
+        else:
+            assert len(module_nodes) == 1, "Only one setter Node allowed."
+            self._set(module_nodes[0])
+
+
+    def compile(self, args: List[Node]):
+        return self.code
+
 
 ### INPUT NODE SCHEMA ###
 
+
 class InputData(NodeData):
     label: Literal["input"]
-    text: str
+    text: str = ""
+
 
 class InputNode(Node):
-    type: Literal["input"] 
+    type: Literal["input"]
     data: InputData
-    code: str = "{id} = '{text}'"
 
-    def generate(self, args: List[Node], init: bool = False):
-        if init: 
-            return self.code.format(
-                id=self.id, text=self.data.text
-            )
+    defn: str = "{id} = '{text}'"
+
+    def precompile(self, arg: Node):
+        return self.defn.format(id=self.id, text=self.data.text)
+    
+    def compile(self):
         return ""
 
-### LOOP SCHEMA ###
-
-# class LoopNode(Node):
-#     type: Literal["loop"]
-#     code: str = "for {id} in {range}:"
-
-#     def generate(self, args: List[Node]):
-#         return self.code.format(
-#             id=self.id, text=self.data.text
-#         )
 
 ### FUNCTION SCHEMA ###
 
+
+class FunctionData(NodeData):
+    label: Literal["function"]
+    function_name: str
+
+    code: str
+    inputs: List[str]
+
+
 class FunctionNode(Node):
     type: Literal["function"]
-    define: str = "def {id}({args}):\n{body}" 
-    code: str = "{id} = {id}({args})"
+    data: FunctionData
 
-    def generate(self, args: List[Node], init: bool = False):
-        if init:
-            return self.define.format(
-                id=self.id, args=args, body=""
-            )
-        return self.code.format(
-            id=self.id, args=args
-        )
+    call: str = "{id} = {id}({args})"
+    defn: str = "def {id}({args}):\n  {body}"
+
+    def precompile(self, args: List[Node]):
+        args: str = ", ".join([arg.id for arg in args])
+
+        self.call = self.call.format(id=self.id, args=args)
+
+        return self.defn.format(id=self.id, args=self.data.inputs, body=self.data.code)
+
+    def compile(self):
+        return self.call
+
 
 ### RUN SCHEMA ###
+
 
 class RunData(NodeData):
     label: Literal["run"]
 
 class RunNode(Node):
-    type: Literal["context"] 
+    type: Literal["context"]
     data: RunData
+    
     code: str = "with model.trace({input}) as tracer:"
 
-    # NOTE: This should be an input node.
-    def generate(self, args: List[Node]):
-        if not args:
-            return self.code.format(
-                id=self.id, input=""
-            )
-        input_node = args[0]
-        return self.code.format(
-            id=self.id, input=input_node.id
-        )
+    def precompile(self, args: List[Node]):
+        in_loop = "loop" in self.data.parents
+        if in_loop:
+            self.code = self.invoke
+
+    def compile(self, args: List[InputNode]):
+        if len(args) == 0:
+            return self.code.format(id=self.id, input="")
+
+        return self.code.format(id=self.id, input=args[0].id)
     
+
 ### BATCH SCHEMA ###
 
 class BatchData(NodeData):
@@ -121,12 +178,30 @@ class BatchData(NodeData):
 class BatchNode(Node):
     type: Literal["context"]
     data: BatchData
-    code: str = "with tracer.invoke({input}):"
-
-    def generate(self, args: List[Node]):
-        input_node = args[0]
-
-        return self.code.format(
-            id=self.id, input=input_node.id
-        )
     
+    code: str = "with model.invoke({input}):"
+
+    def precompile(self, args: List[Node]):
+        in_loop = "loop" in self.data.parents
+        if in_loop:
+            self.code = self.invoke
+
+    def compile(self, args: List[InputNode]):
+        if len(args) == 0:
+            return self.code.format(id=self.id, input="")
+
+        return self.code.format(id=self.id, input=args[0].id)
+
+
+### LOOP SCHEMA ###
+
+class LoopData(NodeData):
+    label: Literal["loop"]
+
+class LoopNode(Node):
+    type: Literal["context"]
+    data: LoopData
+    code: str = "for {id} in range({start}, {end}):"
+
+    def precompile(self, args: List[Node]):
+        pass

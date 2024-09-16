@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {
-    SvelteFlow,
-    useSvelteFlow,
-    type ColorMode,
-  } from "@xyflow/svelte";
+  import { SvelteFlow, useSvelteFlow, type ColorMode } from "@xyflow/svelte";
   import {
     nodeTypes,
     nodes,
@@ -16,7 +12,7 @@
     ContextMenu,
     ConnectionHandler,
     Layout,
-    FlowMenu
+    FlowMenu,
   } from "./utils";
   import { updateIntersections } from "./flow-utils";
   import Sidebar from "./sidebar/sidebar.svelte";
@@ -27,7 +23,6 @@
   const { toObject, getIntersectingNodes } = useSvelteFlow();
 
   async function createItem() {
-
     console.log(toObject());
 
     const response = await fetch("/api/compile", {
@@ -40,6 +35,18 @@
     const result = await response.json();
     console.log(result);
   }
+
+  const onNodeDragStop = ({ detail: { targetNode } }) => {
+    if (targetNode.type === "module") {
+      const intersecting = getIntersectingNodes(targetNode, false);
+      
+      const loopParentIds = intersecting
+        .filter((node) => node.data.label === "loop")
+        .map((node) => node.id);
+
+      targetNode.data.loopParentIds = loopParentIds.length > 0 ? loopParentIds : [];
+    }
+  };
 
   const updateNodeIntersections = () => {
     $nodes = updateIntersections($nodes, getIntersectingNodes);
@@ -59,7 +66,7 @@
   <Sidebar slot="sidebar" />
 
   <div
-    style="height:100vh;"
+    style="height:100%;"
     bind:clientWidth={width}
     bind:clientHeight={height}
     slot="flow"
@@ -75,14 +82,22 @@
         {initialViewport}
         on:nodeclick={contextMenu.closeMenu}
         on:paneclick={contextMenu.closeMenu}
+        on:nodedragstop={onNodeDragStop}
         on:nodedragstart={contextMenu.closeMenu}
         on:nodecontextmenu={contextMenu.handleContextMenu}
-        onconnectend={(event) => {connectionHandler?.handleConnectEnd()}}
-        isValidConnection={(connection) => connectionHandler.isValidConnection(connection)}
-        onconnectstart={(_, params) => connectionHandler.handleConnectStart(params)}
-        fitView
+        onconnectend={(event) => {
+          connectionHandler?.handleConnectEnd();
+        }}
+        isValidConnection={(connection) =>
+          connectionHandler.isValidConnection(connection)}
+        onconnectstart={(_, params) =>
+          connectionHandler.handleConnectStart(params)}
       >
-        <FlowMenu bind:showViewPane bind:colorMode compile={updateNodeIntersections}/>
+        <FlowMenu
+          bind:showViewPane
+          bind:colorMode
+          compile={updateNodeIntersections}
+        />
         <ContextMenu bind:this={contextMenu} {width} {height} />
       </SvelteFlow>
     </DnDHandler>
@@ -98,5 +113,9 @@
 
   :global(.svelte-flow__node.selected) {
     @apply !border-current rounded-lg;
+  }
+
+  :global(.svelte-flow__edges) {
+    z-index: 100;
   }
 </style>

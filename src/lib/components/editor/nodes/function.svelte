@@ -13,7 +13,7 @@
     $$restProps;
 </script>
 
-<div class="block">
+<div class="block !h-20">
     {data.functionName}
 
     {#each data.inputs as input, index}
@@ -21,8 +21,8 @@
             id={input}
             label="function"
             type="target"
-            position={Position.Top}
-            style="left: {calculateHandlePosition(index, data.inputs.length)}"
+            position={Position.Left}
+            style="top: {calculateHandlePosition(index, data.inputs.length)}"
         >
             {input}
         </Handle>
@@ -30,7 +30,7 @@
 
     <Handle
         type="source"
-        position={Position.Bottom}
+        position={Position.Right}
         label={data.label}
     />
 </div>

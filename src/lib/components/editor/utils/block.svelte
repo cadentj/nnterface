@@ -31,7 +31,7 @@
 			data: {
 				label: "module",
 				moduleName: name,
-				variable: isVariable,
+				isVariable: isVariable,
 			},
 		};
 		type.set(moduleNode);

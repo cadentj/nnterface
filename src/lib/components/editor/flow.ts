@@ -31,7 +31,7 @@ export const nodes: Writable<Node[]> = writable([
             label: "input"
         },
         origin: [0.0, 0.0],
-        position: { x: 0, y: -300 },
+        position: { x: 0, y: 0 },
     },
 ]);
 
@@ -67,12 +67,13 @@ export const defaultEdgeOptions: DefaultEdgeOptions = {
     markerEnd: {
         type: MarkerType.ArrowClosed,
     },
+    type: "smoothstep"
 };
 
 export const initialViewport = {
-    zoom: 1,
-    x: 0,
-    y: 0,
+    zoom: 1.2,
+    x: 250,
+    y: 200,
 } satisfies Viewport;
 
 
@@ -80,16 +81,10 @@ export const connections = {
     "input" : [
         "run", "batch"
     ],
-    "run" : [
-        "function"
-    ],
-    "batch" : [
-        "function"
-    ],
     "module" : [
         "function", "module"
     ],
     "function" : [
-        "function"
-    ]
+        "function", "module", "run"
+    ],
 }

@@ -16,7 +16,7 @@ export const createEmptyNode = (name: string): Node => ({
 
 const clearParents = (nodes) => {
   return nodes.map((node) => {
-    node.data.parents = [""];
+    node.data.parents = ["session"];
     return node;
   });
 }
@@ -27,7 +27,7 @@ export const updateIntersections = (nodes, getIntersectingNodes) => {
   return nodes.map((node) => {
     const intersectingNodes = getIntersectingNodes(node, false, nodes);
     if (intersectingNodes.length >= 1) {
-      node.data.parents = intersectingNodes.map((n) => n.id);
+      node.data.parents = node.data.parents.concat(intersectingNodes.map((n) => n.id)); 
     }
     return node;
   });

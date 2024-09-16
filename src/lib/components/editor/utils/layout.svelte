@@ -11,22 +11,24 @@
         </Resizable.Pane>
         <Resizable.Handle withHandle />
 
-        {#if showViewPane}
-            <Resizable.Pane defaultSize={5 / 10}>
-                <slot name="flow" />
-            </Resizable.Pane>
-        {:else}
-            <Resizable.Pane defaultSize={4 / 5}>
-                <slot name="flow" />
-            </Resizable.Pane>
-        {/if}
+        <Resizable.Pane defaultSize={4/5}>
+            <slot name="flow" />
+        </Resizable.Pane>
 
-        {#if showViewPane}
-            <Resizable.Handle withHandle />
-            <Resizable.Pane defaultSize={3 / 10}>
-                <slot name="view" />
-            </Resizable.Pane>
-        {/if}
+        <!-- <Resizable.Pane defaultSize={4 / 5}>
+            <Resizable.PaneGroup direction="vertical">
+
+                <Resizable.Pane defaultSize={4/5}>
+                    <slot name="flow" />
+                </Resizable.Pane>
+
+                <Resizable.Handle />
+
+                <Resizable.Pane defaultSize={1/5}>
+                    <slot name="view" />
+                </Resizable.Pane>
+            </Resizable.PaneGroup>
+        </Resizable.Pane> -->
     </Resizable.PaneGroup>
 </main>
 

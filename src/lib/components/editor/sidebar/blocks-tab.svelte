@@ -9,7 +9,7 @@
 	export let blocks: string[] = [];
 
 	// TEMPORARY
-	const contexts: string[] = ["run", "batch", "loop"];
+	const contexts: string[] = ["run", "loop", "batch"];
 
 	const onDragStart = (event: DragEvent, name: string) => {
 		if (event.dataTransfer) {

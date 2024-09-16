@@ -1,19 +1,15 @@
-from collections import defaultdict, deque
-from typing import List, Dict
+from collections import defaultdict, deque, OrderedDict
+from typing import List
 
-from .schema import Graph
-from .schema.nodes import FunctionNode, InputNode, RunNode, BatchNode
+from .schema import Graph, Node
 
 REPO_ID = "EleutherAI/pythia-14m"
 
-def get_adj_list(graph: Graph, reverse: bool = False) -> dict:
+def get_adj_list(graph: Graph) -> dict:
     adj_list = defaultdict(list)
 
     for edge in graph.edges:
-        if not reverse:
-            adj_list[edge.source].append(edge.target)
-        else:
-            adj_list[edge.target].append(edge.source)
+        adj_list[edge.source].append(edge.target)
 
     return adj_list
 
@@ -28,6 +24,19 @@ def get_in_degree(graph: Graph) -> dict:
         in_degree[edge.target] += 1
 
     return in_degree
+
+def build_dependency_graph(graph: Graph) -> dict:    
+
+    deps = defaultdict(list)
+
+    for edge in graph.edges: 
+        src = edge.source
+        tar = graph.lookup[edge.target]
+
+        if tar.parent == src:
+            deps[src].append(tar.id)
+
+    return deps
 
 
 def topological_sort(graph: Graph) -> List[str]:
@@ -44,70 +53,76 @@ def topological_sort(graph: Graph) -> List[str]:
         in in_degree.items()
         if (degree == 0)
     ]
-    zero_degree = sorted(zero_degree, key=lambda x: 0 if "input" in x else 1)
 
     queue = deque(zero_degree)
-    print(queue, flush=True)
 
     topological_order = []
+    grouped = defaultdict(list)
 
     while queue:
         node_id = queue.popleft()
         topological_order.append(node_id)
 
+        node = graph.lookup[node_id]
+        grouped[node.parent].append(node)
+
         for neighbor in adj_list.get(node_id, []):
+
             in_degree[neighbor] -= 1
             if in_degree[neighbor] == 0:
                 queue.append(neighbor)
 
     if len(topological_order) == len(graph.nodes):
-        return topological_order, zero_degree
+        return topological_order, grouped
     else:
         raise ValueError(
             "The graph has at least one cycle and cannot be topologically sorted."
         )
 
 
+def _to_names(list_of_ids: List[str], lookup: dict) -> List[str]:
+    names = []
 
-def precompile(graph: Graph) -> List[str]:
+    for node_id in list_of_ids:
+        node = lookup[node_id]
+        if node.type == "function":
+            names.append(node.data.function_name)
+        elif node.type == "module":
+            names.append(node.data.module_name)
+        else:
+            names.append(node.id)
 
-    return [
-        node.generate([], init=True) 
-        for node in graph.nodes
-        if (
-            isinstance(node, InputNode)
-            or isinstance(node, FunctionNode)    
-        )
-    ]
-
+    return names
 
 def compile(graph: Graph) -> tuple:
-    sorted_nodes, zero_degree = topological_sort(graph)
-    adj_list = get_adj_list(graph)
-    nodes = {node.id: node for node in graph.nodes}
-
-    init = precompile(graph)
+    sorted_nodes, grouped = topological_sort(graph)
+    # print(grouped, flush=True)
+    sorted_nodes = [graph.lookup[node_id] for node_id in sorted_nodes]
 
     code = []
 
     visited = set()
-    def _dfs(node_id: str, previous: str = None):
-        nonlocal visited, code
-        visited.add(node_id)
+    
+    def expand(node): 
+        if node.id in visited:
+            return
 
-        line = nodes[node_id].compile([nodes[previous]]) if previous else nodes[node_id].compile([])
-        code.append(line)
+        visited.add(node.id)
 
-        for neighbor in adj_list.get(node_id, []):
-            # if (neighbor not in visited):
-                _dfs(neighbor, node_id)
+        if node.type == "context":
+            code.append(node.id)
 
-    for node_id in zero_degree:
-        if "run" in node_id:
-            init.append(nodes[node_id].compile([]))
-            continue
-        _dfs(node_id)
+            for child in grouped[node.id]:
+                expand(child)
+        else:
+            code.append(node.id)
 
-    code = init + code
+    for node in sorted_nodes: 
+        expand(node)
 
-    return "\n".join(code), sorted_nodes
+    print(_to_names(code, graph.lookup), flush=True)
+
+    return sorted_nodes
+
+
+

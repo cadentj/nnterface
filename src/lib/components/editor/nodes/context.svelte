@@ -20,6 +20,5 @@
 
     {data.label}
 
-    <Handle type="target" position={Position.Top} label={data.label} />
-    <Handle type="source" position={Position.Bottom} label={data.label} />
+    <Handle type="target" position={Position.Left} label={data.label} />
 </div>

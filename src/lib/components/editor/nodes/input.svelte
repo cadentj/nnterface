@@ -51,6 +51,6 @@
                 class="resize-none"
             />
         </div>
-        <Handle type="source" position={Position.Bottom} label={data.label}/>
+        <Handle type="source" position={Position.Right} label={data.label}/>
     </Dialog.Root>
 </div>

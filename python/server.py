@@ -25,10 +25,8 @@ def run(code: str):
 
 @app.post("/compile")
 async def create_item(graph: Graph):
-
-    compiled, sorted_nodes = compile(graph)
-    # code = "\n".join(compiled)
-
+    
+    sorted_nodes = compile(graph)
 
     # p = [f"{edge.source},{edge.target}" for edge in sorted_nodes]
     # logger.info(f"edges: {"\n".join(p)}")
