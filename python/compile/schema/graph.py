@@ -12,12 +12,13 @@ from .nodes import (
     FunctionNode,
     BatchNode,
     LoopNode,
+    ListNode,
 )
 
 
 class Graph(BaseModel):
     nodes: List[
-        Union[InputNode, ModuleNode, RunNode, FunctionNode, BatchNode, LoopNode]
+        Union[InputNode, ModuleNode, RunNode, FunctionNode, BatchNode, LoopNode, ListNode]
     ]
     edges: List[Edge]
 
@@ -83,33 +84,44 @@ class Graph(BaseModel):
         return self
     
     @model_validator(mode="after")
-    def resolve_modules(self):
+    def resolve_protocols(self):
 
         for edge in self.edges:
             src = self.lookup[edge.source]
             tar = self.lookup[edge.target]
 
+            # module -> any is a getter
             if src.type == "module": 
                 src.protocol = "getter"
             
+            # function || module -> module is a setter
             if (
-                (
-                    src.type == "module" 
-                    or src.type == "function"
-                ) 
+                src.type in ["module", "function"]
                 and tar.type == "module"
             ):
                 tar.protocol = "setter"
 
+            # module -> list is an append
             if (
-                src.type == "module" and tar.type == "module"   
-                and any("loop" in p for p in src.data.parents)
-                and not any("loop" in p for p in tar.data.parents)
+                src.type == "module" 
+                and tar.type == "list"   
             ): 
-                src.protocol = "looped_getter"
+                src.protocol = "append"
+                tar.set_input_id(src)
 
-            # All other combinations need no change.
+            if (
+                src.type == "function" 
+                and tar.type == "list"
+            ): 
+                tar.protocol = "append"
+                tar.set_input_id(src)
 
+            if (
+                src.type == "context" 
+                and tar.type == "list"
+            ): 
+                src.add_default(tar)
+            
         return self
 
     def get_top_parent(self, node_id: str, level: str = "session") -> str:

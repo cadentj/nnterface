@@ -1,7 +1,7 @@
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, model_validator
 from pydantic.alias_generators import to_camel
 
-from typing import Literal, Optional, List, Dict
+from typing import Literal, Optional, List
 
 SPACES = "  "
 
@@ -40,24 +40,55 @@ class Node(BaseModel):
     def precompile(self, args: List["Node"]):
         raise NotImplementedError
 
+### LIST SCHEMA ###
+
+class ListData(NodeData):
+    pass
+
+class ListNode(Node):
+    type: Literal["list"]
+    code: str = "{id}_list = nnsight.list()"
+    data: ListData
+
+    def set_input_id(self, node: Node):
+        self.code = self.code.format(id=node.id)
     
+    def precompile(self, args: List[Node]):
+        pass
+
+    def compile(self):
+        return ""
+    
+### CONTEXT NODE SCHEMA ###
+
+class ContextNode(Node): 
+    type: Literal["context"]
+    code: str
+
+    defaults: List[str] = []
+
+    def add_default(self, node: ListNode):
+        self.defaults.append(node.code)
+
+    # Override the compile method to include the defaults
+    def compile(self):
+        self.defaults.append(self.code)
+        return "\n".join([self.indent() + line for line in self.defaults])
 
 ### SESSION NODE SCHEMA ###
 
-
-class SessionNode(Node): 
+class SessionNode(ContextNode): 
     id: Literal["session"]
     type: Literal["context"] = "context"
-    data: NodeData = Field(default_factory=lambda: NodeData(parents=[""]))
+    data: NodeData = NodeData(parents=[""])
 
     code: str = "with model.session() as session:"
 
     def precompile(self, args: List[Node]):
-        return None
-
+        pass
+    
 
 ### MODULE NODE SCHEMA ###
-
 
 class ModuleData(NodeData):
     label: Literal["module"]
@@ -76,12 +107,12 @@ class ModuleNode(Node):
     data: ModuleData
 
     getter: str = "{id} = {module}.{location}"
-    looped_getter: str = "{id}.append({module}.{location})"
+    append: str = "{id}_list.append({module}.{location})"
     setter: str = "{module}.{location} = {arg_id}"
 
     code: str = None
 
-    protocol: Literal["getter", "setter", "looped_getter"] = None
+    protocol: Literal["getter", "setter", "append"] = None
 
     def _set(self, arg: Node): 
         self.code = self.setter.format(
@@ -90,31 +121,31 @@ class ModuleNode(Node):
             arg_id=arg.id
         )
 
-    def _get(self): 
-        if self.protocol == "looped_getter":
-            self.code = self.looped_getter.format(
-                id=self.id, 
-                module=self.data.module_name, 
-                location=self.data.location
-            )
+    def _append(self): 
+        self.code = self.append.format(
+            id=self.id, 
+            module=self.data.module_name, 
+            location=self.data.location
+        )
 
-            return f"{self.id} = []"
-        else:
-            self.code = self.getter.format(
-                id=self.id, 
-                module=self.data.module_name, 
-                location=self.data.location
-            )
+    def _get(self): 
+        self.code = self.getter.format(
+            id=self.id, 
+            module=self.data.module_name, 
+            location=self.data.location
+        )
 
     def precompile(self, args: List[Node]):
-        module_node = [arg for arg in args if isinstance(arg, ModuleNode)]
+        input_node = [arg for arg in args if isinstance(arg, (ModuleNode, ListNode))]
 
-        if len(module_node) == 1:
-            return self._set(module_node[0])
-        elif len(module_node) == 0:
+        assert len(input_node) <= 1
+        
+        if input_node:
+            return self._set(input_node[0])
+        elif self.protocol == "getter":
             return self._get()
-        else:
-            raise ValueError("Module node has too many connections. Check for bugs?")
+        elif self.protocol == "append":
+            return self._append()
 
 
 ### INPUT NODE SCHEMA ###
@@ -135,7 +166,6 @@ class InputNode(Node):
         return self.defn.format(id=self.id, text=self.data.text)
 
 
-
 ### FUNCTION SCHEMA ###
 
 
@@ -151,15 +181,30 @@ class FunctionNode(Node):
     type: Literal["function"]
     data: FunctionData
 
-    code: str = "{id} = {id}({args})"
-    defn: str = "def {id}({args}):\n  {body}"
+    code: str = "{id} = _{id}({args})"
+    defn: str = "def _{id}({args}):\n  {body}"
+    append: str = "{id}_list.append(_{id}({args}))"
 
-    def precompile(self, args: List[Node]):
-        args: str = ", ".join([arg.id for arg in args])
+    protocol: Literal["setter", "append"] = "setter"
 
+    def _set(self, args: List[Node]):
         self.code = self.code.format(id=self.id, args=args)
 
-        return self.defn.format(id=self.id, args=self.data.inputs, body=self.data.code)
+        return self.defn.format(id=self.id, args=args, body=self.data.code)
+    
+    def _append(self, args: List[Node]):
+        self.code = self.append.format(id=self.id, args=args)
+
+        return self.defn.format(id=self.id, args=args, body=self.data.code)
+
+    def precompile(self, args: List[Node]):
+        args: str = ", ".join([arg.id for arg in args if not isinstance(arg, ContextNode)])
+
+        if self.protocol == "setter":
+            return self._set(args)
+        elif self.protocol == "append":
+            return self._append(args)
+
 
 
 ### RUN SCHEMA ###
@@ -168,8 +213,7 @@ class FunctionNode(Node):
 class RunData(NodeData):
     label: Literal["run"]
 
-class RunNode(Node):
-    type: Literal["context"]
+class RunNode(ContextNode):
     data: RunData
     
     code: str = "with model.trace({input}) as tracer:"
@@ -183,8 +227,7 @@ class RunNode(Node):
 class BatchData(NodeData):
     label: Literal["batch"]
 
-class BatchNode(Node):
-    type: Literal["context"]
+class BatchNode(ContextNode):
     data: BatchData
     
     code: str = "with model.invoke({input}):"
@@ -198,10 +241,13 @@ class BatchNode(Node):
 class LoopData(NodeData):
     label: Literal["loop"]
 
-class LoopNode(Node):
-    type: Literal["context"]
+class LoopNode(ContextNode):
     data: LoopData
     code: str = "for {id} in range({start}, {end}):"
 
+    lists: List[str] = []
+
     def precompile(self, args: List[Node]):
         pass
+
+
