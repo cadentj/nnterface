@@ -34,29 +34,38 @@ class Node(BaseModel):
             return SPACES * len(self.data.parents)
         return ""
 
-    def generate(self):
-        return self.indent() + self.compile()
-
-    def precompile(self, lookup: Dict[str, "Node"]):
-        raise NotImplementedError
-
     def compile(self):
+        return self.indent() + self.code
+
+    def precompile(self, args: List["Node"]):
         raise NotImplementedError
+
     
+
+### SESSION NODE SCHEMA ###
+
+
 class SessionNode(Node): 
     id: Literal["session"]
     type: Literal["context"] = "context"
     data: NodeData = Field(default_factory=lambda: NodeData(parents=[""]))
 
+    code: str = "with model.session() as session:"
+
+    def precompile(self, args: List[Node]):
+        return None
+
+
 ### MODULE NODE SCHEMA ###
+
 
 class ModuleData(NodeData):
     label: Literal["module"]
     module_name: str
     location: Literal["input", "output"] = "output"
-    is_variable: bool
 
-    loopVariable: str
+    is_variable: bool
+    loop_variable: str
 
     save: bool = False
     mode: Literal["act", "grad"] = "act"
@@ -67,33 +76,45 @@ class ModuleNode(Node):
     data: ModuleData
 
     getter: str = "{id} = {module}.{location}"
-    looped_getter: str = "{id} = {module}.{location}[{loopVariable}]"
-    setter: str = "{module}.{location} = {arg}"
+    looped_getter: str = "{id}.append({module}.{location})"
+    setter: str = "{module}.{location} = {arg_id}"
 
     code: str = None
+
+    protocol: Literal["getter", "setter", "looped_getter"] = None
 
     def _set(self, arg: Node): 
         self.code = self.setter.format(
             module=self.data.module_name, 
             location=self.data.location, 
-            arg=arg.id
+            arg_id=arg.id
         )
 
-    def _get(self):
-        pass
+    def _get(self): 
+        if self.protocol == "looped_getter":
+            self.code = self.looped_getter.format(
+                id=self.id, 
+                module=self.data.module_name, 
+                location=self.data.location
+            )
 
-    def precompile(self, lookup: Dict[str, Node]):
-        module_nodes = [lookup[src] for src in self.source if "module" in src]
-
-        if len(module_nodes) == 0:
-            self._get()
+            return f"{self.id} = []"
         else:
-            assert len(module_nodes) == 1, "Only one setter Node allowed."
-            self._set(module_nodes[0])
+            self.code = self.getter.format(
+                id=self.id, 
+                module=self.data.module_name, 
+                location=self.data.location
+            )
 
+    def precompile(self, args: List[Node]):
+        module_node = [arg for arg in args if isinstance(arg, ModuleNode)]
 
-    def compile(self, args: List[Node]):
-        return self.code
+        if len(module_node) == 1:
+            return self._set(module_node[0])
+        elif len(module_node) == 0:
+            return self._get()
+        else:
+            raise ValueError("Module node has too many connections. Check for bugs?")
 
 
 ### INPUT NODE SCHEMA ###
@@ -112,9 +133,7 @@ class InputNode(Node):
 
     def precompile(self, arg: Node):
         return self.defn.format(id=self.id, text=self.data.text)
-    
-    def compile(self):
-        return ""
+
 
 
 ### FUNCTION SCHEMA ###
@@ -132,18 +151,15 @@ class FunctionNode(Node):
     type: Literal["function"]
     data: FunctionData
 
-    call: str = "{id} = {id}({args})"
+    code: str = "{id} = {id}({args})"
     defn: str = "def {id}({args}):\n  {body}"
 
     def precompile(self, args: List[Node]):
         args: str = ", ".join([arg.id for arg in args])
 
-        self.call = self.call.format(id=self.id, args=args)
+        self.code = self.code.format(id=self.id, args=args)
 
         return self.defn.format(id=self.id, args=self.data.inputs, body=self.data.code)
-
-    def compile(self):
-        return self.call
 
 
 ### RUN SCHEMA ###
@@ -159,15 +175,7 @@ class RunNode(Node):
     code: str = "with model.trace({input}) as tracer:"
 
     def precompile(self, args: List[Node]):
-        in_loop = "loop" in self.data.parents
-        if in_loop:
-            self.code = self.invoke
-
-    def compile(self, args: List[InputNode]):
-        if len(args) == 0:
-            return self.code.format(id=self.id, input="")
-
-        return self.code.format(id=self.id, input=args[0].id)
+        self.code = self.code.format(input=args[0].id)
     
 
 ### BATCH SCHEMA ###
@@ -182,15 +190,7 @@ class BatchNode(Node):
     code: str = "with model.invoke({input}):"
 
     def precompile(self, args: List[Node]):
-        in_loop = "loop" in self.data.parents
-        if in_loop:
-            self.code = self.invoke
-
-    def compile(self, args: List[InputNode]):
-        if len(args) == 0:
-            return self.code.format(id=self.id, input="")
-
-        return self.code.format(id=self.id, input=args[0].id)
+        self.code = self.code.format(input=args[0].id)
 
 
 ### LOOP SCHEMA ###

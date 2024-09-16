@@ -1,15 +1,18 @@
 from collections import defaultdict, deque, OrderedDict
 from typing import List
 
-from .schema import Graph, Node
+from .schema import Graph
 
 REPO_ID = "EleutherAI/pythia-14m"
 
-def get_adj_list(graph: Graph) -> dict:
+def get_adj_list(graph: Graph, reverse: bool = False) -> dict:
     adj_list = defaultdict(list)
 
     for edge in graph.edges:
-        adj_list[edge.source].append(edge.target)
+        if reverse:
+            adj_list[edge.target].append(edge.source)
+        else:
+            adj_list[edge.source].append(edge.target)
 
     return adj_list
 
@@ -96,10 +99,10 @@ def _to_names(list_of_ids: List[str], lookup: dict) -> List[str]:
 
 def compile(graph: Graph) -> tuple:
     sorted_nodes, grouped = topological_sort(graph)
-    # print(grouped, flush=True)
+
     sorted_nodes = [graph.lookup[node_id] for node_id in sorted_nodes]
 
-    code = []
+    code = graph.precompile(get_adj_list(graph, reverse=True))
 
     visited = set()
     
@@ -110,19 +113,19 @@ def compile(graph: Graph) -> tuple:
         visited.add(node.id)
 
         if node.type == "context":
-            code.append(node.id)
+            code.append(node.compile())
 
             for child in grouped[node.id]:
                 expand(child)
         else:
-            code.append(node.id)
+            code.append(node.compile())
 
     for node in sorted_nodes: 
         expand(node)
 
-    print(_to_names(code, graph.lookup), flush=True)
+    print("\n".join(code), flush=True)
 
-    return sorted_nodes
+    return "SUCCESS"
 
 
 
