@@ -15,8 +15,8 @@
         // doesn't get positioned off-screen.
         const sidebarWidth =
             document.getElementById("sidebar")?.clientWidth || 0;
-        const w = event.clientX - sidebarWidth;
-        const h = event.clientY;
+        const w = event.clientX;
+        const h = event.clientY - 50;
 
         menu = {
             id: node.id,

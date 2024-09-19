@@ -13,6 +13,7 @@ import {
     InputNode,
     ContextNode,
     FunctionNode,
+    ListNode
 } from "./nodes";
 
 export const nodeTypes: NodeTypes = {
@@ -20,6 +21,7 @@ export const nodeTypes: NodeTypes = {
     input: InputNode,
     context: ContextNode,
     function: FunctionNode,
+    list: ListNode,
 };
 
 export const nodes: Writable<Node[]> = writable([
@@ -70,6 +72,8 @@ export const defaultEdgeOptions: DefaultEdgeOptions = {
     type: "smoothstep"
 };
 
+
+
 export const initialViewport = {
     zoom: 1.2,
     x: 250,
@@ -82,9 +86,12 @@ export const connections = {
         "run", "batch"
     ],
     "module" : [
-        "function", "module"
+        "function", "module", "list"
     ],
     "function" : [
-        "function", "module", "run"
+        "function", "module", "run", "list"
     ],
+    "list" : [  
+        "function", "module"
+    ]
 }

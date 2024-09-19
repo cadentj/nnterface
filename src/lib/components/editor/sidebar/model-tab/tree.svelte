@@ -1,7 +1,7 @@
 <!-- FROM: https://svelte.dev/repl/eca6f6392e294247b4f379fde3069274?version=3.46.6 -->
 
 <script lang="ts">
-    import Node from "./block.svelte";
+    import Leaf from "./leaf.svelte";
     import pytree from "$lib/stores/editor/pytree.json";
 
     let tree = pytree;
@@ -36,4 +36,4 @@
     initTreeMap(tree);
 </script>
 
-<Node tree={tree} nLayers={nLayers}/>
+<Leaf tree={tree} nLayers={nLayers}/>

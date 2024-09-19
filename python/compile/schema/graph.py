@@ -84,44 +84,26 @@ class Graph(BaseModel):
         return self
     
     @model_validator(mode="after")
-    def resolve_protocols(self):
+    def resolve_edges(self):
 
         for edge in self.edges:
             src = self.lookup[edge.source]
             tar = self.lookup[edge.target]
 
-            # module -> any is a getter
-            if src.type == "module": 
-                src.protocol = "getter"
-            
-            # function || module -> module is a setter
-            if (
-                src.type in ["module", "function"]
-                and tar.type == "module"
-            ):
-                tar.protocol = "setter"
+            match (src.type, tar.type):
+                case ("module", ("module" | "function")):
+                    src.protocol = "getter"
+                    tar.protocol = "setter"
+                case ("module", "list"):
+                    src.protocol = "append"
+                    tar.set_input_id(src)
+                case ("function", "list"):
+                    src.protocol = "append"
+                    tar.set_input_id(src)
+                case ("context", "list"):
+                    src.add_default(tar)
 
-            # module -> list is an append
-            if (
-                src.type == "module" 
-                and tar.type == "list"   
-            ): 
-                src.protocol = "append"
-                tar.set_input_id(src)
 
-            if (
-                src.type == "function" 
-                and tar.type == "list"
-            ): 
-                tar.protocol = "append"
-                tar.set_input_id(src)
-
-            if (
-                src.type == "context" 
-                and tar.type == "list"
-            ): 
-                src.add_default(tar)
-            
         return self
 
     def get_top_parent(self, node_id: str, level: str = "session") -> str:

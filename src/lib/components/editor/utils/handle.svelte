@@ -26,6 +26,10 @@
     export let onconnect: () => void = () => {};
     export let ondisconnect: () => void = () => {};
 
+    let defaultStyle = isColored
+        ? "!bg-green-500 h-3 w-3 rounded-full items-center flex"
+        : "bg-current h-3 w-3 rounded-full items-center flex";
+
     $$restProps;
 </script>
 
@@ -34,11 +38,11 @@
     {type}
     {position}
     {style}
-    onconnect={onconnect}
-    ondisconnect={ondisconnect}
-    class={isColored
-        ? "!bg-green-500 h-3 w-3 rounded-full"
-        : "bg-current h-3 w-3 rounded-full"}
->
-    <slot />
+    {onconnect}
+    {ondisconnect}
+    class={defaultStyle}
+    >
+    <div class="pl-5">
+        <slot />
+    </div>
 </Handle>

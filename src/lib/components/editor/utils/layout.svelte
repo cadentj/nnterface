@@ -1,41 +1,23 @@
 <script lang="ts">
     import * as Resizable from "$lib/components/ui/resizable";
-
-    export let showViewPane: boolean = false;
 </script>
 
-<main>
-    <Resizable.PaneGroup direction="horizontal">
-        <Resizable.Pane defaultSize={1 / 5}>
-            <slot name="sidebar" />
-        </Resizable.Pane>
-        <Resizable.Handle withHandle />
+<main class="relative h-screen w-full overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <slot name="flow" />
+    </div>
 
-        <Resizable.Pane defaultSize={4/5}>
-            <slot name="flow" />
-        </Resizable.Pane>
+    <div class="absolute top-0 left-0 w-1/4 h-auto overflow-auto z-10 pointer-events-none">
+        <slot name="sidebar" />
+    </div>
 
-        <!-- <Resizable.Pane defaultSize={4 / 5}>
-            <Resizable.PaneGroup direction="vertical">
-
-                <Resizable.Pane defaultSize={4/5}>
-                    <slot name="flow" />
-                </Resizable.Pane>
-
-                <Resizable.Handle />
-
-                <Resizable.Pane defaultSize={1/5}>
-                    <slot name="view" />
-                </Resizable.Pane>
-            </Resizable.PaneGroup>
-        </Resizable.Pane> -->
-    </Resizable.PaneGroup>
+    <div class="absolute top-0 right-0 w-1/4 h-auto overflow-auto z-10 pointer-events-none">
+        <slot name="view" />
+    </div>
 </main>
 
 <style>
     main {
-        height: 100vh;
-        display: flex;
-        flex-direction: column-reverse;
+        height: 95vh;
     }
 </style>

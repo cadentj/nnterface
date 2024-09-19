@@ -1,48 +1,57 @@
 <script lang="ts">
-	import { getContext } from "svelte";
-	import type { Writable } from "svelte/store";
-	import type { Node } from "@xyflow/svelte";
-	import { createEmptyNode } from "../flow-utils";
+    import { getContext } from "svelte";
+    import type { Writable } from "svelte/store";
+    import type { Node } from "@xyflow/svelte";
+    import { createEmptyNode } from "../flow-utils";
 
-	const type: Writable<Node | null> = getContext("type");
+    import type { BlockGroup } from "$lib/components/types/blocks";
 
-	export let blocks: string[] = [];
+    const type: Writable<Node | null> = getContext("type");
 
-	// TEMPORARY
-	const contexts: string[] = ["run", "loop", "batch"];
+    export let blockGroups: BlockGroup[];
 
-	const onDragStart = (event: DragEvent, name: string) => {
-		if (event.dataTransfer) {
-			let newNode: Node = createEmptyNode(name);
+    // TEMPORARY
+    const contexts: string[] = ["run", "loop", "batch"];
 
-			if (contexts.includes(newNode.type)) {
-				newNode.type = "context";
-			}
+    const onDragStart = (event: DragEvent, name: string) => {
+        if (event.dataTransfer) {
+            let newNode: Node = createEmptyNode(name);
 
-			type.set(newNode);
+            if (contexts.includes(newNode.type)) {
+                newNode.type = "context";
+                newNode.height = 160;
+                newNode.width = 240;
+            }
 
-			console.log(newNode);
+            type.set(newNode);
 
-			event.dataTransfer.effectAllowed = "move";
-		}
-	};
+            event.dataTransfer.effectAllowed = "move";
+        }
+    };
 </script>
 
-<div class="block-container">
-	{#each blocks as block}
-		<button
-			class="my-3 p-2 h-10 bg-secondary border rounded-md"
-			draggable="true"
-			on:dragstart={(event) => onDragStart(event, block)}
-		>
-			{block}
-		</button>
-	{/each}
+<div>
+    {#each blockGroups as group}
+        <div class='py-2'>
+            <small>{group.title}</small>
+            <div class="block-container grid grid-cols-2 gap-4 pt-2">
+                {#each group.blocks as block, index}
+                    <button
+                        class="p-2 h-10 bg-ui-2 border rounded-md"
+                        style="grid-column-start: {(index % 2) + 1};"
+                        draggable="true"
+                        on:dragstart={(event) => onDragStart(event, block)}
+                    >
+                        {block}
+                    </button>
+                {/each}
+            </div>
+        </div>
+    {/each}
 </div>
 
 <style>
-	.block-container {
-		display: flex;
-		flex-direction: column;
-	}
+    .block-container {
+        grid-auto-flow: dense;
+    }
 </style>

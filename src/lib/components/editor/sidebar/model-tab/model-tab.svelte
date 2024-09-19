@@ -1,6 +1,6 @@
 <script>
     import * as Select from "$lib/components/ui/select";
-    import Tree from "$lib/components/editor/utils/tree.svelte";
+    import Tree from "$lib/components/editor/sidebar/model-tab/tree.svelte";
     import { Skeleton } from "$lib/components/ui/skeleton";
     import { onMount } from "svelte";
 

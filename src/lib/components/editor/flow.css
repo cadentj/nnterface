@@ -3,8 +3,6 @@
     min-width: 10rem;
     height: 100%;
     border: 1px solid hsl(var(--border));
-
-    @apply p-3;
 }
 
 .block {
@@ -16,7 +14,13 @@
 }
 
 .context {
-    background-color: rgba(152, 87, 146, 0.1);
+    /* min-height: 15rem;
+    min-width: 20rem; */
+    height: 100%;
 
-    @apply node;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.test {
+    pointer-events: none !important;
 }

@@ -1,6 +1,5 @@
 import type { NodeProps } from "@xyflow/svelte";
 
-// Define an interface that extends NodeProps["data"]
 interface ModuleNodeData extends NodeProps["data"] {
     label: "module";
     location: "input" | "output";
@@ -10,7 +9,26 @@ interface ModuleNodeData extends NodeProps["data"] {
     loopParentIds: string[];
 }
 
-// Extend NodeProps to use ExtendedNodeData, explicitly preserving all original props
 export type ModuleNodeProps = Omit<NodeProps, 'data'> & {
     data: ModuleNodeData;
+};
+
+interface ContextNodeData extends NodeProps["data"] {
+    label: "module";
+    color: string;
+}
+
+export type ContextNodeProps = Omit<NodeProps, 'data'> & {
+    data: ContextNodeData;
+};
+
+
+interface FunctionNodeData extends NodeProps["data"] {
+    label: "function";
+    inputs: string[];
+    functionName: string;
+}
+
+export type FunctionNodeProps = Omit<NodeProps, 'data'> & {
+    data: FunctionNodeData;
 };

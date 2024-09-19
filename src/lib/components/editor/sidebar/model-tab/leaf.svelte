@@ -6,12 +6,18 @@
 
 	export let tree;
 	export let nLayers: number = 0;
+	export let depth: number = 0;  // New prop to keep track of the current depth
+
+	const maxExpandDepth = 3;  // Maximum depth to expand by default
 
 	let isVariable: boolean = tree.atomic.includes(".0");
 	if (isVariable) {
 		tree.name = tree.name.replace(".0", `.[0-${nLayers}]`);
 		tree.atomic = tree.atomic.replace(".0", `.n`);
 	}
+
+	// Set initial expansion based on depth
+	$: tree.expanded = depth < maxExpandDepth;
 
 	const toggleExpansion = () => {
 		tree.expanded = !tree.expanded;
@@ -54,13 +60,10 @@
 				class="module-block"
 			>
 				<span class="submodule-name">{tree.name}</span>
-				<!-- <small
-					>&lbrace; input: {tree.input}, output: {tree.output} &rbrace;</small
-				> -->
 			</button>
 			{#if tree.expanded}
 				{#each tree.submodules as child}
-					<svelte:self tree={child} nLayers={nLayers} on:toggle />
+					<svelte:self tree={child} nLayers={nLayers} depth={depth + 1} on:toggle />
 				{/each}
 			{/if}
 		{:else}
@@ -70,7 +73,6 @@
 				class="module-block"
 			>
 				<span class="submodule-name">{tree.name}</span>
-				<!-- <small>{tree.input} {tree.output}</small> -->
 			</button>
 		{/if}
 	</li>
@@ -80,9 +82,10 @@
 	ul {
 		margin: 0;
 		list-style: none;
-		padding-left: 1.2rem;
+		padding-left: 2rem;
 		user-select: none;
 	}
+
 	.arrow::before {
 		--tw-content: "+";
 		content: var(--tw-content);
@@ -98,17 +101,11 @@
 		content: var(--tw-content);
 	}
 
-	li {
-		padding: 3px;
+	.submodule-name {
+		@apply h-10 bg-ui-2 border rounded-md;	
 	}
 
 	.module-block {
-		padding: 2px;
-		font-family: monospace;
-	}
-
-	.submodule-name {
-		padding: 2px;
-		background-color: rgba(22, 101, 52, 0.5);
+		@apply p-3;
 	}
 </style>

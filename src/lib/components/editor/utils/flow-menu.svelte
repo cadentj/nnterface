@@ -20,14 +20,9 @@
         setMode(colorMode);
     };
 
-    export let showViewPane: boolean;
-
-    const toggleViewPane = () => {
-        showViewPane = !showViewPane;
-    };
 </script>
 
-<Controls>
+<Controls orientation="horizontal" position="bottom-center" class="!h-16 bg-bg-1 p-2 rounded-md">
     <ControlButton on:click={toggleColorMode}>
         {#if colorMode === "dark"}
             <Sun />
@@ -35,11 +30,14 @@
             <Moon />
         {/if}
     </ControlButton>
-    <ControlButton on:click={toggleViewPane}>
-        <Terminal />
-    </ControlButton>
     <ControlButton on:click={compile}>
         <Play style="color: green;" />
     </ControlButton>
 </Controls>
 <Background variant={BackgroundVariant.Dots} />
+
+<style>
+    :global(.svelte-flow__controls-button) {
+        @apply !w-10 !h-10 mx-2 !bg-ui-2;
+    }
+</style>
