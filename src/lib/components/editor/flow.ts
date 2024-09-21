@@ -11,21 +11,26 @@ import {
 import {
     ModuleNode,
     InputNode,
-    ContextNode,
     FunctionNode,
     ListNode,
     ChatNode,
     GraphNode,
+    LoopNode,
+    RunNode,
+    BatchNode
 } from "./nodes";
+import Loop from "./nodes/loop.svelte";
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,
     input: InputNode,
-    context: ContextNode,
     function: FunctionNode,
     list: ListNode,
     chat: ChatNode,
     graph: GraphNode,
+    loop: LoopNode,
+    batch: BatchNode,
+    run: RunNode,
 };
 
 export const nodes: Writable<Node[]> = writable([
@@ -34,7 +39,7 @@ export const nodes: Writable<Node[]> = writable([
         type: "input",
         data: {
             text: "Alice and Bob went to the store.",
-            label: "input"
+            variant: "input"
         },
         origin: [0.0, 0.0],
         position: { x: 0, y: 0 },

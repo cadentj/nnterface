@@ -3,21 +3,15 @@
     import { Maximize2, GripVertical } from "lucide-svelte";
     import Handle from "../utils/handle.svelte";
 
-    import type { ContextNodeProps } from "$lib/components/types/nodes";
-
-    type $$Props = ContextNodeProps;
-
-    export let id: $$Props["id"];
-    export let data: $$Props["data"];   
-
-    data.color = data.color || "rgba(134, 25, 143, 0.3)";
-    $$restProps;
+    export let label: string;
 </script>
 
 <div class="context border">
     <div class="flex items-center border-b px-3 py-2 h-auto draggable">
-        <GripVertical class="h-5 w-5 mr-2"/>
-        <small class="text-sm">{data.label}</small>
+        <GripVertical class="h-5 w-5"/>
+        <small class="text-sm">{label}</small>
+
+        <slot name="title"/>
     </div>
     <NodeResizeControl minWidth={250} minHeight={200}>
         <div class="resizer">
@@ -25,8 +19,8 @@
         </div>
     </NodeResizeControl>
 
-    <Handle label={data.label} type="target" position={Position.Left}/>
-    <Handle label={data.label} type="source" position={Position.Right}/>
+    <Handle label={label} type="target" position={Position.Left}/>
+    <Handle label={label} type="source" position={Position.Right}/>
 </div>
 
 <style>

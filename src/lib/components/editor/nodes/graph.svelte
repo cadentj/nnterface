@@ -6,6 +6,7 @@
 
     type $$Props = NodeProps;
 
+    export let type: $$Props["type"];
     export let data: $$Props["data"];
 
     let graphData = data.graphData || [];
@@ -20,10 +21,10 @@
 <div class="bg-ui-1 border">
     <div class="flex items-center border-b px-3 py-2 h-auto draggable">
         <GripVertical class="h-5 w-5 mr-2" />
-        <small class="text-sm">{data.label}</small>
+        <small class="text-sm">{type}</small>
     </div>
 
     <Line d={buildData(graphData)} />
 
-    <Handle label={data.label} type="target" position={Position.Left} />
+    <Handle label={type} type="target" position={Position.Left} />
 </div>

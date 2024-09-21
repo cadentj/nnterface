@@ -5,6 +5,7 @@
         BackgroundVariant,
         ControlButton,
         type ColorMode,
+        MiniMap
     } from "@xyflow/svelte";
 
     import { setMode } from "mode-watcher";
@@ -24,7 +25,7 @@
 <Controls
     orientation="horizontal"
     position="bottom-center"
-    class="flex gap-3 bg-black p-3 rounded-lg"
+    class="flex gap-3 bg-ui-1 p-3 rounded-lg"
 >
     <ControlButton on:click={toggleColorMode} disabled>
         {#if colorMode === "dark"}
@@ -39,7 +40,9 @@
         </ControlButton>
     </div>
 </Controls>
-<Background variant={BackgroundVariant.Dots} />
+<Background variant={BackgroundVariant.Dots} gap={30}  bgColor={"#080808"}/>
+<!-- <MiniMap height={80} width={100}/> -->
+
 
 <style>
     :global(.svelte-flow__controls-button) {

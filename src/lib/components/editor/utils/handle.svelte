@@ -2,7 +2,6 @@
     import { Handle, Position } from "@xyflow/svelte";
     import type { Writable } from "svelte/store";
     import { getContext, onDestroy } from "svelte";
-    import { Voicemail } from "lucide-svelte";
 
     export let id: string | undefined = undefined;
     export let position: Position;

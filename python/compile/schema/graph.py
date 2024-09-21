@@ -91,7 +91,7 @@ class Graph(BaseModel):
             src = self.lookup[edge.source]
             tar = self.lookup[edge.target]
 
-            match (src.type, tar.type):
+            match (src.data.variant, tar.data.variant):
                 case ("module", ("module" | "function")):
                     src.protocol = "getter"
                     tar.protocol = "setter"

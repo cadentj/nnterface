@@ -6,6 +6,7 @@
 
     type $$Props = ModuleNodeProps;
 
+    export let type: $$Props["type"];
     export let data: $$Props["data"];
 
     data.isVariable = data.isVariable || false;
@@ -32,7 +33,7 @@
     <Handle
         id="c"
         type="target"
-        label={data.label}
+        label={type}
         position={Position.Left}
         onconnect={() => {
             data.location = "input";
@@ -45,7 +46,7 @@
     <Handle
         id="d"
         type="target"
-        label={data.label}
+        label={type}
         position={Position.Right}
         onconnect={() => {
             data.location = "output";
@@ -58,7 +59,7 @@
     <Handle
         id="a"
         type="source"
-        label={data.label}
+        label={type}
         position={Position.Left}
         onconnect={() => {
             data.location = "input";
@@ -71,7 +72,7 @@
     <Handle
         id="b"
         type="source"
-        label={data.label}
+        label={type}
         position={Position.Right}
         onconnect={() => {
             data.location = "output";

@@ -5,6 +5,7 @@
 
     type $$Props = NodeProps;
 
+    export let type: $$Props["type"];
     export let data: $$Props["data"];
 
     $$restProps;
@@ -16,5 +17,5 @@
         <MessageSquare class="h-5 w-5"/>
     </button>
 
-    <Handle label={data.label} type="target" position={Position.Left}/>
+    <Handle label={type} type="target" position={Position.Left}/>
 </div>

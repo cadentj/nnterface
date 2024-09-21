@@ -13,8 +13,7 @@
 </script>
 
 <div class="block">
-    {id}
-
+    {type}
     <Handle
         type="target"
         label={type}

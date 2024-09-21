@@ -3,14 +3,12 @@
     import type { InputNodeProps } from "$lib/components/types/nodes";
 
     import Handle from "../utils/handle.svelte";
-
-    import TextCursorInput from "lucide-svelte/icons/text-cursor-input";
-    import * as Dialog from "$lib/components/ui/dialog";
     import { Textarea } from "$lib/components/ui/textarea";
 
     type $$Props = InputNodeProps;
 
     export let id: $$Props["id"];
+    export let type: $$Props["type"];
     export let data: $$Props["data"];
 
     const { updateNodeData } = useSvelteFlow();
@@ -31,5 +29,5 @@
         />
     </div>
 
-    <Handle type="source" position={Position.Right} label={data.label}/>
+    <Handle type="source" position={Position.Right} label={type}/>
 </div>

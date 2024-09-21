@@ -9,7 +9,7 @@
 
     export const handleConnectStart = (params) => {
         const node = getNode(params.nodeId);
-        const nodeType = node?.data.label;
+        const nodeType = node?.type;
 
         connectionType.set(connections[nodeType]);
     };
@@ -22,8 +22,8 @@
             return false; // Safely handle missing nodes
         }
 
-        const sourceLabel = sourceNode.data.label;
-        const targetLabel = targetNode.data.label;
+        const sourceLabel = sourceNode.type;
+        const targetLabel = targetNode.type;
 
         const validConnections = connections[sourceLabel] || [];
 

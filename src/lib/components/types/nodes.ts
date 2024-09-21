@@ -42,3 +42,7 @@ interface InputNodeData extends NodeProps["data"] {
 export type InputNodeProps = Omit<NodeProps, 'data'> & {
     data: InputNodeData;
 };
+
+interface ContextNodeData extends NodeProps["data"] {
+    text: string;
+}

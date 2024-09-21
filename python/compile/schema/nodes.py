@@ -15,6 +15,7 @@ class NodeData(BaseModel):
     )
 
     parents: List[str]
+    variant: str
 
 class Node(BaseModel):
     model_config = ConfigDict(
@@ -23,6 +24,8 @@ class Node(BaseModel):
         
     id: Optional[str]
     parent: str = None
+
+    data: NodeData
 
     @model_validator(mode="after")
     def set_parent(self):
@@ -42,16 +45,12 @@ class Node(BaseModel):
 
 ### LIST SCHEMA ###
 
-class ListData(NodeData):
-    pass
-
 class ListNode(Node):
     type: Literal["list"]
 
     name: str = None
 
     code: str = "{name} = nnsight.list()"
-    data: ListData
 
     def set_input_id(self, node: Node):
 
@@ -69,8 +68,9 @@ class ListNode(Node):
 ### CONTEXT NODE SCHEMA ###
 
 class ContextNode(Node): 
-    type: Literal["context"]
+
     code: str
+    data: NodeData
 
     defaults: List[str] = []
 
@@ -86,8 +86,8 @@ class ContextNode(Node):
 
 class SessionNode(ContextNode): 
     id: Literal["session"]
-    type: Literal["context"] = "context"
-    data: NodeData = NodeData(parents=[""])
+    type: Literal["session"] = "session"
+    data: NodeData = NodeData(parents=[""], variant="context")
 
     code: str = "with model.session() as session:"
 
@@ -98,7 +98,7 @@ class SessionNode(ContextNode):
 ### MODULE NODE SCHEMA ###
 
 class ModuleData(NodeData):
-    label: Literal["module"]
+    variant: Literal["module"]
     module_name: str
     location: Literal["input", "output"] = "output"
 
@@ -157,9 +157,8 @@ class ModuleNode(Node):
 
 ### INPUT NODE SCHEMA ###
 
-
 class InputData(NodeData):
-    label: Literal["input"]
+    variant: Literal["input"]
     text: str
 
 
@@ -177,7 +176,7 @@ class InputNode(Node):
 
 
 class FunctionData(NodeData):
-    label: Literal["function"]
+    variant: Literal["function"]
     function_name: str
 
     code: str
@@ -216,13 +215,8 @@ class FunctionNode(Node):
 
 ### RUN SCHEMA ###
 
-
-class RunData(NodeData):
-    label: Literal["run"]
-
 class RunNode(ContextNode):
-    data: RunData
-    
+    type: Literal["run"]
     code: str = "with model.trace({input}) as tracer:"
 
     def precompile(self, args: List[Node]):
@@ -232,15 +226,10 @@ class RunNode(ContextNode):
 
         self.code = self.code.format(input=input_id)
         
-
 ### BATCH SCHEMA ###
 
-class BatchData(NodeData):
-    label: Literal["batch"]
-
 class BatchNode(ContextNode):
-    data: BatchData
-    
+    type: Literal["batch"]
     code: str = "with model.invoke({input}):"
 
     def precompile(self, args: List[Node]):
@@ -254,9 +243,10 @@ class BatchNode(ContextNode):
 ### LOOP SCHEMA ###
 
 class LoopData(NodeData):
-    label: Literal["loop"]
+    var: str = "i"
 
 class LoopNode(ContextNode):
+    type: Literal["loop"]
     data: LoopData
     code: str = "for {id} in range({start}, {end}):"
 
@@ -269,7 +259,7 @@ class LoopNode(ContextNode):
 ### GRAPH SCHEMA ###
 
 class GraphData(NodeData):
-    label: Literal["graph"]
+    variant: Literal["graph"]
     graph_data: List[float] = []
 
 class GraphNode(Node):

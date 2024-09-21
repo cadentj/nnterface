@@ -6,6 +6,7 @@
 
     type $$Props = FunctionNodeProps;
 
+    export let type: $$Props["type"];
     export let data: $$Props["data"];
 
     let inputs = data.inputs;
@@ -39,7 +40,7 @@
         <Handle
             type="source"
             position={Position.Right}
-            label={data.label}
+            label={data.type}
             style="top: 50%; position: absolute;"
         />
     </div>

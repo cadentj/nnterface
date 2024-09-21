@@ -18,7 +18,7 @@
             let newNode: Node = createEmptyNode(name);
 
             if (contexts.includes(newNode.type)) {
-                newNode.type = "context";
+                newNode.data.variant = "context";
                 newNode.height = 200;
                 newNode.width = 250;
             }
