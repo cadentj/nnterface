@@ -11,7 +11,7 @@
     export let blockGroups: BlockGroup[];
 
     // TEMPORARY
-    const contexts: string[] = ["run", "loop", "batch"];
+    const contexts: string[] = ["run", "batch", "loop"];
 
     const onDragStart = (event: DragEvent, name: string) => {
         if (event.dataTransfer) {
@@ -19,10 +19,10 @@
 
             if (contexts.includes(newNode.type)) {
                 newNode.type = "context";
-                newNode.height = 160;
-                newNode.width = 240;
+                newNode.height = 200;
+                newNode.width = 250;
             }
-
+            
             type.set(newNode);
 
             event.dataTransfer.effectAllowed = "move";

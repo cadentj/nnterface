@@ -22,7 +22,14 @@
         blocks: ["input", "list"],
     };
 
-    const demoBlocks: BlockGroup[] = [control, data];
+
+    const output: BlockGroup = {
+        title: "Output",
+        blocks: ["chat", "graph"],
+    };
+
+
+    const demoBlocks: BlockGroup[] = [control, data, output];
 
     setContext("type", type);
 </script>

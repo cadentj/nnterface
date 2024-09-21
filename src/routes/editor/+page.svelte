@@ -7,9 +7,9 @@
     import Logo from "./nnsight-logo.svelte"
 </script>
 
-<nav class="border-b">
+<!-- <nav class="border-b">
 
-</nav>
+</nav> -->
 <SvelteFlowProvider>
     <ConnectionProvider>
         <DnDProvider>

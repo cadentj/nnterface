@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { Position, type NodeProps, useSvelteFlow } from "@xyflow/svelte";
+    import { Position, useSvelteFlow } from "@xyflow/svelte";
+    import type { InputNodeProps } from "$lib/components/types/nodes";
 
     import Handle from "../utils/handle.svelte";
 
@@ -7,7 +8,7 @@
     import * as Dialog from "$lib/components/ui/dialog";
     import { Textarea } from "$lib/components/ui/textarea";
 
-    type $$Props = NodeProps;
+    type $$Props = InputNodeProps;
 
     export let id: $$Props["id"];
     export let data: $$Props["data"];

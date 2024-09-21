@@ -6,76 +6,41 @@
 
     type $$Props = FunctionNodeProps;
 
-    export let id: $$Props["id"];
     export let data: $$Props["data"];
 
     let inputs = data.inputs;
-    let handlePositions: number[];
-    let sourcePosition: number;
 
-    let blockBody = `height: ${inputs.length * 2}rem;`;
-
-    function calculateHandlePosition(
-        nHandles: number,
-        blockHeight: number,
-        titleHeight: number,
-    ) {
-        let offsetHeight = blockHeight - titleHeight;
-
-        let handlePositions = Array.from({ length: nHandles }, (_, index) => {
-            return (index + 1) * (offsetHeight / (nHandles + 1)) + titleHeight;
-        });
-
-        return handlePositions;
+    function handlePos(index: number) {
+        let nHandles = inputs.length;
+        return ((index + 1) / (nHandles + 1)) * 100;
     }
-
-    onMount(() => {
-        const blockTitleHeight = document.getElementById(id)?.offsetHeight;
-        const blockHeight = document.getElementById(
-            id + "-title",
-        )?.offsetHeight;
-
-        if (blockTitleHeight && blockHeight) {
-            handlePositions = calculateHandlePosition(
-                inputs.length,
-                blockHeight,
-                blockTitleHeight,
-            );
-
-            sourcePosition =
-                (blockHeight - blockTitleHeight) / 2 + blockTitleHeight;
-        }
-    });
 
     $$restProps;
 </script>
 
-<div class="block" {id}>
-    <div
-        class="flex items-center border-b px-3 py-2 h-auto draggable"
-        id={id + "-title"}
-    >
+<div class="block">
+    <div class="flex items-center border-b px-3 py-2 h-auto draggable">
         <small class="text-sm">{data.functionName}</small>
     </div>
 
-    <div style={blockBody}>
+    <div style="height: {inputs.length * 30}px; position: relative;">
         {#each inputs as input, index}
             <Handle
                 id={input}
                 label="function"
                 type="target"
                 position={Position.Left}
-                style="top: {handlePositions[index]}px;"
+                style="top: {handlePos(index)}%; position: absolute;"
             >
                 {input}
             </Handle>
         {/each}
-    </div>
 
-    <Handle
-        type="source"
-        position={Position.Right}
-        label={data.label}
-        style="top: {sourcePosition}px;"
-    />
+        <Handle
+            type="source"
+            position={Position.Right}
+            label={data.label}
+            style="top: 50%; position: absolute;"
+        />
+    </div>
 </div>

@@ -14,6 +14,20 @@ export const createEmptyNode = (name: string): Node => ({
   }
 });
 
+export const getName = (node: Node) => {
+  switch (node.type) {
+    case "context":
+      return node.data.label;
+    case "function":
+      return node.data.functionName;
+    case "module": 
+      return node.data.moduleName;
+    default:
+      return node.type;
+  }
+}
+
+
 const clearParents = (nodes) => {
   return nodes.map((node) => {
     node.data.parents = ["session"];

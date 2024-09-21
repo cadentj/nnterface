@@ -2,6 +2,7 @@
     import { flip } from "svelte/animate";
     import { dndzone } from "svelte-dnd-action";
     import { useNodes } from "@xyflow/svelte";
+    import { getName } from "../flow-utils";
 
     const nodes = useNodes();
 
@@ -27,7 +28,7 @@
                 class="h-12 bg-ui-2 my-1 text-center border rounded-md"
                 animate:flip={{ duration: flipDurationMs }}
             >
-                {node.id}
+                {getName(node)}
             </div>
         {/each}
     </section>

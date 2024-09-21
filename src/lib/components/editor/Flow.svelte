@@ -18,6 +18,7 @@
   import Sidebar from "./sidebar/sidebar.svelte";
 
   import LayersTab from "./sidebar/layers-tab.svelte";
+  import ChatTab from "./sidebar/chat-tab/chat-tab.svelte";
 
   import "@xyflow/svelte/dist/base.css";
   import "./flow.css";
@@ -106,7 +107,8 @@
   </div>
 
   <div slot="view">
-    <LayersTab />
+    <!-- <LayersTab /> -->
+     <ChatTab />
   </div>
 </Layout>
 

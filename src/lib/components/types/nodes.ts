@@ -32,3 +32,13 @@ interface FunctionNodeData extends NodeProps["data"] {
 export type FunctionNodeProps = Omit<NodeProps, 'data'> & {
     data: FunctionNodeData;
 };
+
+
+interface InputNodeData extends NodeProps["data"] {
+    label: "input";
+    text: string;
+}
+
+export type InputNodeProps = Omit<NodeProps, 'data'> & {
+    data: InputNodeData;
+};

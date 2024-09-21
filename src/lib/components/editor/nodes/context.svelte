@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { NodeResizeControl, useInternalNode } from "@xyflow/svelte";
+    import { NodeResizeControl , Position} from "@xyflow/svelte";
     import { Maximize2, GripVertical } from "lucide-svelte";
+    import Handle from "../utils/handle.svelte";
 
     import type { ContextNodeProps } from "$lib/components/types/nodes";
 
@@ -8,9 +9,6 @@
 
     export let id: $$Props["id"];
     export let data: $$Props["data"];   
-
-    const internalNode = useInternalNode(id);
-
 
     data.color = data.color || "rgba(134, 25, 143, 0.3)";
     $$restProps;
@@ -26,6 +24,9 @@
             <Maximize2 class="h-3 w-3" />
         </div>
     </NodeResizeControl>
+
+    <Handle label={data.label} type="target" position={Position.Left}/>
+    <Handle label={data.label} type="source" position={Position.Right}/>
 </div>
 
 <style>

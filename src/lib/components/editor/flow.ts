@@ -13,7 +13,9 @@ import {
     InputNode,
     ContextNode,
     FunctionNode,
-    ListNode
+    ListNode,
+    ChatNode,
+    GraphNode,
 } from "./nodes";
 
 export const nodeTypes: NodeTypes = {
@@ -22,6 +24,8 @@ export const nodeTypes: NodeTypes = {
     context: ContextNode,
     function: FunctionNode,
     list: ListNode,
+    chat: ChatNode,
+    graph: GraphNode,
 };
 
 export const nodes: Writable<Node[]> = writable([
@@ -92,6 +96,12 @@ export const connections = {
         "function", "module", "run", "list"
     ],
     "list" : [  
-        "function", "module"
-    ]
+        "function", "module", "graph"
+    ],
+    "run" : [  
+        "chat"
+    ],
+    "batch" : [  
+        "chat"
+    ],
 }

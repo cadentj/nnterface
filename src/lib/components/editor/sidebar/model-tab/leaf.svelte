@@ -46,7 +46,7 @@
 	};
 </script>
 
-<ul>
+<ul class={(depth === 0 ? "pl-0" : "pl-5")}>
 	<li>
 		{#if tree.submodules}
 			<button
@@ -82,8 +82,11 @@
 	ul {
 		margin: 0;
 		list-style: none;
-		padding-left: 2rem;
 		user-select: none;
+	}
+
+	li {
+		@apply border-t
 	}
 
 	.arrow::before {
@@ -102,7 +105,7 @@
 	}
 
 	.submodule-name {
-		@apply h-10 bg-ui-2 border rounded-md;	
+		/* @apply h-10;	 */
 	}
 
 	.module-block {
