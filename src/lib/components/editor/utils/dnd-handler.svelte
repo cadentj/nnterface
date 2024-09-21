@@ -35,7 +35,7 @@
             id: `${$type.data.label}` + numNodes,
             position: position,
             origin: [0, 0],
-            class: ($type.type === "context") ? "test"  : "",
+            class: ($type.data.variant === "context") ? "!pointer-events-none"  : "",
         } satisfies Node;
 
         $nodes = [...$nodes, newNode];
