@@ -47,11 +47,18 @@ class ListData(NodeData):
 
 class ListNode(Node):
     type: Literal["list"]
-    code: str = "{id}_list = nnsight.list()"
+
+    name: str = None
+
+    code: str = "{name} = nnsight.list()"
     data: ListData
 
     def set_input_id(self, node: Node):
-        self.code = self.code.format(id=node.id)
+
+        if self.name is None:
+            self.name = node.id + "_list"
+
+        self.code = self.code.format(name=self.name)
     
     def precompile(self, args: List[Node]):
         pass
@@ -153,7 +160,7 @@ class ModuleNode(Node):
 
 class InputData(NodeData):
     label: Literal["input"]
-    text: str = ""
+    text: str
 
 
 class InputNode(Node):
@@ -161,10 +168,10 @@ class InputNode(Node):
     data: InputData
 
     defn: str = "{id} = '{text}'"
+    code: str = ""
 
-    def precompile(self, arg: Node):
+    def precompile(self, args: List[Node]):
         return self.defn.format(id=self.id, text=self.data.text)
-
 
 ### FUNCTION SCHEMA ###
 
@@ -219,8 +226,12 @@ class RunNode(ContextNode):
     code: str = "with model.trace({input}) as tracer:"
 
     def precompile(self, args: List[Node]):
-        self.code = self.code.format(input=args[0].id)
-    
+        input_node = [arg for arg in args if isinstance(arg, (InputNode))]
+
+        input_id = "" if not input_node else input_node[0].id
+
+        self.code = self.code.format(input=input_id)
+        
 
 ### BATCH SCHEMA ###
 
@@ -233,7 +244,11 @@ class BatchNode(ContextNode):
     code: str = "with model.invoke({input}):"
 
     def precompile(self, args: List[Node]):
-        self.code = self.code.format(input=args[0].id)
+        input_node = [arg for arg in args if isinstance(arg, (InputNode))]
+
+        input_id = "" if not input_node else input_node[0].id
+
+        self.code = self.code.format(input=input_id)
 
 
 ### LOOP SCHEMA ###
@@ -251,3 +266,18 @@ class LoopNode(ContextNode):
         pass
 
 
+### GRAPH SCHEMA ###
+
+class GraphData(NodeData):
+    label: Literal["graph"]
+    graph_data: List[float] = []
+
+class GraphNode(Node):
+    type: Literal["graph"]
+    data: GraphData
+    code: str = "{id} = {arg}.save()"
+
+    def precompile(self, args: List[Node]):
+        input_node = [arg for arg in args if isinstance(arg, (ListNode))]
+
+        self.code = self.code.format(id=self.id, arg=input_node[0].name)

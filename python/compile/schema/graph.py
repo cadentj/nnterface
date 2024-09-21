@@ -13,12 +13,13 @@ from .nodes import (
     BatchNode,
     LoopNode,
     ListNode,
+    GraphNode,
 )
 
 
 class Graph(BaseModel):
     nodes: List[
-        Union[InputNode, ModuleNode, RunNode, FunctionNode, BatchNode, LoopNode, ListNode]
+        Union[GraphNode, InputNode, ModuleNode, RunNode, FunctionNode, BatchNode, LoopNode, ListNode]
     ]
     edges: List[Edge]
 
@@ -102,7 +103,6 @@ class Graph(BaseModel):
                     tar.set_input_id(src)
                 case ("context", "list"):
                     src.add_default(tar)
-
 
         return self
 
