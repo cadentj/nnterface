@@ -25,20 +25,6 @@
 
   const { toObject, getIntersectingNodes } = useSvelteFlow();
 
-  async function createItem() {
-    console.log(toObject());
-
-    const response = await fetch("/api/compile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(toObject()),
-    });
-
-    const result = await response.json();
-  }
-
   const onNodeDragStop = ({ detail: { targetNode } }) => {
     if (targetNode.type === "module") {
       const intersecting = getIntersectingNodes(targetNode, false);
@@ -51,6 +37,23 @@
         loopParentIds.length > 0 ? loopParentIds : [];
     }
   };
+
+  async function createItem() {
+
+    const response = await fetch("/api/compile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(toObject()),
+    });
+
+    const result = await response.json();
+
+    for (const [key, value] of Object.entries(result)) {
+      console.log(`${key}: ${value}`);
+    }
+  }
 
   const updateNodeIntersections = () => {
     $nodes = updateIntersections($nodes, getIntersectingNodes);

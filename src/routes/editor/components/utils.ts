@@ -26,7 +26,6 @@ export const getName = (node: Node) => {
   }
 }
 
-
 const clearParents = (nodes) => {
   return nodes.map((node) => {
     node.data.parents = ["session"];

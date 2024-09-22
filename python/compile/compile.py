@@ -82,27 +82,12 @@ def topological_sort(graph: Graph) -> List[str]:
             "The graph has at least one cycle and cannot be topologically sorted."
         )
 
-
-def _to_names(list_of_ids: List[str], lookup: dict) -> List[str]:
-    names = []
-
-    for node_id in list_of_ids:
-        node = lookup[node_id]
-        if node.type == "function":
-            names.append(node.data.function_name)
-        elif node.type == "module":
-            names.append(node.data.module_name)
-        else:
-            names.append(node.id)
-
-    return names
-
 def compile(graph: Graph) -> tuple:
     sorted_nodes, grouped = topological_sort(graph)
 
     sorted_nodes = [graph.lookup[node_id] for node_id in sorted_nodes]
 
-    code = graph.precompile(get_adj_list(graph, reverse=True))
+    code = graph.precompile(sorted_nodes, get_adj_list(graph, reverse=True))
 
     visited = set()
     

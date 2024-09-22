@@ -33,9 +33,11 @@ async def create_item(graph: Graph):
     loc = {}
 
     exec(code, None, loc)
+
+    print(loc["graph4"], flush=True)
     
     return {
-        node_id : loc[node_id].value
+        node_id : str(loc[node_id].value)
         for node_id 
         in get_output_nodes(graph)
     }

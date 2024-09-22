@@ -78,12 +78,12 @@ class ContextNode(Node):
     defaults: List[str] = []
 
     def add_default(self, node: ListNode):
-        self.defaults.append(node.code)
+        self.defaults.append(node)
 
     # Override the compile method to include the defaults
     def compile(self):
-        self.defaults.append(self.code)
-        return "\n".join([self.indent() + line for line in self.defaults])
+        self.defaults.append(self)
+        return "\n".join([self.indent() + line.code for line in self.defaults])
 
 
 ### SESSION NODE SCHEMA ###
