@@ -2,7 +2,7 @@
     import { Position } from "@xyflow/svelte";
     import type { ModuleNodeProps } from "$lib/components/types/nodes";
 
-    import Handle from "../utils/handle.svelte";
+    import Handle from "../flow/handle.svelte";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 
     type $$Props = ModuleNodeProps;

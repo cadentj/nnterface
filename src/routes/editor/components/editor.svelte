@@ -6,22 +6,22 @@
     edges,
     defaultEdgeOptions,
     initialViewport,
-  } from "./flow";
+  } from "./defaults";
   import {
     DnDHandler,
     ContextMenu,
     ConnectionHandler,
     Layout,
     FlowMenu,
-  } from "./utils";
-  import { updateIntersections } from "./flow-utils";
+  } from "./flow";
+  import { updateIntersections } from "./utils";
   import Sidebar from "./sidebar/sidebar.svelte";
 
   import LayersTab from "./sidebar/layers-tab.svelte";
   import ChatTab from "./sidebar/chat-tab/chat-tab.svelte";
 
   import "@xyflow/svelte/dist/base.css";
-  import "./flow.css";
+  import "./styles.css";
 
   const { toObject, getIntersectingNodes } = useSvelteFlow();
 
@@ -49,9 +49,7 @@
 
       targetNode.data.loopParentIds =
         loopParentIds.length > 0 ? loopParentIds : [];
-
     }
-
   };
 
   const updateNodeIntersections = () => {
@@ -85,7 +83,6 @@
         {defaultEdgeOptions}
         {colorMode}
         {initialViewport}
-
         on:nodeclick={contextMenu.closeMenu}
         on:paneclick={contextMenu.closeMenu}
         on:nodedragstop={onNodeDragStop}
@@ -99,10 +96,7 @@
         onconnectstart={(_, params) =>
           connectionHandler.handleConnectStart(params)}
       >
-        <FlowMenu
-          bind:colorMode
-          compile={updateNodeIntersections}
-        />
+        <FlowMenu bind:colorMode compile={updateNodeIntersections} />
         <ContextMenu bind:this={contextMenu} {width} {height} />
       </SvelteFlow>
     </DnDHandler>
@@ -110,7 +104,7 @@
 
   <div slot="view">
     <!-- <LayersTab /> -->
-     <ChatTab />
+    <ChatTab />
   </div>
 </Layout>
 
@@ -123,15 +117,11 @@
     @apply !border-current !rounded-lg;
   }
 
-  :global(
-      .svelte-flow__node.selected,
-      .svelte-flow__node:focus
-    ) {
+  :global(.svelte-flow__node.selected, .svelte-flow__node:focus) {
     /* box-shadow: 6px 6px 0 1px rgba(0, 0, 0, 0.7) !important;
     background-color: #eee !important; */
 
     box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.08) !important;
-
   }
 
   :global(.svelte-flow__edges) {

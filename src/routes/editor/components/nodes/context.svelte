@@ -1,7 +1,7 @@
 <script lang="ts">
     import { NodeResizeControl , Position} from "@xyflow/svelte";
     import { Maximize2, GripVertical } from "lucide-svelte";
-    import Handle from "../utils/handle.svelte";
+    import Handle from "../flow/handle.svelte";
 
     export let label: string;
 </script>

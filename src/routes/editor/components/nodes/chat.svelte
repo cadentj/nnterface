@@ -1,7 +1,7 @@
 <script lang="ts">
     import { type NodeProps, Position } from "@xyflow/svelte";
     import { MessageSquare } from "lucide-svelte";
-    import Handle from "../utils/handle.svelte";
+    import Handle from "../flow/handle.svelte";
 
     type $$Props = NodeProps;
 

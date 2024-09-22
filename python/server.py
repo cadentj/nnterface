@@ -1,10 +1,11 @@
 import logging
 
-from fastapi import FastAPI
-from nnsight import LanguageModel
 import nnsight
+from nnsight import LanguageModel
+from fastapi import FastAPI
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+from utils import get_output_nodes
 from compile import compile, Graph
 
 app = FastAPI()
@@ -25,18 +26,20 @@ async def create_item(graph: Graph):
     
     code = compile(graph)
     
-
-    # logger.info(f"edges: {"\n".join(p)}")
-    
     load("EleutherAI/pythia-14m")
 
     print(code, flush=True)
-    loc = {}
-    exec(code, None, loc)
 
-    print(loc['graph5'], flush=True)
+    loc = {}
+
+    exec(code, None, loc)
     
-    return {"message": f"Item created: {graph}"}
+    return {
+        node_id : loc[node_id].value
+        for node_id 
+        in get_output_nodes(graph)
+    }
+
 
 if __name__ == "__main__":
     import uvicorn

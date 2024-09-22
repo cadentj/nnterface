@@ -1,7 +1,7 @@
 <script lang="ts">
     import { type NodeProps, Position } from "@xyflow/svelte";
     import { GripVertical } from "lucide-svelte";
-    import Handle from "../utils/handle.svelte";
+    import Handle from "../flow/handle.svelte";
     import Line from "./graph/line.svelte";
 
     type $$Props = NodeProps;

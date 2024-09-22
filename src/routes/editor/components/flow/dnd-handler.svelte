@@ -2,7 +2,7 @@
     import { useSvelteFlow } from "@xyflow/svelte";
     import { useNodes, type Node } from "@xyflow/svelte";
 
-    import { useDnD } from "../flow-utils";
+    import { useDnD } from "../utils";
     const { screenToFlowPosition } = useSvelteFlow();
 
     const nodes = useNodes();

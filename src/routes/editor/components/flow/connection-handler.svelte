@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { useConnectionType } from "../flow-utils";
+    import { useConnectionType } from "../utils";
     import { useSvelteFlow, type IsValidConnection } from "@xyflow/svelte";
-    import { connections } from "../flow";
+    import { connections } from "../defaults";
 
     const { getNode } = useSvelteFlow();
 

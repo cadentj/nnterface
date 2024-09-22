@@ -2,7 +2,7 @@
     import { Position, useSvelteFlow } from "@xyflow/svelte";
     import type { InputNodeProps } from "$lib/components/types/nodes";
 
-    import Handle from "../utils/handle.svelte";
+    import Handle from "../flow/handle.svelte";
     import { Textarea } from "$lib/components/ui/textarea";
 
     type $$Props = InputNodeProps;

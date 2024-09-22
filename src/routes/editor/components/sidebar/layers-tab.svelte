@@ -2,7 +2,7 @@
     import { flip } from "svelte/animate";
     import { dndzone } from "svelte-dnd-action";
     import { useNodes } from "@xyflow/svelte";
-    import { getName } from "../flow-utils";
+    import { getName } from "../utils";
 
     const nodes = useNodes();
 

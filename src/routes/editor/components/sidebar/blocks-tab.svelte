@@ -2,7 +2,7 @@
     import { getContext } from "svelte";
     import type { Writable } from "svelte/store";
     import type { Node } from "@xyflow/svelte";
-    import { createEmptyNode } from "../flow-utils";
+    import { createEmptyNode } from "../utils";
 
     import type { BlockGroup } from "$lib/components/types/blocks";
 

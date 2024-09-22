@@ -2,8 +2,7 @@
 	import { getContext } from "svelte";
 	import type { Writable } from "svelte/store";
 	import type { Node } from "@xyflow/svelte";
-	import { createEmptyNode } from "$lib/components/editor/flow-utils";
-
+	import { createEmptyNode } from "../../utils";
 	export let tree;
 	export let nLayers: number = 0;
 	export let depth: number = 0;  // New prop to keep track of the current depth

@@ -1,9 +1,9 @@
 <script lang="ts">
-    import CodeEditor from "../utils/code-editor.svelte";
+    import CodeEditor from "./code-editor.svelte";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Pencil, Trash2 } from "lucide-svelte";
     import { getContext } from "svelte";
-    import { createEmptyNode } from "$lib/components/editor/flow-utils";
+    import { createEmptyNode } from "../../utils";
     import { writable, type Writable } from "svelte/store";
 
     type FunctionBlock = {

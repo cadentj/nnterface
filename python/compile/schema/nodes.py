@@ -184,6 +184,11 @@ class FunctionData(NodeData):
     code: str
     inputs: List[str]
 
+    @model_validator(mode="after")
+    def set_inputs(self):
+        self.inputs = ", ".join(self.inputs)
+        return self
+
 
 class FunctionNode(Node):
     type: Literal["function"]
@@ -198,12 +203,12 @@ class FunctionNode(Node):
     def _set(self, args: List[Node]):
         self.code = self.code.format(id=self.id, args=args)
 
-        return self.defn.format(id=self.id, args=args, body=self.data.code)
+        return self.defn.format(id=self.id, args=self.data.inputs, body=self.data.code)
 
     def _append(self, args: List[Node]):
         self.code = self.append.format(id=self.id, args=args)
 
-        return self.defn.format(id=self.id, args=args, body=self.data.code)
+        return self.defn.format(id=self.id, args=self.data.inputs, body=self.data.code)
 
     def precompile(self, args: List[Node]):
         args: str = ", ".join(

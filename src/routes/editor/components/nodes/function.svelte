@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Position } from "@xyflow/svelte";
     import type { FunctionNodeProps } from "$lib/components/types/nodes";
-    import Handle from "../utils/handle.svelte";
+    import Handle from "../flow/handle.svelte";
     import { onMount } from "svelte";
 
     type $$Props = FunctionNodeProps;

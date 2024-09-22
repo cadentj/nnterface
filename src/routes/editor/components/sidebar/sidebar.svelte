@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { useDnD } from "../flow-utils";   
+    import { useDnD } from "../utils";   
 
     import ModelSelector from "./model-tab/model-tab.svelte";
     import { setContext } from "svelte";
     import * as Tabs from "$lib/components/ui/tabs";
     import BlockList from "./blocks-tab.svelte";
-    import FunctionTab from "./function-tab.svelte";
+    import FunctionTab from "./function-tab/function-tab.svelte";
 
     import type { BlockGroup } from "$lib/components/types/blocks";
 

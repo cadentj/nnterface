@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { moveNode } from "../flow";
+    import { moveNode } from "../defaults";
     import { type Menu } from "$lib/components/types/menu";
 
     export let width: number;
