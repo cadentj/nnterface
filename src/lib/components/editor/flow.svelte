@@ -35,8 +35,8 @@
       },
       body: JSON.stringify(toObject()),
     });
+
     const result = await response.json();
-    console.log(result);
   }
 
   const onNodeDragStop = ({ detail: { targetNode } }) => {
@@ -44,12 +44,14 @@
       const intersecting = getIntersectingNodes(targetNode, false);
 
       const loopParentIds = intersecting
-        .filter((node) => node.data.label === "loop")
+        .filter((node) => node.type === "loop")
         .map((node) => node.id);
 
       targetNode.data.loopParentIds =
         loopParentIds.length > 0 ? loopParentIds : [];
+
     }
+
   };
 
   const updateNodeIntersections = () => {

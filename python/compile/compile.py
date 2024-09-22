@@ -123,9 +123,7 @@ def compile(graph: Graph) -> tuple:
     for node in sorted_nodes: 
         expand(node)
 
-    print("\n".join(code), flush=True)
-
-    return "SUCCESS"
+    return "\n".join(code)
 
 
 

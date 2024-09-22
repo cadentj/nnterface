@@ -17,11 +17,12 @@ class NodeData(BaseModel):
     parents: List[str]
     variant: str
 
+
 class Node(BaseModel):
     model_config = ConfigDict(
         alias_generator=to_camel,
     )
-        
+
     id: Optional[str]
     parent: str = None
 
@@ -43,7 +44,9 @@ class Node(BaseModel):
     def precompile(self, args: List["Node"]):
         raise NotImplementedError
 
+
 ### LIST SCHEMA ###
+
 
 class ListNode(Node):
     type: Literal["list"]
@@ -53,22 +56,22 @@ class ListNode(Node):
     code: str = "{name} = nnsight.list()"
 
     def set_input_id(self, node: Node):
-
         if self.name is None:
             self.name = node.id + "_list"
 
         self.code = self.code.format(name=self.name)
-    
+
     def precompile(self, args: List[Node]):
         pass
 
     def compile(self):
         return ""
-    
+
+
 ### CONTEXT NODE SCHEMA ###
 
-class ContextNode(Node): 
 
+class ContextNode(Node):
     code: str
     data: NodeData
 
@@ -82,9 +85,11 @@ class ContextNode(Node):
         self.defaults.append(self.code)
         return "\n".join([self.indent() + line for line in self.defaults])
 
+
 ### SESSION NODE SCHEMA ###
 
-class SessionNode(ContextNode): 
+
+class SessionNode(ContextNode):
     id: Literal["session"]
     type: Literal["session"] = "session"
     data: NodeData = NodeData(parents=[""], variant="context")
@@ -93,9 +98,10 @@ class SessionNode(ContextNode):
 
     def precompile(self, args: List[Node]):
         pass
-    
+
 
 ### MODULE NODE SCHEMA ###
+
 
 class ModuleData(NodeData):
     variant: Literal["module"]
@@ -121,32 +127,26 @@ class ModuleNode(Node):
 
     protocol: Literal["getter", "setter", "append"] = None
 
-    def _set(self, arg: Node): 
+    def _set(self, arg: Node):
         self.code = self.setter.format(
-            module=self.data.module_name, 
-            location=self.data.location, 
-            arg_id=arg.id
+            module=self.data.module_name, location=self.data.location, arg_id=arg.id
         )
 
-    def _append(self): 
+    def _append(self):
         self.code = self.append.format(
-            id=self.id, 
-            module=self.data.module_name, 
-            location=self.data.location
+            id=self.id, module=self.data.module_name, location=self.data.location
         )
 
-    def _get(self): 
+    def _get(self):
         self.code = self.getter.format(
-            id=self.id, 
-            module=self.data.module_name, 
-            location=self.data.location
+            id=self.id, module=self.data.module_name, location=self.data.location
         )
 
     def precompile(self, args: List[Node]):
         input_node = [arg for arg in args if isinstance(arg, (ModuleNode, ListNode))]
 
         assert len(input_node) <= 1
-        
+
         if input_node:
             return self._set(input_node[0])
         elif self.protocol == "getter":
@@ -156,6 +156,7 @@ class ModuleNode(Node):
 
 
 ### INPUT NODE SCHEMA ###
+
 
 class InputData(NodeData):
     variant: Literal["input"]
@@ -171,6 +172,7 @@ class InputNode(Node):
 
     def precompile(self, args: List[Node]):
         return self.defn.format(id=self.id, text=self.data.text)
+
 
 ### FUNCTION SCHEMA ###
 
@@ -197,14 +199,16 @@ class FunctionNode(Node):
         self.code = self.code.format(id=self.id, args=args)
 
         return self.defn.format(id=self.id, args=args, body=self.data.code)
-    
+
     def _append(self, args: List[Node]):
         self.code = self.append.format(id=self.id, args=args)
 
         return self.defn.format(id=self.id, args=args, body=self.data.code)
 
     def precompile(self, args: List[Node]):
-        args: str = ", ".join([arg.id for arg in args if not isinstance(arg, ContextNode)])
+        args: str = ", ".join(
+            [arg.id for arg in args if not isinstance(arg, ContextNode)]
+        )
 
         if self.protocol == "setter":
             return self._set(args)
@@ -212,8 +216,8 @@ class FunctionNode(Node):
             return self._append(args)
 
 
-
 ### RUN SCHEMA ###
+
 
 class RunNode(ContextNode):
     type: Literal["run"]
@@ -225,12 +229,14 @@ class RunNode(ContextNode):
         input_id = "" if not input_node else input_node[0].id
 
         self.code = self.code.format(input=input_id)
-        
+
+
 ### BATCH SCHEMA ###
+
 
 class BatchNode(ContextNode):
     type: Literal["batch"]
-    code: str = "with model.invoke({input}):"
+    code: str = "with tracer.invoke({input}):"
 
     def precompile(self, args: List[Node]):
         input_node = [arg for arg in args if isinstance(arg, (InputNode))]
@@ -242,8 +248,10 @@ class BatchNode(ContextNode):
 
 ### LOOP SCHEMA ###
 
+
 class LoopData(NodeData):
-    var: str = "i"
+    start: str
+    end: str
 
 class LoopNode(ContextNode):
     type: Literal["loop"]
@@ -253,14 +261,18 @@ class LoopNode(ContextNode):
     lists: List[str] = []
 
     def precompile(self, args: List[Node]):
-        pass
+        self.code = self.code.format(
+            id=self.id, start=self.data.start, end=self.data.end
+        )
 
 
 ### GRAPH SCHEMA ###
 
+
 class GraphData(NodeData):
     variant: Literal["graph"]
     graph_data: List[float] = []
+
 
 class GraphNode(Node):
     type: Literal["graph"]

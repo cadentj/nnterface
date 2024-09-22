@@ -16,7 +16,7 @@ export const createEmptyNode = (name: string): Node => ({
 export const getName = (node: Node) => {
   switch (node.type) {
     case "context":
-      return node.data.label;
+      return node.data.variant;
     case "function":
       return node.data.functionName;
     case "module": 

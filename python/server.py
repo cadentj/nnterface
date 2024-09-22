@@ -2,6 +2,7 @@ import logging
 
 from fastapi import FastAPI
 from nnsight import LanguageModel
+import nnsight
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from compile import compile, Graph
@@ -18,22 +19,22 @@ def load(repo_id: str):
     model = LanguageModel(repo_id, dispatch=True)
     tok = model.tokenizer
 
-def run(code: str): 
-    global model
-    exec(code)
-
 
 @app.post("/compile")
 async def create_item(graph: Graph):
     
-    sorted_nodes = compile(graph)
-
-    # p = [f"{edge.source},{edge.target}" for edge in sorted_nodes]
-    # logger.info(f"edges: {"\n".join(p)}")
+    code = compile(graph)
     
 
-    # load("EleutherAI/pythia-14m")
-    # run(code)
+    # logger.info(f"edges: {"\n".join(p)}")
+    
+    load("EleutherAI/pythia-14m")
+
+    print(code, flush=True)
+    loc = {}
+    exec(code, None, loc)
+
+    print(loc['graph5'], flush=True)
     
     return {"message": f"Item created: {graph}"}
 

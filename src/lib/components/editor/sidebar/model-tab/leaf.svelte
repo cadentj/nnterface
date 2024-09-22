@@ -13,7 +13,11 @@
 	let isVariable: boolean = tree.atomic.includes(".0");
 	if (isVariable) {
 		tree.name = tree.name.replace(".0", `.[0-${nLayers}]`);
-		tree.atomic = tree.atomic.replace(".0", `.n`);
+		tree.atomic = tree.atomic.replace(".0", `.<VAR>`);
+	}
+
+	if (tree.atomic[0] === ".") {
+		tree.atomic = "model" + tree.atomic;
 	}
 
 	// Set initial expansion based on depth
@@ -35,7 +39,7 @@
 			...newNode,
 			type: "module",
 			data: {
-				label: "module",
+				variant: "module",
 				moduleName: name,
 				isVariable: isVariable,
 			},

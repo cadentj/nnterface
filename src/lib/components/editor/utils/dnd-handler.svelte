@@ -32,7 +32,7 @@
 
         const newNode = {
             ...$type,
-            id: `${$type.data.label}` + numNodes,
+            id: `${$type.type}` + numNodes,
             position: position,
             origin: [0, 0],
             class: ($type.data.variant === "context") ? "!pointer-events-none"  : "",
