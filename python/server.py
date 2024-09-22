@@ -5,8 +5,24 @@ from nnsight import LanguageModel
 from fastapi import FastAPI
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+import sys
+from io import StringIO
+from contextlib import contextmanager
+
 from utils import get_output_nodes
 from compile import compile, Graph
+
+@contextmanager
+def capture_stdout():
+    original_stdout = sys.stdout
+    try:
+        string_io = StringIO()
+        sys.stdout = string_io
+        yield string_io
+    finally:
+        sys.stdout = original_stdout
+
+
 
 app = FastAPI()
 
@@ -31,10 +47,8 @@ async def create_item(graph: Graph):
     print(code, flush=True)
 
     loc = {}
-
-    exec(code, None, loc)
-
-    print(loc["graph4"], flush=True)
+    with capture_stdout() as captured:
+        exec(code, None, loc)
     
     return {
         node_id : str(loc[node_id].value)

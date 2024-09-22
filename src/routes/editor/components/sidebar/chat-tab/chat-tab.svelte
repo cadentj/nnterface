@@ -9,24 +9,24 @@
     function sendMessage() {
         if (inputMessage.trim() === "") return;
 
-        messages = [...messages, { text: inputMessage, sender: "user" }];
+        messages = [...messages, { content: inputMessage, role: "user" }];
         inputMessage = "";
 
         // Simulate bot response
         setTimeout(() => {
-            const botResponse = `This is a simulated response to "${messages[messages.length - 1].text}"`;
+            const botResponse = `This is a simulated response to "${messages[messages.length - 1].content}"`;
             streamResponse(botResponse);
         }, 1000);
     }
 
     function streamResponse(response) {
         let index = 0;
-        const botMessage = { text: "", sender: "bot" };
+        const botMessage = { content: "", role: "bot" };
         messages = [...messages, botMessage];
 
         const intervalId = setInterval(() => {
             if (index < response.length) {
-                botMessage.text += response[index];
+                botMessage.content += response[index];
                 messages = messages;
                 index++;
             } else {
@@ -52,12 +52,12 @@
         >
             {#each messages as message}
                 <div
-                    class="mb-2 {message.sender === 'user' ? 'text-right' : ''}"
+                    class="mb-2 {message.role === 'user' ? 'text-right' : ''}"
                 >
                     <span
                         class="inline-block px-4 py-2 rounded-lg bg-ui-2"
                     >
-                        {message.text}
+                        {message.content}
                     </span>
                 </div>
             {/each}

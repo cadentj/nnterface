@@ -23,7 +23,7 @@
   import "@xyflow/svelte/dist/base.css";
   import "./styles.css";
 
-  const { toObject, getIntersectingNodes } = useSvelteFlow();
+  const { toObject, getIntersectingNodes, updateNodeData } = useSvelteFlow();
 
   const onNodeDragStop = ({ detail: { targetNode } }) => {
     if (targetNode.type === "module") {
@@ -39,7 +39,7 @@
   };
 
   async function createItem() {
-
+    
     const response = await fetch("/api/compile", {
       method: "POST",
       headers: {
@@ -50,9 +50,11 @@
 
     const result = await response.json();
 
-    for (const [key, value] of Object.entries(result)) {
-      console.log(`${key}: ${value}`);
+    for (const [nodeId, data] of Object.entries(result)) {
+      console.log(nodeId, data);
+      updateNodeData(nodeId, {graphData:data});
     }
+
   }
 
   const updateNodeIntersections = () => {
@@ -106,8 +108,8 @@
   </div>
 
   <div slot="view">
-    <!-- <LayersTab /> -->
-    <ChatTab />
+    <LayersTab />
+    <!-- <ChatTab /> -->
   </div>
 </Layout>
 

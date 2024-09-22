@@ -85,7 +85,10 @@ def topological_sort(graph: Graph) -> List[str]:
 def compile(graph: Graph) -> tuple:
     sorted_nodes, grouped = topological_sort(graph)
 
+    print(sorted_nodes, flush=True)
+
     sorted_nodes = [graph.lookup[node_id] for node_id in sorted_nodes]
+
 
     code = graph.precompile(sorted_nodes, get_adj_list(graph, reverse=True))
 
@@ -97,7 +100,7 @@ def compile(graph: Graph) -> tuple:
 
         visited.add(node.id)
 
-        if node.type == "context":
+        if node.data.variant == "context":
             code.append(node.compile())
 
             for child in grouped[node.id]:

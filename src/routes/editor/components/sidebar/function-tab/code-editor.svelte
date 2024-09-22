@@ -32,6 +32,7 @@
             functionName: functionName,
             inputs: inputs,
             code: code,
+            deletable: true,
         };
 
         functions.update((fns) => {

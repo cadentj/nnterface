@@ -5,9 +5,7 @@ from typing import Literal, Optional, List
 
 SPACES = "  "
 
-
 ### BASE SCHEMA ###
-
 
 class NodeData(BaseModel):
     model_config = ConfigDict(
@@ -283,6 +281,22 @@ class GraphNode(Node):
     type: Literal["graph"]
     data: GraphData
     code: str = "{id} = {arg}.save()"
+
+    def precompile(self, args: List[Node]):
+        input_node = [arg for arg in args if isinstance(arg, (ListNode))]
+
+        self.code = self.code.format(id=self.id, arg=input_node[0].name)
+
+
+### CHAT SCHEMA ###
+
+class ChatData(NodeData):
+    variant: Literal["chat"]
+
+class ChatNode(Node):
+    type: Literal["chat"]
+    data: ChatData
+    code: str = "{id} = model.generator.output.save()"
 
     def precompile(self, args: List[Node]):
         input_node = [arg for arg in args if isinstance(arg, (ListNode))]

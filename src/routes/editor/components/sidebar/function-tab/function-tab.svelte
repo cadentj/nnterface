@@ -10,6 +10,7 @@
         functionName: string;
         inputs: string[];
         code: string;
+        deletable: boolean;
     };
 
     const type: Writable<Node | null> = getContext("type");
@@ -22,21 +23,25 @@
             functionName: "Add",
             inputs: ["x", "y"],
             code: "return x + y",
+            deletable: false,
         },
         {
             functionName: "Subtract",
             inputs: ["x", "y"],
             code: "return x - y",
+            deletable: false,
         },
         {
             functionName: "Multiply",
             inputs: ["x", "y"],
             code: "return x * y",
+            deletable: false,
         },
         {
             functionName: "Divide",
             inputs: ["x", "y"],
             code: "return x / y",
+            deletable: false,
         },
     ]);
 
@@ -61,38 +66,49 @@
     <Dialog.Content class="max-w-[750px]">
         <CodeEditor {functions} index={openIndex} bind:open />
     </Dialog.Content>
-    <div class="block-container">
+    <div class="flex flex-col gap-3 mb-3">
         {#each $functions as f, index}
-            <div>
+            <div
+                class="flex p-3 bg-ui-2 px-5 justify-between items-center rounded-md"
+            >
                 <button
-                    class="my-3 p-2 w-20 h-10 bg-secondary border rounded-md"
+                    class=""
                     draggable="true"
                     on:dragstart={(event) => onDragStart(event, f)}
                 >
                     {f.functionName}
                 </button>
-                <Dialog.Trigger on:click={() => { openIndex = index }}>
-                    <button>
-                        <Pencil class="h-4 w-4" />
-                    </button>
-                </Dialog.Trigger>
-                <button on:click={() => {deleteFunction(index)}}>
-                    <Trash2 class="h-4 w-4" />
-                </button>
+                <div>
+                    <Dialog.Trigger
+                        on:click={() => {
+                            openIndex = index;
+                        }}
+                    >
+                        <button>
+                            <Pencil class="h-4 w-4" />
+                        </button>
+                    </Dialog.Trigger>
+                    {#if f.deletable}
+                        <button
+                            on:click={() => {
+                                deleteFunction(index);
+                            }}
+                        >
+                            <Trash2 class="h-4 w-4 ml-2" />
+                        </button>
+                    {/if}
+                </div>
             </div>
         {/each}
     </div>
 
-    <Dialog.Trigger on:click={() => { openIndex = -1 }}>
+    <Dialog.Trigger
+        on:click={() => {
+            openIndex = -1;
+        }}
+    >
         <button>
             <Pencil class="h-4 w-4" />
         </button>
     </Dialog.Trigger>
 </Dialog.Root>
-
-<style>
-    .block-container {
-        display: flex;
-        flex-direction: column;
-    }
-</style>

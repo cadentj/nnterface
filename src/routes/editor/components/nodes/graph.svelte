@@ -3,17 +3,12 @@
     import { GripVertical } from "lucide-svelte";
     import Handle from "../flow/handle.svelte";
     import Line from "./graph/line.svelte";
+    import { onMount } from "svelte";
 
     type $$Props = NodeProps;
 
     export let type: $$Props["type"];
     export let data: $$Props["data"];
-
-    let graphData = data.graphData || [];
-
-    function buildData(d: number[]) {
-        return d.map((row, i) => ({ year: i, count: row }));
-    }
 
     $$restProps;
 </script>
@@ -24,7 +19,7 @@
         <small class="text-sm">{type}</small>
     </div>
 
-    <Line d={buildData(graphData)} />
+    <Line data={data.graphData} />
 
     <Handle label={type} type="target" position={Position.Left} />
 </div>
