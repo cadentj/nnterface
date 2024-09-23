@@ -79,7 +79,7 @@ def get_shapes(repo_id):
 
         return model, shapes
 
-model, shapes = get_shapes('EleutherAI/pythia-14m')
+model, shapes = get_shapes('TinyLlama/TinyLlama-1.1B-Chat-v1.0')
 
 # %%
 
@@ -97,13 +97,13 @@ def generate_pytree(module, atomic='', path='', fold=False):
         "name": path,
         "atomic" : atomic,
         "type": module_type,
-        "input" : shapes[module._module_path[1:]]['input'],
-        "output" : shapes[module._module_path[1:]]['output'],
+        "input" : shapes[module.path[1:]]['input'],
+        "output" : shapes[module.path[1:]]['output'],
         "submodules": []
     }
 
     for submodule in module._sub_envoys:
-        name = submodule._module_path.split('.')[-1]
+        name = submodule.path.split('.')[-1]
 
         if "drop" in name or "generator" in name:
             continue
@@ -111,7 +111,7 @@ def generate_pytree(module, atomic='', path='', fold=False):
         sub_path = f"{path}.{name}" if fold else name
 
         pytree["submodules"].append(
-            generate_pytree(submodule, atomic=submodule._module_path, path=sub_path)
+            generate_pytree(submodule, atomic=submodule.path, path=sub_path)
         )
 
     if not pytree["submodules"]:

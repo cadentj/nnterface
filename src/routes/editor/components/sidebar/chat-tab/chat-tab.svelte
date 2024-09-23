@@ -1,10 +1,14 @@
 <script>
     import { onMount } from "svelte";
     import { ArrowUp } from "lucide-svelte";
+    import { useSvelteFlow, useNodes } from "@xyflow/svelte";
+    import { updateIntersections } from "../../utils";
 
     let messages = [];
     let inputMessage = "";
     let chatContainer;
+
+    const { toObject, getIntersectingNodes, updateNodeData  } = useSvelteFlow();
 
     function sendMessage() {
         if (inputMessage.trim() === "") return;
@@ -12,12 +16,37 @@
         messages = [...messages, { content: inputMessage, role: "user" }];
         inputMessage = "";
 
-        // Simulate bot response
-        setTimeout(() => {
-            const botResponse = `This is a simulated response to "${messages[messages.length - 1].content}"`;
-            streamResponse(botResponse);
-        }, 1000);
+        updateNodeIntersections();
     }
+
+    async function createItem() {
+        updateNodeData("chat0", {messages:messages});
+
+        const response = await fetch("/api/compile", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(toObject()),
+        });
+
+        const result = await response.json();
+
+        for (const [nodeId, data] of Object.entries(result)) {
+            let r = JSON.parse(data).at(-1)['content']; 
+            streamResponse(r);
+        }
+
+        console.log(result);
+    }
+
+
+    let nodes = useNodes();
+
+    const updateNodeIntersections = () => {
+        $nodes = updateIntersections($nodes, getIntersectingNodes);
+        createItem();
+    };
 
     function streamResponse(response) {
         let index = 0;
@@ -45,18 +74,14 @@
 </script>
 
 <main class="p-10 pointer-events-auto">
-    <div class="bg-ui-1 rounded-lg p-4 ">
+    <div class="bg-ui-1 rounded-lg p-4">
         <div
             bind:this={chatContainer}
             class="chat-container overflow-y-auto rounded mb-4"
         >
             {#each messages as message}
-                <div
-                    class="mb-2 {message.role === 'user' ? 'text-right' : ''}"
-                >
-                    <span
-                        class="inline-block px-4 py-2 rounded-lg bg-ui-2"
-                    >
+                <div class="mb-2 {message.role === 'user' ? 'text-right' : ''}">
+                    <span class="inline-block px-4 py-2 rounded-lg bg-ui-2">
                         {message.content}
                     </span>
                 </div>
@@ -72,9 +97,9 @@
             />
             <button
                 on:click={sendMessage}
-                class="px-6 py-2 text-lg text-white rounded-r bg-ui-2 focus:outline-none focus:ring-1 "
+                class="px-6 py-2 text-lg text-white rounded-r bg-ui-2 focus:outline-none focus:ring-1"
             >
-                <ArrowUp class="h-5 w-5"/>
+                <ArrowUp class="h-5 w-5" />
             </button>
         </div>
     </div>

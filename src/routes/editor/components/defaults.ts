@@ -19,7 +19,6 @@ import {
     RunNode,
     BatchNode
 } from "./nodes";
-import Loop from "./nodes/loop.svelte";
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,

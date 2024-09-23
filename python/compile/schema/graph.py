@@ -15,6 +15,7 @@ from .nodes import (
     LoopNode,
     ListNode,
     GraphNode,
+    ChatNode
 )
 
 
@@ -29,6 +30,7 @@ class Graph(BaseModel):
             BatchNode,
             LoopNode,
             ListNode,
+            ChatNode
         ]
     ]
     edges: List[Edge]
@@ -87,6 +89,7 @@ class Graph(BaseModel):
             unfold_context(node)
 
         return self
+    
 
     def get_top_parent(self, node_id: str, level: str = "session") -> str:
         """Get the parent id of a node at a certain depth."""

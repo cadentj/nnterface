@@ -1,7 +1,7 @@
 from pydantic import BaseModel, ConfigDict, model_validator
 from pydantic.alias_generators import to_camel
 
-from typing import Literal, Optional, List
+from typing import Literal, Optional, List, Dict
 
 SPACES = "  "
 
@@ -21,8 +21,10 @@ class Node(BaseModel):
         alias_generator=to_camel,
     )
 
-    id: Optional[str]
+    id: str
     parent: str = None
+
+    code: str = ""
 
     data: NodeData
 
@@ -31,9 +33,9 @@ class Node(BaseModel):
         self.parent = self.data.parents[-1]
         return self
 
-    def indent(self):
+    def indent(self, extra: int = 0):
         if self.data.parents != [""]:
-            return SPACES * len(self.data.parents)
+            return SPACES * (len(self.data.parents) + extra)
         return ""
 
     def compile(self):
@@ -166,7 +168,6 @@ class InputNode(Node):
     data: InputData
 
     defn: str = "{id} = '{text}'"
-    code: str = ""
 
     def precompile(self, args: List[Node]):
         return self.defn.format(id=self.id, text=self.data.text)
@@ -221,17 +222,24 @@ class FunctionNode(Node):
 
 ### RUN SCHEMA ###
 
+MAX_NEW_TOKENS = 100
 
 class RunNode(ContextNode):
     type: Literal["run"]
     code: str = "with model.trace({input}) as tracer:"
 
+    generate: str = "with model.generate({input}_content, max_new_tokens={max_new_tokens}) as generator:"
+
     def precompile(self, args: List[Node]):
-        input_node = [arg for arg in args if isinstance(arg, (InputNode))]
+        input_node = [arg for arg in args if isinstance(arg, (InputNode, ChatNode))]
 
         input_id = "" if not input_node else input_node[0].id
 
-        self.code = self.code.format(input=input_id)
+        if isinstance(input_node[0], ChatNode):
+            self.generate += "\n" + self.indent(extra=1) + f"{input_id} = model.generator.output.tolist().save()"
+            self.code = self.generate.format(input=input_id, max_new_tokens=MAX_NEW_TOKENS)
+        else:
+            self.code = self.code.format(input=input_id)
 
 
 ### BATCH SCHEMA ###
@@ -271,7 +279,6 @@ class LoopNode(ContextNode):
 
 ### GRAPH SCHEMA ###
 
-
 class GraphData(NodeData):
     variant: Literal["graph"]
     graph_data: List[float] = []
@@ -293,12 +300,15 @@ class GraphNode(Node):
 class ChatData(NodeData):
     variant: Literal["chat"]
 
+    messages: List[Dict[str, str]] = [{"role" : "user", "content" : "Hey, how are you?"}]
+    tokens: List[int] = []
+
 class ChatNode(Node):
     type: Literal["chat"]
     data: ChatData
-    code: str = "{id} = model.generator.output.save()"
 
     def precompile(self, args: List[Node]):
-        input_node = [arg for arg in args if isinstance(arg, (ListNode))]
+        pass
 
-        self.code = self.code.format(id=self.id, arg=input_node[0].name)
+    def tokenize(self, tok):
+        self.data.tokens = tok.apply_chat_template(self.data.messages, add_generation_prompt=True)

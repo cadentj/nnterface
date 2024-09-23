@@ -37,7 +37,6 @@
   };
 
   async function createItem() {
-    
     const response = await fetch("/api/compile", {
       method: "POST",
       headers: {
@@ -48,10 +47,20 @@
 
     const result = await response.json();
 
-    for (const [nodeId, data] of Object.entries(result)) {
+    console.log(toObject());
 
-      updateNodeData(nodeId, {graphData:JSON.parse(data)});
+    for (const [nodeId, data] of Object.entries(result)) {
+      if (nodeId.includes("graph")) {
+        updateNodeData(nodeId, {graphData:JSON.parse(data)});
+      }
+      else {
+        console.log(data)
+        updateNodeData(nodeId, {messages : JSON.parse(data)});
+      }
+      
     }
+
+    console.log(result);
 
   }
 
