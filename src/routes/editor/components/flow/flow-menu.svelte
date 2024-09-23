@@ -40,7 +40,7 @@
         </ControlButton>
     </div>
 </Controls>
-<Background variant={BackgroundVariant.Dots} gap={30}  bgColor={"#080808"}/>
+<Background variant={BackgroundVariant.Dots} gap={30}  bgColor={"#0f0f0f"}/>
 <!-- <MiniMap height={80} width={100}/> -->
 
 

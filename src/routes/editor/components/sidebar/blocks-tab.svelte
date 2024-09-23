@@ -32,7 +32,7 @@
 
 <div>
     {#each blockGroups as group}
-        <div class='py-2'>
+        <div class='mb-2'>
             <small>{group.title}</small>
             <div class="block-container grid grid-cols-2 gap-4 pt-2">
                 {#each group.blocks as block, index}

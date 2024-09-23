@@ -17,19 +17,17 @@
 </script>
 
 <div>
-    <div class="mb-4">
-        <Select.Root>
-            <small>Model</small>
-            <Select.Trigger class="margin">
-                <Select.Value placeholder="Select a Model" />
-            </Select.Trigger>
-            <Select.Content>
-                <Select.Item value="light">Light</Select.Item>
-                <Select.Item value="dark">Dark</Select.Item>
-                <Select.Item value="system">System</Select.Item>
-            </Select.Content>
-        </Select.Root>
-    </div>
+    <Select.Root>
+        <small>Model</small>
+        <Select.Trigger class="margin mb-4 mt-2">
+            <Select.Value placeholder="Select a Model" />
+        </Select.Trigger>
+        <Select.Content>
+            <Select.Item value="light">Light</Select.Item>
+            <Select.Item value="dark">Dark</Select.Item>
+            <Select.Item value="system">System</Select.Item>
+        </Select.Content>
+    </Select.Root>
 
     {#if loading}
         <div class="space-y-3 mt-3">

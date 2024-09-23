@@ -36,19 +36,19 @@
 
 <div class='p-10 h-full'>
     <Tabs.Root value="model" class="pointer-events-auto" id="sidebar">
-        <Tabs.List class="w-full bg-ui-1">
-            <Tabs.Trigger value="model" class="w-full">Model</Tabs.Trigger>
-            <Tabs.Trigger value="blocks" class="w-full">Blocks</Tabs.Trigger>
-            <Tabs.Trigger value="functions" class="w-full">Functions</Tabs.Trigger>
+        <Tabs.List class="w-full rounded-lg h-12 bg-ui-1">
+            <Tabs.Trigger value="model" class="w-full h-full data-[state=active]:bg-ui-2 rounded-lg">Model</Tabs.Trigger>
+            <Tabs.Trigger value="blocks" class="w-full h-full data-[state=active]:bg-ui-2 rounded-lg">Blocks</Tabs.Trigger>
+            <Tabs.Trigger value="functions" class="w-full h-full data-[state=active]:bg-ui-2 rounded-lg">Functions</Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content value="model" class="p-3 rounded-lg bg-ui-1">
+        <Tabs.Content value="model" class="px-5 py-4 rounded-lg bg-ui-1">
             <ModelSelector/>
-        </Tabs.Content>
-        <Tabs.Content value="blocks" class="p-3 rounded-lg bg-ui-1">
+        </Tabs.Content> 
+        <Tabs.Content value="blocks" class="px-5 py-4 rounded-lg bg-ui-1">
             <BlockList blockGroups={demoBlocks} />
         </Tabs.Content>
-        <Tabs.Content value="functions" class="p-3 rounded-lg bg-ui-1">
+        <Tabs.Content value="functions" class="px-5 py-4 rounded-lg bg-ui-1">
             <FunctionTab />
         </Tabs.Content>
     </Tabs.Root>

@@ -12,7 +12,7 @@
     $$restProps;
 </script>
 
-<div class="block">
+<div class="node">
     {type}
     <Handle
         type="target"

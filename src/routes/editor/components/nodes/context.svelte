@@ -7,8 +7,8 @@
 </script>
 
 <div class="context border">
-    <div class="flex items-center border-b px-3 py-2 h-auto draggable">
-        <GripVertical class="h-5 w-5"/>
+    <div class="flex items-center border-b px-3 py-2 h-auto draggable {(label === "run") ? "border-gradient" : ""}">
+        <GripVertical class="h-5 w-5 mr-2"/>
         <small class="text-sm">{label}</small>
 
         <slot name="title"/>
@@ -28,6 +28,10 @@
         pointer-events: all !important;
 
         @apply !cursor-move;
+    }
+
+    .border-gradient {
+        border-image: linear-gradient(to right, rgba(147, 89, 146, 0.8) 0%, rgba(46, 131, 175, 0.8) 100%) .5;
     }
 
     .resizer {

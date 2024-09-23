@@ -19,7 +19,7 @@
     $$restProps;
 </script>
 
-<div class="block">
+<div class="node !p-0">
     <div class="flex items-center border-b px-3 py-2 h-auto draggable">
         <small class="text-sm">{data.functionName}</small>
     </div>

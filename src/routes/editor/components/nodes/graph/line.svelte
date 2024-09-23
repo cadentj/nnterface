@@ -7,27 +7,31 @@
     let ctx: CanvasRenderingContext2D | null;
     let chartCanvas: HTMLCanvasElement;
     let chart: Chart | null = null;
-    
+
     function createOrUpdateChart() {
         if (!ctx) return;
-        if (!data) return;  
+        if (!data) return;
 
-        console.log('updated');
+        console.log("updated", data);
 
         const config: ChartConfiguration = {
             type: "line",
             options: {
                 plugins: {
                     legend: {
-                        display: false
-                    }
-                }
+                        display: false,
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                    },
+                },
             },
             data: {
                 labels: data.map((_, i) => i),
                 datasets: [
                     {
-                        label: "Acquisitions by year",
                         data: data,
                     },
                 ],

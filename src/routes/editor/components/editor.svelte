@@ -15,9 +15,7 @@
     FlowMenu,
   } from "./flow";
   import { updateIntersections } from "./utils";
-  import Sidebar from "./sidebar/sidebar.svelte";
-
-  import LayersTab from "./sidebar/layers-tab.svelte";
+  import Sidebar from "./sidebar/left-sidebar.svelte";
   import ChatTab from "./sidebar/chat-tab/chat-tab.svelte";
 
   import "@xyflow/svelte/dist/base.css";
@@ -51,8 +49,8 @@
     const result = await response.json();
 
     for (const [nodeId, data] of Object.entries(result)) {
-      console.log(nodeId, data);
-      updateNodeData(nodeId, {graphData:data});
+
+      updateNodeData(nodeId, {graphData:JSON.parse(data)});
     }
 
   }
@@ -108,8 +106,8 @@
   </div>
 
   <div slot="view">
-    <LayersTab />
-    <!-- <ChatTab /> -->
+    <!-- <LayersTab /> -->
+    <ChatTab />
   </div>
 </Layout>
 

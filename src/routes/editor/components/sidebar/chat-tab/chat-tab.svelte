@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import { SendHorizonal } from "lucide-svelte";
+    import { ArrowUp } from "lucide-svelte";
 
     let messages = [];
     let inputMessage = "";
@@ -45,7 +45,7 @@
 </script>
 
 <main class="p-10 pointer-events-auto">
-    <div class="bg-bg-1 p-4 ">
+    <div class="bg-ui-1 rounded-lg p-4 ">
         <div
             bind:this={chatContainer}
             class="chat-container overflow-y-auto rounded mb-4"
@@ -72,9 +72,9 @@
             />
             <button
                 on:click={sendMessage}
-                class="px-6 py-2 text-lg text-white  rounded-r bg-ui-2 focus:outline-none focus:ring-2 "
+                class="px-6 py-2 text-lg text-white rounded-r bg-ui-2 focus:outline-none focus:ring-1 "
             >
-                <SendHorizonal/>
+                <ArrowUp class="h-5 w-5"/>
             </button>
         </div>
     </div>

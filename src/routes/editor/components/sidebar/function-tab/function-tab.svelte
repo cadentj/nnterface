@@ -43,6 +43,12 @@
             code: "return x / y",
             deletable: false,
         },
+        {
+            functionName: "Decode",
+            inputs: ["logits"],
+            code: "return logits[:,-1,:].softmax(-1).argmax(-1).item()",
+            deletable: false,
+        },
     ]);
 
     const deleteFunction = (index: number) => {
@@ -62,14 +68,15 @@
     };
 </script>
 
+<small>Functions</small>
 <Dialog.Root bind:open>
     <Dialog.Content class="max-w-[750px]">
         <CodeEditor {functions} index={openIndex} bind:open />
     </Dialog.Content>
-    <div class="flex flex-col gap-3 mb-3">
+    <div class="flex flex-col mt-2 gap-3 mb-3">
         {#each $functions as f, index}
             <div
-                class="flex p-3 bg-ui-2 px-5 justify-between items-center rounded-md"
+                class="flex p-2 h-10 bg-ui-2 px-5 justify-between items-center rounded-md"
             >
                 <button
                     class=""
@@ -78,17 +85,18 @@
                 >
                     {f.functionName}
                 </button>
+
                 <div>
-                    <Dialog.Trigger
-                        on:click={() => {
-                            openIndex = index;
-                        }}
-                    >
-                        <button>
-                            <Pencil class="h-4 w-4" />
-                        </button>
-                    </Dialog.Trigger>
                     {#if f.deletable}
+                        <Dialog.Trigger
+                            on:click={() => {
+                                openIndex = index;
+                            }}
+                        >
+                            <button>
+                                <Pencil class="h-4 w-4" />
+                            </button>
+                        </Dialog.Trigger>
                         <button
                             on:click={() => {
                                 deleteFunction(index);

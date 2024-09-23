@@ -94,6 +94,9 @@ export const connections = {
     "input" : [
         "run", "batch"
     ],
+    "chat" : [
+        "run", "batch"
+    ],
     "module" : [
         "function", "module", "list"
     ],
@@ -102,11 +105,5 @@ export const connections = {
     ],
     "list" : [  
         "function", "module", "graph"
-    ],
-    "run" : [  
-        "chat"
-    ],
-    "batch" : [  
-        "chat"
     ],
 }

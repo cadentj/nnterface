@@ -1,17 +1,17 @@
-<script lang="ts">
-    import * as Resizable from "$lib/components/ui/resizable";
-</script>
-
 <main class="relative h-screen w-full overflow-hidden">
     <div class="absolute inset-0 z-0">
         <slot name="flow" />
     </div>
 
-    <div class="absolute top-0 left-0 h-auto sidebar overflow-auto z-10 pointer-events-none">
+    <div
+        class="absolute top-0 left-0 h-auto sidebar overflow-auto z-10 pointer-events-none"
+    >
         <slot name="sidebar" />
     </div>
 
-    <div class="absolute top-0 right-0 h-auto sidebar overflow-auto z-10 pointer-events-none">
+    <div
+        class="absolute top-0 right-0 h-auto sidebar overflow-auto z-10 pointer-events-none"
+    >
         <slot name="view" />
     </div>
 </main>

@@ -11,11 +11,11 @@
     $$restProps;
 </script>
 
-<div class="block py-2 px-3 flex justify-between items-center">
+<div class="node py-2 px-3 justify-between flex !bg-green-950 !border-green-500 opacity-80">
     Chat
     <button>
         <MessageSquare class="h-5 w-5"/>
     </button>
 
-    <Handle label={type} type="target" position={Position.Left}/>
+    <Handle label={type} type="source" position={Position.Right}/>
 </div>

@@ -16,7 +16,7 @@
     $$restProps;
 </script>
 
-<div class="block p-2">
+<div class="node p-2">
     <div style="justify-content: space-between; display: flex;" class="mb-2">
         Prompt
     </div>

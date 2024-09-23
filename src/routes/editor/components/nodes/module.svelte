@@ -12,7 +12,7 @@
 
     data.isVariable = data.isVariable || false;
     data.loopVariable = data.loopVariable || "";
-    data.loopParentIds = data.loopParentIds || ["a",'b','c','d'];
+    data.loopParentIds = data.loopParentIds || ["a", "b", "c", "d"];
 
     let before: string, after: string;
     if (data.isVariable) {
@@ -34,25 +34,25 @@
     $$restProps;
 </script>
 
-<div class="block">
-    <div class="flex">
-        {#if data.isVariable}
-            {before}
-            <DropdownMenu.Root>
-                <DropdownMenu.Trigger>{value}</DropdownMenu.Trigger>
-                <DropdownMenu.Content>
-                    <DropdownMenu.Group>
-                        {#each data.loopParentIds as id}
-                            <DropdownMenu.Item on:click={() => setValue(`[${id}]`)}>{id}</DropdownMenu.Item>
-                        {/each}
-                    </DropdownMenu.Group>
-                </DropdownMenu.Content>
-            </DropdownMenu.Root>
-            {after}
-        {:else}
-            {data.moduleName}
-        {/if}
-    </div>
+<div class="node">
+    {#if data.isVariable}
+        {before}
+        <DropdownMenu.Root>
+            <DropdownMenu.Trigger>{value}</DropdownMenu.Trigger>
+            <DropdownMenu.Content>
+                <DropdownMenu.Group>
+                    {#each data.loopParentIds as id}
+                        <DropdownMenu.Item on:click={() => setValue(`[${id}]`)}
+                            >{id}</DropdownMenu.Item
+                        >
+                    {/each}
+                </DropdownMenu.Group>
+            </DropdownMenu.Content>
+        </DropdownMenu.Root>
+        {after}
+    {:else}
+        {data.moduleName}
+    {/if}
 
     <!-- NOTE: targets must come before sources in html to function properly. -->
 
