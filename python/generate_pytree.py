@@ -79,7 +79,7 @@ def get_shapes(repo_id):
 
         return model, shapes
 
-model, shapes = get_shapes('TinyLlama/TinyLlama-1.1B-Chat-v1.0')
+model, shapes = get_shapes('Qwen/Qwen2.5-0.5B-Instruct')
 
 # %%
 

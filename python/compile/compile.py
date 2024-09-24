@@ -1,26 +1,13 @@
-from collections import defaultdict, deque, OrderedDict
+from collections import defaultdict, deque
 from typing import List
 
 from .schema import Graph
-
-REPO_ID = "EleutherAI/pythia-14m"
-
-def get_adj_list(graph: Graph, reverse: bool = False) -> dict:
-    adj_list = defaultdict(list)
-
-    for edge in graph.edges:
-        if reverse:
-            adj_list[edge.target].append(edge.source)
-        else:
-            adj_list[edge.source].append(edge.target)
-
-    return adj_list
+from .precompile import precompile
+from .utils import get_adj_list
 
 
 def get_in_degree(graph: Graph) -> dict:
-    """
-    Compute the in-degree (number of incoming edges) for each node.
-    """
+    """Compute the in-degree of each node."""
     in_degree = {node.id: 0 for node in graph.nodes}
 
     for edge in graph.edges:
@@ -28,34 +15,13 @@ def get_in_degree(graph: Graph) -> dict:
 
     return in_degree
 
-def build_dependency_graph(graph: Graph) -> dict:    
-
-    deps = defaultdict(list)
-
-    for edge in graph.edges: 
-        src = edge.source
-        tar = graph.lookup[edge.target]
-
-        if tar.parent == src:
-            deps[src].append(tar.id)
-
-    return deps
-
 
 def topological_sort(graph: Graph) -> List[str]:
-    """
-    Perform topological sort on the graph using Kahn's algorithm.
-    Returns a list of nodes in topologically sorted order.
-    """
+    """Returns a list of node_ids in topologically sorted order."""
     adj_list = get_adj_list(graph)
     in_degree = get_in_degree(graph)
 
-    zero_degree = [
-        node_id 
-        for node_id, degree 
-        in in_degree.items()
-        if (degree == 0)
-    ]
+    zero_degree = [node_id for node_id, degree in in_degree.items() if (degree == 0)]
 
     queue = deque(zero_degree)
 
@@ -70,7 +36,6 @@ def topological_sort(graph: Graph) -> List[str]:
         grouped[node.parent].append(node)
 
         for neighbor in adj_list.get(node_id, []):
-
             in_degree[neighbor] -= 1
             if in_degree[neighbor] == 0:
                 queue.append(neighbor)
@@ -82,36 +47,37 @@ def topological_sort(graph: Graph) -> List[str]:
             "The graph has at least one cycle and cannot be topologically sorted."
         )
 
+
 def compile(graph: Graph) -> tuple:
-    sorted_nodes, grouped = topological_sort(graph)
+    """Compile a graph into executable NNsight code."""
 
-    print(sorted_nodes, flush=True)
+    sorted_ids, grouped = topological_sort(graph)
+    sorted_nodes = [graph.lookup[node_id] for node_id in sorted_ids]
 
-    sorted_nodes = [graph.lookup[node_id] for node_id in sorted_nodes]
-
-
-    code = graph.precompile(sorted_nodes, get_adj_list(graph, reverse=True))
+    # Get the initial code from precompile
+    code = precompile(graph, sorted_nodes, get_adj_list(graph, reverse=True))
 
     visited = set()
-    
-    def expand(node): 
+
+    def expand(node):
+        """Expand the node and its children into code."""
         if node.id in visited:
             return
 
         visited.add(node.id)
 
+        # Only recurse into context nodes
         if node.data.variant == "context":
             code.append(node.compile())
 
             for child in grouped[node.id]:
                 expand(child)
+
         else:
             code.append(node.compile())
 
-    for node in sorted_nodes: 
+    # Expand the nodes in topological order
+    for node in sorted_nodes:
         expand(node)
 
     return "\n".join(code)
-
-
-

@@ -2,22 +2,22 @@
     "name": "model",
     "atomic": "model",
     "type": "Module",
-    "input": "(1, 2)",
-    "output": "(1, 2, 32000)",
+    "input": "(1, 1)",
+    "output": "(1, 1, 151936)",
     "submodules": [
         {
             "name": "model",
             "atomic": ".model",
             "type": "Module",
             "input": [],
-            "output": "(1, 2, 2048)",
+            "output": "(1, 1, 896)",
             "submodules": [
                 {
                     "name": "embed_tokens",
                     "atomic": ".model.embed_tokens",
                     "type": "Module",
-                    "input": "(1, 2)",
-                    "output": "(1, 2, 2048)"
+                    "input": "(1, 1)",
+                    "output": "(1, 1, 896)"
                 },
                 {
                     "name": "layers",
@@ -30,50 +30,50 @@
                             "name": "layers.0",
                             "atomic": ".model.layers.0",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.0.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.0.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.0.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.0.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.0.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.0.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -81,36 +81,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.0.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.0.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.0.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.0.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.0.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -118,15 +118,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.0.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.0.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -134,50 +134,50 @@
                             "name": "layers.1",
                             "atomic": ".model.layers.1",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.1.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.1.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.1.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.1.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.1.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.1.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -185,36 +185,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.1.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.1.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.1.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.1.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.1.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -222,15 +222,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.1.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.1.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -238,50 +238,50 @@
                             "name": "layers.2",
                             "atomic": ".model.layers.2",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.2.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.2.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.2.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.2.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.2.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.2.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -289,36 +289,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.2.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.2.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.2.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.2.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.2.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -326,15 +326,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.2.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.2.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -342,50 +342,50 @@
                             "name": "layers.3",
                             "atomic": ".model.layers.3",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.3.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.3.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.3.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.3.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.3.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.3.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -393,36 +393,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.3.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.3.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.3.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.3.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.3.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -430,15 +430,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.3.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.3.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -446,50 +446,50 @@
                             "name": "layers.4",
                             "atomic": ".model.layers.4",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.4.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.4.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.4.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.4.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.4.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.4.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -497,36 +497,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.4.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.4.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.4.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.4.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.4.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -534,15 +534,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.4.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.4.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -550,50 +550,50 @@
                             "name": "layers.5",
                             "atomic": ".model.layers.5",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.5.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.5.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.5.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.5.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.5.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.5.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -601,36 +601,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.5.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.5.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.5.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.5.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.5.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -638,15 +638,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.5.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.5.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -654,50 +654,50 @@
                             "name": "layers.6",
                             "atomic": ".model.layers.6",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.6.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.6.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.6.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.6.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.6.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.6.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -705,36 +705,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.6.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.6.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.6.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.6.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.6.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -742,15 +742,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.6.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.6.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -758,50 +758,50 @@
                             "name": "layers.7",
                             "atomic": ".model.layers.7",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.7.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.7.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.7.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.7.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.7.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.7.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -809,36 +809,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.7.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.7.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.7.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.7.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.7.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -846,15 +846,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.7.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.7.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -862,50 +862,50 @@
                             "name": "layers.8",
                             "atomic": ".model.layers.8",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.8.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.8.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.8.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.8.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.8.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.8.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -913,36 +913,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.8.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.8.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.8.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.8.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.8.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -950,15 +950,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.8.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.8.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -966,50 +966,50 @@
                             "name": "layers.9",
                             "atomic": ".model.layers.9",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.9.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.9.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.9.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.9.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.9.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.9.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -1017,36 +1017,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.9.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.9.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.9.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.9.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.9.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -1054,15 +1054,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.9.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.9.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -1070,50 +1070,50 @@
                             "name": "layers.10",
                             "atomic": ".model.layers.10",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.10.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.10.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.10.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.10.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.10.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.10.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -1121,36 +1121,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.10.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.10.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.10.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.10.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.10.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -1158,15 +1158,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.10.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.10.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -1174,50 +1174,50 @@
                             "name": "layers.11",
                             "atomic": ".model.layers.11",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.11.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.11.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.11.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.11.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.11.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.11.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -1225,36 +1225,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.11.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.11.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.11.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.11.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.11.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -1262,15 +1262,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.11.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.11.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -1278,50 +1278,50 @@
                             "name": "layers.12",
                             "atomic": ".model.layers.12",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.12.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.12.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.12.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.12.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.12.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.12.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -1329,36 +1329,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.12.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.12.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.12.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.12.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.12.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -1366,15 +1366,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.12.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.12.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -1382,50 +1382,50 @@
                             "name": "layers.13",
                             "atomic": ".model.layers.13",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.13.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.13.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.13.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.13.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.13.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.13.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -1433,36 +1433,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.13.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.13.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.13.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.13.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.13.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -1470,15 +1470,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.13.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.13.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -1486,50 +1486,50 @@
                             "name": "layers.14",
                             "atomic": ".model.layers.14",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.14.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.14.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.14.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.14.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.14.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.14.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -1537,36 +1537,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.14.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.14.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.14.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.14.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.14.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -1574,15 +1574,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.14.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.14.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -1590,50 +1590,50 @@
                             "name": "layers.15",
                             "atomic": ".model.layers.15",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.15.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.15.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.15.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.15.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.15.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.15.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -1641,36 +1641,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.15.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.15.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.15.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.15.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.15.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -1678,15 +1678,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.15.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.15.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -1694,50 +1694,50 @@
                             "name": "layers.16",
                             "atomic": ".model.layers.16",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.16.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.16.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.16.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.16.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.16.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.16.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -1745,36 +1745,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.16.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.16.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.16.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.16.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.16.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -1782,15 +1782,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.16.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.16.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -1798,50 +1798,50 @@
                             "name": "layers.17",
                             "atomic": ".model.layers.17",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.17.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.17.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.17.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.17.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.17.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.17.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -1849,36 +1849,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.17.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.17.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.17.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.17.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.17.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -1886,15 +1886,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.17.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.17.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -1902,50 +1902,50 @@
                             "name": "layers.18",
                             "atomic": ".model.layers.18",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.18.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.18.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.18.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.18.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.18.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.18.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -1953,36 +1953,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.18.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.18.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.18.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.18.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.18.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -1990,15 +1990,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.18.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.18.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -2006,50 +2006,50 @@
                             "name": "layers.19",
                             "atomic": ".model.layers.19",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.19.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.19.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.19.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.19.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.19.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.19.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -2057,36 +2057,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.19.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.19.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.19.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.19.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.19.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -2094,15 +2094,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.19.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.19.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -2110,50 +2110,50 @@
                             "name": "layers.20",
                             "atomic": ".model.layers.20",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.20.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.20.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.20.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.20.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.20.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.20.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -2161,36 +2161,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.20.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.20.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.20.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.20.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.20.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -2198,15 +2198,15 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.20.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.20.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         },
@@ -2214,50 +2214,50 @@
                             "name": "layers.21",
                             "atomic": ".model.layers.21",
                             "type": "Module",
-                            "input": "(1, 2, 2048)",
-                            "output": "(1, 2, 2048)",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
                             "submodules": [
                                 {
                                     "name": "self_attn",
                                     "atomic": ".model.layers.21.self_attn",
                                     "type": "Module",
                                     "input": [],
-                                    "output": "(1, 2, 2048)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "q_proj",
                                             "atomic": ".model.layers.21.self_attn.q_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "k_proj",
                                             "atomic": ".model.layers.21.self_attn.k_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "v_proj",
                                             "atomic": ".model.layers.21.self_attn.v_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 256)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
                                         },
                                         {
                                             "name": "o_proj",
                                             "atomic": ".model.layers.21.self_attn.o_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "rotary_emb",
                                             "atomic": ".model.layers.21.self_attn.rotary_emb",
                                             "type": "Module",
-                                            "input": null,
-                                            "output": null
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
                                         }
                                     ]
                                 },
@@ -2265,36 +2265,36 @@
                                     "name": "mlp",
                                     "atomic": ".model.layers.21.mlp",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
                                     "submodules": [
                                         {
                                             "name": "gate_proj",
                                             "atomic": ".model.layers.21.mlp.gate_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "up_proj",
                                             "atomic": ".model.layers.21.mlp.up_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 2048)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
                                         },
                                         {
                                             "name": "down_proj",
                                             "atomic": ".model.layers.21.mlp.down_proj",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 2048)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
                                         },
                                         {
                                             "name": "act_fn",
                                             "atomic": ".model.layers.21.mlp.act_fn",
                                             "type": "Module",
-                                            "input": "(1, 2, 5632)",
-                                            "output": "(1, 2, 5632)"
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
                                         }
                                     ]
                                 },
@@ -2302,15 +2302,223 @@
                                     "name": "input_layernorm",
                                     "atomic": ".model.layers.21.input_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 },
                                 {
                                     "name": "post_attention_layernorm",
                                     "atomic": ".model.layers.21.post_attention_layernorm",
                                     "type": "Module",
-                                    "input": "(1, 2, 2048)",
-                                    "output": "(1, 2, 2048)"
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "layers.22",
+                            "atomic": ".model.layers.22",
+                            "type": "Module",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
+                            "submodules": [
+                                {
+                                    "name": "self_attn",
+                                    "atomic": ".model.layers.22.self_attn",
+                                    "type": "Module",
+                                    "input": [],
+                                    "output": "(1, 1, 896)",
+                                    "submodules": [
+                                        {
+                                            "name": "q_proj",
+                                            "atomic": ".model.layers.22.self_attn.q_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
+                                        },
+                                        {
+                                            "name": "k_proj",
+                                            "atomic": ".model.layers.22.self_attn.k_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
+                                        },
+                                        {
+                                            "name": "v_proj",
+                                            "atomic": ".model.layers.22.self_attn.v_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
+                                        },
+                                        {
+                                            "name": "o_proj",
+                                            "atomic": ".model.layers.22.self_attn.o_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
+                                        },
+                                        {
+                                            "name": "rotary_emb",
+                                            "atomic": ".model.layers.22.self_attn.rotary_emb",
+                                            "type": "Module",
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "mlp",
+                                    "atomic": ".model.layers.22.mlp",
+                                    "type": "Module",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
+                                    "submodules": [
+                                        {
+                                            "name": "gate_proj",
+                                            "atomic": ".model.layers.22.mlp.gate_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
+                                        },
+                                        {
+                                            "name": "up_proj",
+                                            "atomic": ".model.layers.22.mlp.up_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
+                                        },
+                                        {
+                                            "name": "down_proj",
+                                            "atomic": ".model.layers.22.mlp.down_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
+                                        },
+                                        {
+                                            "name": "act_fn",
+                                            "atomic": ".model.layers.22.mlp.act_fn",
+                                            "type": "Module",
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "input_layernorm",
+                                    "atomic": ".model.layers.22.input_layernorm",
+                                    "type": "Module",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
+                                },
+                                {
+                                    "name": "post_attention_layernorm",
+                                    "atomic": ".model.layers.22.post_attention_layernorm",
+                                    "type": "Module",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "layers.23",
+                            "atomic": ".model.layers.23",
+                            "type": "Module",
+                            "input": "(1, 1, 896)",
+                            "output": "(1, 1, 896)",
+                            "submodules": [
+                                {
+                                    "name": "self_attn",
+                                    "atomic": ".model.layers.23.self_attn",
+                                    "type": "Module",
+                                    "input": [],
+                                    "output": "(1, 1, 896)",
+                                    "submodules": [
+                                        {
+                                            "name": "q_proj",
+                                            "atomic": ".model.layers.23.self_attn.q_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
+                                        },
+                                        {
+                                            "name": "k_proj",
+                                            "atomic": ".model.layers.23.self_attn.k_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
+                                        },
+                                        {
+                                            "name": "v_proj",
+                                            "atomic": ".model.layers.23.self_attn.v_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 128)"
+                                        },
+                                        {
+                                            "name": "o_proj",
+                                            "atomic": ".model.layers.23.self_attn.o_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 896)"
+                                        },
+                                        {
+                                            "name": "rotary_emb",
+                                            "atomic": ".model.layers.23.self_attn.rotary_emb",
+                                            "type": "Module",
+                                            "input": "(1, 2, 1, 64)",
+                                            "output": "(1, 64)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "mlp",
+                                    "atomic": ".model.layers.23.mlp",
+                                    "type": "Module",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)",
+                                    "submodules": [
+                                        {
+                                            "name": "gate_proj",
+                                            "atomic": ".model.layers.23.mlp.gate_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
+                                        },
+                                        {
+                                            "name": "up_proj",
+                                            "atomic": ".model.layers.23.mlp.up_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 896)",
+                                            "output": "(1, 1, 4864)"
+                                        },
+                                        {
+                                            "name": "down_proj",
+                                            "atomic": ".model.layers.23.mlp.down_proj",
+                                            "type": "Module",
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 896)"
+                                        },
+                                        {
+                                            "name": "act_fn",
+                                            "atomic": ".model.layers.23.mlp.act_fn",
+                                            "type": "Module",
+                                            "input": "(1, 1, 4864)",
+                                            "output": "(1, 1, 4864)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "input_layernorm",
+                                    "atomic": ".model.layers.23.input_layernorm",
+                                    "type": "Module",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
+                                },
+                                {
+                                    "name": "post_attention_layernorm",
+                                    "atomic": ".model.layers.23.post_attention_layernorm",
+                                    "type": "Module",
+                                    "input": "(1, 1, 896)",
+                                    "output": "(1, 1, 896)"
                                 }
                             ]
                         }
@@ -2320,15 +2528,8 @@
                     "name": "norm",
                     "atomic": ".model.norm",
                     "type": "Module",
-                    "input": "(1, 2, 2048)",
-                    "output": "(1, 2, 2048)"
-                },
-                {
-                    "name": "rotary_emb",
-                    "atomic": ".model.rotary_emb",
-                    "type": "Module",
-                    "input": "(1, 2, 2048)",
-                    "output": "(1, 2, 64)"
+                    "input": "(1, 1, 896)",
+                    "output": "(1, 1, 896)"
                 }
             ]
         },
@@ -2336,8 +2537,8 @@
             "name": "lm_head",
             "atomic": ".lm_head",
             "type": "Module",
-            "input": "(1, 2, 2048)",
-            "output": "(1, 2, 32000)"
+            "input": "(1, 1, 896)",
+            "output": "(1, 1, 151936)"
         }
     ]
 }
