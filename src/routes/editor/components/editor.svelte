@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SvelteFlow, useSvelteFlow, type ColorMode } from "@xyflow/svelte";
+  import { SvelteFlow, type ColorMode } from "@xyflow/svelte";
   import {
     nodeTypes,
     nodes,
@@ -7,40 +7,19 @@
     defaultEdgeOptions,
     initialViewport,
   } from "./defaults";
-  import {
-    DnDHandler,
-    ContextMenu,
-    ConnectionHandler,
-    Layout,
-  } from "./flow";
+  import { DnDHandler, ConnectionHandler, Layout } from "./flow";
   import FlowMenu from "./toolbar/toolbar.svelte";
   import Sidebar from "./sidebar/left-sidebar.svelte";
   import ChatTab from "./chat/chat-tab.svelte";
   import Navbar from "./flow/navbar.svelte";
   import "@xyflow/svelte/dist/base.css";
+  import ProximityProvider from "./flow/proximity-provider.svelte";
   import "./styles.css";
 
-  const { getIntersectingNodes } = useSvelteFlow();
-
-  const onNodeDragStop = ({ detail: { targetNode } }) => {
-    if (targetNode.type === "module") {
-      const intersecting = getIntersectingNodes(targetNode, false);
-
-      const loopParentIds = intersecting
-        .filter((node) => node.type === "loop")
-        .map((node) => node.id);
-
-      targetNode.data.loopParentIds =
-        loopParentIds.length > 0 ? loopParentIds : [];
-    }
-  };
-
-  let contextMenu: ContextMenu;
+  let proximityProvider: ProximityProvider;
   let connectionHandler: ConnectionHandler;
 
   let colorMode: ColorMode = "dark";
-  let width: number;
-  let height: number;
 </script>
 
 <Layout>
@@ -48,12 +27,7 @@
 
   <Sidebar slot="sidebar" />
 
-  <div
-    style="height:100%;"
-    bind:clientWidth={width}
-    bind:clientHeight={height}
-    slot="flow"
-  >
+  <ProximityProvider bind:this={proximityProvider} slot="flow">
     <DnDHandler>
       <ConnectionHandler bind:this={connectionHandler} />
       <SvelteFlow
@@ -63,11 +37,8 @@
         {defaultEdgeOptions}
         {colorMode}
         {initialViewport}
-        on:nodeclick={contextMenu.closeMenu}
-        on:paneclick={contextMenu.closeMenu}
-        on:nodedragstop={onNodeDragStop}
-        on:nodedragstart={contextMenu.closeMenu}
-        on:nodecontextmenu={contextMenu.handleContextMenu}
+        on:nodedragstop={proximityProvider.onNodeDragStop}
+        on:nodedrag={proximityProvider.onNodeDrag}
         onconnectend={(event) => {
           connectionHandler?.handleConnectEnd();
         }}
@@ -77,10 +48,9 @@
           connectionHandler.handleConnectStart(params)}
       >
         <FlowMenu bind:colorMode />
-        <ContextMenu bind:this={contextMenu} {width} {height} />
       </SvelteFlow>
     </DnDHandler>
-  </div>
+  </ProximityProvider>
 
   <div slot="view">
     <!-- <LayersTab /> -->

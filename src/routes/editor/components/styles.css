@@ -2,10 +2,6 @@
     background-color: hsl(var(--node-background));
     border-radius: var(--radius);
 
-    min-height: 3rem;
-    min-width: 10rem;
-
-    height: 100%;
     border: 1px solid hsl(var(--border));
 
     @apply items-center text-center p-3;

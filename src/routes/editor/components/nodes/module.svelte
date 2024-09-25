@@ -8,7 +8,6 @@
 
     export let type: $$Props["type"];
     export let data: $$Props["data"];
-
     
     data.isVariable = data.isVariable || false;
     // TODO: Should reimplement with dropdown menu.
@@ -33,61 +32,21 @@
         {before}
         <input type="text" bind:value={value} class="w-12" on:input={(e) => updateValue()} />
         {after}
+        .{data.location}
     {:else}
         {data.moduleName}
+        .{data.location}
     {/if}
 
-    <!-- NOTE: Targets must come before sources in html to function properly. -->
-
     <Handle
-        id="c"
         type="target"
         label={type}
         position={Position.Left}
-        onconnect={() => {
-            data.location = "input";
-        }}
-        ondisconnect={() => {
-            data.location = "";
-        }}
     />
 
     <Handle
-        id="d"
-        type="target"
-        label={type}
-        position={Position.Right}
-        onconnect={() => {
-            data.location = "output";
-        }}
-        ondisconnect={() => {
-            data.location = "";
-        }}
-    />
-
-    <Handle
-        id="a"
-        type="source"
-        label={type}
-        position={Position.Left}
-        onconnect={() => {
-            data.location = "input";
-        }}
-        ondisconnect={() => {
-            data.location = "";
-        }}
-    />
-
-    <Handle
-        id="b"
         type="source"
         label={type}
         position={Position.Right}
-        onconnect={() => {
-            data.location = "output";
-        }}
-        ondisconnect={() => {
-            data.location = "";
-        }}
     />
 </div>

@@ -41,6 +41,7 @@
 				variant: "module",
 				moduleName: name,
 				isVariable: isVariable,
+				location: "output"
 			},
 		};
 		type.set(moduleNode);

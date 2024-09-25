@@ -5,7 +5,6 @@
     type $$Props = ContextNodeProps;
 
     export let id: $$Props["id"];
-    export let type: $$Props["type"];
     export let data: $$Props["data"];
 
     data.start = "0";

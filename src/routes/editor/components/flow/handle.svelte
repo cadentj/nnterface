@@ -3,7 +3,7 @@
     import type { Writable } from "svelte/store";
     import { getContext, onDestroy } from "svelte";
 
-    export let id: string | undefined = undefined;
+    export let id: string = null;
     export let position: Position;
     export let type: "source" | "target";
     export let label: string;
@@ -22,9 +22,6 @@
         unsubscribe();
     });
 
-    export let onconnect: () => void = () => {};
-    export let ondisconnect: () => void = () => {};
-
     const checkValid = (isColored: boolean) => {
         if (isColored && type === "target") {
             return true;
@@ -33,7 +30,7 @@
         } else {
             return false;
         }
-    }
+    };
 
     $$restProps;
 </script>
@@ -43,10 +40,10 @@
     {type}
     {position}
     {style}
-    {onconnect}
-    {ondisconnect}
-    class="{checkValid(isColored) ? "!bg-green-500 " : "bg-ui-2"} h-4 w-4 rounded-full items-center flex"
-    >
+    class="{checkValid(isColored)
+        ? '!bg-green-500 '
+        : 'bg-ui-2'} h-4 w-4 rounded-full items-center flex"
+>
     <div class="pl-5">
         <slot />
     </div>
