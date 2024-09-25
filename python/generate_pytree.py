@@ -22,6 +22,7 @@ def get_shapes(repo_id):
         return "None"
 
     def _shape(x):
+        is_shape = False
         rs = tree_map_only(
             torch.Tensor,
             _str,
@@ -29,10 +30,10 @@ def get_shapes(repo_id):
         )
 
         if isinstance(rs, COLLECTION) and len(rs) > 0:
-            print(rs)
             rs = rs[0]
+            is_shape = True
 
-        return rs
+        return rs, is_shape
 
     with fake_mode:
 
@@ -44,10 +45,10 @@ def get_shapes(repo_id):
         shapes = {}
 
         def add_input_shape(_, input, name):
-            shapes[name]['input'] = _shape(input)
+            shapes[name]['input'], shapes[name]['input_collection'] = _shape(input)
 
         def add_output_shape(_, input, output, name):
-            shapes[name]['output'] = _shape(output)
+            shapes[name]['output'], shapes[name]['output_collection'] = _shape(output)
 
         for name, module in model.named_modules():
 
@@ -56,7 +57,9 @@ def get_shapes(repo_id):
 
             shapes[name] = {
                 'input': None,
-                'output': None
+                'output': None,
+                'input_collection' : False,
+                'output_collection' : False
             }
 
             module.register_forward_pre_hook(
@@ -99,6 +102,8 @@ def generate_pytree(module, atomic='', path='', fold=False):
         "type": module_type,
         "input" : shapes[module.path[1:]]['input'],
         "output" : shapes[module.path[1:]]['output'],
+        "input_collection" : shapes[module.path[1:]]['input_collection'],
+        "output_collection" : shapes[module.path[1:]]['output_collection'],
         "submodules": []
     }
 

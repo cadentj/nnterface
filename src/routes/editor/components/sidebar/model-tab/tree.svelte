@@ -2,7 +2,7 @@
 
 <script lang="ts">
     import Leaf from "./leaf.svelte";
-    import pytree from "$lib/stores/editor/pytree.json";
+    import pytree from "./pytree.json";
 
     let tree = pytree;
 

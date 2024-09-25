@@ -15,18 +15,23 @@
     const { getInternalNode, getNode } = useSvelteFlow();
 
     function getClosestEdge(node: Node, nodes: Node[]) {
+        let nodeInternal: InternalNode | undefined = getInternalNode(node.id);
+
+        let ndx = nodeInternal?.measured.width
+            ? node.position.x + nodeInternal.measured.width
+            : node.position.x;
+
         const closestNode = nodes.reduce(
             (res, n) => {
                 if (n.id !== node.id) {
-                    let nodeInternal: InternalNode | undefined =
-                        getInternalNode(node.id);
-
-                    let ndx = nodeInternal?.measured.width
-                        ? node.position.x + nodeInternal.measured.width
-                        : node.position.x;
+                    // Contexts are resizable so we need to adjust the y position
+                    let ny = n.position.y;
+                    if (n.data.variant === "context") {
+                        ny += (n.height / 2)
+                    }
 
                     const dx = n.position.x - ndx;
-                    const dy = n.position.y - node.position.y;
+                    const dy = ny - node.position.y;
                     const d = Math.sqrt(dx * dx + dy * dy);
 
                     if (d < res.distance && d < MIN_DISTANCE) {
@@ -63,7 +68,7 @@
         const closestEdge = getClosestEdge(node, $nodes);
 
         if (closestEdge?.source && closestEdge?.target) {
-            const sourceType = getNode(closestEdge.source)?.type;   
+            const sourceType = getNode(closestEdge.source)?.type;
             const targetType = getNode(closestEdge.target)?.type;
             if (!connections[sourceType].includes(targetType)) {
                 return;

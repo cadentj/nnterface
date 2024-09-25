@@ -3,6 +3,7 @@
 	import type { Writable } from "svelte/store";
 	import type { Node } from "@xyflow/svelte";
 	import { createEmptyNode } from "../../utils";
+
 	export let tree;
 	export let nLayers: number = 0;
 	export let depth: number = 0;  // New prop to keep track of the current depth
@@ -41,7 +42,8 @@
 				variant: "module",
 				moduleName: name,
 				isVariable: isVariable,
-				location: "output"
+				location: "output",
+				index: tree.output_collection,
 			},
 		};
 		type.set(moduleNode);
