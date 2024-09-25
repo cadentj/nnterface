@@ -49,7 +49,7 @@ export const moveNode = (currentId: string, direction: "forward" | "backward") =
 
     nodes.update((nodes) => {
         // Find current node given id
-        const currentIndex = nodes.findIndex((node) => node.id === currentId);  
+        const currentIndex = nodes.findIndex((node) => node.id === currentId);
         if (currentIndex === -1) {
             return nodes;
         }
@@ -68,7 +68,7 @@ export const moveNode = (currentId: string, direction: "forward" | "backward") =
 
         return nodes;
     });
-    
+
 };
 
 export const edges = writable([]);
@@ -76,8 +76,10 @@ export const edges = writable([]);
 export const defaultEdgeOptions: DefaultEdgeOptions = {
     markerEnd: {
         type: MarkerType.ArrowClosed,
+        width: 8,
+        height: 8,
     },
-    type: "smoothstep"
+    style: "stroke-width: 3px"
 };
 
 
@@ -90,19 +92,19 @@ export const initialViewport = {
 
 
 export const connections = {
-    "input" : [
+    "input": [
         "run", "batch"
     ],
-    "chat" : [
+    "chat": [
         "run", "batch"
     ],
-    "module" : [
+    "module": [
         "function", "module", "list"
     ],
-    "function" : [
+    "function": [
         "function", "module", "run", "list"
     ],
-    "list" : [  
+    "list": [
         "function", "module", "graph"
     ],
 }

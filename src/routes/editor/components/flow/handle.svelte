@@ -25,9 +25,15 @@
     export let onconnect: () => void = () => {};
     export let ondisconnect: () => void = () => {};
 
-    let defaultStyle = isColored
-        ? "!bg-green-500 h-3 w-3 rounded-full items-center flex"
-        : "bg-current h-3 w-3 rounded-full items-center flex";
+    const checkValid = (isColored: boolean) => {
+        if (isColored && type === "target") {
+            return true;
+        } else if (isColored && label === "module") {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     $$restProps;
 </script>
@@ -39,7 +45,7 @@
     {style}
     {onconnect}
     {ondisconnect}
-    class={defaultStyle}
+    class="{checkValid(isColored) ? "!bg-green-500 " : "bg-ui-2"} h-4 w-4 rounded-full items-center flex"
     >
     <div class="pl-5">
         <slot />

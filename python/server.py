@@ -7,24 +7,9 @@ from nnsight import LanguageModel
 from fastapi import FastAPI
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-import sys
-from io import StringIO
-from contextlib import contextmanager
-
 
 from typing import Dict, Any, List
 from compile import compile, Graph
-
-@contextmanager
-def capture_stdout():
-    original_stdout = sys.stdout
-    try:
-        string_io = StringIO()
-        sys.stdout = string_io
-        yield string_io
-    finally:
-        sys.stdout = original_stdout
-
 
 
 app = FastAPI()
@@ -75,8 +60,33 @@ def prepare_result(loc: Dict[str, Any], graph: Graph):
 
     return results
 
-@app.post("/compile")
-async def create_item(graph: Graph):
+@app.post("/code")
+async def code(graph: Graph):
+    
+    code = compile(graph)
+    
+    return {
+        "code": code
+    }
+
+@app.post("/run")
+async def run(graph: Graph):
+    
+    code = compile(graph)
+    
+    load("Qwen/Qwen2.5-0.5B-Instruct")
+
+    print(code, flush=True)
+
+    loc = prepare_inputs(graph)
+
+    exec(code, None, loc)
+    
+    return prepare_result(loc, graph)
+
+
+@app.post("/chat")
+async def chat(graph: Graph):
     
     code = compile(graph)
     

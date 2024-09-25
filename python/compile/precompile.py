@@ -62,14 +62,15 @@ def resolve_edges(graph: Graph, sorted_nodes: List[Node]):
                     src.add_default(tar)
 
 
-def precompile(
-    graph, sorted_nodes: List[Node], r_adj_list: Dict[str, List[str]]
-) -> List[str]:
-
+def prepare(graph: Graph):
     resolve_dependencies(graph)
 
     # Unfold context -> child edges after resolving dependencies.
     unfold_edges(graph)
+
+def precompile(
+    graph, sorted_nodes: List[Node], r_adj_list: Dict[str, List[str]]
+) -> List[str]:
     
     resolve_edges(graph, sorted_nodes)
 

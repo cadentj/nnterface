@@ -1,6 +1,8 @@
 from pydantic import BaseModel, ConfigDict, model_validator
 from pydantic.alias_generators import to_camel
 
+from transformers import AutoTokenizer
+
 from typing import Literal, List, Dict
 
 SPACES = "  "
@@ -109,7 +111,6 @@ class ModuleData(NodeData):
     location: Literal["input", "output"] = "output"
 
     is_variable: bool
-    loop_variable: str
 
     save: bool = False
     mode: Literal["act", "grad"] = "act"
@@ -314,5 +315,5 @@ class ChatNode(Node):
     def precompile(self, args: List[Node]):
         pass
 
-    def tokenize(self, tok):
+    def tokenize(self, tok: AutoTokenizer):
         self.data.tokens = tok.apply_chat_template(self.data.messages, add_generation_prompt=True)

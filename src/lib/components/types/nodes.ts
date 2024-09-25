@@ -5,7 +5,7 @@ interface ModuleNodeData extends NodeProps["data"] {
     location: "input" | "output";
     moduleName: string;
     isVariable: boolean;
-    loopVariable: string;
+    nLayers: number;
     loopParentIds: string[];
 }
 

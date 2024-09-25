@@ -19,31 +19,11 @@ export const getName = (node: Node) => {
       return node.data.variant;
     case "function":
       return node.data.functionName;
-    case "module": 
+    case "module":
       return node.data.moduleName;
     default:
       return node.type;
   }
-}
-
-const clearParents = (nodes) => {
-  return nodes.map((node) => {
-    node.data.parents = ["session"];
-    return node;
-  });
-}
-
-export const updateIntersections = (nodes, getIntersectingNodes) => {
-  nodes = clearParents(nodes);
-
-  return nodes.map((node) => {
-    const intersectingNodes = getIntersectingNodes(node, false, nodes);
-    if (intersectingNodes.length >= 1) {
-      node.data.parents = node.data.parents.concat(intersectingNodes.map((n) => n.id)); 
-    }
-    return node;
-  });
-
 }
 
 export const useConnectionType = () => {
@@ -52,4 +32,11 @@ export const useConnectionType = () => {
 
 export const useDnD = () => {
   return getContext('dnd') as Writable<Node | null>;
+};
+
+export const clearParents = (nodes: Node[]) => {
+  return nodes.map((node) => {
+    node.data.parents = ["session"];
+    return node;
+  });
 };

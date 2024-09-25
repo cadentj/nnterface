@@ -12,16 +12,15 @@
     ContextMenu,
     ConnectionHandler,
     Layout,
-    FlowMenu,
   } from "./flow";
-  import { updateIntersections } from "./utils";
+  import FlowMenu from "./toolbar/toolbar.svelte";
   import Sidebar from "./sidebar/left-sidebar.svelte";
-  import ChatTab from "./sidebar/chat-tab/chat-tab.svelte";
-
+  import ChatTab from "./chat/chat-tab.svelte";
+  import Navbar from "./flow/navbar.svelte";
   import "@xyflow/svelte/dist/base.css";
   import "./styles.css";
 
-  const { toObject, getIntersectingNodes, updateNodeData } = useSvelteFlow();
+  const { getIntersectingNodes } = useSvelteFlow();
 
   const onNodeDragStop = ({ detail: { targetNode } }) => {
     if (targetNode.type === "module") {
@@ -36,39 +35,6 @@
     }
   };
 
-  async function createItem() {
-    const response = await fetch("/api/compile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(toObject()),
-    });
-
-    const result = await response.json();
-
-    console.log(toObject());
-
-    for (const [nodeId, data] of Object.entries(result)) {
-      if (nodeId.includes("graph")) {
-        updateNodeData(nodeId, {graphData:JSON.parse(data)});
-      }
-      else {
-        console.log(data)
-        updateNodeData(nodeId, {messages : JSON.parse(data)});
-      }
-      
-    }
-
-    console.log(result);
-
-  }
-
-  const updateNodeIntersections = () => {
-    $nodes = updateIntersections($nodes, getIntersectingNodes);
-    createItem();
-  };
-
   let contextMenu: ContextMenu;
   let connectionHandler: ConnectionHandler;
 
@@ -78,6 +44,8 @@
 </script>
 
 <Layout>
+  <Navbar slot="navbar" />
+
   <Sidebar slot="sidebar" />
 
   <div
@@ -108,7 +76,7 @@
         onconnectstart={(_, params) =>
           connectionHandler.handleConnectStart(params)}
       >
-        <FlowMenu bind:colorMode compile={updateNodeIntersections} />
+        <FlowMenu bind:colorMode />
         <ContextMenu bind:this={contextMenu} {width} {height} />
       </SvelteFlow>
     </DnDHandler>
