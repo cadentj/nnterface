@@ -15,8 +15,15 @@ def resolve_dependencies(graph: Graph):
             # A connection to a node of greater depth should connect
             # to the top parent of the target node. This ensures that
             # nodes are topologically sorted correctly.
-            case (x, y) if x < y:
-                other = get_top_parent(tar.id, level=src.parent)
+
+            case (x, y) if (
+                x < y
+                and not (
+                    "input" in src.id
+                    and "batch" in tar.id
+                )
+            ):
+                other = get_top_parent(graph, tar.id, level=src.parent)
                 edges.append(Edge(source=src.id, target=other))
 
             # A connection to a node of equal depth within a different

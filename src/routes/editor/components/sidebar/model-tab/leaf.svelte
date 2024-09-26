@@ -6,9 +6,9 @@
 
 	export let tree;
 	export let nLayers: number = 0;
-	export let depth: number = 0;  // New prop to keep track of the current depth
+	export let depth: number = 0; // New prop to keep track of the current depth
 
-	const maxExpandDepth = 3;  // Maximum depth to expand by default
+	const maxExpandDepth = 3; // Maximum depth to expand by default
 
 	let isVariable: boolean = tree.atomic.includes(".0");
 	if (isVariable) {
@@ -52,33 +52,41 @@
 	};
 </script>
 
-<ul class={(depth === 0 ? "pl-0" : "pl-5")}>
+<ul class={depth === 0 ? "pl-0" : "pl-5"}>
 	<li>
 		{#if tree.submodules}
 			<button
-				on:click={toggleExpansion}
-				class="arrow"
-				class:arrowDown={tree.expanded}
-			/>
-			<button
 				on:dragstart={(event) => onDragStart(event, tree.atomic)}
+				on:click={toggleExpansion}
 				draggable={true}
-				class="module-block"
+				class="p-3 flex items-center"
 			>
-				<span class="submodule-name">{tree.name}</span>
+				<span class="mr-2">
+					{#if tree.expanded}
+						-
+					{:else}
+						+
+					{/if}
+				</span>
+				<small class="submodule-name">{tree.name}</small>
 			</button>
 			{#if tree.expanded}
 				{#each tree.submodules as child}
-					<svelte:self tree={child} nLayers={nLayers} depth={depth + 1} on:toggle />
+					<svelte:self
+						tree={child}
+						{nLayers}
+						depth={depth + 1}
+						on:toggle
+					/>
 				{/each}
 			{/if}
 		{:else}
 			<button
 				on:dragstart={(event) => onDragStart(event, tree.atomic)}
 				draggable={true}
-				class="module-block"
+				class="p-3 flex items-center"
 			>
-				<span class="submodule-name">{tree.name}</span>
+				<small class="submodule-name">{tree.name}</small>
 			</button>
 		{/if}
 	</li>
@@ -92,7 +100,7 @@
 	}
 
 	li {
-		@apply border-t
+		@apply border-t;
 	}
 
 	.arrow::before {
@@ -108,13 +116,5 @@
 	.arrowDown::before {
 		--tw-content: "-";
 		content: var(--tw-content);
-	}
-
-	.submodule-name {
-		/* @apply h-10;	 */
-	}
-
-	.module-block {
-		@apply p-3;
 	}
 </style>

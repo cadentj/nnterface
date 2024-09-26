@@ -4,12 +4,15 @@
         Background,
         BackgroundVariant,
         type ColorMode,
+        ControlButton
     } from "@xyflow/svelte";
+    import { MessageSquare } from "lucide-svelte";
 
     import RunButton from "./run-button.svelte";
     import ColorButton from "./color-button.svelte";
 
     export let colorMode: ColorMode;
+    export let chat: boolean = false;
 </script>
 
 <Controls
@@ -18,6 +21,7 @@
     class="flex gap-3 bg-ui-1 p-3 rounded-lg"
 >
     <ColorButton bind:colorMode />
+
     <div class="!border-l pl-3">
         <RunButton />
     </div>

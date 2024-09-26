@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Chat",
+        "path": "/editor/components/demos/chat",
+        "component": "Chat",
+        "description": "A simple chat application.",
+        "category": "Demos",
+        "tags": ["chat", "demo"]
+    }
+]

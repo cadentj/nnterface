@@ -1,28 +1,26 @@
 <script lang="ts">
   import { SvelteFlow, type ColorMode } from "@xyflow/svelte";
-  import {
-    nodeTypes,
-    nodes,
-    edges,
-    defaultEdgeOptions,
-    initialViewport,
-  } from "./defaults";
+  import { nodeTypes, load, defaultEdgeOptions } from "./defaults";
   import { DnDHandler, ConnectionHandler, Layout } from "./flow";
   import FlowMenu from "./toolbar/toolbar.svelte";
   import Sidebar from "./sidebar/left-sidebar.svelte";
   import ChatTab from "./chat/chat-tab.svelte";
   import Navbar from "./flow/navbar.svelte";
   import "@xyflow/svelte/dist/base.css";
+
   import ProximityProvider from "./flow/proximity-provider.svelte";
   import "./styles.css";
+
+  const { nodes, edges, initialViewport } = load("chat");
 
   let proximityProvider: ProximityProvider;
   let connectionHandler: ConnectionHandler;
 
   let colorMode: ColorMode = "dark";
+  let chat: boolean = false;
 </script>
 
-<Layout>
+<Layout bind:chat>
   <Navbar slot="navbar" />
 
   <Sidebar slot="sidebar" />
@@ -47,7 +45,7 @@
         onconnectstart={(_, params) =>
           connectionHandler.handleConnectStart(params)}
       >
-        <FlowMenu bind:colorMode />
+        <FlowMenu bind:colorMode bind:chat/>
       </SvelteFlow>
     </DnDHandler>
   </ProximityProvider>

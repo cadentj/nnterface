@@ -6,6 +6,7 @@ import {
     type NodeTypes,
     type Node,
     type Viewport,
+    type Edge,
 } from "@xyflow/svelte";
 
 import {
@@ -20,6 +21,8 @@ import {
     BatchNode
 } from "./nodes";
 
+import { Chat } from "./demos"
+
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,
     input: InputNode,
@@ -32,46 +35,27 @@ export const nodeTypes: NodeTypes = {
     run: RunNode,
 };
 
-export const nodes: Writable<Node[]> = writable([
-    {
-        id: "input0",
-        type: "input",
-        data: {
-            text: "Alice and Bob went to the store.",
-            variant: "input"
+const demos = {
+    "chat" : Chat
+}
+
+export function load(path: string) {
+    const demo = demos[path] || {
+        nodes: [],
+        edges: [],
+        viewport: {
+            zoom: 1.2,
+            x: 250,
+            y: 200,
         },
-        origin: [0.0, 0.0],
-        position: { x: 0, y: 0 },
-    },
-]);
+    };
 
-export const moveNode = (currentId: string, direction: "forward" | "backward") => {
-
-    nodes.update((nodes) => {
-        // Find current node given id
-        const currentIndex = nodes.findIndex((node) => node.id === currentId);
-        if (currentIndex === -1) {
-            return nodes;
-        }
-        const currentNode = nodes[currentIndex];
-
-        // Find swap location and node
-        const targetIndex = direction === "forward" ? currentIndex + 1 : currentIndex - 1;
-        if (targetIndex < 0 || targetIndex >= nodes.length) {
-            return nodes;
-        }
-        const targetNode = nodes[targetIndex];
-
-        // Swap nodes
-        nodes[currentIndex] = targetNode;
-        nodes[targetIndex] = currentNode;
-
-        return nodes;
-    });
-
-};
-
-export const edges = writable([]);
+    return {
+        nodes: writable<Node[]>(demo.nodes),
+        edges: writable<Edge[]>(demo.edges),
+        initialViewport: demo.viewport,
+    };
+}
 
 export const defaultEdgeOptions: DefaultEdgeOptions = {
     markerEnd: {
@@ -81,15 +65,6 @@ export const defaultEdgeOptions: DefaultEdgeOptions = {
     },
     style: "stroke-width: 3px"
 };
-
-
-
-export const initialViewport = {
-    zoom: 1.2,
-    x: 250,
-    y: 200,
-} satisfies Viewport;
-
 
 export const connections = {
     "input": [

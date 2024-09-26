@@ -126,7 +126,7 @@ class ModuleNode(Node):
     append: str = "{id}_list.append({module}.{location}{index})"
     setter: str = "{module}.{location}{index} = {arg_id}"
 
-    code: str = None
+    code: str = "PENIS"
 
     protocol: Literal["getter", "setter", "append"] = None
 
@@ -152,7 +152,7 @@ class ModuleNode(Node):
         )
 
     def precompile(self, args: List[Node]):
-        input_node = [arg for arg in args if isinstance(arg, (ModuleNode, ListNode))]
+        input_node = [arg for arg in args if isinstance(arg, (ModuleNode, FunctionNode, ListNode))]
 
         assert len(input_node) <= 1
 
@@ -247,6 +247,10 @@ class RunNode(ContextNode):
     def precompile(self, args: List[Node]):
         input_node = [arg for arg in args if isinstance(arg, (InputNode, ChatNode))]
 
+        if len(input_node) == 0:
+            self.code = self.code.format(input="")
+            return
+
         input_id = "" if not input_node else input_node[0].id
 
         if isinstance(input_node[0], ChatNode):
@@ -313,7 +317,7 @@ class GraphNode(Node):
 class ChatData(NodeData):
     variant: Literal["chat"]
 
-    messages: List[Dict[str, str]]
+    messages: List[Dict[str, str]] = [{"role": "user", "content": "Hello, how are you?"}]
     tokens: List[int] = []
 
 class ChatNode(Node):
