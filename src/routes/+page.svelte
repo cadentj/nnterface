@@ -8,7 +8,7 @@
     <ul class="text-center w-[20vw]">
         {#each items as item}
             <li class="text-left p-3 my-2 border-white border rounded-lg" >
-                <a href="/editor">
+                <a href="/editor/{item}">
                     {item}
                 </a>
             </li>

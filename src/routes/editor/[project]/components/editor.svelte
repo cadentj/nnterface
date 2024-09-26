@@ -11,7 +11,8 @@
   import ProximityProvider from "./flow/proximity-provider.svelte";
   import "./styles.css";
 
-  const { nodes, edges, initialViewport } = load("chat");
+  export let project: string;
+  const { nodes, edges, initialViewport } = load(project);
 
   let proximityProvider: ProximityProvider;
   let connectionHandler: ConnectionHandler;

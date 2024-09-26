@@ -4,12 +4,14 @@
     import Flow from "./components/editor.svelte";
     import DnDProvider from "$lib/providers/dnd.svelte";
     import ConnectionProvider from "$lib/providers/connection.svelte";
+
+    export let data;
 </script>
 
 <SvelteFlowProvider>
     <ConnectionProvider>
         <DnDProvider>
-            <Flow />
+            <Flow project={data.project}/>
         </DnDProvider>
     </ConnectionProvider>
 </SvelteFlowProvider>
