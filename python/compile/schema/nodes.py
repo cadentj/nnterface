@@ -55,20 +55,23 @@ class ListNode(Node):
 
     name: str = None
 
-    code: str = "{name} = nnsight.list()"
+    code: str = ""
+    defn: str = "{name} = nnsight.list()"
+
+    protocol: Literal["append", "none"] = "none"
+
+    append: str = "{name}.append({arg_id})"
 
     def set_input_id(self, node: Node):
         if self.name is None:
             self.name = node.id + "_list"
 
-        self.code = self.code.format(name=self.name)
+        self.defn = self.defn.format(name=self.name)
 
     def precompile(self, args: List[Node]):
-        pass
-
-    def compile(self):
-        return ""
-
+        if self.protocol == "append":
+            input_node = [arg for arg in args if isinstance(arg, (ListNode))]
+            self.code = self.append.format(name=self.name, arg_id=input_node[0].name)
 
 ### CONTEXT NODE SCHEMA ###
 
@@ -84,8 +87,9 @@ class ContextNode(Node):
 
     # Override the compile method to include the defaults
     def compile(self):
-        self.defaults.append(self)
-        return "\n".join([self.indent() + line.code for line in self.defaults])
+        code = "\n".join([self.indent() + line.defn for line in self.defaults])
+        code += "\n" + self.indent() + self.code
+        return code
 
 
 ### SESSION NODE SCHEMA ###
@@ -110,12 +114,20 @@ class ModuleData(NodeData):
     module_name: str
     location: Literal["input", "output"] = "output"
 
+    variable: str
+
     index: bool
 
     is_variable: bool
 
     save: bool = False
     mode: Literal["act", "grad"] = "act"
+
+    @model_validator(mode="after")
+    def set_variable(self):
+        if self.is_variable:
+            self.module_name = self.module_name.replace(".<VAR>", f"[{self.variable}]")
+        return self
 
 
 class ModuleNode(Node):
@@ -317,7 +329,7 @@ class GraphNode(Node):
 class ChatData(NodeData):
     variant: Literal["chat"]
 
-    messages: List[Dict[str, str]] = [{"role": "user", "content": "Hello, how are you?"}]
+    messages: List[Dict[str, str]]
     tokens: List[int] = []
 
 class ChatNode(Node):

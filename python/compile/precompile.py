@@ -59,12 +59,19 @@ def resolve_edges(graph: Graph, sorted_nodes: List[Node]):
                 case ("module", ("module" | "function")):
                     src.protocol = "getter"
                     tar.protocol = "setter"
+                    
                 case ("module", "list"):
                     src.protocol = "append"
                     tar.set_input_id(src)
+
                 case ("function", "list"):
                     src.protocol = "append"
                     tar.set_input_id(src)
+
+                case ("list", "list"):
+                    tar.protocol = "append"
+                    tar.set_input_id(src)
+
                 case ("context", "list"):
                     src.add_default(tar)
 

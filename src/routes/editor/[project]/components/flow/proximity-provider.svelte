@@ -21,6 +21,10 @@
             ? node.position.x + nodeInternal.measured.width
             : node.position.x;
 
+        let ndy = nodeInternal?.measured.height
+            ? node.position.y + (nodeInternal.measured.height / 2)
+            : node.position.y;
+
         const closestNode = nodes.reduce(
             (res, n) => {
                 if (n.id !== node.id) {
@@ -31,7 +35,7 @@
                     }
 
                     const dx = n.position.x - ndx;
-                    const dy = ny - node.position.y;
+                    const dy = ny - ndy;
                     const d = Math.sqrt(dx * dx + dy * dy);
 
                     if (d < res.distance && d < MIN_DISTANCE) {

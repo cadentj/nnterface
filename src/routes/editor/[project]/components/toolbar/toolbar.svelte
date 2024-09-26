@@ -21,7 +21,9 @@
     class="flex gap-3 bg-ui-1 p-3 rounded-lg"
 >
     <ColorButton bind:colorMode />
-
+    <ControlButton on:click={() => {chat = !chat}}>
+        <MessageSquare />
+    </ControlButton>
     <div class="!border-l pl-3">
         <RunButton />
     </div>

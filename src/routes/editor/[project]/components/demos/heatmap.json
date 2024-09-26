@@ -1,0 +1,218 @@
+{
+    "nodes": [
+        {
+            "id": "loop0",
+            "position": {
+                "x": 551.3195912797503,
+                "y": 199.14573468972617
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "loop",
+            "data": {
+                "variant": "context",
+                "start": "0",
+                "end": "5",
+                "color": "rgba(134, 25, 143, 0.3)",
+                "parents": [
+                    "session"
+                ]
+            },
+            "height": 320,
+            "width": 429,
+            "class": "!pointer-events-none",
+            "measured": {
+                "width": 429,
+                "height": 320
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "loop1",
+            "position": {
+                "x": 574.502831007028,
+                "y": 247.5219485567835
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "loop",
+            "data": {
+                "variant": "context",
+                "start": "0",
+                "end": "5",
+                "color": "rgba(134, 25, 143, 0.3)",
+                "parents": [
+                    "session",
+                    "loop0"
+                ]
+            },
+            "height": 200,
+            "width": 250,
+            "class": "!pointer-events-none",
+            "measured": {
+                "width": 250,
+                "height": 200
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "list2",
+            "position": {
+                "x": 861.2968141260859,
+                "y": 377.00427455578284
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "list",
+            "data": {
+                "variant": "list",
+                "parents": [
+                    "session",
+                    "loop0"
+                ]
+            },
+            "class": "",
+            "measured": {
+                "width": 100,
+                "height": 38
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "list3",
+            "position": {
+                "x": 707.1131401827669,
+                "y": 362.3896470946726
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "list",
+            "data": {
+                "variant": "list",
+                "parents": [
+                    "session",
+                    "loop0",
+                    "loop1"
+                ]
+            },
+            "class": "",
+            "measured": {
+                "width": 100,
+                "height": 38
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "function4",
+            "position": {
+                "x": 595.3268362889701,
+                "y": 295.4245151515091
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "function",
+            "data": {
+                "variant": "function",
+                "functionName": "One",
+                "inputs": [],
+                "code": "return 1",
+                "deletable": true,
+                "parents": [
+                    "session",
+                    "loop0",
+                    "loop1"
+                ]
+            },
+            "class": "",
+            "measured": {
+                "width": 100,
+                "height": 30
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "graph5",
+            "position": {
+                "x": 1018.6787980645302,
+                "y": 400.92459790123075
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "graph",
+            "data": {
+                "variant": "graph",
+                "graphData": []
+            },
+            "class": "",
+            "measured": {
+                "width": 70,
+                "height": 30
+            },
+            "selected": true,
+            "dragging": false
+        }
+    ],
+    "edges": [
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 3px",
+            "id": "list2-list3",
+            "source": "list3",
+            "target": "list2",
+            "class": "",
+            "selected": false
+        },
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 3px",
+            "id": "list3-function4",
+            "source": "function4",
+            "target": "list3",
+            "class": "",
+            "selected": false
+        },
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 3px",
+            "id": "graph5-list2",
+            "source": "list2",
+            "target": "graph5",
+            "class": "",
+            "selected": false
+        }
+    ],
+    "viewport": {
+        "x": -495.42133361647575,
+        "y": -54.091844928713954,
+        "zoom": 1.4169543298230494
+    }
+}

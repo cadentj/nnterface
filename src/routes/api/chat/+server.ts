@@ -5,7 +5,7 @@ export async function POST({ request }) {
 
     console.log(JSON.stringify(graph));
     
-    const response = await fetch('http://localhost:8000/run', {
+    const response = await fetch('http://localhost:8000/chat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -2,12 +2,15 @@
     import { type NodeProps, Position } from "@xyflow/svelte";
     import { GripVertical } from "lucide-svelte";
     import Handle from "../flow/handle.svelte";
-    import Line from "./graph/line.svelte";
+    // import Line from "./graph/line.svelte";
+    import Heatmap from "./graph/heatmap.svelte";
 
     type $$Props = NodeProps;
 
     export let type: $$Props["type"];
     export let data: $$Props["data"];
+
+    data.graphData = [];
 
     $$restProps;
 </script>
@@ -18,7 +21,8 @@
         <small class="text-sm">{type}</small>
     </div>
 
-    <Line data={data.graphData} />
+    <!-- <Line data={data.graphData} /> -->
 
+    <Heatmap data={data.graphData}/>
     <Handle label={type} type="target" position={Position.Left} />
 </div>

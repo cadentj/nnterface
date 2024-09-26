@@ -1,8 +1,9 @@
 <script lang="ts">
     import { useSvelteFlow, useNodes, type Node } from "@xyflow/svelte";
     import { clearParents } from "../utils";
+    import { get } from "svelte/store";
 
-    const { toObject, getIntersectingNodes, updateNodeData } = useSvelteFlow();
+    const { toObject, getIntersectingNodes, updateNodeData, getNodes } = useSvelteFlow();
 
     const nodes = useNodes();
 
@@ -31,9 +32,13 @@
     export async function chat(messages) {
         updateIntersections();
 
-        updateNodeData("chat0", { messages: messages });
+        for (const n of get(nodes)) {
+            if (n.type === "chat") {
+                updateNodeData(n.id, { messages: messages });
+                console.log(n.id)
+            }
+        }
 
-        console.log(messages)
 
         const response = await fetch("/api/chat", {
             method: "POST",

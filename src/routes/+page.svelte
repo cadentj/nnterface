@@ -1,5 +1,5 @@
 <script lang="ts">
-    let items = ["chat", "lens", "patching"];
+    let items = ["chat", "steer", "patch", "heatmap"];
     import Logo from "$lib/images/ndif.png";
 </script>
 

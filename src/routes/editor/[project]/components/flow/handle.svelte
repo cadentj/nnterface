@@ -22,16 +22,6 @@
         unsubscribe();
     });
 
-    const checkValid = (isColored: boolean) => {
-        if (isColored && type === "target") {
-            return true;
-        } else if (isColored && label === "module") {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
     $$restProps;
 </script>
 
@@ -40,7 +30,7 @@
     {type}
     {position}
     {style}
-    class="{checkValid(isColored)
+    class="{(isColored && type === "target")
         ? '!bg-green-500 '
         : 'bg-ui-2'} h-4 w-4 rounded-full items-center flex"
 >

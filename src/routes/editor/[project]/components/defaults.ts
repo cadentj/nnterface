@@ -21,7 +21,7 @@ import {
     BatchNode
 } from "./nodes";
 
-import { Chat } from "./demos"
+import { Chat, Heatmap, Patch, Steer } from "./demos"
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,
@@ -36,7 +36,10 @@ export const nodeTypes: NodeTypes = {
 };
 
 const demos = {
-    "chat" : Chat
+    "chat" : Chat,
+    "patch" : Patch,
+    "steer" : Steer,
+    "heatmap" : Heatmap
 }
 
 export function load(path: string) {
@@ -80,6 +83,6 @@ export const connections = {
         "function", "module", "run", "list"
     ],
     "list": [
-        "function", "module", "graph"
+        "function", "module", "graph", "list"
     ],
 }
