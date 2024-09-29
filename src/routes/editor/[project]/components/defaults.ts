@@ -66,7 +66,7 @@ export const defaultEdgeOptions: DefaultEdgeOptions = {
         width: 8,
         height: 8,
     },
-    style: "stroke-width: 3px"
+    style: "stroke-width: 3px;",
 };
 
 export const connections = {

@@ -102,19 +102,4 @@
 	li {
 		@apply border-t;
 	}
-
-	.arrow::before {
-		--tw-content: "+";
-		content: var(--tw-content);
-		display: inline-block;
-		cursor: pointer;
-		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-			"Liberation Mono", "Courier New", monospace;
-		font-size: 1rem;
-		line-height: 1.5rem;
-	}
-	.arrowDown::before {
-		--tw-content: "-";
-		content: var(--tw-content);
-	}
 </style>

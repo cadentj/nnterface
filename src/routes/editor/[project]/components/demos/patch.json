@@ -18,141 +18,19 @@
                     "session"
                 ]
             },
-            "height": 546,
-            "width": 645,
+            "height": 541,
+            "width": 761,
             "class": "!pointer-events-none",
             "measured": {
-                "width": 645,
-                "height": 546
+                "width": 761,
+                "height": 541
             },
             "selected": false
         },
         {
-            "id": "batch1",
-            "position": {
-                "x": 586.4538182100076,
-                "y": 156.66249815049613
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "batch",
-            "data": {
-                "variant": "context",
-                "color": "rgba(134, 25, 143, 0.3)",
-                "parents": [
-                    "session",
-                    "run0"
-                ]
-            },
-            "height": 245,
-            "width": 298,
-            "class": "!pointer-events-none",
-            "measured": {
-                "width": 298,
-                "height": 245
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
-            "id": "batch2",
-            "position": {
-                "x": 591.1891006426123,
-                "y": 410.78932203361995
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "batch",
-            "data": {
-                "variant": "context",
-                "color": "rgba(134, 25, 143, 0.3)",
-                "parents": [
-                    "session",
-                    "run0"
-                ]
-            },
-            "height": 239,
-            "width": 293,
-            "class": "!pointer-events-none",
-            "measured": {
-                "width": 293,
-                "height": 239
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
-            "id": "loop3",
-            "position": {
-                "x": 610.1302303730314,
-                "y": 190.59868891749707
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "loop",
-            "data": {
-                "variant": "context",
-                "start": "0",
-                "end": "",
-                "color": "rgba(134, 25, 143, 0.3)",
-                "parents": [
-                    "session",
-                    "run0",
-                    "batch1"
-                ]
-            },
-            "height": 200,
-            "width": 250,
-            "class": "!pointer-events-none",
-            "measured": {
-                "width": 250,
-                "height": 200
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
-            "id": "loop4",
-            "position": {
-                "x": 608.5518028954965,
-                "y": 441.56865784555106
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "loop",
-            "data": {
-                "variant": "context",
-                "start": "0",
-                "end": "",
-                "color": "rgba(134, 25, 143, 0.3)",
-                "parents": [
-                    "session",
-                    "run0",
-                    "batch2"
-                ]
-            },
-            "height": 200,
-            "width": 250,
-            "class": "!pointer-events-none",
-            "measured": {
-                "width": 250,
-                "height": 200
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
             "id": "input5",
             "position": {
-                "x": 363.1063301388148,
+                "x": 376.4350044300295,
                 "y": 218.22116977435837
             },
             "origin": [
@@ -162,7 +40,7 @@
             "type": "input",
             "data": {
                 "variant": "input",
-                "text": "adawd",
+                "text": "After John and Mary went to the store, Mary gave a bottle of milk to",
                 "parents": [
                     "session"
                 ]
@@ -178,8 +56,8 @@
         {
             "id": "input6",
             "position": {
-                "x": 365.4739713551172,
-                "y": 467.6127112248774
+                "x": 382.9037761974748,
+                "y": 463.5115806737344
             },
             "origin": [
                 0,
@@ -188,7 +66,7 @@
             "type": "input",
             "data": {
                 "variant": "input",
-                "text": "Stuff",
+                "text": "After John and Mary went to the store, John gave a bottle of milk to",
                 "parents": [
                     "session"
                 ]
@@ -204,8 +82,8 @@
         {
             "id": "list9",
             "position": {
-                "x": 925.6717528205826,
-                "y": 322.04804331589605
+                "x": 1029.2252992369426,
+                "y": 282.0620204422521
             },
             "origin": [
                 0,
@@ -230,8 +108,8 @@
         {
             "id": "list10",
             "position": {
-                "x": 927.6232140250324,
-                "y": 465.48044184295
+                "x": 1039.3790215436784,
+                "y": 529.0479653856661
             },
             "origin": [
                 0,
@@ -254,42 +132,9 @@
             "dragging": false
         },
         {
-            "id": "function11",
-            "position": {
-                "x": 1098.3760694143823,
-                "y": 358.1500755982158
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "function",
-            "data": {
-                "variant": "function",
-                "functionName": "Diff",
-                "inputs": [
-                    "a",
-                    "b"
-                ],
-                "code": "",
-                "deletable": true,
-                "parents": [
-                    "session",
-                    "run0"
-                ]
-            },
-            "class": "",
-            "measured": {
-                "width": 100,
-                "height": 90
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
             "id": "module10",
             "position": {
-                "x": 673.2728178578516,
+                "x": 636.3626428975648,
                 "y": 279.86160539020034
             },
             "origin": [
@@ -309,7 +154,7 @@
                     "c",
                     "d"
                 ],
-                "variable": "loop3"
+                "variable": "loop8"
             },
             "class": "",
             "measured": {
@@ -322,7 +167,7 @@
         {
             "id": "module11",
             "position": {
-                "x": 681.1195849439206,
+                "x": 640.1082794324909,
                 "y": 526.4155960727426
             },
             "origin": [
@@ -342,12 +187,89 @@
                     "c",
                     "d"
                 ],
-                "variable": "loop4"
+                "variable": "loop8"
             },
             "class": "",
             "measured": {
                 "width": 102,
                 "height": 38
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "loop8",
+            "position": {
+                "x": 582.455555104015,
+                "y": 153.06498529812848
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "loop",
+            "data": {
+                "variant": "context",
+                "start": "0",
+                "end": "",
+                "color": "rgba(134, 25, 143, 0.3)"
+            },
+            "height": 504,
+            "width": 406,
+            "class": "!pointer-events-none",
+            "measured": {
+                "width": 406,
+                "height": 504
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "batch9",
+            "position": {
+                "x": 605.0117731353014,
+                "y": 196.12685608512965
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "batch",
+            "data": {
+                "variant": "context",
+                "color": "rgba(134, 25, 143, 0.3)"
+            },
+            "height": 209,
+            "width": 327,
+            "class": "!pointer-events-none",
+            "measured": {
+                "width": 327,
+                "height": 209
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "batch10",
+            "position": {
+                "x": 608.0876210486585,
+                "y": 439.1188412403508
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "batch",
+            "data": {
+                "variant": "context",
+                "color": "rgba(134, 25, 143, 0.3)"
+            },
+            "height": 200,
+            "width": 336,
+            "class": "!pointer-events-none",
+            "measured": {
+                "width": 336,
+                "height": 200
             },
             "selected": false,
             "dragging": false
@@ -361,9 +283,9 @@
                 "height": 8
             },
             "style": "stroke-width: 3px",
-            "id": "batch1-input5",
+            "id": "batch9-input5",
             "source": "input5",
-            "target": "batch1",
+            "target": "batch9",
             "class": "",
             "selected": false
         },
@@ -374,68 +296,16 @@
                 "height": 8
             },
             "style": "stroke-width: 3px",
-            "id": "batch2-input6",
+            "id": "batch10-input6",
             "source": "input6",
-            "target": "batch2",
-            "class": "",
-            "selected": false
-        },
-        {
-            "markerEnd": {
-                "type": "arrowclosed",
-                "width": 8,
-                "height": 8
-            },
-            "style": "stroke-width: 3px",
-            "source": "list9",
-            "target": "function11",
-            "targetHandle": "a",
-            "id": "xy-edge__list9-function11a",
-            "selected": false
-        },
-        {
-            "markerEnd": {
-                "type": "arrowclosed",
-                "width": 8,
-                "height": 8
-            },
-            "style": "stroke-width: 3px",
-            "source": "list10",
-            "target": "function11",
-            "targetHandle": "b",
-            "id": "xy-edge__list10-function11b",
-            "selected": false
-        },
-        {
-            "markerEnd": {
-                "type": "arrowclosed",
-                "width": 8,
-                "height": 8
-            },
-            "style": "stroke-width: 3px",
-            "id": "list9-module10",
-            "source": "module10",
-            "target": "list9",
-            "class": "",
-            "selected": false
-        },
-        {
-            "markerEnd": {
-                "type": "arrowclosed",
-                "width": 8,
-                "height": 8
-            },
-            "style": "stroke-width: 3px",
-            "id": "list10-module11",
-            "source": "module11",
-            "target": "list10",
+            "target": "batch10",
             "class": "",
             "selected": false
         }
     ],
     "viewport": {
-        "x": 62.90732619649316,
-        "y": 80.70947302034091,
-        "zoom": 0.9753408115440786
+        "x": -100.95294605056347,
+        "y": 97.43552601106033,
+        "zoom": 0.9481276122193424
     }
 }

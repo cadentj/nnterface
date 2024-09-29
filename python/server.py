@@ -7,12 +7,13 @@ from nnsight import LanguageModel
 from fastapi import FastAPI
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-
 from typing import Dict, Any, List
 from compile import compile, Graph
-
+from routes import model_router
 
 app = FastAPI()
+
+app.include_router(model_router)
 
 model: AutoModelForCausalLM = None
 tok: AutoTokenizer = None
@@ -58,7 +59,7 @@ def prepare_result(loc: Dict[str, Any], graph: Graph):
 
         results[node_id] = json.dumps(rs)
 
-    return results
+    return results  
 
 @app.post("/code")
 async def code(graph: Graph):
@@ -84,7 +85,6 @@ async def run(graph: Graph):
     
     return prepare_result(loc, graph)
 
-
 @app.post("/chat")
 async def chat(graph: Graph):
     
@@ -95,7 +95,7 @@ async def chat(graph: Graph):
     print(code, flush=True)
 
     loc = prepare_inputs(graph)
-
+    
     exec(code, None, loc)
     
     return prepare_result(loc, graph)

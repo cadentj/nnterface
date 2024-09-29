@@ -9,7 +9,7 @@
     export let type: $$Props["type"];
     export let data: $$Props["data"];
 
-    data.isVariable = data.isVariable || false;
+    data.isVariable = data.moduleName.includes("<VAR>")
     // TODO: Should reimplement with dropdown menu.
     data.loopParentIds = data.loopParentIds || ["a", "b", "c", "d"];
 

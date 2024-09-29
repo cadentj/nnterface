@@ -1,41 +1,21 @@
-<script>
+<script lang="ts">
     import * as Select from "$lib/components/ui/select";
     import Tree from "./tree.svelte";
-    import { Skeleton } from "$lib/components/ui/skeleton";
-    import { onMount } from "svelte";
 
-    let loading = true;
-
-    async function load() {
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        loading = false;
-    }
-
-    onMount(() => {
-        load();
-    });
+    let tree: Tree;
 </script>
 
 <div>
-    <Select.Root>
+    <Select.Root onSelectedChange={(value) => tree.load(value.value)}>
         <small>Model</small>
         <Select.Trigger class="margin mb-4 mt-2">
             <Select.Value placeholder="Select a Model" />
         </Select.Trigger>
         <Select.Content>
-            <Select.Item value="light">Light</Select.Item>
-            <Select.Item value="dark">Dark</Select.Item>
-            <Select.Item value="system">System</Select.Item>
+            <Select.Item value="openai-community/gpt2">GPT-2</Select.Item>
+            <Select.Item value="Qwen/Qwen2.5-0.5B-Instruct">Qwen</Select.Item>
         </Select.Content>
     </Select.Root>
 
-    {#if loading}
-        <div class="space-y-3 mt-3">
-            {#each Array.from({ length: 5 }) as _}
-                <Skeleton class="h-[20px] w-full rounded-md" />
-            {/each}
-        </div>
-    {:else}
-        <Tree />
-    {/if}
+    <Tree bind:this={tree}/>
 </div>

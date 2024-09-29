@@ -3,7 +3,6 @@
 </script>
 
 <main class="relative h-screen w-full overflow-hidden">
-    \
 
     <div class="absolute top-0 left-0 w-full h-[3vh] z-20">
         <slot name="navbar" />

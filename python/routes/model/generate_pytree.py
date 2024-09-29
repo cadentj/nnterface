@@ -82,15 +82,11 @@ def get_shapes(repo_id):
 
         return model, shapes
 
-model, shapes = get_shapes('Qwen/Qwen2.5-0.5B-Instruct')
-
-# %%
-
 def get_type(module):
     print(module)
     return "ModuleList" if isinstance(module._module, torch.nn.ModuleList) else "Module"
 
-def generate_pytree(module, atomic='', path='', fold=False):
+def generate_pytree(module, shapes, atomic='', path='', fold=False):
     module_type = get_type(module)
 
     if module_type == "ModuleList":
@@ -116,7 +112,7 @@ def generate_pytree(module, atomic='', path='', fold=False):
         sub_path = f"{path}.{name}" if fold else name
 
         pytree["submodules"].append(
-            generate_pytree(submodule, atomic=submodule.path, path=sub_path)
+            generate_pytree(submodule, shapes, atomic=submodule.path, path=sub_path)
         )
 
     if not pytree["submodules"]:
@@ -124,15 +120,15 @@ def generate_pytree(module, atomic='', path='', fold=False):
 
     return pytree
         
-# %%
 
-model = NNsight(model)
+def load_pytree(repo_id: str):
 
-# %%
+    model, shapes = get_shapes(repo_id)
 
-graph = generate_pytree(model, atomic='model', path='model')
+    model = NNsight(model)
 
-with open('pytree.json', 'w') as f:
-    json.dump(graph, f, indent=4)
+    graph = generate_pytree(model, shapes, atomic='model', path='model')
+
+    return graph
 
 

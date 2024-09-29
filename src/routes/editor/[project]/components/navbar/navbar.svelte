@@ -1,7 +1,8 @@
 <script>
     import NDIF from "./ndif.png";
-    import { Code, ChevronLeft, Download } from "lucide-svelte";
+    import { ChevronLeft, Download } from "lucide-svelte";
     import Button from "$lib/components/ui/button/button.svelte";
+    import ExportButton from "./export-button.svelte";
 
     import { useSvelteFlow } from "@xyflow/svelte";
 
@@ -29,11 +30,8 @@
 
         <!-- Right: Button -->
         <div class="flex items-center gap-3">
-            <Button class="pointer-events-auto " variant="outline" on:click={() => console.log(toObject())}>
-                Export
-                <Code class="w-5 h-5 ml-2" />
-            </Button>
-            <Button class="pointer-events-auto">
+            <ExportButton />
+            <Button class="pointer-events-auto" on:click={() => console.log(toObject())}>
                 Save
                 <Download class="w-5 h-5 ml-2" />
             </Button>

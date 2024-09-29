@@ -59,7 +59,7 @@
 
 <ChatProvider bind:this={chat}>
     <main class="p-10 pointer-events-auto">
-        <div class="bg-ui-1 rounded-lg p-4">
+        <div class="bg-ui-1 rounded-lg p-4 border">
             <div
                 bind:this={chatContainer}
                 class="chat-container overflow-y-auto rounded mb-4"

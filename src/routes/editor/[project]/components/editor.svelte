@@ -2,10 +2,11 @@
   import { SvelteFlow, type ColorMode } from "@xyflow/svelte";
   import { nodeTypes, load, defaultEdgeOptions } from "./defaults";
   import { DnDHandler, ConnectionHandler, Layout } from "./flow";
-  import FlowMenu from "./toolbar/toolbar.svelte";
+  import Toolbar from "./toolbar/toolbar.svelte";
   import Sidebar from "./sidebar/left-sidebar.svelte";
   import ChatTab from "./chat/chat-tab.svelte";
-  import Navbar from "./flow/navbar.svelte";
+  import LayersTab from "./sidebar/layers-tab.svelte"; 
+  import Navbar from "./navbar/navbar.svelte";
   import "@xyflow/svelte/dist/base.css";
 
   import ProximityProvider from "./flow/proximity-provider.svelte";
@@ -46,13 +47,12 @@
         onconnectstart={(_, params) =>
           connectionHandler.handleConnectStart(params)}
       >
-        <FlowMenu bind:colorMode bind:chat/>
+        <Toolbar bind:colorMode bind:chat/>
       </SvelteFlow>
     </DnDHandler>
   </ProximityProvider>
 
   <div slot="view">
-    <!-- <LayersTab /> -->
     <ChatTab />
   </div>
 </Layout>
