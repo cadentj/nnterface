@@ -83,19 +83,19 @@
                     </div>
                 {/each}
             </div>
-            <div class="flex">
-                <input
-                    type="text"
+            <div class="flex flex-col relative">
+                <textarea
                     bind:value={inputMessage}
                     on:keydown={(e) =>
                         e.key === "Enter" && !isLoading && sendMessage()}
                     placeholder="Type your message..."
-                    class="flex-grow px-4 py-2 text-lg border rounded-l"
+                    class="flex-grow px-4 py-2 text-lg border rounded-lg resize-none"
                     disabled={isLoading}
+                    rows="3"
                 />
                 <button
                     on:click={sendMessage}
-                    class="px-6 py-2 text-lg text-white rounded-r bg-ui-2 focus:outline-none focus:ring-1"
+                    class="absolute bottom-2 right-2 w-8 h-8 rounded-lg bg-ui-2 flex items-center justify-center focus:outline-none focus:ring-1"
                     disabled={isLoading}
                 >
                     <ArrowUp class="h-5 w-5" />

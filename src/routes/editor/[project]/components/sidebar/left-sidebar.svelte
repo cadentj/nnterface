@@ -9,7 +9,6 @@
 
     import type { BlockGroup } from "$lib/components/types/blocks";
 
-
     const type = useDnD();
 
     const control: BlockGroup = {

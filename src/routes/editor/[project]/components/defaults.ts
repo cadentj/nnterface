@@ -21,7 +21,7 @@ import {
     BatchNode
 } from "./nodes";
 
-import { Chat, Heatmap, Patch, Steer } from "./demos"
+import { Chat, Heatmap, Patch, Steer, Lens } from "./demos"
 
 export const nodeTypes: NodeTypes = {
     module: ModuleNode,
@@ -39,7 +39,8 @@ const demos = {
     "chat" : Chat,
     "patch" : Patch,
     "steer" : Steer,
-    "heatmap" : Heatmap
+    "heatmap" : Heatmap,
+    "lens" : Lens
 }
 
 export function load(path: string) {

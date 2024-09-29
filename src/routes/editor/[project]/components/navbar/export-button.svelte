@@ -11,7 +11,7 @@
     const { toObject, getIntersectingNodes } = useSvelteFlow();
     const nodes = useNodes();
 
-    let code: string;
+    let code: string = "";
 
     function updateIntersections() {
         nodes.update((nodes) => {

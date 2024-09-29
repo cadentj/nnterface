@@ -9,11 +9,15 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from typing import Dict, Any, List
 from compile import compile, Graph
-from routes import model_router
+
+from generate_pytree import load_pytree 
+
+from pydantic import BaseModel
+
+class ModelConfigModel(BaseModel):
+    repo_id: str
 
 app = FastAPI()
-
-app.include_router(model_router)
 
 model: AutoModelForCausalLM = None
 tok: AutoTokenizer = None
@@ -24,6 +28,8 @@ def load(repo_id: str):
     global model, tok
 
     model = LanguageModel(repo_id, dispatch=True, torch_dtype=torch.bfloat16)
+
+    print("loaded model", flush=True)
     tok = model.tokenizer
 
 def get_nodes(types: List[str], graph: Graph):
@@ -70,14 +76,23 @@ async def code(graph: Graph):
         "code": code
     }
 
+@app.post("/load-model")
+async def load_model(model_config: ModelConfigModel):
+
+    if "405" not in model_config.repo_id:
+        load(model_config.repo_id)
+
+    pytree = load_pytree(model_config.repo_id)
+
+    return {
+        "pytree" : pytree
+    }
+
 @app.post("/run")
 async def run(graph: Graph):
+    global model
     
     code = compile(graph)
-    
-    load("Qwen/Qwen2.5-0.5B-Instruct")
-
-    print(code, flush=True)
 
     loc = prepare_inputs(graph)
 
@@ -89,10 +104,6 @@ async def run(graph: Graph):
 async def chat(graph: Graph):
     
     code = compile(graph)
-    
-    load("Qwen/Qwen2.5-0.5B-Instruct")
-
-    print(code, flush=True)
 
     loc = prepare_inputs(graph)
     

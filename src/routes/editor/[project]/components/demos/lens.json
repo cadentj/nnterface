@@ -1,0 +1,266 @@
+{
+    "nodes": [
+        {
+            "id": "run0",
+            "position": {
+                "x": 444.1666666666667,
+                "y": 44.16666666666667
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "run",
+            "data": {
+                "variant": "context",
+                "color": "rgba(134, 25, 143, 0.3)",
+                "parents": [
+                    "session"
+                ]
+            },
+            "height": 315,
+            "width": 502,
+            "class": "!pointer-events-none",
+            "measured": {
+                "width": 502,
+                "height": 315
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "loop1",
+            "position": {
+                "x": 461.6666666666667,
+                "y": 118.33333333333336
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "loop",
+            "data": {
+                "variant": "context",
+                "start": "0",
+                "end": "12",
+                "color": "rgba(134, 25, 143, 0.3)",
+                "parents": [
+                    "session",
+                    "run0"
+                ]
+            },
+            "height": 219,
+            "width": 308,
+            "class": "!pointer-events-none",
+            "measured": {
+                "width": 308,
+                "height": 219
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "module2",
+            "position": {
+                "x": 498.5798778417169,
+                "y": 195.83333333333331
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "module",
+            "data": {
+                "variant": "module",
+                "moduleName": "model.transformer.h.<VAR>",
+                "isVariable": true,
+                "location": "output",
+                "index": true,
+                "variable": "loop1",
+                "loopParentIds": [
+                    "a",
+                    "b",
+                    "c",
+                    "d"
+                ],
+                "parents": [
+                    "session",
+                    "run0",
+                    "loop1"
+                ]
+            },
+            "class": "",
+            "measured": {
+                "width": 102,
+                "height": 38
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "input4",
+            "position": {
+                "x": 239.16666666666669,
+                "y": 130.00000000000006
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "input",
+            "data": {
+                "variant": "input",
+                "text": "The Eiffel Tower is in the city of",
+                "parents": [
+                    "session"
+                ]
+            },
+            "class": "",
+            "measured": {
+                "width": 167,
+                "height": 124
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "function4",
+            "position": {
+                "x": 640.2667239666064,
+                "y": 183.02937910452806
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "function",
+            "data": {
+                "variant": "function",
+                "functionName": "Decoder",
+                "inputs": [
+                    "x"
+                ],
+                "code": "decoded = model.lm_head(model.transformer.ln_f(x[:,-1,:]))\nreturn decoded[...,6342].item()",
+                "deletable": true,
+                "parents": [
+                    "session",
+                    "run0",
+                    "loop1"
+                ]
+            },
+            "class": "",
+            "measured": {
+                "width": 100,
+                "height": 60
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "list5",
+            "position": {
+                "x": 824.4231192751862,
+                "y": 206.04892851810055
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "list",
+            "data": {
+                "variant": "list",
+                "parents": [
+                    "session",
+                    "run0"
+                ]
+            },
+            "class": "",
+            "measured": {
+                "width": 100,
+                "height": 38
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "graph6",
+            "position": {
+                "x": 1008.5795145837659,
+                "y": 89.30692792069729
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "graph",
+            "data": {
+                "variant": "graph",
+                "graphData": []
+            },
+            "class": "",
+            "measured": {
+                "width": 302,
+                "height": 222
+            },
+            "selected": false,
+            "dragging": false
+        }
+    ],
+    "edges": [
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 3px;",
+            "id": "run0-input4",
+            "source": "input4",
+            "target": "run0",
+            "class": "",
+            "selected": false
+        },
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 3px;",
+            "id": "function4-module2",
+            "source": "module2",
+            "target": "function4",
+            "class": "",
+            "selected": false
+        },
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 3px;",
+            "id": "list5-function4",
+            "source": "function4",
+            "target": "list5",
+            "class": "",
+            "selected": false
+        },
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 3px;",
+            "source": "list5",
+            "target": "graph6",
+            "id": "xy-edge__list5-graph6"
+        }
+    ],
+    "viewport": {
+        "x": 27.20681213269836,
+        "y": 216.37085453526913,
+        "zoom": 1.2163574315442953
+    }
+}

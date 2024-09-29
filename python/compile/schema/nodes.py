@@ -117,7 +117,6 @@ class ModuleData(NodeData):
     variable: str
 
     index: bool
-
     is_variable: bool
 
     save: bool = False
@@ -138,7 +137,7 @@ class ModuleNode(Node):
     append: str = "{id}_list.append({module}.{location}{index})"
     setter: str = "{module}.{location}{index} = {arg_id}"
 
-    code: str = "PENIS"
+    code: str = "EMPTY"
 
     protocol: Literal["getter", "setter", "append"] = None
 
@@ -234,6 +233,15 @@ class FunctionNode(Node):
         args: str = ", ".join(
             [arg.id for arg in args if not isinstance(arg, ContextNode)]
         )
+
+        indented_code = []
+        for i, line in enumerate(self.data.code.split("\n")):
+            if i != 0:
+                indented_code.append(SPACES + line)
+            else:
+                indented_code.append(line)
+
+        self.data.code = "\n".join(indented_code)
 
         if self.protocol == "setter":
             return self._set(args)

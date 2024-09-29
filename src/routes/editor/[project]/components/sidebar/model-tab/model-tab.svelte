@@ -14,6 +14,7 @@
         <Select.Content>
             <Select.Item value="openai-community/gpt2">GPT-2</Select.Item>
             <Select.Item value="Qwen/Qwen2.5-0.5B-Instruct">Qwen</Select.Item>
+            <Select.Item value="meta-llama/Llama-3.1-405B">LLama 405b</Select.Item>
         </Select.Content>
     </Select.Root>
 
