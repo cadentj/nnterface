@@ -4,6 +4,7 @@
     import { Pencil, Trash2 } from "lucide-svelte";
     import { getContext } from "svelte";
     import { createEmptyNode } from "../../utils";
+    import { loadFunctions } from "../../defaults";
     import { writable, type Writable } from "svelte/store";
 
     type FunctionBlock = {
@@ -14,6 +15,9 @@
     };
 
     const type: Writable<Node | null> = getContext("type");
+    const project: string = getContext("project");
+
+    const defaultFunctions: FunctionBlock[] = loadFunctions(project);
 
     let open: boolean = false;
     let openIndex: number = -1;
@@ -49,6 +53,7 @@
             code: "return logits[:,-1,:].softmax(-1).argmax(-1).item()",
             deletable: false,
         },
+        ...defaultFunctions,
     ]);
 
     const deleteFunction = (index: number) => {

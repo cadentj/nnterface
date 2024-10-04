@@ -8,12 +8,15 @@
   import LayersTab from "./sidebar/layers-tab.svelte"; 
   import Navbar from "./navbar/navbar.svelte";
   import "@xyflow/svelte/dist/base.css";
+  import { setContext } from "svelte";
 
   import ProximityProvider from "./flow/proximity-provider.svelte";
   import "./styles.css";
 
   export let project: string;
-  const { nodes, edges, initialViewport } = load(project);
+  const { nodes, edges,initialViewport } = load(project);
+
+  setContext("project", project);
 
   let proximityProvider: ProximityProvider;
   let connectionHandler: ConnectionHandler;

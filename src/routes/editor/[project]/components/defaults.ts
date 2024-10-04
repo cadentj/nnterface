@@ -43,7 +43,7 @@ const demos = {
     "lens" : Lens
 }
 
-export function load(path: string) {
+function loadProject(path: string) {
     const demo = demos[path] || {
         nodes: [],
         edges: [],
@@ -54,11 +54,23 @@ export function load(path: string) {
         },
     };
 
+    return demo;
+}
+
+export function load(path: string) {
+    const demo = loadProject(path);
+
     return {
         nodes: writable<Node[]>(demo.nodes),
         edges: writable<Edge[]>(demo.edges),
         initialViewport: demo.viewport,
     };
+}
+
+export const loadFunctions = (path: string) => {
+    const demo = loadProject(path);
+    const functions = demo.nodes.filter((node: Node) => node.type === "function");
+    return functions.map((node: Node) => node.data);
 }
 
 export const defaultEdgeOptions: DefaultEdgeOptions = {

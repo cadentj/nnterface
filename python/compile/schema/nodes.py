@@ -337,7 +337,7 @@ class GraphNode(Node):
 class ChatData(NodeData):
     variant: Literal["chat"]
 
-    messages: List[Dict[str, str]]
+    messages: List[Dict[str, str]] = []
     tokens: List[int] = []
 
 class ChatNode(Node):
