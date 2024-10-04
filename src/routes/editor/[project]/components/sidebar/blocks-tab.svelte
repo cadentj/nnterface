@@ -8,6 +8,7 @@
 
     const type: Writable<Node | null> = getContext("type");
 
+
     export let blockGroups: BlockGroup[];
 
     // TEMPORARY
@@ -16,6 +17,8 @@
     const onDragStart = (event: DragEvent, name: string) => {
         if (event.dataTransfer) {
             let newNode: Node = createEmptyNode(name);
+
+            event.dataTransfer.setData("nodeType", name); // Changed from 'penis' to name
 
             if (contexts.includes(newNode.type)) {
                 newNode.data.variant = "context";

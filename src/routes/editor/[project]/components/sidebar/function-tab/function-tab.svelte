@@ -51,7 +51,7 @@
             functionName: "Decode",
             inputs: ["logits"],
             code: "return logits[:,-1,:].softmax(-1).argmax(-1).item()",
-            deletable: false,
+            deletable: true,
         },
         ...defaultFunctions,
     ]);
@@ -73,12 +73,23 @@
     };
 </script>
 
-<small>Functions</small>
 <Dialog.Root bind:open>
+    <div class="flex justify-between items-center mb-2">
+        <small>Functions</small>
+        <Dialog.Trigger
+            on:click={() => {
+                openIndex = -1;
+            }}
+        >
+            <button>
+                +
+            </button>
+        </Dialog.Trigger>
+    </div>
     <Dialog.Content class="max-w-[750px]">
         <CodeEditor {functions} index={openIndex} bind:open />
     </Dialog.Content>
-    <div class="flex flex-col mt-2 gap-3 mb-3">
+    <div class="flex flex-col mt-2 gap-3 mb-1">
         {#each $functions as f, index}
             <div
                 class="flex p-2 h-10 bg-ui-2 px-5 justify-between items-center rounded-md"
@@ -114,14 +125,4 @@
             </div>
         {/each}
     </div>
-
-    <Dialog.Trigger
-        on:click={() => {
-            openIndex = -1;
-        }}
-    >
-        <button>
-            <Pencil class="h-4 w-4" />
-        </button>
-    </Dialog.Trigger>
 </Dialog.Root>

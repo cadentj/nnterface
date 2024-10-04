@@ -23,10 +23,11 @@
     $$restProps;
 </script>
 
-<div class="node">
+<!-- TODO: https://svelte.dev/repl/f0823379afef4d249358cf969519c1b8?version=4.2.19 -->
+<div class="node" role="region">
     {#if data.isVariable}
         {(shortenedName === "<VAR>") ? "layers" : shortenedName}
-        [<input type="text" bind:value={data.variable} class="w-12" />]
+        <input class='border rounded-md w-12' type="text" bind:value={data.variable} />
     {:else}
         {shortenedName}
     {/if}

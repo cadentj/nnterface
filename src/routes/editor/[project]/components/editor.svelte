@@ -26,7 +26,7 @@
 </script>
 
 <Layout bind:chat>
-  <Navbar slot="navbar" />
+  <Navbar slot="navbar" title={project} />
 
   <Sidebar slot="sidebar" />
 

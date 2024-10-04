@@ -82,7 +82,7 @@ export const defaultEdgeOptions: DefaultEdgeOptions = {
     style: "stroke-width: 3px;",
 };
 
-export const connections = {
+export const connections: Record<string, string[]> = {
     "input": [
         "run", "batch"
     ],

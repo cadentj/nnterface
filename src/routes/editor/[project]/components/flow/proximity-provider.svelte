@@ -72,9 +72,9 @@
         const closestEdge = getClosestEdge(node, $nodes);
 
         if (closestEdge?.source && closestEdge?.target) {
-            const sourceType = getNode(closestEdge.source)?.type;
-            const targetType = getNode(closestEdge.target)?.type;
-            if (!connections[sourceType].includes(targetType)) {
+            const sourceType: string | undefined = getNode(closestEdge.source)?.type;
+            const targetType: string | undefined = getNode(closestEdge.target)?.type;
+            if (sourceType && targetType && !connections[sourceType]?.includes(targetType)) {
                 return;
             }
         }

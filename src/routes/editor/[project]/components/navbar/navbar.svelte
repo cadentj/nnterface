@@ -1,10 +1,12 @@
-<script>
+<script lang="ts">
     import NDIF from "./ndif.png";
     import { ChevronLeft, Download } from "lucide-svelte";
     import Button from "$lib/components/ui/button/button.svelte";
     import ExportButton from "./export-button.svelte";
 
     import { useSvelteFlow } from "@xyflow/svelte";
+
+    export let title: string = "Untitled";
 
     const { toObject} = useSvelteFlow();
 </script>
@@ -18,7 +20,7 @@
             </Button>
             <input
                 type="text"
-                placeholder="Untitled"
+                bind:value={title}
                 class="bg-transparent rounded px-2 py-1 pointer-events-auto text-lg"
             />
         </div>
