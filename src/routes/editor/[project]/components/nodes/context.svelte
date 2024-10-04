@@ -20,7 +20,6 @@
     </NodeResizeControl>
 
     <Handle label={label} type="target" position={Position.Left}/>
-    <Handle label={label} type="source" position={Position.Right}/>
 </div>
 
 <style>

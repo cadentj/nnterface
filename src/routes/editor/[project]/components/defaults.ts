@@ -57,7 +57,11 @@ function loadProject(path: string) {
     return demo;
 }
 
-export function load(path: string) {
+export function load(path: string) : {
+    nodes: Writable<Node[]>,
+    edges: Writable<Edge[]>,
+    initialViewport: Viewport
+} {
     const demo = loadProject(path);
 
     return {
@@ -79,7 +83,8 @@ export const defaultEdgeOptions: DefaultEdgeOptions = {
         width: 8,
         height: 8,
     },
-    style: "stroke-width: 3px;",
+    // style: "stroke-width: 3px; stroke: #fff;",
+    style: 'stroke-width: 2px; stroke: #A3A3A3',
 };
 
 export const connections: Record<string, string[]> = {

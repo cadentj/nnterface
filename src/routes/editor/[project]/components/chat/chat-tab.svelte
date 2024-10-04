@@ -2,7 +2,6 @@
     import { onMount } from "svelte";
     import { ArrowUp } from "lucide-svelte";
     import ChatProvider from "./chat-provider.svelte";
-    import { Skeleton } from "$lib/components/ui/skeleton";
 
     let messages = [];
     let inputMessage = "";

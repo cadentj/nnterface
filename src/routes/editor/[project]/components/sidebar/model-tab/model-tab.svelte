@@ -1,12 +1,18 @@
 <script lang="ts">
     import * as Select from "$lib/components/ui/select";
     import Tree from "./tree.svelte";
+    import { setContext } from "svelte";
 
     let tree: Tree;
+
+    function loadModel(model: string) {
+        tree.load(model);
+        setContext("model", model);
+    }
 </script>
 
 <div>
-    <Select.Root onSelectedChange={(value) => tree.load(value.value)}>
+    <Select.Root onSelectedChange={(value) => loadModel(value.value)}>
         <small>Model</small>
         <Select.Trigger class="margin mb-4 mt-2">
             <Select.Value placeholder="Select a Model" />

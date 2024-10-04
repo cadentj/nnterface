@@ -132,72 +132,6 @@
             "dragging": false
         },
         {
-            "id": "module10",
-            "position": {
-                "x": 636.3626428975648,
-                "y": 279.86160539020034
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "module",
-            "data": {
-                "variant": "module",
-                "moduleName": "model.model.layers.<VAR>",
-                "isVariable": true,
-                "location": "output",
-                "index": true,
-                "loopParentIds": [
-                    "a",
-                    "b",
-                    "c",
-                    "d"
-                ],
-                "variable": "loop8"
-            },
-            "class": "",
-            "measured": {
-                "width": 102,
-                "height": 38
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
-            "id": "module11",
-            "position": {
-                "x": 640.1082794324909,
-                "y": 526.4155960727426
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "module",
-            "data": {
-                "variant": "module",
-                "moduleName": "model.model.layers.<VAR>",
-                "isVariable": true,
-                "location": "output",
-                "index": true,
-                "loopParentIds": [
-                    "a",
-                    "b",
-                    "c",
-                    "d"
-                ],
-                "variable": "loop8"
-            },
-            "class": "",
-            "measured": {
-                "width": 102,
-                "height": 38
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
             "id": "loop8",
             "position": {
                 "x": 582.455555104015,
@@ -273,6 +207,72 @@
             },
             "selected": false,
             "dragging": false
+        },
+        {
+            "id": "module10",
+            "position": {
+                "x": 636.3626428975648,
+                "y": 279.86160539020034
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "module",
+            "data": {
+                "variant": "module",
+                "moduleName": "model.model.layers.<VAR>",
+                "isVariable": true,
+                "location": "output",
+                "index": true,
+                "loopParentIds": [
+                    "a",
+                    "b",
+                    "c",
+                    "d"
+                ],
+                "variable": ""
+            },
+            "class": "",
+            "measured": {
+                "width": 151,
+                "height": 40
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "module11",
+            "position": {
+                "x": 640.1082794324909,
+                "y": 526.4155960727426
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "module",
+            "data": {
+                "variant": "module",
+                "moduleName": "model.model.layers.<VAR>",
+                "isVariable": true,
+                "location": "output",
+                "index": true,
+                "loopParentIds": [
+                    "a",
+                    "b",
+                    "c",
+                    "d"
+                ],
+                "variable": ""
+            },
+            "class": "",
+            "measured": {
+                "width": 151,
+                "height": 40
+            },
+            "selected": false,
+            "dragging": false
         }
     ],
     "edges": [
@@ -304,8 +304,8 @@
         }
     ],
     "viewport": {
-        "x": -100.95294605056347,
-        "y": 97.43552601106033,
+        "x": 68.04705394943653,
+        "y": 70.43552601106035,
         "zoom": 0.9481276122193424
     }
 }
