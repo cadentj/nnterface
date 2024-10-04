@@ -18,7 +18,7 @@
 <Controls
     orientation="horizontal"
     position="bottom-center"
-    class="flex gap-3 bg-ui-1 p-3 rounded-lg"
+    class="flex gap-3 bg-ui-1 p-3 rounded-lg border"
 >
     <ColorButton bind:colorMode />
     <ControlButton on:click={() => {chat = !chat}}>
@@ -32,6 +32,6 @@
 
 <style>
     :global(.svelte-flow__controls-button) {
-        @apply !w-12 !h-12 !bg-ui-2 rounded-lg;
+        @apply !w-12 !h-12 !bg-ui-2 rounded-lg border;
     }
 </style>

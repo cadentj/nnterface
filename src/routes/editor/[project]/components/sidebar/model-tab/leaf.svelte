@@ -43,7 +43,7 @@
 				moduleName: name,
 				isVariable: isVariable,
 				location: "output",
-				index: tree.output_collection,
+				isTuple: tree.output_collection,
 			},
 		};
 		type.set(moduleNode);

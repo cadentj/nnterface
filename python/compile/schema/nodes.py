@@ -116,8 +116,9 @@ class ModuleData(NodeData):
 
     variable: str
 
-    index: bool
+    is_tuple: bool
     is_variable: bool
+    index: str = ""
 
     save: bool = False
     mode: Literal["act", "grad"] = "act"
@@ -142,21 +143,24 @@ class ModuleNode(Node):
     protocol: Literal["getter", "setter", "append"] = None
 
     def _set(self, arg: Node):
-        index = "[0][:]" if self.data.index else ""
+        index = "[0]" if self.data.is_tuple else ""
+        index += f"[{self.data.index}]" if self.data.index else "[:]"
 
         self.code = self.setter.format(
             module=self.data.module_name, location=self.data.location, arg_id=arg.id, index=index
         )
 
     def _append(self):
-        index = "[0]" if self.data.index else ""
+        index = "[0]" if self.data.is_tuple else ""
+        index += f"[{self.data.index}]" if self.data.index else ""
         
         self.code = self.append.format(
             id=self.id, module=self.data.module_name, location=self.data.location, index=index
         )
 
     def _get(self):
-        index = "[0]" if self.data.index else ""
+        index = "[0]" if self.data.is_tuple else ""
+        index += f"[{self.data.index}]" if self.data.index else ""
 
         self.code = self.getter.format(
             id=self.id, module=self.data.module_name, location=self.data.location, index=index

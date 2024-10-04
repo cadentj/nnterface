@@ -47,12 +47,6 @@
             code: "return x / y",
             deletable: false,
         },
-        {
-            functionName: "Decode",
-            inputs: ["logits"],
-            code: "return logits[:,-1,:].softmax(-1).argmax(-1).item()",
-            deletable: true,
-        },
         ...defaultFunctions,
     ]);
 

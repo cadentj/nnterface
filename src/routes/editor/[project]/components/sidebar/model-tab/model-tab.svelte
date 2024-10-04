@@ -4,10 +4,12 @@
     import { setContext } from "svelte";
 
     let tree: Tree;
+    let model: string = "";
 
-    function loadModel(model: string) {
-        tree.load(model);
-        setContext("model", model);
+    setContext("model", model);
+    function loadModel(newModel: string) {
+        tree.load(newModel);
+        model = newModel;
     }
 </script>
 
