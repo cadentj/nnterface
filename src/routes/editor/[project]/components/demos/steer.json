@@ -1,10 +1,62 @@
 {
     "nodes": [
         {
-            "id": "run0",
+            "id": "input0",
             "position": {
-                "x": 416.35976778272476,
-                "y": 1.3231549058385372
+                "x": 215.72229283160985,
+                "y": 54.84386791860944
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "input",
+            "data": {
+                "variant": "input",
+                "parents": [
+                    "session"
+                ],
+                "text": "I constantly talk about weddings"
+            },
+            "class": "",
+            "measured": {
+                "width": 167,
+                "height": 124
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "input1",
+            "position": {
+                "x": 222.5359913921003,
+                "y": 274.0178382810508
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "input",
+            "data": {
+                "variant": "input",
+                "parents": [
+                    "session"
+                ],
+                "text": "I hate weddings"
+            },
+            "class": "",
+            "measured": {
+                "width": 167,
+                "height": 124
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "run2",
+            "position": {
+                "x": 430.35379748705765,
+                "y": -25.784898380526997
             },
             "origin": [
                 0,
@@ -13,23 +65,26 @@
             "type": "run",
             "data": {
                 "variant": "context",
-                "color": "rgba(134, 25, 143, 0.3)"
+                "color": "rgba(134, 25, 143, 0.3)",
+                "parents": [
+                    "session"
+                ]
             },
-            "height": 509,
-            "width": 435,
+            "height": 481,
+            "width": 426,
             "class": "!pointer-events-none",
             "measured": {
-                "width": 435,
-                "height": 509
+                "width": 426,
+                "height": 481
             },
             "selected": false,
             "dragging": false
         },
         {
-            "id": "batch1",
+            "id": "batch3",
             "position": {
-                "x": 437.8907031762253,
-                "y": 46.43559096841122
+                "x": 446.2524274615352,
+                "y": 16.232909409163824
             },
             "origin": [
                 0,
@@ -38,7 +93,11 @@
             "type": "batch",
             "data": {
                 "variant": "context",
-                "color": "rgba(134, 25, 143, 0.3)"
+                "color": "rgba(134, 25, 143, 0.3)",
+                "parents": [
+                    "session",
+                    "run2"
+                ]
             },
             "height": 200,
             "width": 250,
@@ -51,10 +110,10 @@
             "dragging": false
         },
         {
-            "id": "batch2",
+            "id": "batch4",
             "position": {
-                "x": 435.8401379006539,
-                "y": 279.1747497457749
+                "x": 447.3880438882835,
+                "y": 236.54249619835346
             },
             "origin": [
                 0,
@@ -63,7 +122,11 @@
             "type": "batch",
             "data": {
                 "variant": "context",
-                "color": "rgba(134, 25, 143, 0.3)"
+                "color": "rgba(134, 25, 143, 0.3)",
+                "parents": [
+                    "session",
+                    "run2"
+                ]
             },
             "height": 200,
             "width": 250,
@@ -76,169 +139,10 @@
             "dragging": false
         },
         {
-            "id": "module4",
+            "id": "function5",
             "position": {
-                "x": 508.63520518344154,
-                "y": 137.68574573134237
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "module",
-            "data": {
-                "variant": "module",
-                "moduleName": "model.model.layers.<VAR>",
-                "isVariable": true,
-                "location": "output",
-                "index": true,
-                "loopParentIds": [
-                    "a",
-                    "b",
-                    "c",
-                    "d"
-                ],
-                "variable": "12"
-            },
-            "class": "",
-            "measured": {
-                "width": 102,
-                "height": 38
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
-            "id": "module5",
-            "position": {
-                "x": 500.4329440811556,
-                "y": 370.424904508706
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "module",
-            "data": {
-                "variant": "module",
-                "moduleName": "model.model.layers.<VAR>",
-                "isVariable": true,
-                "location": "output",
-                "index": true,
-                "loopParentIds": [
-                    "a",
-                    "b",
-                    "c",
-                    "d"
-                ],
-                "variable": "12"
-            },
-            "class": "",
-            "measured": {
-                "width": 102,
-                "height": 38
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
-            "id": "input6",
-            "position": {
-                "x": 191.82287010764708,
-                "y": 83.34576592869789
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "input",
-            "data": {
-                "variant": "input",
-                "text": "I talk about about weddings constantly."
-            },
-            "class": "",
-            "measured": {
-                "width": 167,
-                "height": 124
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
-            "id": "input7",
-            "position": {
-                "x": 191.82287010764705,
-                "y": 317.11020734384743
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "input",
-            "data": {
-                "variant": "input",
-                "text": "I never ever talk about about weddings."
-            },
-            "class": "",
-            "measured": {
-                "width": 167,
-                "height": 124
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
-            "id": "run8",
-            "position": {
-                "x": 427.50667887572996,
-                "y": 550.5732455365774
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "run",
-            "data": {
-                "variant": "context",
-                "color": "rgba(134, 25, 143, 0.3)"
-            },
-            "height": 200,
-            "width": 582,
-            "class": "!pointer-events-none",
-            "measured": {
-                "width": 582,
-                "height": 200
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
-            "id": "chat9",
-            "position": {
-                "x": 239.47018298166,
-                "y": 630.8461355966189
-            },
-            "origin": [
-                0,
-                0
-            ],
-            "type": "chat",
-            "data": {
-                "variant": "chat"
-            },
-            "class": "",
-            "measured": {
-                "width": 100,
-                "height": 38
-            },
-            "selected": false,
-            "dragging": false
-        },
-        {
-            "id": "function9",
-            "position": {
-                "x": 726.6056664967066,
-                "y": 209.68836993914064
+                "x": 729.0209177218869,
+                "y": 169.5411270201979
             },
             "origin": [
                 0,
@@ -253,7 +157,11 @@
                     "b"
                 ],
                 "code": "return a[:,-1,:] - b[:,-1,:]",
-                "deletable": true
+                "deletable": true,
+                "parents": [
+                    "session",
+                    "run2"
+                ]
             },
             "class": "",
             "measured": {
@@ -264,10 +172,116 @@
             "dragging": false
         },
         {
-            "id": "function10",
+            "id": "module6",
             "position": {
-                "x": 619.9416892936376,
-                "y": 636.3442787514161
+                "x": 514.3894130664391,
+                "y": 100.26852498854547
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "module",
+            "data": {
+                "variant": "module",
+                "moduleName": "model.transformer.h.<VAR>",
+                "isVariable": true,
+                "location": "output",
+                "isTuple": true,
+                "variable": "1",
+                "index": "",
+                "loopParentIds": [
+                    "a",
+                    "b",
+                    "c",
+                    "d"
+                ],
+                "parents": [
+                    "session",
+                    "run2",
+                    "batch3"
+                ]
+            },
+            "class": "",
+            "measured": {
+                "width": 102,
+                "height": 40
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "module7",
+            "position": {
+                "x": 505.304481652452,
+                "y": 323.98496105798034
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "module",
+            "data": {
+                "variant": "module",
+                "moduleName": "model.transformer.h.<VAR>",
+                "isVariable": true,
+                "location": "output",
+                "isTuple": true,
+                "variable": "1",
+                "index": "",
+                "loopParentIds": [
+                    "a",
+                    "b",
+                    "c",
+                    "d"
+                ],
+                "parents": [
+                    "session",
+                    "run2",
+                    "batch4"
+                ]
+            },
+            "class": "",
+            "measured": {
+                "width": 102,
+                "height": 40
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "run8",
+            "position": {
+                "x": 429.21818106030923,
+                "y": 538.616465713428
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "run",
+            "data": {
+                "variant": "context",
+                "color": "rgba(134, 25, 143, 0.3)",
+                "parents": [
+                    "session"
+                ]
+            },
+            "height": 200,
+            "width": 550,
+            "class": "!pointer-events-none",
+            "measured": {
+                "width": 550,
+                "height": 200
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "function9",
+            "position": {
+                "x": 639.3072200087635,
+                "y": 596.5329034775964
             },
             "origin": [
                 0,
@@ -282,7 +296,11 @@
                     "y"
                 ],
                 "code": "return x + y",
-                "deletable": false
+                "deletable": false,
+                "parents": [
+                    "session",
+                    "run8"
+                ]
             },
             "class": "",
             "measured": {
@@ -293,10 +311,10 @@
             "dragging": false
         },
         {
-            "id": "module11",
+            "id": "module10",
             "position": {
-                "x": 473.69108137602785,
-                "y": 696.8238534541872
+                "x": 476.914070983742,
+                "y": 674.8904369232362
             },
             "origin": [
                 0,
@@ -305,31 +323,36 @@
             "type": "module",
             "data": {
                 "variant": "module",
-                "moduleName": "model.model.layers.<VAR>",
+                "moduleName": "model.transformer.h.<VAR>",
                 "isVariable": true,
                 "location": "output",
-                "index": true,
+                "isTuple": true,
+                "variable": "1",
+                "index": "",
                 "loopParentIds": [
                     "a",
                     "b",
                     "c",
                     "d"
                 ],
-                "variable": "12"
+                "parents": [
+                    "session",
+                    "run8"
+                ]
             },
             "class": "",
             "measured": {
                 "width": 102,
-                "height": 38
+                "height": 40
             },
             "selected": false,
             "dragging": false
         },
         {
-            "id": "module12",
+            "id": "module11",
             "position": {
-                "x": 778.2882121518019,
-                "y": 649.5398223229299
+                "x": 790.3442047663005,
+                "y": 626.0589305730549
             },
             "origin": [
                 0,
@@ -338,24 +361,54 @@
             "type": "module",
             "data": {
                 "variant": "module",
-                "moduleName": "model.model.layers.<VAR>",
+                "moduleName": "model.transformer.h.<VAR>",
                 "isVariable": true,
                 "location": "output",
-                "index": true,
+                "isTuple": true,
+                "variable": "1",
+                "index": "",
                 "loopParentIds": [
                     "a",
                     "b",
                     "c",
                     "d"
                 ],
-                "variable": "12"
+                "parents": [
+                    "session",
+                    "run8"
+                ]
             },
             "class": "",
             "measured": {
                 "width": 102,
+                "height": 40
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "chat12",
+            "position": {
+                "x": 253.19763491430714,
+                "y": 620.3808484393129
+            },
+            "origin": [
+                0,
+                0
+            ],
+            "type": "chat",
+            "data": {
+                "variant": "chat",
+                "parents": [
+                    "session"
+                ]
+            },
+            "class": "",
+            "measured": {
+                "width": 100,
                 "height": 38
             },
-            "selected": true,
+            "selected": false,
             "dragging": false
         }
     ],
@@ -366,10 +419,36 @@
                 "width": 8,
                 "height": 8
             },
-            "style": "stroke-width: 3px",
-            "id": "batch1-input6",
-            "source": "input6",
-            "target": "batch1",
+            "style": "stroke-width: 2px; stroke: #A3A3A3",
+            "source": "module6",
+            "target": "function5",
+            "targetHandle": "a",
+            "id": "xy-edge__module6-function5a",
+            "selected": false
+        },
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 2px; stroke: #A3A3A3",
+            "source": "module7",
+            "target": "function5",
+            "targetHandle": "b",
+            "id": "xy-edge__module7-function5b",
+            "selected": false
+        },
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 2px; stroke: #A3A3A3",
+            "id": "batch4-input1",
+            "source": "input1",
+            "target": "batch4",
             "class": "",
             "selected": false
         },
@@ -379,10 +458,10 @@
                 "width": 8,
                 "height": 8
             },
-            "style": "stroke-width: 3px",
-            "id": "batch2-input7",
-            "source": "input7",
-            "target": "batch2",
+            "style": "stroke-width: 2px; stroke: #A3A3A3",
+            "id": "batch3-input0",
+            "source": "input0",
+            "target": "batch3",
             "class": "",
             "selected": false
         },
@@ -392,81 +471,55 @@
                 "width": 8,
                 "height": 8
             },
-            "style": "stroke-width: 3px",
-            "id": "run8-chat9",
-            "source": "chat9",
+            "style": "stroke-width: 2px; stroke: #A3A3A3",
+            "source": "function5",
+            "target": "function9",
+            "targetHandle": "x",
+            "id": "xy-edge__function5-function9x",
+            "selected": false
+        },
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 2px; stroke: #A3A3A3",
+            "source": "module10",
+            "target": "function9",
+            "targetHandle": "y",
+            "id": "xy-edge__module10-function9y",
+            "selected": false
+        },
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 2px; stroke: #A3A3A3",
+            "source": "function9",
+            "target": "module11",
+            "id": "xy-edge__function9-module11",
+            "selected": false
+        },
+        {
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 8,
+                "height": 8
+            },
+            "style": "stroke-width: 2px; stroke: #A3A3A3",
+            "id": "run8-chat12",
+            "source": "chat12",
             "target": "run8",
             "class": "",
-            "selected": false
-        },
-        {
-            "markerEnd": {
-                "type": "arrowclosed",
-                "width": 8,
-                "height": 8
-            },
-            "style": "stroke-width: 3px",
-            "source": "module4",
-            "target": "function9",
-            "targetHandle": "a",
-            "id": "xy-edge__module4-function9a",
-            "selected": false
-        },
-        {
-            "markerEnd": {
-                "type": "arrowclosed",
-                "width": 8,
-                "height": 8
-            },
-            "style": "stroke-width: 3px",
-            "source": "module5",
-            "target": "function9",
-            "targetHandle": "b",
-            "id": "xy-edge__module5-function9b",
-            "selected": false
-        },
-        {
-            "markerEnd": {
-                "type": "arrowclosed",
-                "width": 8,
-                "height": 8
-            },
-            "style": "stroke-width: 3px",
-            "source": "module11",
-            "target": "function10",
-            "targetHandle": "y",
-            "id": "xy-edge__module11-function10y",
-            "selected": false
-        },
-        {
-            "markerEnd": {
-                "type": "arrowclosed",
-                "width": 8,
-                "height": 8
-            },
-            "style": "stroke-width: 3px",
-            "source": "function9",
-            "target": "function10",
-            "targetHandle": "x",
-            "id": "xy-edge__function9-function10x",
-            "selected": false
-        },
-        {
-            "markerEnd": {
-                "type": "arrowclosed",
-                "width": 8,
-                "height": 8
-            },
-            "style": "stroke-width: 3px",
-            "source": "function10",
-            "target": "module12",
-            "id": "xy-edge__function10-module12",
             "selected": false
         }
     ],
     "viewport": {
-        "x": 282.3929230920103,
-        "y": 101.5401268933474,
-        "zoom": 0.9372257834214054
+        "x": 335.0394748169631,
+        "y": 126.70564054304555,
+        "zoom": 0.8805790198573389
     }
 }

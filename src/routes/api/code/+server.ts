@@ -8,7 +8,10 @@ export async function POST({ request }) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(graph),
+        body: JSON.stringify({
+            op: "code",
+            graph: graph,
+        }),
     });
     
     const result = await response.json();
