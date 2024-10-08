@@ -3,7 +3,7 @@ import { json } from '@sveltejs/kit';
 export async function POST({ request }) {
     const graph = await request.json();
 
-    const response = await fetch('http://localhost:8000/code', {
+    const response = await fetch('http://localhost:8080/code', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
