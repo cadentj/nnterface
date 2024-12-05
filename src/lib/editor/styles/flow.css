@@ -18,3 +18,16 @@
 .tree li {
     @apply border-t;
 }
+
+.layout {
+    @apply relative h-screen w-full overflow-hidden;
+}
+
+.layout .sidebar {
+    /* add pointer-events-none back in later */
+    @apply absolute top-[3vh] left-0 h-auto overflow-auto z-10;
+}
+
+.layout .flow {
+    @apply absolute inset-0 z-0 h-full;
+}

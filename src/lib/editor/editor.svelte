@@ -13,9 +13,19 @@
     import "$lib/editor/styles/flow.css";
 </script>
 
-<Layout>
-    <!-- <SvelteFlow {nodes} {edges} fitView >
+
+{#snippet flow()}
+    <SvelteFlow
+        {nodes}
+        {edges}
+        fitView
+    >
         <Toolbar />
-    </SvelteFlow> -->
+    </SvelteFlow>
+{/snippet}
+
+{#snippet leftSidebar()}
     <Tree />
-</Layout>
+{/snippet}
+
+<Layout {flow} {leftSidebar} />

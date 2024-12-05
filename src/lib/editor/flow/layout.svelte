@@ -1,13 +1,12 @@
 <script lang="ts">
-    let { children } = $props();
+    let { flow, leftSidebar } = $props();
 </script>
 
-<main>
-    {@render children?.()}
+<main class="layout">
+    <div class="flow">
+        {@render flow()}
+    </div>
+    <div class="sidebar">
+        {@render leftSidebar()}
+    </div>
 </main>
-
-<style>
-    main {
-        height: 100vh;
-    }
-</style>
