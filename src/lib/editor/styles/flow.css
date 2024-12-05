@@ -1,0 +1,20 @@
+/* OVERRIDES ON DEFAULT SVELTE FLOW STYLES */
+.svelte-flow__controls-button {
+    @apply 
+        !w-12
+        !h-12 
+        rounded-lg 
+        border;
+}
+
+/* CUSTOM STYLES */
+
+.tree ul {
+    margin: 0;
+    list-style: none;
+    user-select: none;
+}
+
+.tree li {
+    @apply border-t;
+}
