@@ -1,9 +1,10 @@
 import { json } from '@sveltejs/kit';
+import { BACKEND_URL } from '$env/static/private';
 
 export async function POST({ request }) {
     const graph = await request.json();
 
-    const response = await fetch('http://localhost:8000/code', {
+    const response = await fetch(`${BACKEND_URL}/code`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

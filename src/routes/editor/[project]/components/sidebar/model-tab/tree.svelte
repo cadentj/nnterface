@@ -9,25 +9,22 @@
     let nLayers: number = 0;
 
     export async function load(repoId: string) {
-
         const response = await fetch("/api/load-model", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "repo_id" : repoId
+                "repo_id": repoId,
             }),
         });
 
         const result = await response.json();
-
         let pytree = result['pytree'];
 
         trimTree(pytree);
         tree = pytree;
     }
-
 
     function trimTree(
         tree: any,

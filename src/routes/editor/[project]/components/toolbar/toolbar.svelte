@@ -28,7 +28,7 @@
         <RunButton />
     </div>
 </Controls>
-<Background variant={BackgroundVariant.Dots} gap={30} bgColor={"#0f0f0f"} />
+<Background variant={BackgroundVariant.Dots} gap={30} bgColor={"#06080D"} />
 
 <style>
     :global(.svelte-flow__controls-button) {

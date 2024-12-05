@@ -9,6 +9,9 @@ interface ModuleNodeData extends NodeProps["data"] {
     loopParentIds: string[];
     isTuple: boolean;
     index: string;
+    isInput: boolean;
+    variant: string;
+    variable?: string;
 }
 
 export type ModuleNodeProps = Omit<NodeProps, 'data'> & {

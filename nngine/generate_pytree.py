@@ -72,7 +72,6 @@ def get_shapes(repo_id):
                 prepend=True
             )
 
-
         input = tokenizer(" ", return_tensors='pt')
         output = model(**input)
 
@@ -103,7 +102,7 @@ def generate_pytree(module, shapes, atomic='', path='', fold=False):
         "submodules": []
     }
 
-    for submodule in module._sub_envoys:
+    for submodule in module._children:
         name = submodule.path.split('.')[-1]
 
         if "drop" in name or "generator" in name:

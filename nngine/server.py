@@ -52,7 +52,7 @@ def prepare_result(loc: Dict[str, Any], graph: Graph):
 
     for node in get_nodes(output_types, graph):
         node_id = node.id
-        rs = loc[node_id].value
+        rs = loc[node_id]
 
         if "chat" in node_id:
             input_length = len(node.data.tokens)

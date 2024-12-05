@@ -4,8 +4,18 @@
 
 @layer base {
     :root {
+        /* Font family */
+        --font-mono: 'Ubuntu Mono', monospace;
+        
+        /* Light theme colors */
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
+        
+        --bg-1: 0 0% 100%;
+        --bg-2: 240 4.8% 95.9%;
+        --ui-1: 0 0% 100%;
+        --ui-2: 240 4.8% 95.9%;
+        --ui-3: 240 5.9% 90%;
 
         --muted: 240 4.8% 95.9%;
         --muted-foreground: 240 3.8% 46.1%;
@@ -32,20 +42,19 @@
         --destructive-foreground: 0 0% 98%;
 
         --ring: 240 10% 3.9%;
-
         --radius: 0.5rem;
-    }
 
-    :root {
+        /* Node specific colors */
         --node-background: 0 0% 100%;
         --context-background: 0 0% 100% 0.5;
     }
 
     .dark {
+        /* Dark theme colors */
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
 
-        --bg-1: 0 0% 9%;
+        --bg-1: 223, 37%, 4%;
         --bg-2: 250 0% 100%;
         --ui-1: 0 0% 9%;
         --ui-2: 0 0% 14%;
@@ -60,7 +69,7 @@
         --card: 240 10% 3.9%;
         --card-foreground: 0 0% 98%;
 
-        --border: 240 3.7% 15.9%;
+        --border: 202, 83%, 82%;
         --input: 240 3.7% 15.9%;
 
         --primary: 0 0% 98%;
@@ -75,10 +84,7 @@
         --destructive: 0 62.8% 30.6%;
         --destructive-foreground: 0 0% 98%;
 
-        --ring: 240 4.9% 83.9%;
-    }
-
-    .dark {
+        /* Node specific colors */
         --node-background: 0, 0%, 12%, 1;
         --context-background: 0, 0%, 12%, 0.5;
     }
@@ -91,5 +97,6 @@
 
     body {
         @apply bg-background text-foreground;
+        font-family: var(--font-mono);
     }
 }

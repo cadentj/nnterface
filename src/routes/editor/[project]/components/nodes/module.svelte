@@ -4,19 +4,16 @@
 
     import * as Tooltip from "$lib/components/ui/tooltip";
     import Handle from "../flow/handle.svelte";
-    import { DateRangeField } from "bits-ui";
 
     type $$Props = ModuleNodeProps;
 
     export let type: $$Props["type"];
     export let data: $$Props["data"];
+    export let isInput: boolean = false;
 
     data.isVariable = data.moduleName.includes("<VAR>");
-    data.variable = "";
-
-    data.index = "";
-
-    // TODO: Should reimplement with dropdown menu.
+    data.variable = data.variable || "";
+    data.index = data.index || "";
     data.loopParentIds = data.loopParentIds || ["a", "b", "c", "d"];
 
     let showIndex = false;
@@ -30,12 +27,17 @@
 </script>
 
 <!-- TODO: https://svelte.dev/repl/f0823379afef4d249358cf969519c1b8?version=4.2.19 -->
-<div class="node" role="region" on:dblclick={() => showIndex = !showIndex}>
+<div 
+    class="node" 
+    role="region" 
+    on:dblclick={() => showIndex = !showIndex}
+>
     <div class="flex">
         {#if data.isVariable}
             {shortenedName === "<VAR>" ? "layers" : shortenedName}
         {:else}
             {shortenedName}
+            {isInput ? " (input)" : " (output)"}
         {/if}
         {#if data.isVariable}
             <div class="border-l pl-2 ml-2">
@@ -74,4 +76,5 @@
     <Handle type="target" label={type} position={Position.Left} />
 
     <Handle type="source" label={type} position={Position.Right} />
+
 </div>

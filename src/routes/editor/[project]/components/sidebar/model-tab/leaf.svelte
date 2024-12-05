@@ -10,6 +10,7 @@
 
 	const maxExpandDepth = 3; // Maximum depth to expand by default
 
+	const isInput: Writable<boolean> = getContext("isInput");
 	let isVariable: boolean = tree.atomic.includes(".0");
 	if (isVariable) {
 		tree.name = tree.name.replace(".0", `.[0-${nLayers}]`);
@@ -39,6 +40,7 @@
 			...newNode,
 			type: "module",
 			data: {
+				isInput: $isInput,
 				variant: "module",
 				moduleName: name,
 				isVariable: isVariable,

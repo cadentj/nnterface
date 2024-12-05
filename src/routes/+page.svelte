@@ -4,7 +4,21 @@
 </script>
 
 <div class="w-[100vw] h-[100vh] flex flex-col justify-center items-center bg-bg-1">
-    <img src={Logo} alt="Nnsight Logo" class="h-[20vh] mb-5" />
+    <!-- <img src={Logo} alt="Nnsight Logo" class="h-[20vh] mb-5" /> -->
+<pre class="text-border">         ,--.                                
+       ,--.'|    ,---,       ,---,    ,---,. 
+   ,--,:  : |  .'  .' `\  ,`--.' |  ,'  .' | 
+,`--.'`|  ' :,---.'     \ |   :  :,---.'   | 
+|   :  :  | ||   |  .`\  |:   |  '|   |   .' 
+:   |   \ | ::   : |  '  ||   :  |:   :  :   
+|   : '  '; ||   ' '  ;  :'   '  ;:   |  |-, 
+'   ' ;.    ;'   | ;  .  ||   |  ||   :  ;/| 
+|   | | \   ||   | :  |  ''   :  ;|   |   .' 
+'   : |  ; .''   : | /  ; |   |  ''   :  '   
+|   | '`--'  |   | '` ,/  '   :  ||   |  |   
+'   : |      ;   :  .'    ;   |.' |   :  \   
+;   |.'      |   ,.'      '---'   |   | ,'   
+'---'        '---'                `----'     </pre>
     <ul class="text-center w-[20vw]">
         {#each items as item}
             <li class="text-left p-3 my-2 border-white border rounded-lg" >
