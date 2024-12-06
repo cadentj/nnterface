@@ -29,6 +29,8 @@
 			return null;
 		}	
 
+
+
 		const newNode: Node = createEmptyNode("default");
 		const moduleNode = {
 			...newNode,
@@ -43,7 +45,7 @@
 			},
 		};
 
-		modelSelector.draggedType = name;
+		modelSelector.draggedType = moduleNode;
 		event.dataTransfer.effectAllowed = "move";
 	};
 

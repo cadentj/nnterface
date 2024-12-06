@@ -1,4 +1,5 @@
-/* OVERRIDES ON DEFAULT SVELTE FLOW STYLES */
+/* ############ OVERRIDES ON DEFAULT SVELTE FLOW STYLES ############ */
+
 .svelte-flow__controls-button {
     @apply 
         !w-12
@@ -7,7 +8,28 @@
         border;
 }
 
-/* CUSTOM STYLES */
+.svelte-flow__node-input {
+    border: unset; /* Remove all default styles */
+}
+
+.svelte-flow__node.selected {
+    @apply !border-current !rounded-lg;
+}
+
+.svelte-flow__node.selected, .svelte-flow__node:focus {
+    /* box-shadow: 6px 6px 0 1px rgba(0, 0, 0, 0.7) !important;
+    background-color: #eee !important; */
+
+    box-shadow: 0 1px 4px 1px white !important;
+}
+
+.svelte-flow__edges {
+    z-index: 100;
+}
+
+/* ############ CUSTOM STYLES ############ */
+
+/* TREE */
 
 .tree ul {
     margin: 0;
@@ -18,6 +40,8 @@
 .tree li {
     @apply border-t;
 }
+
+/* LAYOUT */
 
 .layout {
     @apply relative h-screen w-full overflow-hidden;
@@ -30,4 +54,27 @@
 
 .layout .flow {
     @apply absolute inset-0 z-0 h-full;
+}
+
+/* NODES */
+
+.node {
+    border-radius: var(--radius);
+
+    border: 1px solid hsl(var(--border));
+    min-width: 100px;
+
+    color: white;
+
+    @apply items-center text-center p-3;
+}
+
+.context {
+    height: 100%;
+
+    border: 1px solid hsl(var(--border));
+    
+    border-radius: var(--radius);
+
+    /* background-color: rgba(255, 255, 255, 0.05); */
 }

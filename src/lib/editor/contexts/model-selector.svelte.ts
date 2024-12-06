@@ -1,4 +1,4 @@
-export const modelSelector = $state({
+export let modelSelector = $state({
     draggedType: null,
     location: null,
 });
