@@ -25,28 +25,25 @@
 	});
 
 	const onDragStart = (event: DragEvent, name: string) => {
-		if (!event.dataTransfer) {
-			return null;
+		if (event.dataTransfer) {
+			const newNode: Node = createEmptyNode("default");
+			const moduleNode: Node = {
+				...newNode,
+				type: "module",
+				data: {
+					isInput: false,
+					variant: "module",
+					moduleName: name,
+					isVariable: false,
+					location: "output",
+					isTuple: tree.output_collection,
+				},
+			};
+
+			modelSelector.draggedType = moduleNode;
+
+			event.dataTransfer.effectAllowed = "move";
 		}	
-
-
-
-		const newNode: Node = createEmptyNode("default");
-		const moduleNode = {
-			...newNode,
-			type: "module",
-			data: {
-				isInput: false,
-				variant: "module",
-				moduleName: name,
-				isVariable: false,
-				location: "output",
-				isTuple: tree.output_collection,
-			},
-		};
-
-		modelSelector.draggedType = moduleNode;
-		event.dataTransfer.effectAllowed = "move";
 	};
 
 </script>
@@ -67,7 +64,7 @@
 						+
 					{/if}
 				</span>
-				<small class="submodule-name">{tree.name}</small>
+				{tree.name}
 			</button>
 			{#if tree.expanded}
 				{#each tree.submodules as _, i}
@@ -84,7 +81,7 @@
 				draggable={true}
 				class="p-3 flex items-center"
 			>
-				<small class="submodule-name">{tree.name}</small>
+				{tree.name}
 			</button>
 		{/if}
 	</li>

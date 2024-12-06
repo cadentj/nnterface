@@ -48,8 +48,8 @@
 }
 
 .layout .sidebar {
-    /* add pointer-events-none back in later */
-    @apply absolute top-[3vh] left-0 h-auto overflow-auto z-10;
+    @apply absolute top-[3vh] left-0 h-auto overflow-auto z-10 pointer-events-none;
+    width: 22%;
 }
 
 .layout .flow {
@@ -61,7 +61,7 @@
 .node {
     border-radius: var(--radius);
 
-    border: 1px solid hsl(var(--border));
+    border: 1.5px solid hsl(var(--border));
     min-width: 100px;
 
     color: white;
@@ -72,9 +72,13 @@
 .context {
     height: 100%;
 
-    border: 1px solid hsl(var(--border));
+    border: 1.5px solid hsl(var(--border));
     
     border-radius: var(--radius);
 
     /* background-color: rgba(255, 255, 255, 0.05); */
+}
+
+.block-container {
+    grid-auto-flow: dense;
 }

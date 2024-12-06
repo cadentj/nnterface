@@ -1,12 +1,11 @@
 <script lang="ts">
     import { nodes, edges, defaultEdgeOptions, nodeTypes } from "./flow";
-    import { SvelteFlow } from "@xyflow/svelte";
+    import { SvelteFlow, Background } from "@xyflow/svelte";
     import "@xyflow/svelte/dist/base.css";
     import DragAndDropHandler from "./contexts/drag-and-drop-handler.svelte";
     import Layout from "./flow/layout.svelte";
     import Toolbar from "./ui/toolbar/toolbar.svelte";
-    import Tree from "./ui/model-selector/tree.svelte";
-    import { modelSelector } from "$lib/editor/contexts/model-selector.svelte";
+    import Sidebar from "./ui/sidebar/sidebar.svelte";
     
     import "$lib/editor/styles/flow.css";
 
@@ -25,11 +24,12 @@
     >
         <Toolbar />
         <DragAndDropHandler bind:this={dragAndDropHandler}/>
+        <Background bgColor="#100F0F" />
     </SvelteFlow>
 {/snippet}
 
 {#snippet leftSidebar()}
-    <Tree />
+    <Sidebar />
 {/snippet}
 
 <Layout {flow} {leftSidebar} />
