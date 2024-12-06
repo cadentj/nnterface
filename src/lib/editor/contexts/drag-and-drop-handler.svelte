@@ -38,6 +38,8 @@
             class: (type.data.variant === "context") ? "!pointer-events-none"  : "",
         } satisfies Node;
 
+    
+
         $nodes = [...$nodes, newNode];
     }
 </script>

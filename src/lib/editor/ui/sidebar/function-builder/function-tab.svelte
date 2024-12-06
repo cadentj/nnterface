@@ -4,6 +4,7 @@
     import { Pencil, Trash2 } from "lucide-svelte";
     import { createEmptyNode } from "$lib/editor/flow/utils";
     import { modelSelector } from "$lib/editor/contexts/model-selector.svelte";
+    import { defaultFunctions } from "./default-functions.svelte";
 
     type FunctionBlock = {
         functionName: string;
@@ -14,33 +15,6 @@
 
     let open = $state(false);
     let openIndex = $state(-1);
-
-    const defaultFunctions = $state([
-        {
-            functionName: "Add",
-            inputs: ["x", "y"],
-            code: "return x + y",
-            deletable: false,
-        },
-        {
-            functionName: "Subtract",
-            inputs: ["x", "y"],
-            code: "return x - y",
-            deletable: false,
-        },
-        {
-            functionName: "Multiply",
-            inputs: ["x", "y"],
-            code: "return x * y",
-            deletable: false,
-        },
-        {
-            functionName: "Divide",
-            inputs: ["x", "y"],
-            code: "return x / y",
-            deletable: false,
-        },
-    ]);
 
     const deleteFunction = (index: number) => {
         defaultFunctions.update((fns) => {
@@ -53,7 +27,7 @@
         if (event.dataTransfer) {
             let newNode: Node = createEmptyNode("function");
             newNode.data = { ...newNode.data, ...functionBlock };
-            modelSelector.draggedNode = newNode;
+            modelSelector.draggedType = newNode;
             event.dataTransfer.effectAllowed = "move";
         }
     };
@@ -65,12 +39,9 @@
         <Dialog.Trigger
             onclick={() => {
                 openIndex = -1;
-                console.log("opened code editor");
             }}
         >
-            <button>
-                +
-            </button>
+            +
         </Dialog.Trigger>
     </div>
     <Dialog.Content class="max-w-[750px]">
@@ -96,9 +67,7 @@
                                 openIndex = index;
                             }}
                         >
-                            <button>
-                                <Pencil class="h-4 w-4" />
-                            </button>
+                            <Pencil class="h-4 w-4" />
                         </Dialog.Trigger>
                         <button
                             onclick={() => {

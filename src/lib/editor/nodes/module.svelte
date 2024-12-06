@@ -10,7 +10,7 @@
 </script>
 
 <div class="node">
-    pee pee poopy
+    {data.moduleName}
     <Handle type="target" position={Position.Left} />
     <Handle type="source" position={Position.Right} />
 </div>

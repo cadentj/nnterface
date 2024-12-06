@@ -64,7 +64,7 @@
     border: 1.5px solid hsl(var(--border));
     min-width: 100px;
 
-    color: white;
+    color: black;
 
     @apply items-center text-center p-3;
 }
@@ -81,4 +81,27 @@
 
 .block-container {
     grid-auto-flow: dense;
+}
+
+/* CONTEXT NODE */
+
+.draggable {
+    pointer-events: all !important;
+
+    @apply !cursor-move;
+}
+
+.border-gradient {
+    border-image: linear-gradient(to right, rgba(147, 89, 146, 0.8) 0%, rgba(46, 131, 175, 0.8) 100%) .5;
+}
+
+.resizer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    pointer-events: all !important;
+
+    transform: scaleX(-1);
+    @apply !pb-3 !pl-3;
 }

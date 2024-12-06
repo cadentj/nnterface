@@ -1,9 +1,7 @@
 <script lang="ts">
     import CodeMirror from "svelte-codemirror-editor";
     import { python } from "@codemirror/lang-python";
-    // import Badges from "./badges.svelte";
     import { githubLight, githubDark } from "@uiw/codemirror-theme-github";
-    import { mode } from "mode-watcher";
     import { Input } from "$lib/components/ui/input/index.js";
 
     type FunctionBlock = {
@@ -65,7 +63,7 @@
                 },
             }}
             lang={python()}
-            theme={$mode === "light" ? githubLight : githubDark}
+            theme={githubLight}
         />
     </div>
     <div class="col-span-1">

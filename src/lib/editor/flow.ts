@@ -7,10 +7,28 @@ import {
 } from "@xyflow/svelte";
 
 import { writable, type Writable } from "svelte/store";
-import { ModuleNode } from "$lib/editor/nodes";
+import {
+    ModuleNode,
+    BatchNode,
+    LoopNode,
+    RunNode,
+    FunctionNode,
+    GraphNode,
+    InputNode,
+    ListNode,
+    ChatNode,
+} from "$lib/editor/nodes";
 
 const nodeTypes: NodeTypes = {
     module: ModuleNode,
+    batch: BatchNode,
+    loop: LoopNode,
+    run: RunNode,
+    function: FunctionNode,
+    graph: GraphNode,
+    input: InputNode,
+    list: ListNode,
+    chat: ChatNode,
 };
 
 const nodes: Writable<Node[]> = writable([]);

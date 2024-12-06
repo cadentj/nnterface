@@ -24,7 +24,7 @@
     >
         <Toolbar />
         <DragAndDropHandler bind:this={dragAndDropHandler}/>
-        <Background bgColor="#100F0F" />
+        <Background bgColor="#FFFFFF" />
     </SvelteFlow>
 {/snippet}
 
