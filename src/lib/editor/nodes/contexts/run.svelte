@@ -11,4 +11,4 @@
     data.color = data.color || "rgba(134, 25, 143, 0.3)";
 </script>
 
-<ContextNode label={type}/>
+<ContextNode label="run"/>

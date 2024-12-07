@@ -9,3 +9,10 @@ export const createEmptyNode = (name: string): Node => ({
         variant: name,
     }
 });
+
+export const clearParents = (nodes: Node[]) => {
+    return nodes.map((node) => {
+        node.data.parents = ["session"];
+        return node;
+    });
+};

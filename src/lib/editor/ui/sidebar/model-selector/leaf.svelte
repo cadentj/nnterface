@@ -1,8 +1,10 @@
 <script lang="ts">
 	import Self from "./leaf.svelte";
 	import { onMount } from "svelte";
-	import { modelSelector } from "$lib/editor/contexts/model-selector.svelte";
+	import { modelSelector } from "@/lib/editor/handlers/states.svelte";
 	import { createEmptyNode } from "$lib/editor/flow/utils";
+	import { ChevronRight, ChevronDown } from "lucide-svelte";
+	import { slide } from "svelte/transition";
 
 	let {
 		nLayers,
@@ -48,8 +50,8 @@
 
 </script>
 
-<ul class="tree {depth === 0 ? 'pl-0' : 'pl-5'}">
-	<li class="tree">
+<ul class="tree {depth === 0 ? 'pl-0' : 'pl-5'} ">
+	<li class="tree {depth === 0 ? '!border-none' : ''}">
 		{#if tree.submodules}
 			<button
 				ondragstart={(event) => onDragStart(event, tree.atomic)}
@@ -57,23 +59,25 @@
 				draggable={true}
 				class="p-3 flex items-center"
 			>
-				<span class="mr-2">
+				<span class="mr-2 text-gray-600">
 					{#if tree.expanded}
-						-
+						<ChevronDown size={12} class="text-primary"/>
 					{:else}
-						+
+						<ChevronRight size={12} class="text-primary"/>
 					{/if}
 				</span>
 				{tree.name}
 			</button>
 			{#if tree.expanded}
-				{#each tree.submodules as _, i}
-					<Self
-						bind:tree={tree.submodules[i]}
-						{nLayers}
-						depth={depth + 1}
-					/>
-				{/each}
+				<div transition:slide={{ duration: 200 }}>
+					{#each tree.submodules as _, i}
+						<Self
+							bind:tree={tree.submodules[i]}
+							{nLayers}
+							depth={depth + 1}
+						/>
+					{/each}
+				</div>
 			{/if}
 		{:else}
 			<button
@@ -81,6 +85,9 @@
 				draggable={true}
 				class="p-3 flex items-center"
 			>
+				<!-- <span class="mr-2 text-gray-600">
+					<ChevronRight size={18} />
+				</span> -->
 				{tree.name}
 			</button>
 		{/if}

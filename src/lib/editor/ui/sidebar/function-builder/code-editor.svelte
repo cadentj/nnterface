@@ -1,7 +1,7 @@
 <script lang="ts">
     import CodeMirror from "svelte-codemirror-editor";
     import { python } from "@codemirror/lang-python";
-    import { githubLight, githubDark } from "@uiw/codemirror-theme-github";
+    import { githubDark } from "@uiw/codemirror-theme-github";
     import { Input } from "$lib/components/ui/input/index.js";
 
     type FunctionBlock = {
@@ -63,7 +63,7 @@
                 },
             }}
             lang={python()}
-            theme={githubLight}
+            theme={githubDark}
         />
     </div>
     <div class="col-span-1">

@@ -5,7 +5,8 @@
         !w-12
         !h-12 
         rounded-lg 
-        border;
+        border
+        bg-ui-1;
 }
 
 .svelte-flow__node-input {
@@ -17,10 +18,7 @@
 }
 
 .svelte-flow__node.selected, .svelte-flow__node:focus {
-    /* box-shadow: 6px 6px 0 1px rgba(0, 0, 0, 0.7) !important;
-    background-color: #eee !important; */
-
-    box-shadow: 0 1px 4px 1px white !important;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3) !important;
 }
 
 .svelte-flow__edges {
@@ -38,7 +36,7 @@
 }
 
 .tree li {
-    @apply border-t;
+    @apply border-t
 }
 
 /* LAYOUT */
@@ -56,23 +54,26 @@
     @apply absolute inset-0 z-0 h-full;
 }
 
+.layout .navbar {
+    @apply absolute top-0 left-0 w-full h-[3vh] z-20;
+}
+
 /* NODES */
 
 .node {
     border-radius: var(--radius);
-
     border: 1.5px solid hsl(var(--border));
     min-width: 100px;
-
-    color: black;
+    background-color: rgba(255, 255, 255, 0.1);
 
     @apply items-center text-center p-3;
+
 }
 
 .context {
     height: 100%;
 
-    border: 1.5px solid hsl(var(--border));
+    border: 2px solid hsl(var(--border));
     
     border-radius: var(--radius);
 
@@ -85,11 +86,13 @@
 
 /* CONTEXT NODE */
 
-.draggable {
+/* The draggable class is defined in the context.svelte file. */
+
+/* .draggable {
     pointer-events: all !important;
 
     @apply !cursor-move;
-}
+} */
 
 .border-gradient {
     border-image: linear-gradient(to right, rgba(147, 89, 146, 0.8) 0%, rgba(46, 131, 175, 0.8) 100%) .5;

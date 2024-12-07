@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { Position, Handle } from "@xyflow/svelte";
+    import { Position } from "@xyflow/svelte";
+    import Handle from "@/lib/editor/flow/handle.svelte";
     import type { FunctionNodeProps } from "$lib/editor/types/nodes";
 
     let {
@@ -24,6 +25,7 @@
     <div style="height: {inputs.length * 30}px; position: relative;">
         {#each inputs as input, index}
             <Handle
+                label="function"
                 id={input}
                 type="target"
                 position={Position.Left}
@@ -34,6 +36,7 @@
         {/each}
 
         <Handle
+            label="function"
             type="source"
             position={Position.Right}
             style="top: 50%; position: absolute;"

@@ -7,7 +7,7 @@
         type,
         data,
         ...restProps
-    } = $props();
+    }: ContextNodeProps = $props();
 
     data.start = "0";
     data.end = "";
@@ -15,8 +15,8 @@
     data.color = data.color || "rgba(134, 25, 143, 0.3)";
 </script>
 
-{#snippet title()}
-    <div slot="title" class="ml-2">
+{#snippet titleContent()}
+    <div class="ml-2">
         from
         <input class="w-6 text-center" bind:value={data.start} />
         to
@@ -24,5 +24,5 @@
     </div>
 {/snippet}
 
-<ContextNode label={id} title={title}/>
+<ContextNode label={id} titleContent={titleContent}/>
 

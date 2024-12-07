@@ -3,7 +3,7 @@
     import * as Dialog from "$lib/components/ui/dialog";
     import { Pencil, Trash2 } from "lucide-svelte";
     import { createEmptyNode } from "$lib/editor/flow/utils";
-    import { modelSelector } from "$lib/editor/contexts/model-selector.svelte";
+    import { modelSelector } from "@/lib/editor/handlers/states.svelte";
     import { defaultFunctions } from "./default-functions.svelte";
 
     type FunctionBlock = {

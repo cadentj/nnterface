@@ -1,16 +1,23 @@
 <script lang="ts">
     import { nodes, edges, defaultEdgeOptions, nodeTypes } from "./flow";
-    import { SvelteFlow, Background } from "@xyflow/svelte";
+    import { SvelteFlow, SvelteFlowProvider } from "@xyflow/svelte";
     import "@xyflow/svelte/dist/base.css";
-    import DragAndDropHandler from "./contexts/drag-and-drop-handler.svelte";
+    import DragAndDropHandler from "./handlers/drag-and-drop.svelte";
+    import ConnectionHandler from "./handlers/connection.svelte";
     import Layout from "./flow/layout.svelte";
     import Toolbar from "./ui/toolbar/toolbar.svelte";
     import Sidebar from "./ui/sidebar/sidebar.svelte";
+    import Navbar from "./ui/navbar/navbar.svelte";
     
     import "$lib/editor/styles/flow.css";
 
     let dragAndDropHandler: any;
+    let connectionHandler: any;
 </script>
+
+{#snippet navbar()}
+    <Navbar title="Untitled" />
+{/snippet}
 
 {#snippet flow()}
     <SvelteFlow
@@ -21,10 +28,17 @@
         fitView
         on:dragover={dragAndDropHandler.onDragOver}
         on:drop={dragAndDropHandler.onDrop}
+        onconnectend={(event) => {
+            connectionHandler?.handleConnectEnd();
+        }}
+        isValidConnection={(connection) =>
+            connectionHandler.isValidConnection(connection)}
+        onconnectstart={(_, params) =>
+            connectionHandler.handleConnectStart(params)}
     >
         <Toolbar />
         <DragAndDropHandler bind:this={dragAndDropHandler}/>
-        <Background bgColor="#FFFFFF" />
+        <ConnectionHandler bind:this={connectionHandler}/>
     </SvelteFlow>
 {/snippet}
 
@@ -32,4 +46,7 @@
     <Sidebar />
 {/snippet}
 
-<Layout {flow} {leftSidebar} />
+<SvelteFlowProvider>
+    <Layout {flow} {leftSidebar} {navbar} />
+</SvelteFlowProvider>
+

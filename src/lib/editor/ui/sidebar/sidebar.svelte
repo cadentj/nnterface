@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ModelSelector from "./model-selector/tree.svelte";
+    import ModelSelector from "./model-selector/model-tab.svelte";
     import * as Tabs from "$lib/components/ui/tabs";
     import type { BlockGroup } from "$lib/editor/types/blocks";
     import BlockList from "./block-list/block-tab.svelte";
@@ -27,19 +27,19 @@
 
 <div class='p-10 h-full'>
     <Tabs.Root value="model" class="pointer-events-auto" id="sidebar">
-        <Tabs.List class="w-full rounded-lg h-12 border">
-            <Tabs.Trigger value="model" class="w-full h-full rounded-lg">Model</Tabs.Trigger>
-            <Tabs.Trigger value="blocks" class="w-full h-full rounded-lg">Blocks</Tabs.Trigger>
-            <Tabs.Trigger value="functions" class="w-full h-full rounded-lg">Functions</Tabs.Trigger>
+        <Tabs.List class="w-full rounded-lg h-12 border !bg-card">
+            <Tabs.Trigger value="model" class="w-full h-full data-[state=active]:!bg-ui-1">Model</Tabs.Trigger>
+            <Tabs.Trigger value="blocks" class="w-full h-full data-[state=active]:!bg-ui-1">Blocks</Tabs.Trigger>
+            <Tabs.Trigger value="functions" class="w-full h-full data-[state=active]:!bg-ui-1">Functions</Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content value="model" class="px-5 py-4 rounded-lg border">
+        <Tabs.Content value="model" class="px-5 py-4 rounded-lg border !bg-card">
             <ModelSelector/>
         </Tabs.Content> 
-        <Tabs.Content value="blocks" class="px-5 py-4 rounded-lg border">
+        <Tabs.Content value="blocks" class="px-5 py-4 rounded-lg border !bg-card">
             <BlockList blockGroups={demoBlocks} />
         </Tabs.Content>
-        <Tabs.Content value="functions" class="px-5 py-4 rounded-lg border">
+        <Tabs.Content value="functions" class="px-5 py-4 rounded-lg border !bg-card">
             <FunctionTab />
         </Tabs.Content>
     </Tabs.Root>

@@ -1,14 +1,14 @@
 <script lang="ts">
-    import { Position, useSvelteFlow, Handle } from "@xyflow/svelte";
-    // import type { InputNodeProps } from "$lib/editor/flow";
-
-    // import { Textarea } from "$lib/components/ui/textarea";
+    import { Position, useSvelteFlow } from "@xyflow/svelte";
+    import Handle from "@/lib/editor/flow/handle.svelte";
+    import type { InputNodeProps } from "$lib/editor/types/nodes";
+    import { Textarea } from "$lib/components/ui/textarea";
 
     let {
         id, 
-        type,
         data,
-    } = $props();
+        ...restProps
+    }: InputNodeProps = $props();
 
     const { updateNodeData } = useSvelteFlow();
 
@@ -19,15 +19,13 @@
         Prompt
     </div>
     <div>
-        <!-- <Textarea
+        <Textarea
             value={data.text}
             on:input={(evt) =>
                 updateNodeData(id, { text: evt.currentTarget.value })}
             class="resize-none"
-        /> -->
-
-        Text
+        />
     </div>
 
-    <Handle type="source" position={Position.Right}/>
+    <Handle type="source" label="input" position={Position.Right}/>
 </div>

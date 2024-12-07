@@ -1,16 +1,18 @@
 <script lang="ts">
-    import { Position, Handle } from "@xyflow/svelte";
+    import { Position } from "@xyflow/svelte";
+    import Handle from "$lib/editor/flow/handle.svelte";
     import type { ModuleNodeProps } from "$lib/editor/types/nodes";
+    import { connectionHandler } from "@/lib/editor/handlers/states.svelte";
 
     let {
         type,
         data,
         ...restProps
-    } = $props();
+    }: ModuleNodeProps = $props();
 </script>
 
 <div class="node">
     {data.moduleName}
-    <Handle type="target" position={Position.Left} />
-    <Handle type="source" position={Position.Right} />
+    <Handle type="target" position={Position.Left} label="module" />
+    <Handle type="source" position={Position.Right} label="module" />
 </div>

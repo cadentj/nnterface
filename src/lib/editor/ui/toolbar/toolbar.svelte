@@ -4,15 +4,15 @@
         Background,
         BackgroundVariant,
     } from "@xyflow/svelte";
+    import RunButton from "./run-button.svelte";
 
 </script>
 
 <Controls
     orientation="horizontal"
     position="bottom-center"
-    class="flex gap-3 bg-ui-1 p-3 rounded-lg border"
+    class="flex gap-3 bg-card p-2 rounded-lg border"
 >
-    TBD
+    <RunButton/>
 </Controls>
-
-<Background variant={BackgroundVariant.Dots} gap={30} bgColor={"#06080D"} />
+<Background variant={BackgroundVariant.Dots} gap={30} bgColor={"#151414"} />

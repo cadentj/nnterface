@@ -1,34 +1,37 @@
 <script lang="ts">
-    import { Position, type NodeProps } from "@xyflow/svelte";
-    import { Handle } from "@xyflow/svelte";   
+    import { Position } from "@xyflow/svelte";
+    import Handle from "@/lib/editor/flow/handle.svelte";
+    import type { ListNodeProps } from "$lib/editor/types/nodes";
 
     let {
-        id,
         type,
         data,
-    } = $props();
+        ...restProps
+    }: ListNodeProps = $props();
 </script>
 
 <div class="node">
     {type}
     <Handle
         type="target"
+        label="list"
         position={Position.Left}
-        onconnect={() => {
+        on:connect={() => {
             data.location = "input";
         }}
-        ondisconnect={() => {
+        on:disconnect={() => {
             data.location = "";
         }}
     />
 
     <Handle
         type="source"
+        label="list"
         position={Position.Right}
-        onconnect={() => {
+        on:connect={() => {
             data.location = "output";
         }}
-        ondisconnect={() => {
+        on:disconnect={() => {
             data.location = "";
         }}
     />

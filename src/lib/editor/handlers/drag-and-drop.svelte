@@ -1,7 +1,7 @@
 <script lang="ts">
     import { useSvelteFlow } from "@xyflow/svelte";
     import { useNodes, type Node } from "@xyflow/svelte";
-    import { modelSelector } from "$lib/editor/contexts/model-selector.svelte";
+    import { modelSelector } from "@/lib/editor/handlers/states.svelte";
 
     const { screenToFlowPosition } = useSvelteFlow();
 
@@ -29,6 +29,8 @@
         });
 
         const numNodes = ($nodes.length).toString();
+
+        console.log(type.data.variant)
 
         const newNode = {
             ...type,

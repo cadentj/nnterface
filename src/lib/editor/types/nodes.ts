@@ -27,6 +27,8 @@ interface ContextNodeData extends BaseNodeData {
 
 export type ContextNodeProps = Omit<NodeProps, 'data'> & {
     data: ContextNodeData;
+    titleContent?: () => any;
+    label: string;
 };
 
 interface FunctionNodeData extends BaseNodeData {
@@ -48,6 +50,10 @@ export type InputNodeProps = Omit<NodeProps, 'data'> & {
     data: InputNodeData;
 };
 
-interface ContextNodeData extends BaseNodeData {
-    text: string;
+interface ListNodeData extends BaseNodeData {
+    label: "list";
 }
+
+export type ListNodeProps = Omit<NodeProps, 'data'> & {
+    data: ListNodeData;
+};
