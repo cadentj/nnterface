@@ -26,9 +26,8 @@ interface ContextNodeData extends BaseNodeData {
 }
 
 export type ContextNodeProps = Omit<NodeProps, 'data'> & {
-    data: ContextNodeData;
-    titleContent?: () => any;
     label: string;
+    data: ContextNodeData;
 };
 
 interface FunctionNodeData extends BaseNodeData {

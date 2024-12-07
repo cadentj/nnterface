@@ -2,7 +2,11 @@
     import type { Node } from "@xyflow/svelte";
     import { createEmptyNode } from "$lib/editor/flow/utils";
     import { modelSelector } from "@/lib/editor/handlers/states.svelte";
-    import type { BlockGroup } from "$lib/editor/types/blocks";
+
+    export type BlockGroup = {
+        title: string;
+        blocks: string[];
+    }
 
     let { blockGroups }: { blockGroups: BlockGroup[] } = $props();
 

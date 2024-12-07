@@ -3,6 +3,7 @@
     import { python } from "@codemirror/lang-python";
     import { githubDark } from "@uiw/codemirror-theme-github";
     import { Input } from "$lib/components/ui/input/index.js";
+    import { defaultFunctions } from "./default-functions.svelte";
 
     type FunctionBlock = {
         functionName: string;
@@ -12,22 +13,23 @@
     };
 
     let {
-        defaultFunctions,
         index = -1,
         open = $bindable()
     } = $props();
 
-    let functions = $state(defaultFunctions);
-
-    let functionName = $state(index === -1 ? "" : defaultFunctions[index].functionName);
-    let code = $state(index === -1 ? "" : defaultFunctions[index].code);
-    let inputs = $state<string[]>(index === -1 ? [] : defaultFunctions[index].inputs);
+    let functionName = $state(defaultFunctions[index].functionName);
+    let code = $state(defaultFunctions[index].code);
+    let inputs = $state<string[]>(defaultFunctions[index].inputs);
 
     const clear = () => {
+        functionName = "";
         code = "";
         inputs = [];
-        functionName = "";
     };
+
+    if (index === -1) {
+        clear();
+    }
 
     const save = () => {
         const fn: FunctionBlock = {
@@ -37,14 +39,12 @@
             deletable: true,
         };
 
-        functions.update((fns: FunctionBlock[]) => {
-            if (index !== -1) {
-                fns[index] = fn;
-            } else {
-                fns.push(fn);
-            }
-            return fns;
-        });
+        if (index !== -1) {
+            defaultFunctions[index] = fn;
+        } else {
+            defaultFunctions.push(fn);
+        }
+        
         clear();
         open = false;
     };

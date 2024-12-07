@@ -1,9 +1,9 @@
 <script lang="ts">
-    import ModelSelector from "./model-selector/model-tab.svelte";
-    import * as Tabs from "$lib/components/ui/tabs";
-    import type { BlockGroup } from "$lib/editor/types/blocks";
     import BlockList from "./block-list/block-tab.svelte";
+    import type { BlockGroup } from "./block-list/block-tab.svelte";
+    import ModelSelector from "./model-selector/model-tab.svelte";
     import FunctionTab from "./function-builder/function-tab.svelte";
+    import * as Tabs from "$lib/components/ui/tabs";
 
     const control: BlockGroup = {
         title: "Control",

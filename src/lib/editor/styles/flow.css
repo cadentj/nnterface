@@ -10,7 +10,12 @@
 }
 
 .svelte-flow__node-input {
-    border: unset; /* Remove all default styles */
+    /* Remove all default styles */
+    border: unset; 
+}
+.svelte-flow__node-input.selected {
+    /* Remove all default styles */
+    border: unset; 
 }
 
 .svelte-flow__node.selected {
@@ -62,11 +67,8 @@
 
 .node {
     border-radius: var(--radius);
-    border: 1.5px solid hsl(var(--border));
     min-width: 100px;
-    background-color: rgba(255, 255, 255, 0.1);
-
-    @apply items-center text-center p-3;
+    @apply items-center text-center p-3 border bg-card;
 
 }
 

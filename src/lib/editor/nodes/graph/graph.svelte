@@ -21,7 +21,7 @@
     }
 </script>
 
-<div class="bg-ui-1 border">
+<div class="bg-card border rounded-lg">
     <div class="flex items-center border-b px-3 py-2 h-auto draggable">
         <GripVertical class="h-5 w-5 mr-2" />
         <small class="text-sm">{type}</small>

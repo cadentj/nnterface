@@ -4,6 +4,7 @@
     import "@xyflow/svelte/dist/base.css";
     import DragAndDropHandler from "./handlers/drag-and-drop.svelte";
     import ConnectionHandler from "./handlers/connection.svelte";
+    import ProximityHandler from "./handlers/proximity.svelte";
     import Layout from "./flow/layout.svelte";
     import Toolbar from "./ui/toolbar/toolbar.svelte";
     import Sidebar from "./ui/sidebar/sidebar.svelte";
@@ -13,6 +14,7 @@
 
     let dragAndDropHandler: any;
     let connectionHandler: any;
+    let proximityHandler: any;
 </script>
 
 {#snippet navbar()}
@@ -35,10 +37,13 @@
             connectionHandler.isValidConnection(connection)}
         onconnectstart={(_, params) =>
             connectionHandler.handleConnectStart(params)}
+        on:nodedragstop={proximityHandler.onNodeDragStop}
+        on:nodedrag={proximityHandler.onNodeDrag}
     >
         <Toolbar />
         <DragAndDropHandler bind:this={dragAndDropHandler}/>
         <ConnectionHandler bind:this={connectionHandler}/>
+        <ProximityHandler bind:this={proximityHandler}/>
     </SvelteFlow>
 {/snippet}
 

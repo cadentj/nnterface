@@ -2,7 +2,7 @@
     import { useSvelteFlow, useNodes, type Node } from "@xyflow/svelte";
     import { Code } from "lucide-svelte";
     import CodeBlock from "./code-block.svelte";
-    import Button from "$lib/components/ui/button/button.svelte";
+    import {buttonVariants} from "$lib/components/ui/button/button.svelte";
     import * as Dialog from "$lib/components/ui/dialog";
     import { clearParents } from "@/lib/editor/flow/utils";
 
@@ -44,25 +44,16 @@
             body: JSON.stringify(toObject()),
         });
 
-
         const result = await response.json();   
-
-        console.log(result);
 
         code = result["code"];
     }
 </script>
 
-<Dialog.Root>
-    <Dialog.Trigger>
-        <Button
-            class="pointer-events-auto "
-            variant="outline"
-            onclick={exportCode}
-        >
-            Export
-            <Code class="w-5 h-5 ml-2" />
-        </Button>
+<Dialog.Root onOpenChange={() => exportCode()}>
+    <Dialog.Trigger class="pointer-events-auto {buttonVariants({variant: "outline"})}">
+        Export
+        <Code class="w-5 h-5 ml-2" />
     </Dialog.Trigger>
     <Dialog.Content class="min-w-fit">
         <Dialog.Title>Export Code</Dialog.Title>

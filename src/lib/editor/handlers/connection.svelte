@@ -1,25 +1,10 @@
 <script lang="ts">
     import { useSvelteFlow, type IsValidConnection } from "@xyflow/svelte";
     import { connectionHandler } from "./states.svelte";
+    import { connections } from "./states.svelte";
 
     const { getNode } = useSvelteFlow();
-    const connections: Record<string, string[]> = {
-        "input": [
-            "run", "batch"
-        ],
-        "chat": [
-            "run", "batch"
-        ],
-        "module": [
-            "function", "module", "list"
-        ],
-        "function": [
-            "function", "module", "run", "list"
-        ],
-        "list": [
-            "function", "module", "graph", "list"
-        ],
-    }
+
 
     export const handleConnectStart = (params) => {
         const node = getNode(params.nodeId);

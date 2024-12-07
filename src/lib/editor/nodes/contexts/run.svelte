@@ -5,7 +5,6 @@
     let {
         type,
         data,
-        ...restProps
     }: ContextNodeProps = $props();
 
     data.color = data.color || "rgba(134, 25, 143, 0.3)";

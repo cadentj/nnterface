@@ -5,15 +5,18 @@
 
     let {
         label,
-        titleContent = undefined,
+        children,
     } = $props();
 </script>
 
 <div class="context border">
-    <div class="flex items-center border-b px-3 py-2 h-auto draggable {(label == 'run' || label == 'batch') ? 'border-gradient' : ''}">
+    <div 
+        class="flex items-center border-b px-3 py-2 h-auto draggable"
+        class:border-gradient={label == 'run' || label == 'batch'}
+    >
         <GripVertical class="h-5 w-5 mr-2" />
         <small class="text-sm">{label}</small>
-        {@render titleContent?.()}
+        {@render children?.()}
     </div>
     <NodeResizeControl minWidth={200} minHeight={150}>
         <div class="resizer">

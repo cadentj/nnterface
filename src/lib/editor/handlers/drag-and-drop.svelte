@@ -30,8 +30,6 @@
 
         const numNodes = ($nodes.length).toString();
 
-        console.log(type.data.variant)
-
         const newNode = {
             ...type,
             id: `${type.type}` + numNodes,
@@ -39,8 +37,6 @@
             origin: [0, 0],
             class: (type.data.variant === "context") ? "!pointer-events-none"  : "",
         } satisfies Node;
-
-    
 
         $nodes = [...$nodes, newNode];
     }

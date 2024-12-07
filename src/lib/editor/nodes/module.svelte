@@ -4,15 +4,44 @@
     import type { ModuleNodeProps } from "$lib/editor/types/nodes";
     import { connectionHandler } from "@/lib/editor/handlers/states.svelte";
 
-    let {
-        type,
-        data,
-        ...restProps
-    }: ModuleNodeProps = $props();
+    let { type, data, ...restProps }: ModuleNodeProps = $props();
+
+    data.isVariable = data.moduleName.includes("<VAR>");
+    data.variable = data.variable || "";
+    data.index = data.index || "";
+
+    // Split the module name in two parts to insert the variable.
+    let shortenedName = data.moduleName.includes(".")
+        ? data.moduleName.split(".").at(-1)
+        : data.moduleName;
+
+    let showIndex = $state(false);
 </script>
 
-<div class="node">
+<div class="node flex" ondblclick={() => (showIndex = !showIndex)} role="region">
     {data.moduleName}
     <Handle type="target" position={Position.Left} label="module" />
     <Handle type="source" position={Position.Right} label="module" />
+
+    <div class="flex">
+        {#if data.isVariable}
+            {shortenedName === "<VAR>" ? "layers" : shortenedName}
+        {/if}
+        {#if data.isVariable}
+            <input
+                class="border-dotted border rounded-md w-12 text-center"
+                type="text"
+                bind:value={data.variable}
+            />
+        {/if}
+        {#if showIndex}
+            <div class="border-l pl-2 ml-2">
+                <input
+                    class="border rounded-md w-12 text-center"
+                    type="text"
+                    bind:value={data.index}
+                />
+            </div>
+        {/if}
+    </div>
 </div>

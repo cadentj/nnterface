@@ -23,7 +23,7 @@
             value={data.text}
             on:input={(evt) =>
                 updateNodeData(id, { text: evt.currentTarget.value })}
-            class="resize-none"
+            class="resize-none !bg-ui-1"
         />
     </div>
 
