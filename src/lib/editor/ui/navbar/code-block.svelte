@@ -1,7 +1,7 @@
 <script lang="ts">
     import CodeMirror from "svelte-codemirror-editor";
     import { python } from "@codemirror/lang-python";
-    import { githubLight, githubDark } from "@uiw/codemirror-theme-github";
+    import { githubDark } from "@uiw/codemirror-theme-github";
     import { mode } from "mode-watcher";
 
     let { code } = $props();
@@ -16,5 +16,5 @@
         },
     }}
     lang={python()}
-    theme={$mode === "light" ? githubLight : githubDark}
+    theme={githubDark}
 />

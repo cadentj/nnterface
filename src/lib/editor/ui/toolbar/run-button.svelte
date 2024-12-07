@@ -7,9 +7,17 @@
     } from "@xyflow/svelte";
     import { Play } from "lucide-svelte";
     import { clearParents } from "$lib/editor/flow/utils";
+    import { onMount } from "svelte";
+    import { animateBfs } from "@/lib/editor/flow/bfs.svelte";
 
     const { toObject, updateNodeData, getIntersectingNodes } = useSvelteFlow();
     const nodes = useNodes();
+
+    function internalBfs() {
+        updateIntersections();
+        let object = toObject();
+        animateBfs(object);
+    }
 
     function updateIntersections() {
         nodes.update((nodes) => {
@@ -34,30 +42,31 @@
     }
 
     async function run() {
-        updateIntersections();
+        internalBfs();
+        // updateIntersections();
 
-        const response = await fetch("/api/run", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(toObject()),
-        });
+        // const response = await fetch("/api/run", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(toObject()),
+        // });
 
-        const result = await response.json();
+        // const result = await response.json();
 
-        console.log(toObject());
+        // console.log(toObject());
 
-        for (const [nodeId, data] of Object.entries(result)) {
-            if (nodeId.includes("graph")) {
-                updateNodeData(nodeId, { graphData: JSON.parse(data) });
-            } else {
-                console.log(data);
-                updateNodeData(nodeId, { messages: JSON.parse(data) });
-            }
-        }
+        // for (const [nodeId, data] of Object.entries(result)) {
+        //     if (nodeId.includes("graph")) {
+        //         updateNodeData(nodeId, { graphData: JSON.parse(data) });
+        //     } else {
+        //         console.log(data);
+        //         updateNodeData(nodeId, { messages: JSON.parse(data) });
+        //     }
+        // }
 
-        console.log(result);
+        // console.log(result);
     }
 </script>
 

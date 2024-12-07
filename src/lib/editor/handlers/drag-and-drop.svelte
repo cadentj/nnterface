@@ -35,7 +35,9 @@
             id: `${type.type}` + numNodes,
             position: position,
             origin: [0, 0],
-            class: (type.data.variant === "context") ? "!pointer-events-none"  : "",
+            class: (type.data.variant === "context") 
+                ? "!pointer-events-none rounded-lg" 
+                : "rounded-lg",
         } satisfies Node;
 
         $nodes = [...$nodes, newNode];
