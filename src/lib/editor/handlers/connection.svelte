@@ -4,22 +4,20 @@
 
     const { getNode, getHandleConnections } = useSvelteFlow();
 
-    let connectionStartId: string = $state("");
     let connectionHandler = $state(null);
 
     export const handleConnectStart = (params: any) => {
         const node = getNode(params.nodeId);
         const nodeType = node?.type;
 
-        connectionStartId = params.nodeId;
         connectionHandler = connections[nodeType];
     };
 
-    const isValidModuleConnection = () => {
-        const targetLeftConnections = getHandleConnections({ nodeId: connectionStartId, type: 'target', id: 'left-target'});
-        const targetRightConnections = getHandleConnections({ nodeId: connectionStartId, type: 'target', id: 'right-target'});
-        const sourceLeftConnections = getHandleConnections({ nodeId: connectionStartId, type: 'source', id: 'left-source'});
-        const sourceRightConnections = getHandleConnections({ nodeId: connectionStartId, type: 'source', id: 'right-source'});
+    const isValidModuleConnection = (sourceId: string) => {
+        const targetLeftConnections = getHandleConnections({ nodeId: sourceId, type: 'target', id: 'left-target'});
+        const targetRightConnections = getHandleConnections({ nodeId: sourceId, type: 'target', id: 'right-target'});
+        const sourceLeftConnections = getHandleConnections({ nodeId: sourceId, type: 'source', id: 'left-source'});
+        const sourceRightConnections = getHandleConnections({ nodeId: sourceId, type: 'source', id: 'right-source'});
 
         // Refuse connections if a module has any existing connections.
         return (
@@ -30,7 +28,11 @@
         );
     }
 
-    export const isValidConnection: IsValidConnection = (connection) => {
+    export const checkIsValidConnection: IsValidConnection = (connection) => {
+        if (connection == null) {
+            return false;
+        }
+
         if (connection.source === connection.target) {
             return false;
         }
@@ -43,7 +45,7 @@
         }
 
         if (sourceNode.type === "module") {
-            return isValidModuleConnection();
+            return isValidModuleConnection(sourceNode.id);
         }
 
         const validConnections = connections[sourceNode.type] || [];

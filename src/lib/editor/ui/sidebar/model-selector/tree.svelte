@@ -23,9 +23,8 @@
         tree = pytree;
     }
 
-    // Number of layers on model.
     // Big assumption that models only have one module list
-    let nLayers: number = 0;
+    let nLayers = $state(0);
 
     function trimTree(
         tree: any,

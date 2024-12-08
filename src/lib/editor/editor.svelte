@@ -35,11 +35,16 @@
             connectionHandler?.handleConnectEnd();
         }}
         isValidConnection={(connection) =>
-            connectionHandler.isValidConnection(connection)}
+            connectionHandler.checkIsValidConnection(connection)}
         onconnectstart={(_, params) =>
             connectionHandler.handleConnectStart(params)}
         on:nodedragstop={proximityHandler.onNodeDragStop}
-        on:nodedrag={proximityHandler.onNodeDrag}
+        on:nodedrag={(event) => {
+            proximityHandler.onNodeDrag(
+                event.detail,
+                connectionHandler.checkIsValidConnection
+            );
+        }}
     >
         <Toolbar />
     </SvelteFlow>
@@ -55,4 +60,3 @@
     <ConnectionHandler bind:this={connectionHandler}/>
     <ProximityHandler bind:this={proximityHandler}/>
 </SvelteFlowProvider>
-

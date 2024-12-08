@@ -23,7 +23,7 @@
                 newNode.data.variant = "context";
                 newNode.height = 150;
                 newNode.width = 200;
-            }
+            } 
             
             modelSelector.draggedType = newNode;
 
