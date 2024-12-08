@@ -8,15 +8,28 @@
     import { Play } from "lucide-svelte";
     import { clearParents } from "$lib/editor/flow/utils";
     import { onMount } from "svelte";
-    import { animateBfs } from "@/lib/editor/flow/bfs.svelte";
+    import { animate } from "@/lib/editor/flow/animate";
 
     const { toObject, updateNodeData, getIntersectingNodes } = useSvelteFlow();
     const nodes = useNodes();
 
-    function internalBfs() {
+    async function animateOrder() {
         updateIntersections();
-        let object = toObject();
-        animateBfs(object);
+
+        const response = await fetch("/api/order", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(toObject()),
+        });
+
+        const result = await response.json();
+
+
+        console.log(result.order);
+        
+        animate(result.order);
     }
 
     function updateIntersections() {
@@ -42,7 +55,7 @@
     }
 
     async function run() {
-        internalBfs();
+        animateOrder();
         // updateIntersections();
 
         // const response = await fetch("/api/run", {

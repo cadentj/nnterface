@@ -100,6 +100,16 @@ async def run(graph: Graph):
     
     return prepare_result(loc, graph)
 
+@app.post("/get-order")
+async def run(graph: Graph):
+    global model
+    
+    _, order = compile(graph, return_node_order=True)
+
+    return {
+        "order": order
+    }
+
 @app.post("/chat")
 async def chat(graph: Graph):
     

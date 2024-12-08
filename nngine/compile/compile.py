@@ -48,7 +48,7 @@ def topological_sort(graph: Graph) -> List[str]:
         )
 
 
-def compile(graph: Graph) -> tuple:
+def compile(graph: Graph, return_node_order: bool = False) -> tuple:
     """Compile a graph into executable NNsight code."""
     
     # NOTE: Should move this out of here.
@@ -61,10 +61,14 @@ def compile(graph: Graph) -> tuple:
 
     visited = set()
 
+    expanded_order = [] 
+
     def expand(node):
         """Expand the node and its children into code."""
         if node.id in visited:
             return
+        else:
+            expanded_order.append(node.id)
 
         visited.add(node.id)
 
@@ -82,4 +86,10 @@ def compile(graph: Graph) -> tuple:
     for node in sorted_nodes:
         expand(node)
 
-    return "\n".join(code)
+    print(sorted_ids)
+
+
+    if return_node_order:
+        return "\n".join(code), expanded_order
+    else:
+        return "\n".join(code)
