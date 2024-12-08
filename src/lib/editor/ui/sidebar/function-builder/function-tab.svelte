@@ -46,7 +46,7 @@
             +
         </Dialog.Trigger>
     </div>
-    <Dialog.Content class="max-w-[750px]">
+    <Dialog.Content class="max-w-[50%]">
         <CodeEditor index={openIndex} bind:open={open} />
     </Dialog.Content>
     <div class="flex flex-col mt-2 gap-3 mb-1">
@@ -63,7 +63,10 @@
                 </button>
                 <div>
                     {#if defaultFunctions[index].deletable}
-                        <button onclick={() => editFunction(index)}>
+                        <button onclick={() => {
+                            editFunction(index);
+                            console.log(index);
+                        }}>
                             <Pencil class="h-4 w-4" />
                         </button>
                         <button

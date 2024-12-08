@@ -32,5 +32,7 @@
         ? '!bg-green-500 '
         : 'bg-ui-2'} h-4 w-4 rounded-full items-center flex"
 >
-    {@render children?.()}
+    <div class="pl-5">
+        {@render children?.()}
+    </div>
 </Handle>

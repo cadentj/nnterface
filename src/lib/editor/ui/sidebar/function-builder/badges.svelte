@@ -1,10 +1,15 @@
-<!-- <script lang="ts">
+<script lang="ts">
     import { X } from "lucide-svelte";
     import { Input } from "$lib/components/ui/input";
-    import { Button } from "$lib/components/ui/button/index.js";
-    export let maxBadges = 5;
-    export let badges: string[];
-    let inputValue = "";
+    import { Button } from "$lib/components/ui/button";
+    // import { defaultFunctions } from "./default-functions.svelte";
+
+    let {
+        maxBadges = 5,
+        badges = $bindable(),
+    } = $props();
+
+    let inputValue = $state("");
 
     function handleKeydown(event: KeyboardEvent) {
         if (event.key === "Enter" && inputValue.trim() !== "") {
@@ -29,8 +34,8 @@
     <div class="flex flex-wrap gap-2">
         <Input
             bind:value={inputValue}
-            on:keydown={handleKeydown}
-            placeholder="Type and press Enter to add inputs..."
+            onkeydown={handleKeydown}
+            placeholder="Type and press enter ..."
             disabled={badges.length >= maxBadges}
             class="my-2"
         />
@@ -38,11 +43,11 @@
             <Button
                 size="xs"
                 class="py-0.5"
-                on:click={() => removeBadge(badge)}
+                onclick={() => removeBadge(badge)}
             >
                 <span class="px-2">{badge}</span>
                 <X class="h-3 w-3 mr-1" />
             </Button>
         {/each}
     </div>
-</div> -->
+</div>

@@ -1,6 +1,8 @@
 <script lang="ts">
     import CodeMirror from "svelte-codemirror-editor";
+    import Badges from "./badges.svelte";
     import { python } from "@codemirror/lang-python";
+    import Button from "@/lib/components/ui/button/button.svelte";
     import { githubDark } from "@uiw/codemirror-theme-github";
     import { Input } from "$lib/components/ui/input/index.js";
     import { defaultFunctions } from "./default-functions.svelte";
@@ -17,19 +19,15 @@
         open = $bindable()
     } = $props();
 
-    let functionName = $state(defaultFunctions[index].functionName);
-    let code = $state(defaultFunctions[index].code);
-    let inputs = $state<string[]>(defaultFunctions[index].inputs);
+    let functionName = $state(index !== -1 ? defaultFunctions[index].functionName : "New Function");
+    let code = $state(index !== -1 ? defaultFunctions[index].code : "");
+    let inputs = $state(index !== -1 ? defaultFunctions[index].inputs : []);
 
     const clear = () => {
         functionName = "";
         code = "";
         inputs = [];
     };
-
-    if (index === -1) {
-        clear();
-    }
 
     const save = () => {
         const fn: FunctionBlock = {
@@ -50,10 +48,10 @@
     };
 </script>
 
-<Input bind:value={functionName} class="w-15"/>
-<div class="grid grid-cols-3 gap-2">
-    <div class="col-span-2">
-        <small>Code</small>
+<Input bind:value={functionName} class="w-[95%]"/>
+<div class="grid grid-cols-5 gap-5">
+    <div class="col-span-4 border-r pr-5">
+        <small class="pb-2">Code</small>
         <CodeMirror
             bind:value={code}
             styles={{
@@ -66,9 +64,11 @@
             theme={githubDark}
         />
     </div>
-    <div class="col-span-1">
-        <small>Inputs ({inputs.length}/5)</small>
-        <!-- <Badges bind:badges={inputs} /> -->
+    <div class="flex flex-col justify-between">
+        <div class="col-span-1">
+            <small class="pb-2">Inputs ({inputs.length}/5)</small>
+            <Badges maxBadges={5} bind:badges={inputs} />
+        </div>
+        <Button variant="secondary" onclick={save}> Save </Button>
     </div>
-    <button class="btn btn-primary" onclick={save}> Save </button>
 </div>
