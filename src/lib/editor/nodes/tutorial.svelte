@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { useNodes } from "@xyflow/svelte";
+    import { useSvelteFlow } from "@xyflow/svelte";
     import { X, ArrowDownLeft } from "lucide-svelte";
     import { Separator } from "$lib/components/ui/separator";
     import Textarea from "@/lib/components/ui/textarea/textarea.svelte";
@@ -8,11 +8,9 @@
 
     let editing = $state(false);
 
-    const nodes = useNodes();
+    let { deleteElements } = useSvelteFlow();
     function handleClose() {
-        nodes.update((nodes) => {
-            return nodes.filter((node) => node.id !== id);
-        });
+        deleteElements({nodes: [{id : id}]});
     }
 </script>
 

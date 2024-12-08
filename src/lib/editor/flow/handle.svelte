@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Handle, Position } from "@xyflow/svelte";
+    import { Handle, Position, type IsValidConnection } from "@xyflow/svelte";
     import { connectionHandler } from "@/lib/editor/handlers/states.svelte";
 
     interface HandleProps {
@@ -8,6 +8,7 @@
         type: "source" | "target";
         label: string;
         style?: string;
+        isValidConnection?: IsValidConnection;
         children?: () => any;
     }
 
@@ -17,10 +18,26 @@
         type,
         label,
         style,
+        isValidConnection,
         children,
     }: HandleProps = $props();
 
-    const isColored = $derived(connectionHandler.connections?.includes(label));
+    const classValue = $derived.by(() => {
+        let color = "bg-ui-2";
+
+        if (connectionHandler.connections?.includes(label)
+            && type === "target"
+        ) {
+            color = "!bg-green-500";
+        }
+        return color;
+    });
+    
+    const pointerEvents = $derived.by(() => {
+        if (type === "target") {
+            return "!pointer-events-none";
+        }
+    });
 </script>
 
 <Handle
@@ -28,9 +45,8 @@
     type={type}
     position={position}
     style={style}
-    class="{isColored && type === 'target'
-        ? '!bg-green-500 '
-        : 'bg-ui-2'} h-4 w-4 rounded-full items-center flex"
+    isValidConnection={isValidConnection}
+    class="{classValue} {pointerEvents} h-4 w-4 rounded-full items-center flex"
 >
     <div class="pl-5">
         {@render children?.()}

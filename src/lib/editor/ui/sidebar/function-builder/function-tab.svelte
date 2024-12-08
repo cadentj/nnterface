@@ -26,6 +26,7 @@
     };
 
     const onDragStart = (event: DragEvent, functionBlock: FunctionBlock) => {
+
         if (event.dataTransfer) {
             let newNode: Node = createEmptyNode("function");
             newNode.data = { ...newNode.data, ...functionBlock };
@@ -55,7 +56,7 @@
                 class="flex p-2 h-10 bg-ui-2 px-5 justify-between items-center rounded-md"
             >
                 <button
-                    class="w-full h-full"
+                    class="h-full"
                     draggable="true"
                     ondragstart={(event) => onDragStart(event, defaultFunctions[index])}
                 >

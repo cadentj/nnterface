@@ -15,7 +15,7 @@
         "meta-llama/Llama-3.1-405B": "LLama 405b",
     };
 
-    let value = $state("");
+    let value = $state("Select a model");
 </script>
 
 <div class="mb-2">
@@ -32,4 +32,6 @@
     </Select.Root>
 
     <Tree bind:this={tree}/>
+
+
 </div>

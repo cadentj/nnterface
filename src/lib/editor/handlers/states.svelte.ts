@@ -24,6 +24,9 @@ export const connections: Record<string, string[]> = {
     "list": [
         "function", "module", "graph", "list"
     ],
+    "none": [
+        ""
+    ],
 }
 
 export const chat = $state({

@@ -11,8 +11,57 @@
 
     const nodes = useNodes();
     const edges = useEdges();
-    const MIN_DISTANCE = 110;
+    const MIN_DISTANCE = 80;
     const { getInternalNode, getNode } = useSvelteFlow();
+
+    function checkModule(
+        n: Node,
+        nodeLeft: number,
+        nodeRight: number,
+        nodeY: number,
+        targetWidth: number,
+        targetY: number,
+    ) {
+        const distances = [
+            // Left to Left
+            {
+                d: Math.sqrt(
+                    Math.pow(n.position.x - nodeLeft, 2) + 
+                    Math.pow(targetY - nodeY, 2)
+                ),
+                sourceHandle: "left-source",
+                targetHandle: "left-target"
+            },
+            // Left to Right
+            {
+                d: Math.sqrt(
+                    Math.pow((n.position.x + targetWidth) - nodeLeft, 2) + 
+                    Math.pow(targetY - nodeY, 2)
+                ),
+                sourceHandle: "left-source",
+                targetHandle: "right-target"
+            },
+            // Right to Left
+            {
+                d: Math.sqrt(
+                    Math.pow(n.position.x - nodeRight, 2) + 
+                    Math.pow(targetY - nodeY, 2)
+                ),
+                sourceHandle: "right-source",
+                targetHandle: "left-target"
+            },
+            // Right to Right
+            {
+                d: Math.sqrt(
+                    Math.pow((n.position.x + targetWidth) - nodeRight, 2) + 
+                    Math.pow(targetY - nodeY, 2)
+                ),
+                sourceHandle: "right-source",
+                targetHandle: "right-target"
+            }
+        ];
+        return distances.reduce((a, b) => a.d < b.d ? a : b);
+    }
 
     function getClosestEdge(node: Node, nodes: Node[]) {
         let nodeInternal: InternalNode | undefined = getInternalNode(node.id);
@@ -38,46 +87,15 @@
                     let closest;
                     
                     // Only check all handle combinations if either node is a module
-                    if (node.data.variant === "module" || n.data.variant === "module") {
-                        const distances = [
-                            // Left to Left
-                            {
-                                d: Math.sqrt(
-                                    Math.pow(n.position.x - nodeLeft, 2) + 
-                                    Math.pow(targetY - nodeY, 2)
-                                ),
-                                sourceHandle: "left-source",
-                                targetHandle: "left-target"
-                            },
-                            // Left to Right
-                            {
-                                d: Math.sqrt(
-                                    Math.pow((n.position.x + targetWidth) - nodeLeft, 2) + 
-                                    Math.pow(targetY - nodeY, 2)
-                                ),
-                                sourceHandle: "left-source",
-                                targetHandle: "right-target"
-                            },
-                            // Right to Left
-                            {
-                                d: Math.sqrt(
-                                    Math.pow(n.position.x - nodeRight, 2) + 
-                                    Math.pow(targetY - nodeY, 2)
-                                ),
-                                sourceHandle: "right-source",
-                                targetHandle: "left-target"
-                            },
-                            // Right to Right
-                            {
-                                d: Math.sqrt(
-                                    Math.pow((n.position.x + targetWidth) - nodeRight, 2) + 
-                                    Math.pow(targetY - nodeY, 2)
-                                ),
-                                sourceHandle: "right-source",
-                                targetHandle: "right-target"
-                            }
-                        ];
-                        closest = distances.reduce((a, b) => a.d < b.d ? a : b);
+                    if (node.data.variant === "module" && n.data.variant === "module") {
+                        closest = checkModule(
+                            n,
+                            nodeLeft,
+                            nodeRight,
+                            nodeY,
+                            targetWidth,
+                            targetY
+                        );
                     } else {
                         // For non-module nodes, only check right-to-left connection
                         closest = {
@@ -85,9 +103,10 @@
                                 Math.pow(n.position.x - (nodeLeft + nodeWidth), 2) + 
                                 Math.pow(targetY - nodeY, 2)
                             ),
-                            sourceHandle: undefined,
-                            targetHandle: undefined
+                            sourceHandle: node.data.variant === "module" ? "right-source" : undefined,
+                            targetHandle: n.data.variant === "module" ? "left-target" : undefined
                         };
+
                     }
 
                     if (closest.d < res.distance && closest.d < MIN_DISTANCE) {

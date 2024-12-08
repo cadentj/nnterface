@@ -5,7 +5,6 @@
 
     const { getNode } = useSvelteFlow();
 
-
     export const handleConnectStart = (params) => {
         const node = getNode(params.nodeId);
         const nodeType = node?.type;
@@ -21,16 +20,12 @@
         const sourceNode = getNode(connection.source);
         const targetNode = getNode(connection.target);
 
-        // Handle missing nodes
-        if (!sourceNode || !targetNode) {
-            return false; 
+        if (!sourceNode?.type || !targetNode?.type) {
+            return false;
         }
 
-        const sourceLabel = sourceNode.type;
-        const targetLabel = targetNode.type;
-        const validConnections = connections[sourceLabel] || [];
-
-        return validConnections.includes(targetLabel);
+        const validConnections = connections[sourceNode.type] || [];
+        return validConnections.includes(targetNode.type);
     };
 
     export const handleConnectEnd = () => {

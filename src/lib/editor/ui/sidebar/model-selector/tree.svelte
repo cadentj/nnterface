@@ -1,5 +1,6 @@
 <script lang="ts">
     import Leaf from "./leaf.svelte";
+    import { Skeleton } from "$lib/components/ui/skeleton/index.js";
 
     let tree = $state({});
     const maxExpandDepth = 3;
@@ -54,11 +55,13 @@
     }
 </script>
 
+
+
 <div>
     {#if Object.keys(tree).length === 0}
         <div class="space-y-3 mt-3">
             {#each Array(5) as _, i (i)}
-                penis
+            <Skeleton class="h-[20px] w-full bg-ui-2 rounded-md" />
             {/each}
         </div>
     {:else}
