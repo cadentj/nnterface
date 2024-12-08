@@ -15,6 +15,7 @@
     let dragAndDropHandler: any;
     let connectionHandler: any;
     let proximityHandler: any;
+
 </script>
 
 {#snippet navbar()}
@@ -41,9 +42,6 @@
         on:nodedrag={proximityHandler.onNodeDrag}
     >
         <Toolbar />
-        <DragAndDropHandler bind:this={dragAndDropHandler}/>
-        <ConnectionHandler bind:this={connectionHandler}/>
-        <ProximityHandler bind:this={proximityHandler}/>
     </SvelteFlow>
 {/snippet}
 
@@ -53,5 +51,8 @@
 
 <SvelteFlowProvider>
     <Layout {flow} {leftSidebar} {navbar} />
+    <DragAndDropHandler bind:this={dragAndDropHandler}/>
+    <ConnectionHandler bind:this={connectionHandler}/>
+    <ProximityHandler bind:this={proximityHandler}/>
 </SvelteFlowProvider>
 

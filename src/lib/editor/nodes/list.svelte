@@ -1,6 +1,5 @@
 <script lang="ts">
-    import { Position } from "@xyflow/svelte";
-    import Handle from "@/lib/editor/flow/handle.svelte";
+    import { Position, Handle } from "@xyflow/svelte";
     import type { ListNodeProps } from "$lib/editor/types/nodes";
 
     let {
@@ -14,7 +13,6 @@
     {type}
     <Handle
         type="target"
-        label="list"
         position={Position.Left}
         on:connect={() => {
             data.location = "input";
@@ -26,7 +24,6 @@
 
     <Handle
         type="source"
-        label="list"
         position={Position.Right}
         on:connect={() => {
             data.location = "output";

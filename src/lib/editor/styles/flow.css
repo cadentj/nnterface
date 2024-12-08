@@ -30,6 +30,18 @@
     z-index: 100;
 }
 
+.svelte-flow .svelte-flow__node .svelte-flow__handle {
+    @apply h-4 w-4 rounded-full items-center flex;
+}
+
+.svelte-flow .svelte-flow__handle.connectingto {
+    @apply !bg-red-500;
+}
+
+.svelte-flow .svelte-flow__handle.valid {
+    @apply !bg-green-500;
+}
+
 /* ############ CUSTOM STYLES ############ */
 
 /* TREE */

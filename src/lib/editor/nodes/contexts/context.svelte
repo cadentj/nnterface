@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { NodeResizeControl, Position } from "@xyflow/svelte";
+    import { NodeResizeControl, Position, Handle } from "@xyflow/svelte";
     import { Maximize2, GripVertical } from "lucide-svelte";
-    import Handle from "@/lib/editor/flow/handle.svelte";
 
     let {
         label,
@@ -24,7 +23,7 @@
         </div>
     </NodeResizeControl>
 
-    <Handle type="target" position={Position.Left} label={label} />
+    <Handle type="target" position={Position.Left} />
 </div>
 
 <style>

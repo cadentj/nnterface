@@ -3,11 +3,6 @@ export let modelSelector = $state({
     location: null,
 });
 
-
-export let connectionHandler = $state({
-    connections: null,
-});
-
 export const connections: Record<string, string[]> = {
     "input": [
         "run", "batch"

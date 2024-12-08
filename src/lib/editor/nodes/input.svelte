@@ -1,6 +1,5 @@
 <script lang="ts">
-    import { Position, useSvelteFlow } from "@xyflow/svelte";
-    import Handle from "@/lib/editor/flow/handle.svelte";
+    import { Position, useSvelteFlow, Handle } from "@xyflow/svelte";
     import type { InputNodeProps } from "$lib/editor/types/nodes";
     import { Textarea } from "$lib/components/ui/textarea";
 
@@ -27,5 +26,5 @@
         />
     </div>
 
-    <Handle type="source" label="input" position={Position.Right}/>
+    <Handle type="source" position={Position.Right}/>
 </div>

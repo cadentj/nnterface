@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { Position, useHandleConnections } from "@xyflow/svelte";
-    import Handle from "$lib/editor/flow/handle.svelte";
+    import { Position, useHandleConnections, Handle } from "@xyflow/svelte";
+    // import Handle from "$lib/editor/flow/handle.svelte";
     import type { ModuleNodeProps } from "$lib/editor/types/nodes";
 
     let { id, type, data, ...restProps }: ModuleNodeProps = $props();
@@ -14,13 +14,6 @@
         ? data.moduleName.split(".").at(-1)
         : data.moduleName;
 
-    // const targetConnections = useHandleConnections({ nodeId: id, type: 'target' });
-    const targetLeftConnections = useHandleConnections({ nodeId: id, type: 'target', id: 'left-target'});
-    const targetRightConnections = useHandleConnections({ nodeId: id, type: 'target', id: 'right-target'});
-
-    function isValidConnection(connection) {
-        return $targetLeftConnections.length === 0 && $targetRightConnections.length === 0;
-    }
 
     let showIndex = $state(false);
 </script>
@@ -28,11 +21,11 @@
 <div class="node flex" ondblclick={() => (showIndex = !showIndex)} role="region">
     {data.moduleName}
     <!-- Source handles before target so green is visible. -->
-    <Handle id="right-source" isValidConnection={isValidConnection} type="source" position={Position.Right} label="module" />
-    <Handle id="left-source" isValidConnection={isValidConnection} type="source" position={Position.Left} label="module" />
+    <Handle id="left-target" type="target" position={Position.Left}/>
+    <Handle id="right-target" type="target" position={Position.Right} />
 
-    <Handle id="left-target" isValidConnection={isValidConnection} type="target" position={Position.Left} label="module" />
-    <Handle id="right-target" isValidConnection={isValidConnection} type="target" position={Position.Right} label="module" />
+    <Handle id="right-source" type="source" position={Position.Right} class="!bg-transparent"/>
+    <Handle id="left-source" type="source" position={Position.Left} class="!bg-transparent"/>
     
     <div class="flex">
         {#if data.isVariable}

@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { type NodeProps, Position } from "@xyflow/svelte";
+    import { type NodeProps, Position, Handle } from "@xyflow/svelte";
     import { GripVertical } from "lucide-svelte";
-    import Handle from "@/lib/editor/flow/handle.svelte";
     // import Line from "./graph/line.svelte";
     // import Heatmap from "./graph/heatmap.svelte";
     import * as Select from "$lib/components/ui/select";
@@ -47,5 +46,5 @@
         <Heatmap data={data.graphData} />
     {/if} -->
 
-    <Handle type="target" label="graph" position={Position.Left} />
+    <Handle type="target" position={Position.Left} />
 </div>
