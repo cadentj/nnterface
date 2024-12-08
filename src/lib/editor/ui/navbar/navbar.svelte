@@ -3,6 +3,7 @@
     import { ChevronLeft, Download } from "lucide-svelte";
     import Button from "$lib/components/ui/button/button.svelte";
     import ExportButton from "./export-button.svelte";
+    import SaveButton from "./save-button.svelte";
     import { useSvelteFlow } from "@xyflow/svelte";
 
     let { title } = $props();
@@ -32,10 +33,7 @@
         <!-- Right: Button -->
         <div class="flex items-center gap-3">
             <ExportButton />
-            <Button class="pointer-events-auto" on:click={() => console.log(toObject())}>
-                Save
-                <Download class="w-5 h-5 ml-2" />
-            </Button>
+            <SaveButton />
         </div>
     </div>
 </nav>

@@ -1,7 +1,26 @@
 <script lang="ts">
     import Leaf from "./leaf.svelte";
-    import gpt2 from "./gpt2.json";
-    import { onMount } from "svelte";
+
+    let tree = $state({});
+    const maxExpandDepth = 3;
+
+    export async function load(repoId: string) {
+        const response = await fetch("/api/load-model", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "repo_id": repoId,
+            }),
+        });
+
+        const result = await response.json();
+        let pytree = result['pytree'];
+
+        trimTree(pytree, null, false, 0);
+        tree = pytree;
+    }
 
     // Number of layers on model.
     // Big assumption that models only have one module list
@@ -11,7 +30,11 @@
         tree: any,
         parent: any = null,
         isListChild: boolean = false,
+        currentDepth: number = 0,
     ): void {
+        // Set initial expansion state based on current depth
+        tree.expanded = currentDepth < maxExpandDepth;
+        
         if (tree.submodules) {
             if (tree.type === "ModuleList" && tree.submodules.length > 0) {
                 if (parent && parent.submodules) {
@@ -20,22 +43,15 @@
                     if (index !== -1)
                         parent.submodules[index] = tree.submodules[0];
                 }
-                trimTree(tree.submodules[0], parent, isListChild);
+                trimTree(tree.submodules[0], parent, isListChild, currentDepth);
             } else {
                 for (const child of tree.submodules) {
                     if (isListChild) child.name = isListChild + child.name;
-                    trimTree(child, tree, isListChild);
+                    trimTree(child, tree, isListChild, currentDepth + 1);
                 }
             }
         }
     }
-
-    // Parse tree on mount, set as state rune
-    let tree = $state({});
-    onMount(() => {
-        trimTree(gpt2);
-        tree = gpt2;
-    });
 </script>
 
 <div>
@@ -46,6 +62,6 @@
             {/each}
         </div>
     {:else}
-        <Leaf bind:tree {nLayers} />
+        <Leaf bind:tree {nLayers} depth={0} />
     {/if}
 </div>

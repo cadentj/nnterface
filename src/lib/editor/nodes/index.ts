@@ -7,3 +7,4 @@ export { default as GraphNode } from "./graph/graph.svelte";
 export { default as LoopNode } from "./contexts/loop.svelte";
 export { default as RunNode } from "./contexts/run.svelte";
 export { default as BatchNode } from "./contexts/batch.svelte";
+export { default as TutorialNode } from "./tutorial.svelte";

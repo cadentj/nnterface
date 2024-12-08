@@ -11,10 +11,6 @@
 		depth = 0,
 		tree = $bindable(),
 	} = $props();
-	const maxExpandDepth = 3;
-
-	// Update initial expansion based on depth
-	tree.expanded = depth < maxExpandDepth;
 
 	function toggleExpansion() {
 		tree.expanded = !tree.expanded;
@@ -85,9 +81,6 @@
 				draggable={true}
 				class="p-3 flex items-center"
 			>
-				<!-- <span class="mr-2 text-gray-600">
-					<ChevronRight size={18} />
-				</span> -->
 				{tree.name}
 			</button>
 		{/if}

@@ -26,4 +26,8 @@ export const connections: Record<string, string[]> = {
     ],
 }
 
+export const chat = $state({
+    "isVisible": false,
+});
+
 

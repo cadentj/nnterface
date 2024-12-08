@@ -18,7 +18,7 @@
 
     const output: BlockGroup = {
         title: "Output",
-        blocks: ["chat", "graph"],
+        blocks: ["chat", "graph", "tutorial"],
     };
 
 

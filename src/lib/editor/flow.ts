@@ -17,6 +17,7 @@ import {
     InputNode,
     ListNode,
     ChatNode,
+    TutorialNode,
 } from "$lib/editor/nodes";
 
 const nodeTypes: NodeTypes = {
@@ -29,6 +30,7 @@ const nodeTypes: NodeTypes = {
     input: InputNode,
     list: ListNode,
     chat: ChatNode,
+    tutorial: TutorialNode,
 };
 
 const nodes: Writable<Node[]> = writable([]);

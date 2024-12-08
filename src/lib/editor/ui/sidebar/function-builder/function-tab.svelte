@@ -55,7 +55,7 @@
                 class="flex p-2 h-10 bg-ui-2 px-5 justify-between items-center rounded-md"
             >
                 <button
-                    class=""
+                    class="w-full h-full"
                     draggable="true"
                     ondragstart={(event) => onDragStart(event, defaultFunctions[index])}
                 >
@@ -63,10 +63,7 @@
                 </button>
                 <div>
                     {#if defaultFunctions[index].deletable}
-                        <button onclick={() => {
-                            editFunction(index);
-                            console.log(index);
-                        }}>
+                        <button onclick={() => editFunction(index)}>
                             <Pencil class="h-4 w-4" />
                         </button>
                         <button
