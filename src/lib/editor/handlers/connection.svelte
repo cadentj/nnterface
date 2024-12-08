@@ -14,6 +14,10 @@
     };
 
     export const isValidConnection: IsValidConnection = (connection) => {
+        if (connection.source === connection.target) {
+            return false;
+        }
+
         const sourceNode = getNode(connection.source);
         const targetNode = getNode(connection.target);
 

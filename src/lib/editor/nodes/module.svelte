@@ -2,7 +2,6 @@
     import { Position } from "@xyflow/svelte";
     import Handle from "$lib/editor/flow/handle.svelte";
     import type { ModuleNodeProps } from "$lib/editor/types/nodes";
-    import { connectionHandler } from "@/lib/editor/handlers/states.svelte";
 
     let { type, data, ...restProps }: ModuleNodeProps = $props();
 
@@ -20,9 +19,13 @@
 
 <div class="node flex" ondblclick={() => (showIndex = !showIndex)} role="region">
     {data.moduleName}
-    <Handle type="target" position={Position.Left} label="module" />
-    <Handle type="source" position={Position.Right} label="module" />
+    <!-- Source handles before target so green is visible. -->
+    <Handle id="right-source" type="source" position={Position.Right} label="module" />
+    <Handle id="left-source" type="source" position={Position.Left} label="module" />
 
+    <Handle id="left-target" type="target" position={Position.Left} label="module" />
+    <Handle id="right-target" type="target" position={Position.Right} label="module" />
+    
     <div class="flex">
         {#if data.isVariable}
             {shortenedName === "<VAR>" ? "layers" : shortenedName}

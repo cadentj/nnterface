@@ -4,13 +4,11 @@
     import { Separator } from "$lib/components/ui/separator";
     import Textarea from "@/lib/components/ui/textarea/textarea.svelte";
 
-    let { id } = $props();
+    let { id, data } = $props();
 
-    const nodes = useNodes();
-
-    let text = $state("");
     let editing = $state(false);
 
+    const nodes = useNodes();
     function handleClose() {
         nodes.update((nodes) => {
             return nodes.filter((node) => node.id !== id);
@@ -29,10 +27,10 @@
         <Separator class="my-2 bg-foreground" />
 
         {#if editing}
-            <Textarea bind:value={text}/>
+            <Textarea bind:value={data.text}/>
         {:else}
             <p class="mb-1">
-                {text}
+                {data.text}
             </p>
         {/if}
 
