@@ -1,11 +1,10 @@
 <script lang="ts">
     import Logo from "$lib/images/ndif.png";
+    let items = ["new", "lens"];
 </script>
 
-<div class="editor-container">
-    <!-- <img src={Logo} alt="Nnsight Logo" class="h-[40vh] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10" /> -->
-
-<pre class="text-border absolute text-white text-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">          ,--.                                
+<div class="editor-container flex flex-col items-center justify-center">
+<pre class="text-border  text-white text-2xl transform  z-10">          ,--.                                
         ,--.'|    ,---,       ,---,    ,---,. 
     ,--,:  : |  .'  .' `\  ,`--.' |  ,'  .' | 
  ,`--.'`|  ' :,---.'     \ |   :  :,---.'   | 
@@ -19,6 +18,15 @@
  '   : |      ;   :  .'    ;   |.' |   :  \   
  ;   |.'      |   ,.'      '---'   |   | ,'   
  '---'        '---'                `----'     </pre>
+    <ul class="text-center w-[20vw] z-10">
+        {#each items as item}
+            <li class="text-left p-3 my-2 border-white border rounded-lg" >
+                <a href="/editor/{item}">
+                    {item}
+                </a>
+            </li>
+        {/each}
+    </ul>
     <div class="gradient-overlay" />
     <div class="dark-overlay" />
 </div>
@@ -69,6 +77,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.70);
+        background-color: rgba(0, 0, 0, 0.80);
     }
 </style>

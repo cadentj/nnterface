@@ -1,0 +1,396 @@
+{
+    "nodes": [
+      {
+        "id": "module0",
+        "position": {
+          "x": 310.00000000000006,
+          "y": 81.66666666666667
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "module",
+        "data": {
+          "isInput": false,
+          "variant": "module",
+          "moduleName": "model.transformer",
+          "isVariable": false,
+          "location": "output",
+          "isTuple": true,
+          "variable": "",
+          "index": "",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 100,
+          "height": 38
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "module1",
+        "position": {
+          "x": 484.16666666666674,
+          "y": 82.5
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "module",
+        "data": {
+          "isInput": false,
+          "variant": "module",
+          "moduleName": "model.transformer",
+          "isVariable": false,
+          "location": "output",
+          "isTuple": true,
+          "variable": "",
+          "index": "",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 100,
+          "height": 38
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tutorial2",
+        "position": {
+          "x": 370,
+          "y": 32.50000000000002
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "tutorial",
+        "data": {
+          "variant": "tutorial",
+          "text": "Draw connections between nodes by clicking and dragging a handle to another. ",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 175,
+          "height": 123
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tutorial3",
+        "position": {
+          "x": 428.3333333333332,
+          "y": 240.8333333333333
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "tutorial",
+        "data": {
+          "variant": "tutorial",
+          "text": "Module nodes are uniquely bidirectional such that they can have a source/target connection on either end.",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 175,
+          "height": 123
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "module4",
+        "position": {
+          "x": 305,
+          "y": 207.5
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "module",
+        "data": {
+          "isInput": false,
+          "variant": "module",
+          "moduleName": "model",
+          "isVariable": false,
+          "location": "output",
+          "isTuple": true,
+          "variable": "",
+          "index": "",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 100,
+          "height": 38
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "module5",
+        "position": {
+          "x": 302.5,
+          "y": 267.50000000000006
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "module",
+        "data": {
+          "isInput": false,
+          "variant": "module",
+          "moduleName": "model",
+          "isVariable": false,
+          "location": "output",
+          "isTuple": true,
+          "variable": "",
+          "index": "",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 100,
+          "height": 38
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "input6",
+        "position": {
+          "x": 211.66666666666677,
+          "y": 415.00000000000006
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "input",
+        "data": {
+          "variant": "input",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 176,
+          "height": 124
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "run7",
+        "position": {
+          "x": 431.6666666666667,
+          "y": 400.00000000000006
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "run",
+        "data": {
+          "variant": "context",
+          "color": "rgba(134, 25, 143, 0.3)",
+          "parents": [
+            "session"
+          ]
+        },
+        "height": 150,
+        "width": 200,
+        "class": "!pointer-events-none rounded-lg",
+        "measured": {
+          "width": 200,
+          "height": 150
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tutorial8",
+        "position": {
+          "x": 231.66666666666677,
+          "y": 364.1666666666667
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "tutorial",
+        "data": {
+          "variant": "tutorial",
+          "text": "Valid connections will occur automatically if two nodes are close to each other. Try dragging the input node closer to the run node.",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 175,
+          "height": 159
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "run9",
+        "position": {
+          "x": 851.6666666666667,
+          "y": 238.3333333333334
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "run",
+        "data": {
+          "variant": "context",
+          "color": "rgba(134, 25, 143, 0.3)",
+          "parents": [
+            "session"
+          ]
+        },
+        "height": 150,
+        "width": 200,
+        "class": "!pointer-events-none rounded-lg",
+        "measured": {
+          "width": 200,
+          "height": 150
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "module10",
+        "position": {
+          "x": 856.6666666666666,
+          "y": 165.00000000000006
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "module",
+        "data": {
+          "isInput": false,
+          "variant": "module",
+          "moduleName": "model",
+          "isVariable": false,
+          "location": "output",
+          "isTuple": true,
+          "variable": "",
+          "index": "",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 100,
+          "height": 38
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "input11",
+        "position": {
+          "x": 644.1666666666669,
+          "y": 194.1666666666667
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "input",
+        "data": {
+          "variant": "input",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 176,
+          "height": 124
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tutorial12",
+        "position": {
+          "x": 674.1666666666667,
+          "y": 145.00000000000006
+        },
+        "origin": [
+          0,
+          0
+        ],
+        "type": "tutorial",
+        "data": {
+          "variant": "tutorial",
+          "text": "Not all modules are valid connections. Try dragging a connection from prompt to model, then prompt to run and notice the color change.",
+          "parents": [
+            "session"
+          ]
+        },
+        "class": "rounded-lg",
+        "measured": {
+          "width": 175,
+          "height": 159
+        },
+        "selected": true,
+        "dragging": false
+      }
+    ],
+    "edges": [
+      {
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 8,
+          "height": 8
+        },
+        "style": "stroke-width: 2px; stroke: #A3A3A3",
+        "source": "module4",
+        "sourceHandle": "right-source",
+        "target": "module5",
+        "targetHandle": "right-target",
+        "id": "xy-edge__module4right-source-module5right-target",
+        "selected": false
+      }
+    ],
+    "viewport": {
+      "x": 310,
+      "y": 106.99999999999994,
+      "zoom": 1.2
+    },
+    "modelId": "openai-community/gpt2"
+  }
