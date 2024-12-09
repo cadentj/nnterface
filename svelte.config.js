@@ -20,7 +20,11 @@ const config = {
 			"@/*": "./src/*",
 		},
 		paths: {
-			base: '/nnterface'
+			base: process.argv.includes('dev') ? '' : '/nnterface'
+		},
+		// Include this to work w github pages
+		prerender: {
+			handleHttpError: 'warn',
 		}
 	}
 };
