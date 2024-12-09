@@ -18,7 +18,7 @@
 </script>
 
 {#if !open}
-    <button class="bg-card !w-10 !h-10 rounded-lg duration-2000" onclick={() => open = true}>
+    <button class="bg-card !w-10 !h-10 rounded-lg duration-500" onclick={() => open = true}>
         <div class="!bg-[#38AFFD]/10 w-full h-full animate-pulse flex items-center rounded-lg justify-center">
             <Lightbulb class="h-6 w-6" />
         </div>

@@ -1,6 +1,6 @@
 <script lang="ts">
     import Logo from "$lib/images/ndif.png";
-    let items = ["new", "lens"];
+    let items = ["new", "lens", "node-connections"];
 </script>
 
 <div class="editor-container flex flex-col items-center justify-center">

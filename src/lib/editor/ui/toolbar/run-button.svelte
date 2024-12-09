@@ -7,7 +7,7 @@
         type Node,
     } from "@xyflow/svelte";
     import { Play } from "lucide-svelte";
-    import { clearParents } from "$lib/editor/flow/utils";
+    import { exportGraph } from "$lib/editor/flow/utils";
     import { onMount } from "svelte";
     import { animate } from "@/lib/editor/flow/animate";
 
@@ -29,36 +29,12 @@
         animate(result.order, nodes, edges);
     }
 
-    function updateIntersections() {
-        nodes.update((nodes) => {
-            nodes = clearParents(nodes);
-
-            nodes.map((node: Node) => {
-                const intersectingNodes = getIntersectingNodes(
-                    node,
-                    false,
-                    nodes,
-                );
-                if (intersectingNodes.length >= 1) {
-                    node.data.parents = node.data.parents.concat(
-                        intersectingNodes.map((n) => n.id),
-                    );
-                }
-                return node;
-            });
-
-            return nodes;
-        });
-
-        let graphObject = toObject();
-
-        graphObject.nodes = graphObject.nodes.filter((node: Node) => node.type !== "tutorial");
-
-        return graphObject;
-    }
-
     async function run() {
-        const graphObject = updateIntersections();
+        const graphObject = exportGraph(
+            nodes,
+            getIntersectingNodes,
+            toObject,
+        );
 
         animateOrder(graphObject);
 

@@ -4,44 +4,26 @@
     import CodeBlock from "./code-block.svelte";
     import {buttonVariants} from "$lib/components/ui/button/button.svelte";
     import * as Dialog from "$lib/components/ui/dialog";
-    import { clearParents } from "@/lib/editor/flow/utils";
+    import { exportGraph } from "@/lib/editor/flow/utils";
 
     const { toObject, getIntersectingNodes } = useSvelteFlow();
     const nodes = useNodes();
 
     let code: string = "";
 
-    function updateIntersections() {
-        nodes.update((nodes) => {
-            nodes = clearParents(nodes);
-
-            nodes.map((node: Node) => {
-                const intersectingNodes = getIntersectingNodes(
-                    node,
-                    false,
-                    nodes,
-                );
-                if (intersectingNodes.length >= 1) {
-                    node.data.parents = node.data.parents.concat(
-                        intersectingNodes.map((n) => n.id),
-                    );
-                }
-                return node;
-            });
-
-            return nodes;
-        });
-    }
-
     async function exportCode() {
-        updateIntersections();
+        const graphObject = exportGraph(
+            nodes, 
+            getIntersectingNodes, 
+            toObject,
+        );
 
         const response = await fetch("/api/code", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(toObject()),
+            body: JSON.stringify(graphObject),
         });
 
         const result = await response.json();   
