@@ -17,6 +17,14 @@
 	}
 
 	onMount(() => {
+		// Replace .0 with .[0-nLayers] if it's a variable.
+		let isVariable: boolean = tree.atomic.includes(".0");
+		if (isVariable) {
+			tree.name = tree.name.replace(".0", `.[0-${nLayers}]`);
+			tree.atomic = tree.atomic.replace(".0", `.<VAR>`);
+		}
+
+		// Add model prefix if it's not there.
 		if (tree.atomic?.[0] === ".") {
 			tree.atomic = "model" + tree.atomic;
 		}

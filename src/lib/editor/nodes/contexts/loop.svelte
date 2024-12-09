@@ -6,9 +6,6 @@
         id, // Use ID rather than label for uniqueness
         data,
     }: ContextNodeProps = $props();
-
-    data.start = "0";
-    data.end = "";
 </script>
 
 <ContextNode label={id}>

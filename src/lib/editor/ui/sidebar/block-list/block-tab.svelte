@@ -23,7 +23,10 @@
                 newNode.data.variant = "context";
                 newNode.height = 150;
                 newNode.width = 200;
-            } 
+            } else if (newNode.type === "graph") {
+                newNode.height = 225;
+                newNode.width = 350;
+            }
             
             modelSelector.draggedType = newNode;
 

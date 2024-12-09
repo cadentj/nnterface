@@ -86,9 +86,6 @@ def compile(graph: Graph, return_node_order: bool = False) -> tuple:
     for node in sorted_nodes:
         expand(node)
 
-    print(sorted_ids)
-
-
     if return_node_order:
         return "\n".join(code), expanded_order
     else:

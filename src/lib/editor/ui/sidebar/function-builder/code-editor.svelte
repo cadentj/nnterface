@@ -5,7 +5,7 @@
     import Button from "@/lib/components/ui/button/button.svelte";
     import { githubDark } from "@uiw/codemirror-theme-github";
     import { Input } from "$lib/components/ui/input/index.js";
-    import { defaultFunctions } from "./default-functions.svelte";
+    import { defaultFunctions } from "@/lib/editor/handlers/states.svelte";
 
     type FunctionBlock = {
         functionName: string;

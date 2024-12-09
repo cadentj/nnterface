@@ -1,9 +1,9 @@
-import { nodes, edges } from "$lib/editor/flow";
 import { get } from "svelte/store";
-import type { Node } from '@xyflow/svelte';
+import type { Node, Edge } from '@xyflow/svelte';
 import { sleep } from '$lib/utils';
+import type { Writable } from "svelte/store";
 
-function buildNodeLookup() {
+function buildNodeLookup(nodes: Writable<Node[]>) {
     let nodeLookup: Record<string, Node> = {};
     let nodesList = get(nodes);
     for (let node of nodesList) {
@@ -12,7 +12,7 @@ function buildNodeLookup() {
     return nodeLookup;
 }
 
-function buildAdjacencyList() {
+function buildAdjacencyList(edges: Writable<Edge[]>) {
     let adjacencyList: Record<string, string[]> = {};
     const edgesList = get(edges);
 
@@ -27,14 +27,14 @@ function buildAdjacencyList() {
     return adjacencyList;
 }
 
-function cleanOrder(order: string[]) {
+function cleanOrder(order: string[], edges: Writable<Edge[]>) {
     // pop first session node
     order.shift();
 
     const updatedOrder = order.filter((nodeId) => !nodeId.startsWith('input'));
     const inputs = order.filter((nodeId) => nodeId.startsWith('input'));
 
-    let adjacencyList = buildAdjacencyList();
+    let adjacencyList = buildAdjacencyList(edges);
 
     for (let inputId of inputs) {
         let child = adjacencyList[inputId][0];
@@ -44,9 +44,13 @@ function cleanOrder(order: string[]) {
     return updatedOrder;
 }
 
-export async function animate(order: string[]) {
-    let nodeLookup = buildNodeLookup();
-    order = cleanOrder(order);
+export async function animate(
+    order: string[],
+    nodes: Writable<Node[]>,
+    edges: Writable<Edge[]>
+) {
+    let nodeLookup = buildNodeLookup(nodes);
+    order = cleanOrder(order, edges);
 
     console.log(order);
 

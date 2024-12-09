@@ -21,7 +21,7 @@
         <small class="text-sm">{data.functionName}</small>
     </div>
 
-    <div style="height: {inputs.length * 30}px; position: relative;">
+    <div style="height: {Math.max(inputs.length * 30, 30)}px; position: relative;">
         {#each inputs as input, index}
             <Handle
                 id={input}

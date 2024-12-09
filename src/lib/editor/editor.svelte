@@ -1,21 +1,30 @@
 <script lang="ts">
-    import { nodes, edges, defaultEdgeOptions, nodeTypes } from "./flow";
     import { SvelteFlow, SvelteFlowProvider } from "@xyflow/svelte";
-    import "@xyflow/svelte/dist/base.css";
-    import DragAndDropHandler from "./handlers/drag-and-drop.svelte";
-    import ConnectionHandler from "./handlers/connection.svelte";
-    import ProximityHandler from "./handlers/proximity.svelte";
+    import { defaultEdgeOptions, nodeTypes, load } from "./flow";
+
     import Layout from "./flow/layout.svelte";
     import Toolbar from "./ui/toolbar/toolbar.svelte";
     import Sidebar from "./ui/sidebar/sidebar.svelte";
     import Navbar from "./ui/navbar/navbar.svelte";
+
+    import DragAndDropHandler from "./handlers/drag-and-drop.svelte";
+    import ConnectionHandler from "./handlers/connection.svelte";
+    import ProximityHandler from "./handlers/proximity.svelte";
     
+    import "@xyflow/svelte/dist/base.css";
     import "$lib/editor/styles/flow.css";
+
+    let { project } = $props();
+
+    let { 
+        nodes, 
+        edges, 
+        initialViewport,
+    } = load(project);
 
     let dragAndDropHandler: any;
     let connectionHandler: any;
     let proximityHandler: any;
-
 </script>
 
 {#snippet navbar()}
@@ -26,18 +35,20 @@
     <SvelteFlow
         {nodes}
         {edges}
+        {initialViewport}
         {defaultEdgeOptions}
         {nodeTypes}
-        fitView
         on:dragover={dragAndDropHandler.onDragOver}
         on:drop={dragAndDropHandler.onDrop}
-        onconnectend={(event) => {
-            connectionHandler?.handleConnectEnd();
-        }}
+        onconnectend={() => 
+            connectionHandler?.handleConnectEnd()
+        }
         isValidConnection={(connection) =>
-            connectionHandler.checkIsValidConnection(connection)}
+            connectionHandler.checkIsValidConnection(connection)
+        }
         onconnectstart={(_, params) =>
-            connectionHandler.handleConnectStart(params)}
+            connectionHandler.handleConnectStart(params)
+        }
         on:nodedragstop={proximityHandler.onNodeDragStop}
         on:nodedrag={(event) => {
             proximityHandler.onNodeDrag(

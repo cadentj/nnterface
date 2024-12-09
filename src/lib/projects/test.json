@@ -1,0 +1,72 @@
+{
+  "nodes": [
+    {
+      "id": "module0",
+      "position": {
+        "x": 459.1666666666667,
+        "y": 147.5
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "module",
+      "data": {
+        "isInput": false,
+        "variant": "module",
+        "moduleName": ".transformer",
+        "isVariable": false,
+        "location": "output",
+        "isTuple": true,
+        "variable": "",
+        "index": "",
+        "parents": [
+          "session"
+        ]
+      },
+      "class": "rounded-lg",
+      "measured": {
+        "width": 100,
+        "height": 38
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "function1",
+      "position": {
+        "x": 300.83333333333337,
+        "y": 106.66666666666667
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "function",
+      "data": {
+        "variant": "function",
+        "functionName": "Penis mosnter",
+        "inputs": [
+          "x"
+        ],
+        "code": "return \"large cock\"",
+        "deletable": true,
+        "parents": [
+          "session"
+        ]
+      },
+      "class": "rounded-lg",
+      "measured": {
+        "width": 100,
+        "height": 60
+      }
+    }
+  ],
+  "edges": [],
+  "viewport": {
+    "x": 250,
+    "y": 200,
+    "zoom": 1.2
+  },
+  "modelId": "openai-community/gpt2"
+}

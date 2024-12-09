@@ -3,6 +3,7 @@
         ControlButton,
         useSvelteFlow,
         useNodes,
+        useEdges,
         type Node,
     } from "@xyflow/svelte";
     import { Play } from "lucide-svelte";
@@ -12,24 +13,20 @@
 
     const { toObject, updateNodeData, getIntersectingNodes } = useSvelteFlow();
     const nodes = useNodes();
+    const edges = useEdges();
 
-    async function animateOrder() {
-        updateIntersections();
-
+    async function animateOrder(graphObject: any) {
         const response = await fetch("/api/order", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(toObject()),
+            body: JSON.stringify(graphObject),
         });
 
         const result = await response.json();
-
-
-        console.log(result.order);
         
-        animate(result.order);
+        animate(result.order, nodes, edges);
     }
 
     function updateIntersections() {
@@ -52,34 +49,37 @@
 
             return nodes;
         });
+
+        let graphObject = toObject();
+
+        graphObject.nodes = graphObject.nodes.filter((node: Node) => node.type !== "tutorial");
+
+        return graphObject;
     }
 
     async function run() {
-        animateOrder();
-        // updateIntersections();
+        const graphObject = updateIntersections();
 
-        // const response = await fetch("/api/run", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(toObject()),
-        // });
+        animateOrder(graphObject);
 
-        // const result = await response.json();
+        const response = await fetch("/api/run", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(graphObject),
+        });
 
-        // console.log(toObject());
+        const result = await response.json();
 
-        // for (const [nodeId, data] of Object.entries(result)) {
-        //     if (nodeId.includes("graph")) {
-        //         updateNodeData(nodeId, { graphData: JSON.parse(data) });
-        //     } else {
-        //         console.log(data);
-        //         updateNodeData(nodeId, { messages: JSON.parse(data) });
-        //     }
-        // }
-
-        // console.log(result);
+        for (const [nodeId, data] of Object.entries(result)) {
+            if (nodeId.includes("graph")) {
+                updateNodeData(nodeId, { graphData: JSON.parse(data) });
+            } else {
+                console.log(data);
+                updateNodeData(nodeId, { messages: JSON.parse(data) });
+            }
+        }
     }
 </script>
 

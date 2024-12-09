@@ -81,7 +81,7 @@
                     const targetInternal = getInternalNode(n.id);
                     const targetWidth = targetInternal?.measured.width || 0;
                     let targetY = n.position.y;
-                    if (n.data.variant === "context") {
+                    if (n.data.variant === "context" || n.type === "graph") {
                         targetY += (n.height ?? 0) / 2;
                     }
 

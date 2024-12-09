@@ -1,68 +1,54 @@
 <script lang="ts">
-    import { Chart, type ChartConfiguration } from "chart.js/auto";
-    import { onMount, afterUpdate } from "svelte";
+    import Chart from "chart.js/auto";
 
-    let {
-        data,
-        ...restProps
-    } = $props();
+    let chartObject: any = null;
 
-    let ctx: CanvasRenderingContext2D | null;
-    let chartCanvas: HTMLCanvasElement;
-    let chart: Chart | null = null;
+    let { dataToGraph = $bindable() } = $props();
 
-    function createOrUpdateChart() {
-        if (!ctx) return;
-        if (!data) return;
 
-        console.log("updated", data);
 
-        const config: ChartConfiguration = {
-            type: "line",
-            options: {
-                plugins: {
-                    legend: {
-                        display: false,
+    function chart(node: HTMLCanvasElement, data: number[]) {
+        function setupChart(_data: number[]) {
+            chartObject = new Chart(node, {
+                type: "line",
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
                     },
-                },
-                scales: {
-                    y: {
-                        beginAtZero: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                        },
                     },
+                    responsive: true,
+                    maintainAspectRatio: true, 
                 },
+                data: {
+                    labels: _data.map((_: any, i: number) => i),
+                    datasets: [
+                        {
+                            data: _data,
+                        },
+                    ],
+                },
+            });
+            node.style.width = '325px'; // Set desired width
+            node.style.height = '170px'; // Set desired height
+        }
+        setupChart($state.snapshot(data));
+        return {
+            update(newData: number[]) {
+                chartObject.destroy();
+                setupChart($state.snapshot(newData));
             },
-            data: {
-                labels: data.map((_, i) => i),
-                datasets: [
-                    {
-                        data: data,
-                    },
-                ],
+            destroy() {
+                chartObject.destroy();
             },
         };
-
-        if (chart) {
-            chart.data = config.data;
-            chart.update();
-        } else {
-            chart = new Chart(ctx, config);
-        }
     }
-
-    onMount(() => {
-        ctx = chartCanvas.getContext("2d");
-        createOrUpdateChart();
-    });
-
-    afterUpdate(() => {
-        createOrUpdateChart();
-    });
 </script>
 
-<canvas bind:this={chartCanvas} class="graph p-3"></canvas>
 
-<style>
-    .graph {
-        width: 300px !important;
-    }
-</style>
+<canvas class="chart" use:chart={dataToGraph}></canvas>

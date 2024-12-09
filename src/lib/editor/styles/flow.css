@@ -26,9 +26,9 @@
     box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3) !important;
 }
 
-/* .svelte-flow__edges {
+.svelte-flow__edges {
     z-index: 100;
-} */
+}
 
 .svelte-flow  .svelte-flow__edge.selected .svelte-flow__edge-path {
     stroke: #fff !important;
@@ -45,6 +45,10 @@
 
 .svelte-flow .svelte-flow__handle.valid {
     @apply !bg-green-500;
+}
+
+.svelte-flow__attribution {
+    display: none !important;
 }
 
 /* ############ CUSTOM STYLES ############ */
@@ -85,7 +89,7 @@
 .node {
     border-radius: var(--radius);
     min-width: 100px;
-    @apply items-center text-center p-3 border bg-card;
+    @apply items-center text-center p-3 bg-card border border-ui-1;
 }
 
 .node-highlighted {
@@ -96,7 +100,8 @@
 .context {
     height: 100%;
 
-    border: 2px solid hsl(var(--border));
+    border: 2px solid;
+    @apply border-ui-1;
     
     border-radius: var(--radius);
 
@@ -130,4 +135,10 @@
 
     transform: scaleX(-1);
     @apply !pb-3 !pl-3;
+}
+
+/* GENERAL */
+
+input {
+    @apply bg-ui-2 rounded-sm;
 }

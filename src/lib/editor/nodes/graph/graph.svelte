@@ -1,50 +1,63 @@
 <script lang="ts">
-    import { type NodeProps, Position, Handle } from "@xyflow/svelte";
-    import { GripVertical } from "lucide-svelte";
-    // import Line from "./graph/line.svelte";
+    import { Position, Handle } from "@xyflow/svelte";
+    import {
+        GripVertical,
+        ChartLine,
+        Grid2X2 as Grid,
+        RotateCcw,
+    } from "lucide-svelte";
+    import Line from "./line.svelte";
+    import { Button } from "$lib/components/ui/button/index.js";
     // import Heatmap from "./graph/heatmap.svelte";
-    import * as Select from "$lib/components/ui/select";
+    import { Toggle } from "$lib/components/ui/toggle/index.js";
 
-    let {
-        type,
-        data,
-        ...restProps
-    } = $props();
+    let { type, data, ...restProps } = $props();
 
     data.graphData = [];
-    
-    let selectedGraphType = $state("line"); // Default selection
 
-    function updateGraphType(value: string) {
-        selectedGraphType = value;
+    function clearData() {
+        data.graphData = [];
     }
+
+    let selectedGraphType = $state("line"); // Default selection
 </script>
 
-<div class="bg-card border rounded-lg">
-    <div class="flex items-center border-b px-3 py-2 h-auto draggable">
-        <GripVertical class="h-5 w-5 mr-2" />
-        <small class="text-sm">{type}</small>
-    </div>
-    <div class="px-5 py-2 grid grid-cols-4 gap-4 items-center">
-        <span class="text-sm col-span-1">Graph Type</span>
-        <div class="col-span-3">
-            <Select.Root on:SelectedChange={(value) => updateGraphType(value.value)}>
-                <Select.Trigger>
-                    <Select.Value placeholder={selectedGraphType}/>
-                </Select.Trigger>
-                <Select.Content>
-                    <Select.Item value="line">Line</Select.Item>
-                    <Select.Item value="heatmap">Heatmap</Select.Item>
-                </Select.Content>
-            </Select.Root> 
+<div class="bg-card border rounded-lg overflow-hidden h-[225px] w-[350px]">
+    <div class="flex justify-between border-b px-3 py-1 h-auto draggable">
+        <div class="flex items-center">
+            <GripVertical class="h-5 w-5 mr-2" />
+            <small class="text-sm">{type}</small>
+        </div>
+        <div class="flex items-center">
+            <Button variant="ghost" class= "!h-9 !w-9" on:click={clearData}>
+                <RotateCcw class="h-4 w-4" />
+            </Button>
+            <Toggle
+                size="sm"
+                class="!h-9 !w-9"
+                onPressedChange={() => {
+                    selectedGraphType =
+                        selectedGraphType === "line" ? "heatmap" : "line";
+                }}
+                aria-label="Toggle italic"
+            >
+                {#if selectedGraphType === "line"}
+                    <ChartLine class="h-4 w-4" />
+                {:else if selectedGraphType === "heatmap"}
+                    <Grid class="h-4 w-4" />
+                {/if}
+            </Toggle>
         </div>
     </div>
 
-    <!-- {#if selectedGraphType === 'line'}
-        <Line data={data.graphData} />
-    {:else if selectedGraphType === 'heatmap'}
-        <Heatmap data={data.graphData} />
-    {/if} -->
+    <div class="px-3 pt-2">
+        {#if selectedGraphType === "line"}
+            <Line bind:dataToGraph={data.graphData} />
+        {:else if selectedGraphType === "heatmap"}
+            <!-- <Heatmap data={data.graphData} /> -->
+            Word
+        {/if}
+    </div>
 
     <Handle type="target" position={Position.Left} />
 </div>

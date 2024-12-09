@@ -1,6 +1,7 @@
 <script lang="ts">
     import { useSvelteFlow } from "@xyflow/svelte";
-    import { X, ArrowDownLeft } from "lucide-svelte";
+    import { X, ArrowDownLeft, Pencil, Lightbulb } from "lucide-svelte";
+    import { Button } from "$lib/components/ui/button/index.js";
     import { Separator } from "$lib/components/ui/separator";
     import Textarea from "@/lib/components/ui/textarea/textarea.svelte";
 
@@ -8,30 +9,42 @@
 
     let editing = $state(false);
 
+    let open = $state(false);
+
     let { deleteElements } = useSvelteFlow();
     function handleClose() {
         deleteElements({nodes: [{id : id}]});
     }
 </script>
 
-<div class="bg-card w-full h-full rounded-lg" ondblclick={() => editing = !editing} role="region">
-    <div class="node max-w-[200px] !bg-[#38AFFD]/10">
+{#if !open}
+    <button class="bg-card !w-10 !h-10 rounded-lg duration-2000" onclick={() => open = true}>
+        <div class="!bg-[#38AFFD]/10 w-full h-full animate-pulse flex items-center rounded-lg justify-center">
+            <Lightbulb class="h-6 w-6" />
+        </div>
+    </button>
+{/if}
+
+{#if open}
+<div class="bg-card w-[175px] h-full rounded-lg" role="region">
+    <div class="node !bg-[#38AFFD]/10">
         <div class="flex justify-between">
-            <b>Info</b>
-            <button class="" onclick={handleClose}>
-                <X class="h-5 w-5" />
-            </button>
+            <button onclick={() => editing = !editing}><b>Info</b></button>
+            <div class="flex items-center">
+                <button class="" onclick={handleClose}>
+                    <X class="h-5 w-5" />
+                </button>
+            </div>
         </div>
         <Separator class="my-2 bg-foreground" />
 
         {#if editing}
             <Textarea bind:value={data.text}/>
         {:else}
-            <p class="mb-1">
+            <p >
                 {data.text}
             </p>
         {/if}
-
-        <ArrowDownLeft class="h-5 w-5 mt-2" />
     </div>
 </div>
+{/if}

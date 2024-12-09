@@ -4,9 +4,11 @@ import {
     type NodeTypes,
     type DefaultEdgeOptions,
     MarkerType,
+    type Viewport
 } from "@xyflow/svelte";
 
 import { writable, type Writable } from "svelte/store";
+import { modelSelector, defaultFunctions } from "@/lib/editor/handlers/states.svelte";
 import {
     ModuleNode,
     BatchNode,
@@ -33,9 +35,28 @@ const nodeTypes: NodeTypes = {
     tutorial: TutorialNode,
 };
 
-const nodes: Writable<Node[]> = writable([]);
+export function load(project: any) : {
+    nodes: Writable<Node[]>,
+    edges: Writable<Edge[]>,
+    initialViewport: Viewport,
+} {
+    modelSelector.modelId = project.modelId ? project.modelId : "none";
 
-const edges: Writable<Edge[]> = writable([]);
+    defaultFunctions.push(...loadFunctions(project));
+
+    return {
+        nodes: writable<Node[]>(project.nodes),
+        edges: writable<Edge[]>(project.edges),
+        initialViewport: project.viewport,
+    };
+}
+
+export const loadFunctions = (project: any) => {
+    const functions = project.nodes.filter(
+        (node: Node) => node.type === "function"
+    );
+    return functions.map((node: Node) => node.data);
+}
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
     markerEnd: {
@@ -46,4 +67,4 @@ const defaultEdgeOptions: DefaultEdgeOptions = {
     style: 'stroke-width: 2px; stroke: #A3A3A3',
 };
 
-export { nodeTypes, nodes, edges, defaultEdgeOptions };
+export { nodeTypes, defaultEdgeOptions };
