@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Logo from "$lib/images/ndif.png";
+    import { base } from '$app/paths';
     let items = ["new", "lens", "node-connections"];
 </script>
 
@@ -21,7 +21,7 @@
     <ul class="text-center w-[20vw] z-10">
         {#each items as item}
             <li class="text-left p-3 my-2 border-white border rounded-lg" >
-                <a href="/editor/{item}">
+                <a href="{base}/editor/{item}">
                     {item}
                 </a>
             </li>
