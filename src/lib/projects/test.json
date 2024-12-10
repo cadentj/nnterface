@@ -59,7 +59,8 @@
       "measured": {
         "width": 100,
         "height": 60
-      }
+      },
+      "typedArgs" : {}
     }
   ],
   "edges": [],

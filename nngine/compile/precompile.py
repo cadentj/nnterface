@@ -23,7 +23,6 @@ def resolve_dependencies(graph: Graph):
                     and "batch" in tar.id
                 )
             ):
-                print("getting top parent at", src.parent, flush=True)
                 other = get_top_parent(graph, tar.id, level=src.parent)
                 edges.append(Edge(source=src.id, target=other))
 

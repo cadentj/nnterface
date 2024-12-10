@@ -14,12 +14,10 @@ def get_top_parent(graph: Graph, node_id: str, level: str = "session") -> str:
     """Get the parent id of a node at a certain depth."""
     node = graph.lookup[node_id]
 
-    print(graph.lookup.keys())
     while (node.parent != level):
         if node.parent == "session":
             return node.id
 
-        print(node.id, node.parent, flush=True)
         node = graph.lookup[node.parent]
 
 

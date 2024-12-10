@@ -4,7 +4,6 @@
         useSvelteFlow,
         useNodes,
         useEdges,
-        type Node,
     } from "@xyflow/svelte";
     import { Play } from "lucide-svelte";
     import { exportGraph } from "$lib/editor/flow/utils";

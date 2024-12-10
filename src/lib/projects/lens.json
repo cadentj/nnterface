@@ -115,7 +115,8 @@
           "session",
           "run0",
           "loop2"
-        ]
+        ],
+        "typedArgs" : {}
       },
       "class": "rounded-lg",
       "measured": {

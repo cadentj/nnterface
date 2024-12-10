@@ -1,5 +1,5 @@
 <script lang="ts">
-    let items = ["new", "node-connections", "chat", "lens", "steering", "patching"];
+    let items = ["new", "node-connections", "chat", "heatmap",  "lens", "steering", "patching"];
 </script>
 
 <div class="editor-container flex flex-col items-center justify-center">

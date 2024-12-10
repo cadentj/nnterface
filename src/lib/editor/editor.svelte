@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { SvelteFlow, SvelteFlowProvider } from "@xyflow/svelte";
+    import { SvelteFlow, SvelteFlowProvider, type FitViewOptions } from "@xyflow/svelte";
     import { defaultEdgeOptions, nodeTypes, load } from "./flow";
 
     import Layout from "./flow/layout.svelte";
@@ -23,6 +23,10 @@
         initialViewport,
     } = load(project);
 
+    let fitViewOptions: FitViewOptions = {
+        padding: .5,
+    }
+
     let dragAndDropHandler: any;
     let connectionHandler: any;
     let proximityHandler: any;
@@ -36,7 +40,8 @@
     <SvelteFlow
         {nodes}
         {edges}
-        {initialViewport}
+        fitView={true}
+        fitViewOptions={fitViewOptions}
         {defaultEdgeOptions}
         {nodeTypes}
         on:dragover={dragAndDropHandler.onDragOver}

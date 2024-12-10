@@ -4,6 +4,7 @@ import chat from "./chat.json"
 import nodeConnections from "./node-connections.json"
 import patching from "./patching.json"
 import steering from "./steering.json"
+import heatmap from "./heatmap.json"
 
 export const projects: { [key: string]: any } = {
     "test" : test,
@@ -12,6 +13,7 @@ export const projects: { [key: string]: any } = {
     "steering" : steering,
     "chat" : chat,
     "patching" : patching,
+    "heatmap" : heatmap,
     "new" : {
         nodes: [],
         edges: [],

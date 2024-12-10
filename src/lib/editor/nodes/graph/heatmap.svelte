@@ -1,17 +1,19 @@
-<!-- <script lang="ts">
-    import { onMount, afterUpdate } from "svelte";
+<script lang="ts">
+    import { onMount } from "svelte";
     import * as Plot from "@observablehq/plot";
 
     let div: HTMLDivElement;
-    export let data: number[][];
+
+    let {
+        data,
+    } = $props();
 
     onMount(() => {
         plot();
     });
 
-    afterUpdate(() => {
+    $effect(() => {
         div?.firstChild?.remove();
-        console.log('test');
         plot();
     });
 
@@ -63,4 +65,4 @@
     }
 </script>
 
-<div bind:this={div} role="img"></div> -->
+<div bind:this={div} role="img"></div>

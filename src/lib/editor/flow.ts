@@ -42,7 +42,8 @@ export function load(project: any) : {
 } {
     modelSelector.modelId = project.modelId ? project.modelId : "none";
 
-    defaultFunctions.push(...loadFunctions(project));
+    clearFunctions();
+    defaultFunctions.functions.push(...loadFunctions(project));
 
     return {
         nodes: writable<Node[]>(project.nodes),
@@ -51,10 +52,15 @@ export function load(project: any) : {
     };
 }
 
+function clearFunctions() {
+    defaultFunctions.functions = defaultFunctions.functions.filter((func) => !func.deletable);
+}
+
 export const loadFunctions = (project: any) => {
     const functions = project.nodes.filter(
         (node: Node) => node.type === "function"
     );
+
     return functions.map((node: Node) => node.data);
 }
 

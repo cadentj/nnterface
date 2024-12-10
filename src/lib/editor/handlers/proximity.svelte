@@ -7,8 +7,7 @@
         type Edge,
         type InternalNode,
     } from "@xyflow/svelte";
-    import { connections } from "./states.svelte";
-    import checkIsValidConnection from "./connection.svelte";
+    import { connections, proximity } from "./states.svelte";
 
     const nodes = useNodes();
     const edges = useEdges();
@@ -154,6 +153,10 @@
     }
 
     export function onNodeDrag({ targetNode: node }, checkIsValidConnection) {
+        if (!proximity.isOn) {
+            return;
+        }
+
         const closestEdge = getClosestEdge(node, $nodes);
 
         // Check if its a valid proximity connection
@@ -209,6 +212,10 @@
     }
 
     export function onNodeDragStop() {
+        if (!proximity.isOn) {
+            return;
+        }
+        
         $edges.forEach((edge) => {
             if (edge.class === "temp") {
                 edge.class = "";

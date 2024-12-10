@@ -16,7 +16,7 @@
     let openIndex = $state(-1);
 
     const deleteFunction = (index: number) => {
-        defaultFunctions.splice(index, 1);
+        defaultFunctions.functions.splice(index, 1);
     };
 
     const editFunction = (index: number) => {
@@ -50,19 +50,19 @@
         <CodeEditor index={openIndex} bind:open={open} />
     </Dialog.Content>
     <div class="flex flex-col mt-2 gap-3 mb-1">
-        {#each defaultFunctions as _, index}
+        {#each defaultFunctions.functions as _, index}
             <div
                 class="flex p-2 h-10 bg-ui-2 px-5 justify-between items-center rounded-md"
             >
                 <button
                     class="h-full"
                     draggable="true"
-                    ondragstart={(event) => onDragStart(event, defaultFunctions[index])}
+                    ondragstart={(event) => onDragStart(event, defaultFunctions.functions[index])}
                 >
-                    {defaultFunctions[index].functionName}
+                    {defaultFunctions.functions[index].functionName}
                 </button>
-                <div>
-                    {#if defaultFunctions[index].deletable}
+                <div>   
+                    {#if defaultFunctions.functions[index].deletable}
                         <button onclick={() => editFunction(index)}>
                             <Pencil class="h-4 w-4" />
                         </button>

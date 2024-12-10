@@ -29,6 +29,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.26.0",
 		"@codemirror/lang-python": "^6.1.6",
+		"@observablehq/plot": "^0.6.16",
 		"@uiw/codemirror-theme-github": "^4.23.6",
 		"@xyflow/svelte": "^0.1.24",
 		"chart.js": "^4.4.7",

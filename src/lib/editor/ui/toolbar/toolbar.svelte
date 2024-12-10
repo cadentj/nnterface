@@ -6,6 +6,7 @@
     } from "@xyflow/svelte";
     import RunButton from "./run-button.svelte";
     import ChatButton from "./chat-button.svelte";
+    import ProximityButton from "./proximity-button.svelte";
 </script>
 
 <Controls
@@ -13,6 +14,7 @@
     position="bottom-center"
     class="flex gap-2 bg-card p-2 rounded-lg border"
 >
+    <ProximityButton/>
     <ChatButton/>
     <div class="!border-l pl-2">
         <RunButton />

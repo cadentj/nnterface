@@ -7,26 +7,45 @@
     let {
         maxBadges = 5,
         badges = $bindable(),
+        typedArgs = $bindable(),
+        useTypedArgs = $bindable(),
     } = $props();
 
     let inputValue = $state("");
 
+    let totalArgs = $derived(badges.length + Object.keys(typedArgs).length);
+
     function handleKeydown(event: KeyboardEvent) {
-        if (event.key === "Enter" && inputValue.trim() !== "") {
+        let input = inputValue.trim();
+        if (event.key === "Enter" && input !== "") {
             event.preventDefault();
-            addBadge(inputValue.trim());
+            if (useTypedArgs) {
+                addTypedArg(input);
+            } else {
+                addBadge(input);
+            }
             inputValue = "";
         }
     }
 
     function addBadge(text: string) {
-        if (badges.length < maxBadges && !badges.includes(text)) {
+        if (totalArgs < maxBadges && !badges.includes(text)) {
             badges = [...badges, text];
         }
     }
 
     function removeBadge(badge: string) {
         badges = badges.filter((b) => b !== badge);
+    }
+
+    function addTypedArg(text: string) {
+        if (totalArgs < maxBadges && !Object.keys(typedArgs).includes(text)) {
+            typedArgs = { ...typedArgs, [text]: text };
+        }
+    }
+
+    function removeTypedArg(key: string) {
+        typedArgs = Object.fromEntries(Object.entries(typedArgs).filter(([k]) => k !== key));
     }
 </script>
 
@@ -46,6 +65,17 @@
                 onclick={() => removeBadge(badge)}
             >
                 <span class="px-2">{badge}</span>
+                <X class="h-3 w-3 mr-1" />
+            </Button>
+        {/each}
+        {#each Object.keys(typedArgs) as key}
+            <Button
+                size="xs"
+                class="py-0.5"
+                variant="outline"
+                onclick={() => removeTypedArg(key)}
+            >
+                <span class="px-2">{key}</span>
                 <X class="h-3 w-3 mr-1" />
             </Button>
         {/each}

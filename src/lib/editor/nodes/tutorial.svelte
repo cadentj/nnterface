@@ -19,7 +19,7 @@
 
 {#if !open}
     <button class="bg-card !w-10 !h-10 rounded-lg duration-500" onclick={() => open = true}>
-        <div class="!bg-[#38AFFD]/10 w-full h-full animate-pulse flex items-center rounded-lg justify-center">
+        <div class="!bg-[#E7B73D]/30 w-full h-full animate-pulse flex items-center rounded-lg justify-center">
             <Lightbulb class="h-6 w-6" />
         </div>
     </button>
@@ -27,7 +27,7 @@
 
 {#if open}
 <div class="bg-card w-[175px] h-full rounded-lg" role="region">
-    <div class="node !bg-[#38AFFD]/10">
+    <div class="node !bg-[#E7B73D]/10">
         <div class="flex justify-between">
             <button onclick={() => editing = !editing}><b>Info</b></button>
             <div class="flex items-center">

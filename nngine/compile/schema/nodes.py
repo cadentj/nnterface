@@ -206,6 +206,7 @@ class FunctionData(NodeData):
 
     code: str
     inputs: List[str]
+    typed_args: Dict[str, str]
 
     @model_validator(mode="after")
     def set_inputs(self):
@@ -223,15 +224,43 @@ class FunctionNode(Node):
 
     protocol: Literal["setter", "append"] = "setter"
 
-    def _set(self, args: List[Node]):
-        self.code = self.code.format(id=self.id, args=args)
+    def _define(self):
+        typed_args = list(self.data.typed_args.keys())
+        typed_args_str = ", ".join(typed_args)
+        all_args = f"{self.data.inputs}, " + typed_args_str
 
-        return self.defn.format(id=self.id, args=self.data.inputs, body=self.data.code)
+        if len(typed_args) == 0:
+            all_args = self.data.inputs
+
+        return self.defn.format(
+            id=self.id,
+            args=all_args,
+            body=self.data.code,
+        )
+    
+    def _call(self, template: str, args: List[Node]):
+        typed_args = [
+            f"{k} = {v}"
+            for k, v in self.data.typed_args.items()
+        ]
+
+        all_args = ", ".join(typed_args)
+        all_args = f"{args}, " + all_args
+
+        if len(typed_args) == 0:
+            all_args = args
+
+        return template.format(id=self.id, args=all_args)
+
+    def _set(self, args: List[Node]):
+        self.code = self._call(self.code, args)
+
+        return self._define()
 
     def _append(self, args: List[Node]):
-        self.code = self.append.format(id=self.id, args=args)
+        self.code = self._call(self.append, args)
 
-        return self.defn.format(id=self.id, args=self.data.inputs, body=self.data.code)
+        return self._define()
 
     def precompile(self, args: List[Node]):
         args: str = ", ".join(

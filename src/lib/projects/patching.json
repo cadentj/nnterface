@@ -269,8 +269,8 @@
     {
       "id": "module9",
       "position": {
-        "x": 573.0885032854762,
-        "y": 520.544223886018
+        "x": 687.8206314558023,
+        "y": 441.34859559145656
       },
       "origin": [
         0,
@@ -298,41 +298,6 @@
       "measured": {
         "width": 102,
         "height": 40
-      },
-      "selected": false,
-      "dragging": false
-    },
-    {
-      "id": "function10",
-      "position": {
-        "x": 579.1611134227616,
-        "y": 433.9851298216714
-      },
-      "origin": [
-        0,
-        0
-      ],
-      "type": "function",
-      "data": {
-        "variant": "function",
-        "functionName": "Index",
-        "inputs": [
-          "acts"
-        ],
-        "code": "",
-        "deletable": true,
-        "parents": [
-          "session",
-          "run6",
-          "loop7",
-          "loop8",
-          "batch11"
-        ]
-      },
-      "class": "rounded-lg",
-      "measured": {
-        "width": 100,
-        "height": 60
       },
       "selected": false,
       "dragging": false
@@ -455,7 +420,8 @@
           "loop7",
           "loop8",
           "batch11"
-        ]
+        ],
+        "typedArgs": {}
       },
       "class": "rounded-lg",
       "measured": {
@@ -547,6 +513,45 @@
       },
       "selected": false,
       "dragging": false
+    },
+    {
+      "id": "function17",
+      "position": {
+        "x": 573.2255870054395,
+        "y": 444.73555463673864
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "function",
+      "data": {
+        "variant": "function",
+        "functionName": "Index",
+        "inputs": [
+          "acts"
+        ],
+        "code": "# Acts is a list of activations\nlayer_act = acts[layer]\n\n# Return over the correct token\nreturn layer_act[:,tok,:]",
+        "deletable": true,
+        "typedArgs": {
+          "tok": "loop8",
+          "layer": "loop7"
+        },
+        "parents": [
+          "session",
+          "run6",
+          "loop7",
+          "loop8",
+          "batch11"
+        ]
+      },
+      "class": "rounded-lg",
+      "measured": {
+        "width": 100,
+        "height": 120
+      },
+      "selected": false,
+      "dragging": false
     }
   ],
   "edges": [
@@ -574,32 +579,6 @@
       "sourceHandle": "right-source",
       "target": "list4",
       "id": "xy-edge__module3right-source-list4",
-      "selected": false
-    },
-    {
-      "markerEnd": {
-        "type": "arrowclosed",
-        "width": 8,
-        "height": 8
-      },
-      "style": "stroke-width: 2px; stroke: #A3A3A3",
-      "source": "function10",
-      "target": "module9",
-      "targetHandle": "right-target",
-      "id": "xy-edge__function10-module9right-target",
-      "selected": false
-    },
-    {
-      "markerEnd": {
-        "type": "arrowclosed",
-        "width": 8,
-        "height": 8
-      },
-      "style": "stroke-width: 2px; stroke: #A3A3A3",
-      "source": "list4",
-      "target": "function10",
-      "targetHandle": "acts",
-      "id": "xy-edge__list4-function10acts",
       "selected": false
     },
     {
@@ -675,12 +654,37 @@
       "style": "stroke-width: 2px; stroke: #A3A3A3",
       "source": "list16",
       "target": "graph17",
-      "id": "xy-edge__list16-graph17"
+      "id": "xy-edge__list16-graph17",
+      "selected": false
+    },
+    {
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 8,
+        "height": 8
+      },
+      "style": "stroke-width: 2px; stroke: #A3A3A3",
+      "source": "function17",
+      "target": "module9",
+      "targetHandle": "right-target",
+      "id": "xy-edge__function17-module9right-target"
+    },
+    {
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 8,
+        "height": 8
+      },
+      "style": "stroke-width: 2px; stroke: #A3A3A3",
+      "source": "list4",
+      "target": "function17",
+      "targetHandle": "acts",
+      "id": "xy-edge__list4-function17acts"
     }
   ],
   "viewport": {
-    "x": 128.4284857729358,
-    "y": 145.97868482536148,
+    "x": 39.4284857729358,
+    "y": 166.97868482536148,
     "zoom": 0.9849028498124367
   },
   "modelId": "openai-community/gpt2"

@@ -8,7 +8,7 @@
     } from "lucide-svelte";
     import Line from "./line.svelte";
     import { Button } from "$lib/components/ui/button/index.js";
-    // import Heatmap from "./graph/heatmap.svelte";
+    import Heatmap from "./heatmap.svelte";
     import { Toggle } from "$lib/components/ui/toggle/index.js";
 
     let { type, data, ...restProps } = $props();
@@ -54,8 +54,7 @@
         {#if selectedGraphType === "line"}
             <Line bind:dataToGraph={data.graphData} />
         {:else if selectedGraphType === "heatmap"}
-            <!-- <Heatmap data={data.graphData} /> -->
-            Word
+            <Heatmap data={data.graphData} />
         {/if}
     </div>
 

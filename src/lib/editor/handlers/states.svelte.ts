@@ -4,6 +4,10 @@ export let modelSelector = $state({
     isChatModel: false,
 });
 
+export let proximity = $state({
+    isOn: false,
+});
+
 export const connections: Record<string, string[]> = {
     "input": [
         "run", "batch"
@@ -30,29 +34,35 @@ export const chat = $state({
 });
 
 
-export const defaultFunctions = $state([
-    {
-        functionName: "Add",
-        inputs: ["x", "y"],
-        code: "return x + y",
-        deletable: false,
-    },
-    {
-        functionName: "Subtract",
-        inputs: ["x", "y"],
-        code: "return x - y",
-        deletable: false,
-    },
-    {
-        functionName: "Multiply",
-        inputs: ["x", "y"],
-        code: "return x * y",
-        deletable: false,
-    },
-    {
-        functionName: "Divide",
-        inputs: ["x", "y"],
-        code: "return x / y",
-        deletable: false,
-    },
-]);
+export const defaultFunctions = $state({
+    "functions": [
+        {
+            functionName: "Add",
+            inputs: ["x", "y"],
+            code: "return x + y",
+            deletable: false,
+            typedArgs: {},
+        },
+        {
+            functionName: "Subtract",
+            inputs: ["x", "y"],
+            code: "return x - y",
+            deletable: false,
+            typedArgs: {},
+        },
+        {
+            functionName: "Multiply",
+            inputs: ["x", "y"],
+            code: "return x * y",
+            deletable: false,
+            typedArgs: {},
+        },
+        {
+            functionName: "Divide",
+            inputs: ["x", "y"],
+            code: "return x / y",
+            deletable: false,
+            typedArgs: {},
+        },
+    ]
+});
