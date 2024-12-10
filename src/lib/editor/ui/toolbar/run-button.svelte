@@ -8,7 +8,6 @@
     } from "@xyflow/svelte";
     import { Play } from "lucide-svelte";
     import { exportGraph } from "$lib/editor/flow/utils";
-    import { onMount } from "svelte";
     import { animate } from "@/lib/editor/flow/animate";
 
     const { toObject, updateNodeData, getIntersectingNodes } = useSvelteFlow();

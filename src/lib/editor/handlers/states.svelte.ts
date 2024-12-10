@@ -1,6 +1,7 @@
 export let modelSelector = $state({
     draggedType: null,
     modelId: "none",
+    isChatModel: false,
 });
 
 export const connections: Record<string, string[]> = {

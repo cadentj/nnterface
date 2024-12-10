@@ -84,6 +84,11 @@
     @apply absolute top-0 left-0 w-full h-[3vh] z-20;
 }
 
+.layout .chat {
+    @apply absolute top-[3vh] right-0 h-auto overflow-auto z-10 pointer-events-none;
+    width: 22%;
+}
+
 /* NODES */
 
 .node {

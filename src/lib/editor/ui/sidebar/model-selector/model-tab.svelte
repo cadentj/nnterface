@@ -10,14 +10,21 @@
         if (!newModel) return;
         tree.load(newModel);
         modelSelector.modelId = newModel;
+        modelSelector.isChatModel = models.find(
+            model => model.id === newModel
+        )?.isChatModel ?? false;
     }
 
-    let models = [
-        "openai-community/gpt2",
-        "Qwen/Qwen2.5-0.5B-Instruct",
-        "meta-llama/Llama-3.1-405B",
+    type Model = {
+        id: string;
+        isChatModel: boolean;
+    }
+    let models: Model[] = [
+        { id: "openai-community/gpt2", isChatModel: false },
+        { id: "Qwen/Qwen2.5-0.5B-Instruct", isChatModel: true },
+        { id: "meta-llama/Llama-3.1-405B", isChatModel: false },
     ]
-
+    
     let value = $state("Select a model");
 
     onMount(() => {
@@ -36,7 +43,7 @@
         </Select.Trigger>
         <Select.Content>
             {#each models as model}
-                <Select.Item value={model}>{model}</Select.Item>
+                <Select.Item value={model.id}>{model.id}</Select.Item>
             {/each}
         </Select.Content>
     </Select.Root>
