@@ -5,6 +5,7 @@
     import Layout from "./flow/layout.svelte";
     import Toolbar from "./ui/toolbar/toolbar.svelte";
     import Sidebar from "./ui/sidebar/sidebar.svelte";
+    import ChatTab from "./ui/chat/chat-tab.svelte";
     import Navbar from "./ui/navbar/navbar.svelte";
 
     import DragAndDropHandler from "./handlers/drag-and-drop.svelte";
@@ -65,8 +66,12 @@
     <Sidebar />
 {/snippet}
 
+{#snippet chat()}
+    <ChatTab />
+{/snippet}
+
 <SvelteFlowProvider>
-    <Layout {flow} {leftSidebar} {navbar} />
+    <Layout {flow} {leftSidebar} {navbar} {chat} />
     <DragAndDropHandler bind:this={dragAndDropHandler}/>
     <ConnectionHandler bind:this={connectionHandler}/>
     <ProximityHandler bind:this={proximityHandler}/>

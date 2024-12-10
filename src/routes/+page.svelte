@@ -1,9 +1,9 @@
 <script lang="ts">
-    let items = ["new", "lens", "node-connections"];
+    let items = ["new", "node-connections", "chat", "lens", "steering", "patching"];
 </script>
 
 <div class="editor-container flex flex-col items-center justify-center">
-<pre class="text-border  text-white text-2xl transform  z-10">          ,--.                                
+<pre class="text-border  text-white text-lg transform  z-10">          ,--.                                
         ,--.'|    ,---,       ,---,    ,---,. 
     ,--,:  : |  .'  .' `\  ,`--.' |  ,'  .' | 
  ,`--.'`|  ' :,---.'     \ |   :  :,---.'   | 
@@ -76,6 +76,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.80);
+        background-color: rgba(0, 0, 0, 0.85);
     }
 </style>

@@ -255,7 +255,7 @@ class FunctionNode(Node):
 
 ### RUN SCHEMA ###
 
-MAX_NEW_TOKENS = 100
+MAX_NEW_TOKENS = 10
 
 class RunNode(ContextNode):
     type: Literal["run"]
@@ -264,7 +264,7 @@ class RunNode(ContextNode):
     generate: str = "with model.generate({input}_content, max_new_tokens={max_new_tokens}) as generator:"
 
     def gen(self, input_id):
-        self.generate += "\n" + self.indent(extra=1) + "generator.all()"
+        # self.generate += "\n" + self.indent(extra=1) + "generator.all()"
         self.generate += "\n" + self.indent(extra=1) + f"{input_id} = model.generator.output.tolist().save()"
         self.code = self.generate.format(input=input_id, max_new_tokens=MAX_NEW_TOKENS)
 
@@ -341,7 +341,7 @@ class GraphNode(Node):
 class ChatData(NodeData):
     variant: Literal["chat"]
 
-    messages: List[Dict[str, str]] = []
+    messages: List[Dict[str, str]] | str = []
     tokens: List[int] = []
 
 class ChatNode(Node):

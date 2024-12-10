@@ -24,6 +24,12 @@ tok: AutoTokenizer = None
 
 logger = logging.getLogger("uvicorn")
 
+model_types = {
+    "openai-community/gpt2": "base",
+    "Qwen/Qwen2.5-0.5B-Instruct": "chat",
+    "meta-llama/Llama-3.1-405B": "base",
+} 
+
 def load(repo_id: str):
     global model, tok
 
@@ -40,9 +46,14 @@ def prepare_inputs(graph: Graph):
     input_types = ["chat"]
 
     for node in get_nodes(input_types, graph):
-        if "chat" in node.id:
-            node.tokenize(tok)
-            loc[node.id + "_content"] = node.data.tokens
+        if ("chat" in node.id):
+            if model_types["openai-community/gpt2"] == "chat":
+                node.tokenize(tok)
+                loc[node.id + "_content"] = node.data.tokens
+            else:
+                encoded = tok.encode(node.data.messages)
+                loc[node.id + "_content"] = encoded
+                node.data.tokens = encoded
 
     return loc
 
@@ -58,10 +69,14 @@ def prepare_result(loc: Dict[str, Any], graph: Graph):
             input_length = len(node.data.tokens)
 
             resp = tok.decode(rs[0][input_length:], skip_special_tokens=True)
+            if model_types["openai-community/gpt2"] == "chat":
 
-            node.data.messages.append({"role": "assisstant", "content": resp})
+                node.data.messages.append({"role": "assistant", "content": resp})
 
-            rs = node.data.messages
+                rs = node.data.messages
+            else:
+                rs = resp
+
 
         results[node_id] = json.dumps(rs)
 
@@ -112,6 +127,7 @@ async def run(graph: Graph):
 
 @app.post("/chat")
 async def chat(graph: Graph):
+    global model
     
     code = compile(graph)
 
