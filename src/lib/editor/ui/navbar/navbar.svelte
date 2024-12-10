@@ -15,7 +15,7 @@
     <div class="px-10 py-5 flex justify-between items-center">
         <!-- Left: Text Input -->
         <div class="flex items-center gap-4">
-            <Button size="icon" variant="secondary" class="pointer-events-auto" href="/">
+            <Button size="icon" variant="secondary" class="pointer-events-auto" href="/nnterface">
                 <ChevronLeft class="w-5 h-5" />
             </Button>
             <input
