@@ -10,16 +10,16 @@ def build_edge_lookup(graph: Graph):
     return edge_lookup
 
 
-def get_top_parent(graph: Graph, node_id: str, level: str = "session") -> str:
+def get_top_parent(graph: Graph, node_id: str, level: str) -> str:
     """Get the parent id of a node at a certain depth."""
     node = graph.lookup[node_id]
 
     while (node.parent != level):
+        print(node.parent)
         if node.parent == "session":
             return node.id
 
         node = graph.lookup[node.parent]
-
 
     return node.id
 

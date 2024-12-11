@@ -3,6 +3,7 @@
     import type { BlockGroup } from "./block-list/block-tab.svelte";
     import ModelSelector from "./model-selector/model-tab.svelte";
     import FunctionTab from "./function-builder/function-tab.svelte";
+    import ComponentTab from "./component-builder/component-tab.svelte";
     import * as Tabs from "$lib/components/ui/tabs";
 
     const control: BlockGroup = {
@@ -31,6 +32,7 @@
             <Tabs.Trigger value="model" class="w-full h-full data-[state=active]:!bg-ui-1">Model</Tabs.Trigger>
             <Tabs.Trigger value="blocks" class="w-full h-full data-[state=active]:!bg-ui-1">Blocks</Tabs.Trigger>
             <Tabs.Trigger value="functions" class="w-full h-full data-[state=active]:!bg-ui-1">Functions</Tabs.Trigger>
+            <Tabs.Trigger value="components" class="w-full h-full data-[state=active]:!bg-ui-1">Components</Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content value="model" class="px-5 py-4 rounded-lg border !bg-card">
@@ -41,6 +43,9 @@
         </Tabs.Content>
         <Tabs.Content value="functions" class="px-5 py-4 rounded-lg border !bg-card">
             <FunctionTab />
+        </Tabs.Content>
+        <Tabs.Content value="components" class="px-5 py-4 rounded-lg border !bg-card">
+            <ComponentTab />
         </Tabs.Content>
     </Tabs.Root>
 </div>

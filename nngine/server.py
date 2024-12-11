@@ -21,6 +21,7 @@ app = FastAPI()
 
 model: AutoModelForCausalLM = None
 tok: AutoTokenizer = None
+components: Dict[str, Graph] = {}
 
 logger = logging.getLogger("uvicorn")
 
@@ -136,6 +137,21 @@ async def chat(graph: Graph):
     exec(code, None, loc)
     
     return prepare_result(loc, graph)
+
+@app.post("/add-component")
+async def add_component(graph: Graph):
+    global model, components
+    
+    code = compile(graph)
+
+    print(code)
+
+    # Change key later
+    components["test"] = code
+
+    return {
+        "success": True
+    }
 
 
 if __name__ == "__main__":

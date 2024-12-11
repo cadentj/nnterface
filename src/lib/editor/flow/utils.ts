@@ -11,9 +11,14 @@ export const createEmptyNode = (name: string): Node => ({
     }
 });
 
-export const clearParents = (nodes: Node[]) => {
+export const clearParents = (
+    nodes: Node[], 
+    useSession: boolean
+) => {
     return nodes.map((node) => {
-        node.data.parents = ["session"];
+        node.data.parents = useSession 
+            ? ["session"] 
+            : ["component"];
         return node;
     });
 };
@@ -21,10 +26,11 @@ export const clearParents = (nodes: Node[]) => {
 export function exportGraph(
     nodes: Writable<Node[]>, 
     getIntersectingNodes: any,
-    toObject: any
+    toObject: any,
+    useSession: boolean = true,
 ) {
     nodes.update((nodes) => {
-        nodes = clearParents(nodes);
+        nodes = clearParents(nodes, useSession);
 
         nodes.map((node: Node) => {
             const intersectingNodes = getIntersectingNodes(

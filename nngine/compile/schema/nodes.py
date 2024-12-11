@@ -36,6 +36,7 @@ class Node(BaseModel):
         return self
 
     def indent(self, extra: int = 0):
+        # Parent of "" is reserved for session and context nodes
         if self.data.parents != [""]:
             return SPACES * (len(self.data.parents) + extra)
         return ""
@@ -75,7 +76,6 @@ class ListNode(Node):
 
 ### CONTEXT NODE SCHEMA ###
 
-
 class ContextNode(Node):
     code: str
     data: NodeData
@@ -94,7 +94,6 @@ class ContextNode(Node):
 
 ### SESSION NODE SCHEMA ###
 
-
 class SessionNode(ContextNode):
     id: Literal["session"]
     type: Literal["session"] = "session"
@@ -104,7 +103,6 @@ class SessionNode(ContextNode):
 
     def precompile(self, args: List[Node]):
         pass
-
 
 ### MODULE NODE SCHEMA ###
 
@@ -282,6 +280,23 @@ class FunctionNode(Node):
             return self._append(args)
 
 
+### COMPONENT NODE SCHEMA ###
+
+class ComponentData(NodeData):
+    variant: Literal["context"]
+    component_name: str
+
+class ComponentNode(ContextNode, FunctionNode):
+    id: Literal["component"]
+    type: Literal["component"] = "component"
+    data: ComponentData
+
+    code: str = "with model.component() as component:"
+
+    def precompile(self, args: List[Node]):
+        pass
+
+
 ### RUN SCHEMA ###
 
 MAX_NEW_TOKENS = 10
@@ -306,6 +321,7 @@ class RunNode(ContextNode):
 
         input_id = "" if not input_node else input_node[0].id
 
+        # TODO: Clear this up, should separate chat into different function? i.e. precompile --> chat or run
         if isinstance(input_node[0], ChatNode):
             self.gen(input_id)
         else:
@@ -313,7 +329,6 @@ class RunNode(ContextNode):
 
 
 ### BATCH SCHEMA ###
-
 
 class BatchNode(ContextNode):
     type: Literal["batch"]
