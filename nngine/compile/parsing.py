@@ -1,7 +1,27 @@
 from typing import List, Dict
+from collections import defaultdict
 
-from .utils import build_edge_lookup, get_top_parent
-from .schema import Node, Edge, Graph
+from .ir import Node, Edge, Graph
+
+def build_edge_lookup(graph: Graph):
+    edge_lookup = defaultdict(list)
+
+    for edge in graph.edges:
+        edge_lookup[edge.source].append(edge)
+
+    return edge_lookup
+
+def get_top_parent(graph: Graph, node_id: str, level: str = "session") -> str:
+    """Get the parent id of a node at a certain depth."""
+    node = graph.lookup[node_id]
+
+    while (node.parent != level):
+        if node.parent == "session":
+            return node.id
+
+        node = graph.lookup[node.parent]
+
+    return node.id
 
 def resolve_dependencies(graph: Graph):
     """Ensure contexts are processed correctly."""
