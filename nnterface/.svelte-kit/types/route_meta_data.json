@@ -1,0 +1,21 @@
+{
+	"/": [],
+	"/api/chat": [
+		"src/routes/api/chat/+server.ts"
+	],
+	"/api/code": [
+		"src/routes/api/code/+server.ts"
+	],
+	"/api/load-model": [
+		"src/routes/api/load-model/+server.ts"
+	],
+	"/api/order": [
+		"src/routes/api/order/+server.ts"
+	],
+	"/api/run": [
+		"src/routes/api/run/+server.ts"
+	],
+	"/editor/[project]": [
+		"src/routes/editor/[project]/+page.ts"
+	]
+}
