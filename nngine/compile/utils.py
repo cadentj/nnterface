@@ -3,6 +3,7 @@ from typing import List
 
 from .ir import Graph
 
+
 def get_adj_list(graph: Graph, reverse: bool = False) -> dict:
     adj_list = defaultdict(list)
 
@@ -14,6 +15,7 @@ def get_adj_list(graph: Graph, reverse: bool = False) -> dict:
 
     return adj_list
 
+
 def get_in_degree(graph: Graph) -> dict:
     """Compute the in-degree of each node."""
     in_degree = {node.id: 0 for node in graph.nodes}
@@ -22,6 +24,7 @@ def get_in_degree(graph: Graph) -> dict:
         in_degree[edge.target] += 1
 
     return in_degree
+
 
 def topological_sort(graph: Graph) -> List[str]:
     """Returns a list of node_ids in topologically sorted order."""

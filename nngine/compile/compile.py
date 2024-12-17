@@ -1,23 +1,24 @@
-from .ir import Graph
+from typing import Tuple, List
+
+from .ir import Graph, Node
 from .parsing import precompile, prepare
-from .utils import get_adj_list, topological_sort
 
-def compile(graph: Graph, return_node_order: bool = False) -> tuple:
+
+def compile(
+    graph: Graph, return_node_order: bool = False
+) -> Tuple[str, List[str]] | str:
     """Compile a graph into executable NNsight code."""
-    
-    # NOTE: Should move this out of here.
-    
-    prepare(graph)
-    sorted_ids, grouped = topological_sort(graph)
-    sorted_nodes = [graph.lookup[node_id] for node_id in sorted_ids]
 
-    code = precompile(graph, sorted_nodes, get_adj_list(graph, reverse=True))
+    # Prepare the graph for compilation.
+    sorted_nodes, grouped = prepare(graph)
+
+    # Precompile the nodes, creating definitions and IR code.
+    code = precompile(graph, sorted_nodes)
 
     visited = set()
+    expanded_order = []
 
-    expanded_order = [] 
-
-    def expand(node):
+    def expand(node: Node) -> None:
         """Expand the node and its children into code."""
         if node.id in visited:
             return

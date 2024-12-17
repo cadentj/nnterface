@@ -1,11 +1,9 @@
-from .base import Node, NodeData
 from typing import Literal, List, Dict
 
-
 from pydantic import model_validator
-from .context import ContextNode
 
-SPACES = "  "
+from .context import ContextNode
+from .base import Node, NodeData, SPACES
 
 
 class FunctionData(NodeData):
@@ -45,12 +43,9 @@ class FunctionNode(Node):
             args=all_args,
             body=self.data.code,
         )
-    
+
     def _call(self, template: str, args: List[Node]):
-        typed_args = [
-            f"{k} = {v}"
-            for k, v in self.data.typed_args.items()
-        ]
+        typed_args = [f"{k} = {v}" for k, v in self.data.typed_args.items()]
 
         all_args = ", ".join(typed_args)
         all_args = f"{args}, " + all_args
@@ -71,9 +66,10 @@ class FunctionNode(Node):
         return self._define()
 
     def precompile(self, args: List[Node]):
-        args: str = ", ".join(
-            [arg.id for arg in args if not isinstance(arg, ContextNode)]
-        )
+        non_context_arg_ids = [
+            arg.id for arg in args if not isinstance(arg, ContextNode)
+        ]
+        args = ", ".join(non_context_arg_ids)
 
         indented_code = []
         for i, line in enumerate(self.data.code.split("\n")):
@@ -88,4 +84,3 @@ class FunctionNode(Node):
             return self._set(args)
         elif self.protocol == "append":
             return self._append(args)
-

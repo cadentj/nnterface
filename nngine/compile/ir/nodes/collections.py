@@ -2,6 +2,18 @@ from .base import Node
 from typing import Literal, List
 
 class ListNode(Node):
+    """List node. Appends a value to a list, or multiple if the input is in a loop.
+
+    Attributes:
+        name (str): Name of the list.
+        code (str): IR code of the node.
+        defn (str): Definition of the node.
+        protocol (Literal["append", "none"]): Protocol of the node. 
+            `append` is used when the input is in a loop. `none` blocks the initialization from 
+            writing twice.
+        append (str): Code to append a value to the list.
+    """
+
     type: Literal["list"]
 
     name: str = None

@@ -14,7 +14,7 @@ from .nodes import (
     LoopNode,
     ListNode,
     GraphNode,
-    ChatNode
+    ChatNode,
 )
 
 
@@ -29,7 +29,7 @@ class Graph(BaseModel):
             BatchNode,
             LoopNode,
             ListNode,
-            ChatNode
+            ChatNode,
         ]
     ]
     edges: List[Edge]
