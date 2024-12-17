@@ -5,11 +5,9 @@ from app.core.compile.ir import Graph
 
 router = APIRouter()
 
+
 @router.post("/")
 async def code(graph: Graph):
-    
     code = compile(graph)
-    
-    return {
-        "code": code
-    }
+
+    return {"code": code}

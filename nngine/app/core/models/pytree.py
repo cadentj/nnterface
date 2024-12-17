@@ -1,6 +1,5 @@
 # %%
 
-import json
 import torch
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 from torch._subclasses.fake_tensor import FakeTensorMode
