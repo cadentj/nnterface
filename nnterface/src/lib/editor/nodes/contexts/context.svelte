@@ -8,7 +8,7 @@
     } = $props();
 </script>
 
-<div>
+<div class="context">
     <div 
         class="flex items-center border-b px-3 py-2 h-auto draggable"
         class:border-gradient={label == 'run' || label == 'batch'}

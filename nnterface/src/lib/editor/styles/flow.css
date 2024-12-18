@@ -52,18 +52,6 @@
 
 /* ############ CUSTOM STYLES ############ */
 
-/* TREE */
-
-.tree ul {
-    margin: 0;
-    list-style: none;
-    user-select: none;
-}
-
-.tree li {
-    @apply border-t
-}
-
 /* LAYOUT */
 
 .layout {

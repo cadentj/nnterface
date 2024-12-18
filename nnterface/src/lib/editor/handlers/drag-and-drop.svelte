@@ -33,11 +33,9 @@
         const className = (variant: string) => {
             switch (variant) {
                 case "context":
-                    return "!pointer-events-none context";
-                case "tutorial": 
-                    return "";
+                    return "!pointer-events-none";
                 default:
-                    return "node";
+                    return "";
             }
         }
 

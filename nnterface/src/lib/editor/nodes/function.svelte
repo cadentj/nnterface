@@ -15,7 +15,7 @@
     }
 </script>
 
-<div>
+<div class="node">
     <div class="flex items-center border-b px-3 py-2 h-auto draggable">
         <small class="text-sm">{data.functionName}</small>
     </div>
@@ -42,7 +42,7 @@
             >
                 {input.length > 5 ? input.slice(0, 5) + "..." : input}
                 <input
-                    class="w-14 ml-3 absolute right-3 p-1"
+                    class="w-14 ml-3 absolute right-3 p-1 nodrag"
                     bind:value={typedInputs[input]}
                 />
             </div>

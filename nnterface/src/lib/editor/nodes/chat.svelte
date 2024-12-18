@@ -5,7 +5,7 @@
     let { data, ...restProps}: NodeProps = $props();
 </script>
 
-<div class="justify-between flex p-3 !bg-green-950 !border-green-500 opacity-80">
+<div class="node justify-between flex p-3 !bg-green-950 !border-green-500 opacity-80">
     Chat
     <button>
         <MessageSquare class="h-5 w-5"/>

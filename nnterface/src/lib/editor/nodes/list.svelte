@@ -9,7 +9,7 @@
     }: ListNodeProps = $props();
 </script>
 
-<div class="p-3">
+<div class="node p-3">
     {type}
     <Handle
         type="target"

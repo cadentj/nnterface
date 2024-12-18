@@ -1,7 +1,7 @@
 <script lang="ts">
     import Leaf from "./leaf.svelte";
     import { Skeleton } from "$lib/components/ui/skeleton/index.js";
-    import { PUBLIC_BACKEND_URL } from '$env/static/public';
+    import { PUBLIC_BACKEND_URL } from "$env/static/public";
 
     let tree = $state({});
     const maxExpandDepth = 3;
@@ -13,12 +13,12 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "repo_id": repoId,
+                repo_id: repoId,
             }),
         });
 
         const result = await response.json();
-        let pytree = result['pytree'];
+        let pytree = result["pytree"];
 
         trimTree(pytree, null, false, 0);
         tree = pytree;
@@ -35,7 +35,7 @@
     ): void {
         // Set initial expansion state based on current depth
         tree.expanded = currentDepth < maxExpandDepth;
-        
+
         if (tree.submodules) {
             if (tree.type === "ModuleList" && tree.submodules.length > 0) {
                 if (parent && parent.submodules) {
@@ -55,13 +55,11 @@
     }
 </script>
 
-
-
 <div>
     {#if Object.keys(tree).length === 0}
         <div class="space-y-3 mt-3">
             {#each Array(5) as _, i (i)}
-            <Skeleton class="h-[20px] w-full bg-ui-2 rounded-md" />
+                <Skeleton class="h-[20px] w-full bg-ui-2 rounded-md" />
             {/each}
         </div>
     {:else}

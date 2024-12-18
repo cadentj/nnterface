@@ -18,7 +18,7 @@
 </script>
 
 <div
-    class="flex p-3 justify-center"
+    class="node flex p-3 justify-center"
     ondblclick={() => (showIndex = !showIndex)}
     role="region"
 >
@@ -31,7 +31,7 @@
         {#if data.isVariable}
             <div class="border-l pl-2 ml-2">
                 <input
-                    class="border rounded-md w-12 text-center"
+                    class="border rounded-md w-12 text-center nodrag"
                     type="text"
                     bind:value={data.variable}
                 />
@@ -40,7 +40,7 @@
         {#if showIndex}
             <div class="border-l pl-2 ml-2">
                 <input
-                    class="border rounded-md w-12 text-center"
+                    class="border rounded-md w-12 text-center nodrag"
                     type="text"
                     bind:value={data.index}
                 />

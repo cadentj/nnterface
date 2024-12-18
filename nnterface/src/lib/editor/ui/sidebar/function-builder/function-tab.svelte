@@ -24,13 +24,28 @@
         open = true;
     };
 
-    const onDragStart = (event: DragEvent, functionBlock: FunctionBlock) => {
+    function createDragPreview(functionBlock: FunctionBlock) {
+        const dragPreview = document.createElement('div');
+        dragPreview.className = 'p-2 h-10 bg-ui-2 w-[10vw] border rounded flex items-center justify-center';
+        dragPreview.textContent = functionBlock.functionName;
+        document.body.appendChild(dragPreview);
+        return dragPreview;
+    }
 
+    const onDragStart = (event: DragEvent, functionBlock: FunctionBlock) => {
         if (event.dataTransfer) {
-            let newNode: Node = createEmptyNode("function");
+            let newNode = createEmptyNode("function") as any;
             newNode.data = { ...newNode.data, ...functionBlock };
             modelSelector.draggedType = newNode;
             event.dataTransfer.effectAllowed = "move";
+            
+            const dragPreview = createDragPreview(functionBlock);
+            event.dataTransfer.setDragImage(dragPreview, 0, 0);
+            
+            // Clean up the temporary element after drag starts
+            setTimeout(() => {
+                document.body.removeChild(dragPreview);
+            }, 100);
         }
     };
 </script>
@@ -52,24 +67,24 @@
     <div class="flex flex-col mt-2 gap-3 mb-1">
         {#each defaultFunctions.functions as _, index}
             <div
-                class="flex p-2 h-10 bg-ui-2 px-5 justify-between items-center rounded-md"
+                role="button"
+                tabindex="0"
+                class="flex p-2 h-10 bg-ui-2 px-5 justify-between items-center cursor-grab rounded"
+                draggable="true"
+                ondragstart={(event) => onDragStart(event, defaultFunctions.functions[index])}
             >
-                <button
-                    class="h-full"
-                    draggable="true"
-                    ondragstart={(event) => onDragStart(event, defaultFunctions.functions[index])}
-                >
-                    {defaultFunctions.functions[index].functionName}
-                </button>
-                <div>   
+                {defaultFunctions.functions[index].functionName}
+                <div class="flex items-center">   
                     {#if defaultFunctions.functions[index].deletable}
-                        <button onclick={() => editFunction(index)}>
+                        <button type="button" onclick={() => editFunction(index)}>
                             <Pencil class="h-4 w-4" />
                         </button>
-                        <button
+                        <button 
+                            type="button"
                             onclick={() => deleteFunction(index)}
+                            class="ml-2"
                         >
-                            <Trash2 class="h-4 w-4 ml-2" />
+                            <Trash2 class="h-4 w-4" />
                         </button>
                     {/if}
                 </div>

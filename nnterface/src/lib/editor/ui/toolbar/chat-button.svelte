@@ -5,6 +5,6 @@
 
 </script>
 
-<ControlButton on:click={() => {chat.isVisible = !chat.isVisible}}>
+<ControlButton on:click={() => {chat.isVisible = !chat.isVisible}} class={chat.isVisible ? "bg-ui-2" : ""}>
     <MessageSquare />
 </ControlButton>
