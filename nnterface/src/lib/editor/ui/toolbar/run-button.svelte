@@ -15,7 +15,7 @@
     const edges = useEdges();
 
     async function animateOrder(graphObject: any) {
-        const response = await fetch(`${PUBLIC_BACKEND_URL}/order`, {
+        const response = await fetch(`${PUBLIC_BACKEND_URL}/run/order`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -24,6 +24,8 @@
         });
 
         const result = await response.json();
+
+        console.log(result);
         
         animate(result.order, nodes, edges);
     }

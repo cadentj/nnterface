@@ -11,9 +11,9 @@
 <ContextNode label={id}>
     <div class="ml-2">
         from
-        <input class="w-6 text-center" bind:value={data.start} />
+        <input class="w-6 text-center" value={data.start} />
         to
-        <input class="w-6 text-center" bind:value={data.end} />
+        <input class="w-6 text-center" value={data.end} />
     </div>
 </ContextNode>
 

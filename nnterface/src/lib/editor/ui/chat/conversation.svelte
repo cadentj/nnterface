@@ -23,7 +23,7 @@
 
         let graphObject = exportGraph(nodes, getIntersectingNodes, toObject);
 
-        const response = await fetch(`${PUBLIC_BACKEND_URL}/chat`, {
+        const response = await fetch(`${PUBLIC_BACKEND_URL}/run/chat`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

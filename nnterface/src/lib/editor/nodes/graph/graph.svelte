@@ -29,7 +29,7 @@
             <small class="text-sm">{type}</small>
         </div>
         <div class="flex items-center">
-            <Button variant="ghost" class= "!h-9 !w-9" on:click={clearData}>
+            <Button variant="ghost" class= "!h-9 !w-9" onclick={clearData}>
                 <RotateCcw class="h-4 w-4" />
             </Button>
             <Toggle
@@ -52,7 +52,7 @@
 
     <div class="px-3 pt-2">
         {#if selectedGraphType === "line"}
-            <Line bind:dataToGraph={data.graphData} />
+            <Line dataToGraph={data.graphData} />
         {:else if selectedGraphType === "heatmap"}
             <Heatmap data={data.graphData} />
         {/if}

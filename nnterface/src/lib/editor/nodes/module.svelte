@@ -32,7 +32,7 @@
                 <input
                     class="border rounded-md w-12 text-center nodrag"
                     type="text"
-                    bind:value={data.variable}
+                    value={data.variable}
                 />
             </div>
         {/if}
@@ -41,7 +41,7 @@
                 <input
                     class="border rounded-md w-12 text-center nodrag"
                     type="text"
-                    bind:value={data.index}
+                    value={data.index}
                 />
             </div>
         {/if}
