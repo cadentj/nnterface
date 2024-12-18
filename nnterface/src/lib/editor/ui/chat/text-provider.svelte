@@ -2,6 +2,7 @@
     import { useSvelteFlow, useNodes} from "@xyflow/svelte";
     import { exportGraph } from "$lib/editor/flow/utils";
     import { get } from "svelte/store";
+    import { PUBLIC_BACKEND_URL } from '$env/static/public';
 
     const { toObject, getIntersectingNodes, updateNodeData } = useSvelteFlow();
 
@@ -24,7 +25,7 @@
         
         console.log(graphObject)
 
-        const response = await fetch("/api/chat", {
+        const response = await fetch(`${PUBLIC_BACKEND_URL}/chat`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

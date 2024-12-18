@@ -21,7 +21,7 @@ def load_model(repo_id: str):
 
     print("loaded model", flush=True)
 
-@router.post("/")
+@router.post("/load")
 async def load(request: LoadModelRequest):
 
     if "405" not in request.repo_id:
@@ -31,4 +31,11 @@ async def load(request: LoadModelRequest):
 
     return {
         "pytree" : pytree
+    }
+
+@router.get("/available")
+async def available():
+    return {
+        "local": state.local_models,
+        "remote": state.remote_models
     }

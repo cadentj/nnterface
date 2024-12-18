@@ -7,6 +7,7 @@
     } from "@xyflow/svelte";
     import { Play } from "lucide-svelte";
     import { exportGraph } from "$lib/editor/flow/utils";
+    import { PUBLIC_BACKEND_URL } from '$env/static/public';
     import { animate } from "@/lib/editor/flow/animate";
 
     const { toObject, updateNodeData, getIntersectingNodes } = useSvelteFlow();
@@ -14,7 +15,7 @@
     const edges = useEdges();
 
     async function animateOrder(graphObject: any) {
-        const response = await fetch("/api/order", {
+        const response = await fetch(`${PUBLIC_BACKEND_URL}/order`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -36,7 +37,7 @@
 
         animateOrder(graphObject);
 
-        const response = await fetch("/api/run", {
+        const response = await fetch(`${PUBLIC_BACKEND_URL}/run`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

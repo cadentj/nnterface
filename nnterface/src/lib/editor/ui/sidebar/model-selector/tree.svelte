@@ -1,12 +1,13 @@
 <script lang="ts">
     import Leaf from "./leaf.svelte";
     import { Skeleton } from "$lib/components/ui/skeleton/index.js";
+    import { PUBLIC_BACKEND_URL } from '$env/static/public';
 
     let tree = $state({});
     const maxExpandDepth = 3;
 
     export async function load(repoId: string) {
-        const response = await fetch("/api/load-model", {
+        const response = await fetch(`${PUBLIC_BACKEND_URL}/models/load`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

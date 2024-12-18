@@ -1,0 +1,22 @@
+[models]
+
+[models.local]
+base = [
+  "openai-community/gpt2",
+  "Qwen/Qwen2.5-0.5B",
+  "EleutherAI/pythia-70m-deduped",
+]
+
+chat = [
+  "Qwen/Qwen2.5-0.5B-Instruct"
+]
+
+[models.remote]
+
+# You can add duplicates even if they're already in
+# local models, but the dropdown won't render the difference.
+base = [
+  "meta-llama/Llama-3.1-8B"
+]
+
+chat = []

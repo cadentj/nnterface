@@ -26,7 +26,6 @@
  * ```
  */
 declare module '$env/static/private' {
-	export const BACKEND_URL: string;
 	export const NVM_INC: string;
 	export const TERM_PROGRAM: string;
 	export const NODE: string;
@@ -99,7 +98,7 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-	
+	export const PUBLIC_BACKEND_URL: string;
 }
 
 /**
@@ -118,7 +117,6 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
-		BACKEND_URL: string;
 		NVM_INC: string;
 		TERM_PROGRAM: string;
 		NODE: string;
@@ -198,6 +196,7 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
+		PUBLIC_BACKEND_URL: string;
 		[key: `PUBLIC_${string}`]: string | undefined;
 	}
 }

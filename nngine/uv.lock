@@ -396,6 +396,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "nnsight" },
+    { name = "toml" },
     { name = "uvicorn" },
 ]
 
@@ -403,6 +404,7 @@ dependencies = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.115.6" },
     { name = "nnsight", git = "https://github.com/ndif-team/nnsight?rev=0.4" },
+    { name = "toml", specifier = ">=0.10.2" },
     { name = "uvicorn", specifier = ">=0.32.1" },
 ]
 

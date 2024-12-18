@@ -20,7 +20,7 @@
     let { 
         nodes, 
         edges, 
-        initialViewport,
+        initialViewport, // Ignore initial viewport, using fit view. 
     } = load(project);
 
     let fitViewOptions: FitViewOptions = {

@@ -1,5 +1,5 @@
 import app.api.run
-import app.api.load_model
+import app.api.models
 import app.api.get_order
 import app.api.chat
 import app.api.export

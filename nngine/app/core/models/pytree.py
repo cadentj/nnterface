@@ -81,7 +81,6 @@ def get_shapes(repo_id):
         return model, shapes
 
 def get_type(module):
-    print(module)
     return "ModuleList" if isinstance(module._module, torch.nn.ModuleList) else "Module"
 
 def generate_pytree(module, shapes, atomic='', path='', fold=False):

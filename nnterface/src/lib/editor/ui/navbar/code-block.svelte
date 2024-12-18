@@ -1,20 +1,29 @@
 <script lang="ts">
-    import CodeMirror from "svelte-codemirror-editor";
-    import { python } from "@codemirror/lang-python";
-    import { githubDark } from "@uiw/codemirror-theme-github";
-    import { mode } from "mode-watcher";
+    import { Button } from "$lib/components/ui/button";
+    import { Clipboard } from "lucide-svelte";
+    import "highlight.js/styles/github-dark.css";
+    import hljs from "highlight.js/lib/core";
+    import python from "highlight.js/lib/languages/python";
+
+    hljs.registerLanguage("python", python);
 
     let { code } = $props();
+
+    const highlightedCode = hljs.highlight(code, {
+        language: "python",
+    }).value;
 </script>
 
-<CodeMirror
-    value={code}
-    styles={{
-        "&": {
-            maxWidth: "100%",
-            height: "35rem",
-        },
-    }}
-    lang={python()}
-    theme={githubDark}
-/>
+<div class="relative">
+    <Button
+        variant="outline"
+        size="icon"
+        class="absolute top-2 right-2 h-8 w-8"
+        onclick={() => navigator.clipboard.writeText(code)}
+    >
+        <Clipboard class="w-5 h-5" />
+    </Button>
+    <pre class="border rounded-md p-3 text-sm overflow-scroll">
+{@html $state.snapshot(highlightedCode)}
+</pre>
+</div>
