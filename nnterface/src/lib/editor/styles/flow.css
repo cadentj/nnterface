@@ -78,7 +78,7 @@
 
 .node {
     min-width: 100px;
-    @apply bg-card border rounded;
+    @apply bg-secondary border rounded;
 }
 
 .node-highlighted {
@@ -123,5 +123,9 @@
 /* GENERAL */
 
 input {
-    @apply bg-ui-3 rounded-sm;
+    @apply bg-ui-3 rounded focus-visible:ring-primary focus:outline-none focus-visible:ring-1;
+}
+
+textarea {
+    @apply bg-ui-3 rounded focus-visible:ring-primary focus:outline-none focus-visible:ring-1;
 }

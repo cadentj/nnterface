@@ -1,6 +1,5 @@
 <script lang="ts">
-    import NDIF from "./ndif.png";
-    import { ChevronLeft, Download } from "lucide-svelte";
+    import { ChevronLeft } from "lucide-svelte";
     import Button from "$lib/components/ui/button/button.svelte";
     import ExportButton from "./export-button.svelte";
     import SaveButton from "./save-button.svelte";
@@ -20,14 +19,9 @@
         <input
             type="text"
             bind:value={title}
-            class="bg-transparent rounded px-2 py-1 text-lg"
+            class="bg-transparent rounded px-2 py-1 text-lg hover:!border"
         />
     </div>
-
-    <!-- Center: Word -->
-    <!-- <div class="text-center">
-        <img src={NDIF} alt="Nnsight Logo" class="h-10" />
-    </div> -->
 
     <!-- Right: Button -->
     <div class="flex items-center gap-3">

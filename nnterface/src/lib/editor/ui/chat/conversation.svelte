@@ -1,12 +1,53 @@
 <script lang="ts">
     import { ArrowUp } from "lucide-svelte";
-    import ChatProvider from "./text-provider.svelte";
+
+    import { useSvelteFlow, useNodes } from "@xyflow/svelte";
+    import { exportGraph } from "$lib/editor/flow/utils";
+    import { get } from "svelte/store";
+    import { PUBLIC_BACKEND_URL } from "$env/static/public";
+
+    const { toObject, getIntersectingNodes, updateNodeData } = useSvelteFlow();
+    const nodes = useNodes();
+
+    async function chat(messages: Array<{ content: string; role: string }>) {
+        for (const n of get(nodes)) {
+            if (n.type === "chat") {
+                updateNodeData(n.id, {
+                    messages: messages,
+                    temperature: temperature[0],
+                    maxNewTokens: maxNewTokens[0],
+                });
+                console.log(n.id);
+            }
+        }
+
+        let graphObject = exportGraph(nodes, getIntersectingNodes, toObject);
+
+        const response = await fetch(`${PUBLIC_BACKEND_URL}/chat`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(graphObject),
+        });
+
+        const result = await response.json();
+
+        let r: string = "";
+        for (const [nodeId, data] of Object.entries(result)) {
+            const parsed = JSON.parse(data as string);
+            r = parsed.at(-1)["content"];
+        }
+
+        return r;
+    }
 
     let messages = $state<any[]>([]);
     let inputMessage = $state("");
     let chatContainer = $state<HTMLElement>();
     let isLoading = $state(false);
-    let chat = $state<ChatProvider>();
+
+    let { temperature, maxNewTokens } = $props();
 
     async function sendMessage() {
         if (inputMessage.trim() === "" || isLoading) return;
@@ -21,7 +62,7 @@
             { content: "", role: "assistant", isLoading: true },
         ];
 
-        let response = await chat?.chat(messages.filter((m) => !m.isLoading));
+        let response = await chat(messages.filter((m) => !m.isLoading));
 
         // Remove loading message and stream the response
         messages = messages.filter((m) => !m.isLoading);
@@ -52,15 +93,15 @@
     });
 </script>
 
-<ChatProvider bind:this={chat}>
+<div class="flex flex-col h-full relative">
     <div
         bind:this={chatContainer}
-        class="chat-container overflow-y-auto rounded mb-4"
+        class="overflow-y-auto rounded mb-4"
     >
         {#each messages as message}
             <div class="mb-2 {message.role === 'user' ? 'text-right' : ''}">
                 <span
-                    class="inline-block px-4 py-2 rounded-lg bg-ui-2"
+                    class="inline-block px-4 py-2 rounded bg-ui-2"
                     class:animate-pulse={message.isLoading}
                 >
                     {#if message.isLoading}
@@ -72,29 +113,22 @@
             </div>
         {/each}
     </div>
-    <div class="flex flex-col relative">
+    <div class="flex flex-col absolute bottom-0 left-0 right-0">
         <textarea
             bind:value={inputMessage}
             onkeydown={(e) =>
                 e.key === "Enter" && !e.shiftKey && !isLoading && sendMessage()}
             placeholder="Type your message..."
-            class="flex-grow px-4 py-2 text-sm border bg-ui-1 rounded-lg resize-none"
+            class="flex-grow px-4 py-2 text-sm border bg-ui-1 rounded resize-none"
             disabled={isLoading}
             rows="3"
         ></textarea>
         <button
             onclick={sendMessage}
-            class="absolute bottom-2 right-2 w-8 h-8 rounded-lg bg-ui-2 flex items-center justify-center focus:outline-none focus:ring-1"
+            class="absolute bottom-2 right-2 w-8 h-8 rounded bg-ui-2 flex items-center justify-center focus:outline-none focus:ring-1"
             disabled={isLoading}
         >
             <ArrowUp class="h-5 w-5" />
         </button>
     </div>
-</ChatProvider>
-
-<style>
-    .chat-container {
-        min-height: 50vh;
-        max-height: calc(100vh - 15rem);
-    }
-</style>
+</div>

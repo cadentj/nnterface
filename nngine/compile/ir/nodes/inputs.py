@@ -48,6 +48,9 @@ class ChatData(NodeData):
     messages: List[Dict[str, str]] | str = []
     tokens: List[int] = []
 
+    temperature: float = 0.0
+    max_new_tokens: int = 10
+
 
 class ChatNode(Node):
     """Chat node representing some input text string. Typically connected

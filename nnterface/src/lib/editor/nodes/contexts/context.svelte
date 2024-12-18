@@ -17,7 +17,7 @@
         <small class="text-sm">{label}</small>
         {@render children?.()}
     </div>
-    <NodeResizeControl minWidth={250} minHeight={200}>
+    <NodeResizeControl minWidth={250} minHeight={150}>
         <div class="resizer">
             <Maximize2 class="h-3 w-3" />
         </div>

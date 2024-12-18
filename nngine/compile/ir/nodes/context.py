@@ -43,11 +43,6 @@ class SessionNode(ContextNode):
         pass
 
 
-# This is sort of arbitrary and should be an argument on the node itself. E.g. with a slider on the frontend.
-# TODO: Make this an argument on the node itself.
-MAX_NEW_TOKENS = 10
-
-
 class RunNode(ContextNode):
     """Node defining a `.trace` context in NNsight.
 
@@ -59,9 +54,9 @@ class RunNode(ContextNode):
     type: Literal["run"]
     code: str = "with model.trace({input}) as tracer:"
 
-    generate: str = "with model.generate({input}_content, max_new_tokens={max_new_tokens}) as generator:"
+    generate: str = "with model.generate({input}_content, temperature={temperature}, max_new_tokens={max_new_tokens}) as generator:"
 
-    def gen(self, input_id: str) -> None:
+    def gen(self, input_id: str, temperature: float, max_new_tokens: int) -> None:
         """Defines formatting behavior for when a `.generator` context is used rather than a `.trace`.
 
         Args:
@@ -77,7 +72,9 @@ class RunNode(ContextNode):
             + self.indent(extra=1)
             + f"{input_id} = model.generator.output.tolist().save()"
         )
-        self.code = self.generate.format(input=input_id, max_new_tokens=MAX_NEW_TOKENS)
+        self.code = self.generate.format(
+            input=input_id, temperature=temperature, max_new_tokens=max_new_tokens
+        )
 
     def precompile(self, args: List[Node]) -> None:
         input_node = [arg for arg in args if isinstance(arg, (InputNode, ChatNode))]
@@ -89,7 +86,9 @@ class RunNode(ContextNode):
         input_id = "" if not input_node else input_node[0].id
 
         if isinstance(input_node[0], ChatNode):
-            self.gen(input_id)
+            temperature = input_node[0].data.temperature
+            max_new_tokens = input_node[0].data.max_new_tokens
+            self.gen(input_id, temperature, max_new_tokens)
         else:
             self.code = self.code.format(input=input_id)
 

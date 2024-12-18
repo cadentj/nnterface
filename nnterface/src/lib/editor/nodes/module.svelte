@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Position, useHandleConnections, Handle } from "@xyflow/svelte";
-    // import Handle from "$lib/editor/flow/handle.svelte";
     import type { ModuleNodeProps } from "$lib/editor/types/nodes";
 
     let { id, type, data, ...restProps }: ModuleNodeProps = $props();

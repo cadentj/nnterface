@@ -7,6 +7,7 @@ export let modelSelector = $state({
 export let editor = $state({
     proximity: false,
     snapGrid: undefined,
+    chatNodeExists: false,
 });
 
 export const connections: Record<string, string[]> = {

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { useSvelteFlow } from "@xyflow/svelte";
-    import { X, ArrowDownLeft, Pencil, Lightbulb } from "lucide-svelte";
-    import { Button } from "$lib/components/ui/button/index.js";
+    import { X} from "lucide-svelte";
     import { Separator } from "$lib/components/ui/separator";
     import Textarea from "@/lib/components/ui/textarea/textarea.svelte";
 
@@ -18,15 +17,16 @@
 </script>
 
 {#if !open}
-    <button class="bg-card !w-10 !h-10 rounded-lg duration-500" onclick={() => open = true}>
-        <div class="!bg-[#E7B73D]/30 w-full h-full animate-pulse flex items-center rounded-lg justify-center">
-            <Lightbulb class="h-6 w-6" />
+    <button class="bg-card !w-10 !h-10 rounded duration-500" onclick={() => open = true}>
+        <div class="!bg-[#E7B73D]/30 w-full h-full animate-pulse flex items-center rounded justify-center">
+            <!-- <Lightbulb class="h-6 w-6" /> -->
+             ?
         </div>
     </button>
 {/if}
 
 {#if open}
-<div class="bg-card w-[175px] h-full rounded-lg" role="region">
+<div class="bg-card w-[175px] h-full rounded" role="region">
     <div class="node !bg-[#E7B73D]/10">
         <div class="flex justify-between">
             <button onclick={() => editing = !editing}><b>Info</b></button>
@@ -39,7 +39,7 @@
         <Separator class="my-2 bg-foreground" />
 
         {#if editing}
-            <Textarea bind:value={data.text}/>
+            <Textarea class="nodrag" bind:value={data.text}/>
         {:else}
             <p >
                 {data.text}

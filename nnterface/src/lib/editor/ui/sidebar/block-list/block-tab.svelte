@@ -21,7 +21,7 @@
 
             if (contexts.includes(newNode.type)) {
                 newNode.data.variant = "context";
-                newNode.height = 200;
+                newNode.height = 150;
                 newNode.width = 250;
             } else if (newNode.type === "graph") {
                 newNode.height = 225;

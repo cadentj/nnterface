@@ -23,5 +23,9 @@ export function load({ params }) {
         throw error(404, "Project not found")
     }
 
-	return projects[loadedProject];
+	let project = projects[loadedProject];
+
+    project.name = params.project;
+
+    return project;
 }

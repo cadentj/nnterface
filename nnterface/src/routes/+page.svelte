@@ -10,6 +10,10 @@
     ];
 </script>
 
+<svelte:head>
+    <title>NNterface</title>
+</svelte:head>
+
 <div 
     class="flex flex-col w-page h-[100vh] items-center justify-center"
 >

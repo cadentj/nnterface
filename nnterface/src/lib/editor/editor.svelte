@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { SvelteFlow, SvelteFlowProvider, type FitViewOptions } from "@xyflow/svelte";
+    import { SvelteFlow, SvelteFlowProvider } from "@xyflow/svelte";
     import { defaultEdgeOptions, nodeTypes, load } from "./flow";
 
     import Layout from "./flow/layout.svelte";
@@ -17,8 +17,6 @@
 
     import { editor } from "./handlers/states.svelte";
 
-    import { fade } from 'svelte/transition';
-
     let { project } = $props();
 
     let { 
@@ -27,17 +25,17 @@
         initialViewport, // Ignore initial viewport, using fit view. 
     } = load(project);
 
-    let fitViewOptions: FitViewOptions = {
-        padding: .5,
-    }
-
     let dragAndDropHandler: any;
     let connectionHandler: any;
     let proximityHandler: any;
 </script>
 
+<svelte:head>
+    <title>NNterface</title>
+</svelte:head>
+
 {#snippet navbar()}
-    <Navbar title="Untitled" />
+    <Navbar title={project.name === "new" ? "Untitled" : project.name} />
 {/snippet}
 
 {#snippet flow()}
@@ -45,10 +43,15 @@
         {nodes}
         {edges}
         fitView={true}
-        snapGrid={editor.snapGrid}
-        fitViewOptions={fitViewOptions}
+        snapGrid={$state.snapshot(editor.snapGrid)}
         {defaultEdgeOptions}
         {nodeTypes}
+        ondelete={({nodes, edges}) => {
+            const hasChatNode = nodes.some(node => node.id.includes('chat'));
+            if (hasChatNode) {
+                editor.chatNodeExists = false;
+            }
+        }}
         on:dragover={dragAndDropHandler.onDragOver}
         on:drop={dragAndDropHandler.onDrop}
         onconnectend={() => 
