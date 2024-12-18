@@ -42,7 +42,7 @@
             <div class="grid grid-cols-2 gap-4 pt-2">
                 {#each group.blocks as block, index}
                     <button
-                        class="p-2 h-10 bg-ui-2 border rounded-md"
+                        class="p-2 h-10 bg-ui-2 border rounded-md cursor-grab"
                         style="grid-column-start: {(index % 2) + 1};"
                         draggable="true"
                         ondragstart={(event) => onDragStart(event, block)}

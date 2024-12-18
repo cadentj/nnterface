@@ -61,7 +61,7 @@
 				ondragstart={(event) => onDragStart(event, tree.atomic)}
 				onclick={toggleExpansion}
 				draggable={true}
-				class="p-3 flex items-center"
+				class="p-3 flex items-center cursor-grab"
 			>
 				<span class="mr-2 text-gray-600">
 					{#if tree.expanded}
@@ -87,7 +87,7 @@
 			<button
 				ondragstart={(event) => onDragStart(event, tree.atomic)}
 				draggable={true}
-				class="p-3 flex items-center"
+				class="p-3 flex items-center cursor-grab"
 			>
 				{tree.name}
 			</button>
