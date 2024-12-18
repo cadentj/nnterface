@@ -4,8 +4,9 @@ export let modelSelector = $state({
     isChatModel: false,
 });
 
-export let proximity = $state({
-    isOn: false,
+export let editor = $state({
+    proximity: false,
+    snapGrid: undefined,
 });
 
 export const connections: Record<string, string[]> = {

@@ -2,8 +2,8 @@
 
 .svelte-flow__controls-button {
     @apply 
-        !w-12
-        !h-12 
+        !w-10
+        !h-10
         rounded-lg 
         border
         bg-ui-1;
@@ -68,25 +68,23 @@
 /* LAYOUT */
 
 .layout {
-    @apply relative h-screen w-full overflow-hidden;
+    @apply relative h-screen w-screen overflow-hidden;
 }
 
 .layout .sidebar {
-    @apply absolute top-[3vh] left-0 h-auto overflow-auto z-10 pointer-events-none;
-    width: 22%;
+    @apply w-[20vw] top-[5vh] absolute left-0 h-full border-r;
 }
 
 .layout .flow {
-    @apply absolute inset-0 z-0 h-full;
+    @apply absolute left-[20%] top-[5vh] h-[95vh] w-[80vw];
 }
 
 .layout .navbar {
-    @apply absolute top-0 left-0 w-full h-[3vh] z-20;
+    @apply absolute top-0 left-0 w-full h-[5vh] z-20 border-b;
 }
 
 .layout .chat {
-    @apply absolute top-[3vh] right-0 h-auto overflow-auto z-10 pointer-events-none;
-    width: 22%;
+    @apply absolute top-[5vh] right-0 h-[95vh] z-10 w-[20vw] border-l;
 }
 
 /* NODES */
@@ -117,18 +115,17 @@
     grid-auto-flow: dense;
 }
 
-/* CONTEXT NODE */
-
-/* The draggable class is defined in the context.svelte file. */
-
-/* .draggable {
-    pointer-events: all !important;
-
-    @apply !cursor-move;
-} */
-
 .border-gradient {
-    border-image: linear-gradient(to right, rgba(147, 89, 146, 0.8) 0%, rgba(46, 131, 175, 0.8) 100%) .5;
+    border-width: 1px;
+    border-style: solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-image: linear-gradient(to right, rgba(147, 89, 146, 0.8), rgba(46, 131, 175, 0.8)) 1;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, rgba(147, 89, 146, 0.8), rgba(46, 131, 175, 0.8));
 }
 
 .resizer {
@@ -145,5 +142,5 @@
 /* GENERAL */
 
 input {
-    @apply bg-ui-2 rounded-sm;
+    @apply bg-ui-3 rounded-sm;
 }

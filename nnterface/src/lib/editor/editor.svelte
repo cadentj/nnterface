@@ -15,6 +15,8 @@
     import "@xyflow/svelte/dist/base.css";
     import "$lib/editor/styles/flow.css";
 
+    import { editor } from "./handlers/states.svelte";
+
     let { project } = $props();
 
     let { 
@@ -41,6 +43,7 @@
         {nodes}
         {edges}
         fitView={true}
+        snapGrid={editor.snapGrid}
         fitViewOptions={fitViewOptions}
         {defaultEdgeOptions}
         {nodeTypes}

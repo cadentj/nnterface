@@ -4,11 +4,11 @@
 
     let {
         label,
-        children,
+        children = undefined,
     } = $props();
 </script>
 
-<div class="context">
+<div>
     <div 
         class="flex items-center border-b px-3 py-2 h-auto draggable"
         class:border-gradient={label == 'run' || label == 'batch'}
@@ -17,7 +17,7 @@
         <small class="text-sm">{label}</small>
         {@render children?.()}
     </div>
-    <NodeResizeControl minWidth={200} minHeight={150}>
+    <NodeResizeControl minWidth={250} minHeight={200}>
         <div class="resizer">
             <Maximize2 class="h-3 w-3" />
         </div>
@@ -29,7 +29,6 @@
 <style>
     .draggable {
         pointer-events: all !important;
-
-        @apply !cursor-move;
+        cursor: move;
     }
 </style>

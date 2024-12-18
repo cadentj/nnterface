@@ -4,7 +4,7 @@
     import Generation from "./generation.svelte";
 </script>
 
-<main class="p-10 pointer-events-auto h-full">
+<main class="p-6 bg-card">
     {#if modelSelector.isChatModel}
         <Chat />
     {:else}

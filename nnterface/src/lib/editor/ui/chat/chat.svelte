@@ -53,48 +53,42 @@
 </script>
 
 <ChatProvider bind:this={chat}>
-    <div class="bg-card rounded-lg p-4 border">
-        <div
-            bind:this={chatContainer}
-            class="chat-container overflow-y-auto rounded mb-4"
-        >
-            {#each messages as message}
-                <div
-                    class="mb-2 {message.role === 'user'
-                        ? 'text-right'
-                        : ''}"
+    <div
+        bind:this={chatContainer}
+        class="chat-container overflow-y-auto rounded mb-4"
+    >
+        {#each messages as message}
+            <div class="mb-2 {message.role === 'user' ? 'text-right' : ''}">
+                <span
+                    class="inline-block px-4 py-2 rounded-lg bg-ui-2"
+                    class:animate-pulse={message.isLoading}
                 >
-                    <span
-                        class="inline-block px-4 py-2 rounded-lg bg-ui-2"
-                        class:animate-pulse={message.isLoading}
-                    >
-                        {#if message.isLoading}
-                            ...
-                        {:else}
-                            {message.content}
-                        {/if}
-                    </span>
-                </div>
-            {/each}
-        </div>
-        <div class="flex flex-col relative">
-            <textarea
-                bind:value={inputMessage}
-                onkeydown={(e) =>
-                    e.key === "Enter" && !e.shiftKey && !isLoading && sendMessage()}
-                placeholder="Type your message..."
-                class="flex-grow px-4 py-2 text-sm border bg-ui-1 rounded-lg resize-none"
-                disabled={isLoading}
-                rows="3"
-            ></textarea>
-            <button
-                onclick={sendMessage}
-                class="absolute bottom-2 right-2 w-8 h-8 rounded-lg bg-ui-2 flex items-center justify-center focus:outline-none focus:ring-1"
-                disabled={isLoading}
-            >
-                <ArrowUp class="h-5 w-5" />
-            </button>
-        </div>
+                    {#if message.isLoading}
+                        ...
+                    {:else}
+                        {message.content}
+                    {/if}
+                </span>
+            </div>
+        {/each}
+    </div>
+    <div class="flex flex-col relative">
+        <textarea
+            bind:value={inputMessage}
+            onkeydown={(e) =>
+                e.key === "Enter" && !e.shiftKey && !isLoading && sendMessage()}
+            placeholder="Type your message..."
+            class="flex-grow px-4 py-2 text-sm border bg-ui-1 rounded-lg resize-none"
+            disabled={isLoading}
+            rows="3"
+        ></textarea>
+        <button
+            onclick={sendMessage}
+            class="absolute bottom-2 right-2 w-8 h-8 rounded-lg bg-ui-2 flex items-center justify-center focus:outline-none focus:ring-1"
+            disabled={isLoading}
+        >
+            <ArrowUp class="h-5 w-5" />
+        </button>
     </div>
 </ChatProvider>
 

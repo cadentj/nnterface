@@ -30,14 +30,24 @@
 
         const numNodes = ($nodes.length).toString();
 
+        const className = (variant: string) => {
+            switch (variant) {
+                case "context":
+                    return "!pointer-events-none context";
+                case "graph":
+                case "tutorial": 
+                    return "";
+                default:
+                    return "node";
+            }
+        }
+
         const newNode = {
             ...type,
             id: `${type.type}` + numNodes,
             position: position,
             origin: [0, 0],
-            class: (type.data.variant === "context") 
-                ? "!pointer-events-none rounded-lg" 
-                : "rounded-lg",
+            class: className(type.data.variant),
         } satisfies Node;
 
         $nodes = [...$nodes, newNode];

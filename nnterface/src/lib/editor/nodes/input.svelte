@@ -5,8 +5,7 @@
 
     let {
         id, 
-        data,
-        ...restProps
+        data
     }: InputNodeProps = $props();
 
     const { updateNodeData } = useSvelteFlow();
@@ -22,7 +21,7 @@
             value={data.text}
             on:input={(evt) =>
                 updateNodeData(id, { text: evt.currentTarget.value })}
-            class="resize-none !bg-ui-2"
+            class="resize-none !bg-ui-3"
         />
     </div>
 

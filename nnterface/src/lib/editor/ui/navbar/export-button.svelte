@@ -37,7 +37,7 @@
 <Dialog.Root bind:open>
     <Button
         onclick={() => exportCode()}
-        class="pointer-events-auto"
+        class="bg-gradient"
         variant="outline"
     >
         Export

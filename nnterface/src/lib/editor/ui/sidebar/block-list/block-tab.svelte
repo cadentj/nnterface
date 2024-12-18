@@ -21,8 +21,8 @@
 
             if (contexts.includes(newNode.type)) {
                 newNode.data.variant = "context";
-                newNode.height = 150;
-                newNode.width = 200;
+                newNode.height = 200;
+                newNode.width = 250;
             } else if (newNode.type === "graph") {
                 newNode.height = 225;
                 newNode.width = 350;
@@ -42,7 +42,7 @@
             <div class="grid grid-cols-2 gap-4 pt-2">
                 {#each group.blocks as block, index}
                     <button
-                        class="p-2 h-10 bg-ui-2 border border-border-light rounded-md"
+                        class="p-2 h-10 bg-ui-2 border rounded-md"
                         style="grid-column-start: {(index % 2) + 1};"
                         draggable="true"
                         ondragstart={(event) => onDragStart(event, block)}

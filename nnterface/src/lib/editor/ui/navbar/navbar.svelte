@@ -7,33 +7,33 @@
     import { useSvelteFlow } from "@xyflow/svelte";
 
     let { title } = $props();
-
-    const { toObject} = useSvelteFlow();
 </script>
 
-<nav class="bg-transparent h-auto w-full pointer-events-none ">
-    <div class="px-10 py-5 flex justify-between items-center">
-        <!-- Left: Text Input -->
-        <div class="flex items-center gap-4">
-            <Button size="icon" variant="secondary" class="pointer-events-auto" href="/">
-                <ChevronLeft class="w-5 h-5" />
-            </Button>
-            <input
-                type="text"
-                bind:value={title}
-                class="bg-transparent rounded px-2 py-1 pointer-events-auto text-lg"
-            />
-        </div>
+<nav class="h-full w-full flex justify-between items-center px-6 bg-card">
+    <!-- Left: Text Input -->
+    <div class="flex items-center gap-4">
+        <Button
+            size="icon"
+            variant="secondary"
+            href="/"
+        >
+            <ChevronLeft class="w-5 h-5" />
+        </Button>
+        <input
+            type="text"
+            bind:value={title}
+            class="bg-transparent rounded px-2 py-1 text-lg"
+        />
+    </div>
 
-        <!-- Center: Word -->
-        <div class="text-center">
-            <img src={NDIF} alt="Nnsight Logo" class="h-10" />
-        </div>
+    <!-- Center: Word -->
+    <!-- <div class="text-center">
+        <img src={NDIF} alt="Nnsight Logo" class="h-10" />
+    </div> -->
 
-        <!-- Right: Button -->
-        <div class="flex items-center gap-3">
-            <ExportButton />
-            <SaveButton />
-        </div>
+    <!-- Right: Button -->
+    <div class="flex items-center gap-3">
+        <ExportButton />
+        <SaveButton />
     </div>
 </nav>

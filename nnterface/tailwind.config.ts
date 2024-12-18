@@ -55,6 +55,7 @@ const config: Config = {
 				ui: {
 					1: "hsl(var(--ui-1))",
 					2: "hsl(var(--ui-2))",
+					3: "hsl(var(--ui-3))",
 				},
 				sidebar: {
 					DEFAULT: "hsl(var(--sidebar-background))",

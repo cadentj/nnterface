@@ -25,21 +25,21 @@
     const demoBlocks: BlockGroup[] = [control, data, output];
 </script>
 
-<div class='p-10 h-full'>
-    <Tabs.Root value="model" class="pointer-events-auto" id="sidebar">
-        <Tabs.List class="w-full rounded-lg h-12 border !bg-card">
-            <Tabs.Trigger value="model" class="w-full h-full data-[state=active]:!bg-ui-1">Model</Tabs.Trigger>
-            <Tabs.Trigger value="blocks" class="w-full h-full data-[state=active]:!bg-ui-1">Blocks</Tabs.Trigger>
-            <Tabs.Trigger value="functions" class="w-full h-full data-[state=active]:!bg-ui-1">Functions</Tabs.Trigger>
+<div class='p-6 h-full bg-card'>
+    <Tabs.Root value="model" id="sidebar">
+        <Tabs.List class="w-full h-12">
+            <Tabs.Trigger value="model" class="w-full h-full">Model</Tabs.Trigger>
+            <Tabs.Trigger value="blocks" class="w-full h-full">Blocks</Tabs.Trigger>
+            <Tabs.Trigger value="functions" class="w-full h-full">Functions</Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content value="model" class="px-5 py-4 rounded-lg border !bg-card">
+        <Tabs.Content value="model">
             <ModelSelector/>
         </Tabs.Content> 
-        <Tabs.Content value="blocks" class="px-5 py-4 rounded-lg border !bg-card">
+        <Tabs.Content value="blocks">
             <BlockList blockGroups={demoBlocks} />
         </Tabs.Content>
-        <Tabs.Content value="functions" class="px-5 py-4 rounded-lg border !bg-card">
+        <Tabs.Content value="functions">
             <FunctionTab />
         </Tabs.Content>
     </Tabs.Root>

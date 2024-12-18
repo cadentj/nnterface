@@ -18,7 +18,7 @@
 </script>
 
 <div
-    class="node flex"
+    class="flex"
     ondblclick={() => (showIndex = !showIndex)}
     role="region"
 >

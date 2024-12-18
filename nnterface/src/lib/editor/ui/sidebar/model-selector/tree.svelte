@@ -22,9 +22,6 @@
 
         trimTree(pytree, null, false, 0);
         tree = pytree;
-
-        // Collapse the very first module for a wider view.
-        tree.expanded = false;
     }
 
     // Big assumption that models only have one module list

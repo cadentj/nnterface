@@ -7,7 +7,7 @@
         type Edge,
         type InternalNode,
     } from "@xyflow/svelte";
-    import { connections, proximity } from "./states.svelte";
+    import { connections, editor } from "./states.svelte";
 
     const nodes = useNodes();
     const edges = useEdges();
@@ -153,7 +153,7 @@
     }
 
     export function onNodeDrag({ targetNode: node }, checkIsValidConnection) {
-        if (!proximity.isOn) {
+        if (!editor.proximity) {
             return;
         }
 
@@ -212,7 +212,7 @@
     }
 
     export function onNodeDragStop() {
-        if (!proximity.isOn) {
+        if (!editor.proximity) {
             return;
         }
         

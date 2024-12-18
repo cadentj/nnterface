@@ -45,7 +45,7 @@
 </script>
 
 <Dialog.Root onOpenChange={() => exportGraph()}>
-    <Dialog.Trigger class="pointer-events-auto {buttonVariants({variant: "default"})}">
+    <Dialog.Trigger class={buttonVariants({variant: "default"})}>
         Save
         <Download class="w-5 h-5 ml-2" />
     </Dialog.Trigger>
