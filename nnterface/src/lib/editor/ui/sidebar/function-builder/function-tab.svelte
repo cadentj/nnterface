@@ -37,7 +37,7 @@
 
 <Dialog.Root bind:open>
     <div class="flex justify-between items-center mb-2">
-        <small>Functions</small>
+        <small>Functions Model</small>
         <Dialog.Trigger
             onclick={() => {
                 openIndex = -1;

@@ -2,11 +2,10 @@
 
 .svelte-flow__controls-button {
     @apply 
-        !w-10
-        !h-10
-        rounded-lg 
-        border
-        bg-ui-1;
+        !w-8
+        !h-8
+        hover:bg-ui-2
+        rounded-lg;
 }
 
 .svelte-flow__node-input {
@@ -19,7 +18,7 @@
 }
 
 .svelte-flow__node.selected {
-    @apply !border-current !rounded-lg;
+    @apply !border-ui-3 !rounded;
 }
 
 .svelte-flow__node.selected, .svelte-flow__node:focus {
@@ -90,25 +89,19 @@
 /* NODES */
 
 .node {
-    border-radius: var(--radius);
     min-width: 100px;
-    @apply items-center text-center p-3 bg-card border border-ui-1;
+    @apply bg-card border rounded;
 }
 
 .node-highlighted {
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 1.0) !important;
-    border-radius: var(--radius);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 1.0) !important rounded;
 }
 
 .context {
     height: 100%;
 
     border: 2px solid;
-    @apply border-ui-1;
-    
-    border-radius: var(--radius);
-
-    /* background-color: rgba(255, 255, 255, 0.05); */
+    @apply border-ui-1 rounded;
 }
 
 .block-container {

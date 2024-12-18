@@ -58,6 +58,6 @@
     }
 </script>
 
-<ControlButton onclick={run}>
-    <Play style="color: green;" />
+<ControlButton onclick={run} class="bg-gradient hover:brightness-125">
+    <Play />
 </ControlButton>

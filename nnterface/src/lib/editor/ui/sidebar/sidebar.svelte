@@ -27,7 +27,7 @@
 
 <div class='p-6 h-full bg-card'>
     <Tabs.Root value="model" id="sidebar">
-        <Tabs.List class="w-full h-12">
+        <Tabs.List class="w-full h-12 mb-3">
             <Tabs.Trigger value="model" class="w-full h-full">Model</Tabs.Trigger>
             <Tabs.Trigger value="blocks" class="w-full h-full">Blocks</Tabs.Trigger>
             <Tabs.Trigger value="functions" class="w-full h-full">Functions</Tabs.Trigger>

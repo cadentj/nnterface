@@ -34,7 +34,6 @@
             switch (variant) {
                 case "context":
                     return "!pointer-events-none context";
-                case "graph":
                 case "tutorial": 
                     return "";
                 default:

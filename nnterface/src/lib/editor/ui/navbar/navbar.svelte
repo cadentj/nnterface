@@ -4,8 +4,6 @@
     import Button from "$lib/components/ui/button/button.svelte";
     import ExportButton from "./export-button.svelte";
     import SaveButton from "./save-button.svelte";
-    import { useSvelteFlow } from "@xyflow/svelte";
-
     let { title } = $props();
 </script>
 

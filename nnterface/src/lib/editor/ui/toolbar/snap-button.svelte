@@ -5,7 +5,7 @@
 
     function toggleSnapGrid() {
         if (editor.snapGrid === undefined) {
-            editor.snapGrid = [20, 20];
+            editor.snapGrid = [30, 30];
         } else {
             editor.snapGrid = undefined;
         }

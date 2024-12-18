@@ -18,7 +18,7 @@
 </script>
 
 <div
-    class="flex"
+    class="flex p-3 justify-center"
     ondblclick={() => (showIndex = !showIndex)}
     role="region"
 >

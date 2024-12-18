@@ -17,6 +17,8 @@
 
     import { editor } from "./handlers/states.svelte";
 
+    import { fade } from 'svelte/transition';
+
     let { project } = $props();
 
     let { 

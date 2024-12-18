@@ -26,7 +26,7 @@
             } else if (newNode.type === "graph") {
                 newNode.height = 225;
                 newNode.width = 350;
-            }
+            } 
             
             modelSelector.draggedType = newNode;
 

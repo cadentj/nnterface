@@ -22,7 +22,7 @@
     let selectedGraphType = $state("line"); // Default selection
 </script>
 
-<div class="bg-card border rounded-lg overflow-hidden h-[225px] w-[350px]">
+<div class="overflow-hidden h-[225px] w-[350px]">
     <div class="flex justify-between border-b px-3 py-1 h-auto draggable">
         <div class="flex items-center">
             <GripVertical class="h-5 w-5 mr-2" />
