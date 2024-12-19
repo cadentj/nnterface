@@ -24,7 +24,10 @@ def load_model(repo_id: str, dispatch: bool):
 
 @router.post("/load")
 async def load(request: LoadModelRequest):
-    dispatch = state.check_is_remote(request.repo_id)
+    print(request.repo_id)
+    dispatch = not state.check_is_remote(request.repo_id)
+
+    print("dispatch", dispatch)
     load_model(request.repo_id, dispatch=dispatch)
 
     pytree = load_pytree(request.repo_id)

@@ -39,10 +39,16 @@ class AppState:
     
     @property
     def is_remote(self) -> bool:
-        return self.repo_id in self.remote_models
+        return (
+            self.repo_id in self.remote_models.base
+            or self.repo_id in self.remote_models.chat
+        )
     
     def check_is_remote(self, repo_id: str) -> bool:
-        return repo_id in self.remote_models
+        return (
+            repo_id in self.remote_models.base
+            or repo_id in self.remote_models.chat
+        )
     
     @property
     def is_chat(self) -> bool:
