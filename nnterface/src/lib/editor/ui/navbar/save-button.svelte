@@ -1,7 +1,7 @@
 <script lang="ts">
     import { useSvelteFlow, useNodes, type Node } from "@xyflow/svelte";
     import { Download, Clipboard } from "lucide-svelte";
-    import {buttonVariants} from "$lib/components/ui/button/button.svelte";
+    import { buttonVariants } from "$lib/components/ui/button/button.svelte";
     import * as Dialog from "$lib/components/ui/dialog";
     import { clearParents } from "@/lib/editor/flow/utils";
     import { Button } from "$lib/components/ui/button/index.js";
@@ -37,7 +37,6 @@
     async function exportGraph() {
         updateIntersections();
 
-        console.log(modelSelector.modelId);
         let graphObject = toObject();
         graphObject["modelId"] = modelSelector.modelId;
         code = JSON.stringify(graphObject, null, 2);
@@ -45,25 +44,24 @@
 </script>
 
 <Dialog.Root onOpenChange={() => exportGraph()}>
-    <Dialog.Trigger class={buttonVariants({variant: "default"})}>
+    <Dialog.Trigger class={buttonVariants({ variant: "default" })}>
         Save
         <Download class="w-5 h-5 ml-2" />
     </Dialog.Trigger>
-    <Dialog.Content class="max-w-[50%] max-h-[50%]">
+    <Dialog.Content class="min-w-[30vw] h-[50vh]">
         <Dialog.Title>Save</Dialog.Title>
-        <div class="max-h-[400px] overflow-y-auto rounded border p-4 bg-secondary/10">
-            <div class="relative">
+        <div class="h-full w-full overflow-scroll rounded border p-3 relative">
 
-                <Button 
+                <Button
                     variant="outline"
                     size="icon"
-                    class="absolute top-0 right-0"
+                    class="absolute top-2 right-2 h-8 w-8"
                     onclick={() => navigator.clipboard.writeText(code)}
                 >
                     <Clipboard class="w-5 h-5" />
-            </Button>
+                </Button>
                 <pre class="whitespace-pre-wrap break-words">{code}</pre>
-            </div>
+
         </div>
     </Dialog.Content>
 </Dialog.Root>

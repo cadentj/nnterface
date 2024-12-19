@@ -51,6 +51,7 @@
 </script>
 
 <Dialog.Root bind:open>
+    <!-- <small>Functions</small> -->
     <div class="flex justify-between items-center">
         <small>Functions</small>
         <Dialog.Trigger
@@ -69,7 +70,7 @@
             <div
                 role="button"
                 tabindex="0"
-                class="flex p-2 h-10 bg-ui-2 px-5 justify-between items-center cursor-grab rounded"
+                class="flex p-2 h-10 bg-ui-2 px-5 justify-between items-center cursor-grab border rounded"
                 draggable="true"
                 ondragstart={(event) => onDragStart(event, defaultFunctions.functions[index])}
             >

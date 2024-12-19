@@ -8,15 +8,15 @@ router = APIRouter()
 
 @router.post("/")
 def run(graph: Graph):
-    tok = state.get_tok()
+    tok = state.tok
 
     code = compile(graph)
 
-    loc = prepare_inputs(tok, graph)
+    loc = prepare_inputs(tok, graph, state)
 
     exec(code, state.globals, loc)  # code, globals, locals
 
-    return prepare_result(tok, loc, graph)
+    return prepare_result(tok, loc, graph, state.is_chat)
 
 @router.post("/order")
 def order(graph: Graph):
@@ -26,12 +26,13 @@ def order(graph: Graph):
 
 @router.post("/chat")
 def chat(graph: Graph):
-    tok = state.get_tok()
+    tok = state.tok
 
     code = compile(graph)
 
-    loc = prepare_inputs(tok, graph)
+    loc = prepare_inputs(tok, graph, state)
 
     exec(code, state.globals, loc)  # code, globals, locals
 
-    return prepare_result(tok, loc, graph)
+    return prepare_result(tok, loc, graph, state.is_chat)
+

@@ -17,7 +17,6 @@
                     temperature: temperature[0],
                     maxNewTokens: maxNewTokens[0],
                 });
-                console.log(n.id);
             }
         }
 
@@ -33,57 +32,73 @@
 
         const result = await response.json();
 
-        let r: string = "";
+        let assistantResponse: string = "";
         for (const [nodeId, data] of Object.entries(result)) {
             const parsed = JSON.parse(data as string);
-            r = parsed.at(-1)["content"];
+            assistantResponse = parsed.at(-1)["content"];
         }
 
-        return r;
+        return assistantResponse;
     }
 
-    let messages = $state<any[]>([]);
+    let messages = $state<
+        Array<{
+            content: string;
+            role: "user" | "assistant";
+            isLoading?: boolean;
+        }>
+    >([]);
+
     let inputMessage = $state("");
     let chatContainer = $state<HTMLElement>();
     let isLoading = $state(false);
 
     let { temperature, maxNewTokens } = $props();
 
+    function streamResponse(response: string, messageIndex: number) {
+        let index = 0;
+        const intervalId = setInterval(() => {
+            if (index < response.length) {
+                messages[messageIndex].content += response[index];
+                messages = messages; // trigger reactivity
+                index++;
+            } else {
+                clearInterval(intervalId);
+                isLoading = false;
+            }
+        }, 10);
+    }
+
     async function sendMessage() {
         if (inputMessage.trim() === "" || isLoading) return;
 
-        messages = [...messages, { content: inputMessage, role: "user" }];
+        const userMessage = { content: inputMessage.trim(), role: "user" };
+        messages = [...messages, userMessage];
         inputMessage = "";
 
-        // Add loading message
         isLoading = true;
         messages = [
             ...messages,
             { content: "", role: "assistant", isLoading: true },
         ];
 
-        let response = await chat(messages.filter((m) => !m.isLoading));
+        try {
+            const response = await chat(messages.filter((m) => !m.isLoading));
 
-        // Remove loading message and stream the response
-        messages = messages.filter((m) => !m.isLoading);
-        streamResponse(response);
-    }
+            messages = messages.filter((m) => !m.isLoading);
+            messages = [...messages, { content: "", role: "assistant" }];
 
-    function streamResponse(response: string) {
-        let index = 0;
-        const botMessage = { content: "", role: "assistant" };
-        messages = [...messages, botMessage];
-
-        const intervalId = setInterval(() => {
-            if (index < response.length) {
-                botMessage.content += response[index];
-                messages = messages;
-                index++;
-            } else {
-                clearInterval(intervalId);
-                isLoading = false;
-            }
-        }, 50);
+            // Start streaming the last message
+            streamResponse(response, messages.length - 1);
+        } catch (error) {
+            console.error("Chat error:", error);
+            messages = messages.filter((m) => !m.isLoading);
+            messages = [
+                ...messages,
+                { content: "Sorry, an error occurred.", role: "assistant" },
+            ];
+            isLoading = false;
+        }
     }
 
     $effect(() => {
@@ -94,18 +109,17 @@
 </script>
 
 <div class="flex flex-col h-full relative">
-    <div
-        bind:this={chatContainer}
-        class="overflow-y-auto rounded mb-4"
-    >
+    <div bind:this={chatContainer} class="overflow-y-auto rounded mb-4">
         {#each messages as message}
             <div class="mb-2 {message.role === 'user' ? 'text-right' : ''}">
                 <span
-                    class="inline-block px-4 py-2 rounded bg-ui-2"
-                    class:animate-pulse={message.isLoading}
+                    class="inline-block px-4 py-2 rounded {message.role ===
+                    'user'
+                        ? 'bg-ui-2'
+                        : 'bg-ui-3'}"
                 >
                     {#if message.isLoading}
-                        ...
+                        <span class="animate-pulse">...</span>
                     {:else}
                         {message.content}
                     {/if}
@@ -113,11 +127,16 @@
             </div>
         {/each}
     </div>
+
     <div class="flex flex-col absolute bottom-0 left-0 right-0">
         <textarea
             bind:value={inputMessage}
-            onkeydown={(e) =>
-                e.key === "Enter" && !e.shiftKey && !isLoading && sendMessage()}
+            onkeydown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    if (!isLoading) sendMessage();
+                }
+            }}
             placeholder="Type your message..."
             class="flex-grow px-4 py-2 text-sm border bg-ui-1 rounded resize-none"
             disabled={isLoading}

@@ -25,7 +25,8 @@
     @apply !border-ui-3 !rounded;
 }
 
-.svelte-flow__node.selected, .svelte-flow__node:focus {
+/* Exclude tutorial nodes from the selected node styles */
+.svelte-flow__node.selected:not(:has(.tutorial)), .svelte-flow__node:focus {
     box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3) !important;
 }
 
@@ -86,7 +87,8 @@
 }
 
 .node-highlighted {
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 1.0) !important rounded;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 1.0) !important;
+    border-radius: 0.5rem;
 }
 
 .context {

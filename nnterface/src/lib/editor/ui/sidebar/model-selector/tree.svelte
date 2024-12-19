@@ -6,7 +6,16 @@
     let tree = $state({});
     const maxExpandDepth = 3;
 
+    // Big assumption that models only have one module list
+    let nLayers = $state(0);
+
     export async function load(repoId: string) {
+
+        // Need to clear the tree before loading a new model
+        // Svelte is too good at preventing re-renders and doesn't re-rerender 
+        // the components with the same name. lol
+        tree = {};
+
         const response = await fetch(`${PUBLIC_BACKEND_URL}/models/load`, {
             method: "POST",
             headers: {
@@ -20,12 +29,11 @@
         const result = await response.json();
         let pytree = result["pytree"];
 
+        nLayers = 0;
         trimTree(pytree, null, false, 0);
+
         tree = pytree;
     }
-
-    // Big assumption that models only have one module list
-    let nLayers = $state(0);
 
     function trimTree(
         tree: any,

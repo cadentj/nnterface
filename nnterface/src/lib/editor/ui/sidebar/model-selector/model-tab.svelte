@@ -59,7 +59,6 @@
         </Select.Trigger>
         
         <Select.Content>
-
             {@render group("Base Models", baseModels)}
             {@render group("Chat Models", chatModels)}
         </Select.Content>

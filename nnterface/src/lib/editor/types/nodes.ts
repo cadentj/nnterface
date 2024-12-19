@@ -34,6 +34,7 @@ interface FunctionNodeData extends BaseNodeData {
     label: "function";
     inputs: string[];
     functionName: string;
+    typedArgs: Record<string, string | number>;
 }
 
 export type FunctionNodeProps = Omit<NodeProps, 'data'> & {

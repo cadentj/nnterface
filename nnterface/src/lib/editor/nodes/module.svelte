@@ -1,19 +1,26 @@
 <script lang="ts">
-    import { Position, useHandleConnections, Handle } from "@xyflow/svelte";
+    import { Position, Handle } from "@xyflow/svelte";
     import type { ModuleNodeProps } from "$lib/editor/types/nodes";
 
-    let { id, type, data, ...restProps }: ModuleNodeProps = $props();
+    let { id, type, data }: ModuleNodeProps = $props();
 
     data.isVariable = data.moduleName.includes("<VAR>");
     data.variable = data.variable || "";
     data.index = data.index || "";
+
+    let showIndex = $state(false);
+    let variable = $state(data.variable);
+    let index = $state(data.index);
 
     // Split the module name in two parts to insert the variable.
     let shortenedName = data.moduleName.includes(".")
         ? data.moduleName.split(".").at(-1)
         : data.moduleName;
 
-    let showIndex = $state(false);
+    $effect(() => {
+        data.variable = variable;
+        data.index = index;
+    });
 </script>
 
 <div
@@ -32,7 +39,7 @@
                 <input
                     class="border rounded-md w-12 text-center nodrag"
                     type="text"
-                    value={data.variable}
+                    bind:value={variable}
                 />
             </div>
         {/if}
@@ -41,26 +48,28 @@
                 <input
                     class="border rounded-md w-12 text-center nodrag"
                     type="text"
-                    value={data.index}
+                    bind:value={index}
                 />
             </div>
         {/if}
     </div>
 
     <!-- Source handles before target so green is visible. -->
-    <Handle id="left-target" type="target" position={Position.Left} />
-    <Handle id="right-target" type="target" position={Position.Right} />
+    <Handle id="left-target" type="target" position={Position.Left} onconnect={() => (data.location = "input")} />
+    <Handle id="right-target" type="target" position={Position.Right} onconnect={() => (data.location = "output")} />
 
     <Handle
         id="right-source"
         type="source"
         position={Position.Right}
         class="!bg-transparent"
+        onconnect={() => (data.location = "output")}
     />
     <Handle
         id="left-source"
         type="source"
         position={Position.Left}
         class="!bg-transparent"
+        onconnect={() => (data.location = "input")}
     />
 </div>

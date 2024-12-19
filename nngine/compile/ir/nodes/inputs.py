@@ -63,7 +63,10 @@ class ChatNode(Node):
     def precompile(self, args: List[Node]) -> str:
         pass
 
-    def tokenize(self, tok: AutoTokenizer) -> None:
-        self.data.tokens = tok.apply_chat_template(
-            self.data.messages, add_generation_prompt=True
-        )
+    def tokenize(self, tok: AutoTokenizer, chat: bool = True) -> None:
+        if chat:
+            self.data.tokens = tok.apply_chat_template(
+                self.data.messages, add_generation_prompt=True
+            )
+        else:
+            self.data.tokens = tok.encode(self.data.messages)

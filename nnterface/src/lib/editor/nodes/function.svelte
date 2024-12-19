@@ -5,9 +5,11 @@
     let { data }: FunctionNodeProps = $props();
 
     let inputs = data.inputs;
-    let typedInputs = data.typedArgs as Record<string, unknown>;
+    let typedInputs = $state(data.typedArgs);
 
-    let totalInputs = $derived(inputs.length + Object.keys(typedInputs).length);
+    $effect(() => {
+        data.typedArgs = typedInputs;
+    }); 
 </script>
 
 <div class="node">
@@ -31,7 +33,7 @@
             </div>
         {/each}
 
-        {#each Object.keys(typedInputs) as input, index}
+        {#each Object.keys($state.snapshot(typedInputs)) as input, index}
             <div class="flex items-center justify-between px-3 h-7 relative">
                 <span class="text-sm">
                     {input.length > 5 ? input.slice(0, 5) + "..." : input}

@@ -25,8 +25,6 @@
 
         const result = await response.json();
 
-        console.log(result);
-        
         animate(result.order, nodes, edges);
     }
 
@@ -53,7 +51,6 @@
             if (nodeId.includes("graph")) {
                 updateNodeData(nodeId, { graphData: JSON.parse(data) });
             } else {
-                console.log(data);
                 updateNodeData(nodeId, { messages: JSON.parse(data) });
             }
         }

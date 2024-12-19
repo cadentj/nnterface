@@ -8,6 +8,7 @@ class GraphData(NodeData):
     variant: Literal["graph"]
     graph_data: List[float] = []
 
+    graph_type: Literal["line", "heatmap"] = "line"
 
 class GraphNode(Node):
     type: Literal["graph"]

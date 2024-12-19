@@ -5,7 +5,6 @@
     let {
         type,
         data,
-        ...restProps
     }: ListNodeProps = $props();
 </script>
 

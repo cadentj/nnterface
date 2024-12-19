@@ -37,7 +37,8 @@ class SessionNode(ContextNode):
     type: Literal["session"] = "session"
     data: NodeData = NodeData(parents=[""], variant="context")
 
-    code: str = "with model.session() as session:"
+    remote: bool = False
+    code: str = "with model.session(remote=remote) as session:"
 
     def precompile(self, args: List[Node]):
         pass

@@ -6,7 +6,7 @@ export let modelSelector = $state({
 
 export let editor = $state({
     proximity: false,
-    snapGrid: undefined,
+    snapGrid: null,
     chatNodeExists: false,
 });
 

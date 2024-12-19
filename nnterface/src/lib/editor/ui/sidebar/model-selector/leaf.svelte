@@ -5,9 +5,9 @@
 	import { createEmptyNode } from "$lib/editor/flow/utils";
 	import { ChevronRight, ChevronDown, GripVertical } from "lucide-svelte";
 	import { slide } from "svelte/transition";
-	import type { Node } from "$lib/editor/types/nodes";
+	import { type Node } from "@xyflow/svelte";
 
-	let { nLayers, depth = 0, tree = $bindable() } = $props();
+	let { nLayers, depth, tree = $bindable() } = $props();
 
 	onMount(() => {
 		if (tree.atomic) {
@@ -44,7 +44,7 @@
 				variant: "module",
 				moduleName: tree.atomic,
 				isVariable: false,
-				location: "output",
+				location: "",
 				isTuple: tree.output_collection,
 			},
 		};
@@ -61,8 +61,8 @@
 <ul class="tree w-full {depth === 0 ? 'pl-0' : 'pl-5'}">
 	<li class="tree w-full {depth === 0 ? '!border-none' : ''}">
 		<button
-			on:dragstart={onDragStart}
-			on:click={() => tree.submodules && (tree.expanded = !tree.expanded)}
+			ondragstart={onDragStart}
+			onclick={() => tree.submodules && (tree.expanded = !tree.expanded)}
 			draggable={true}
 			class="group"
 		>

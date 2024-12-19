@@ -20,18 +20,7 @@ def load_config():
 class AppState: 
     model: AutoModelForCausalLM = None
     tok: AutoTokenizer = None
-
-    def set_model(self, model: AutoModelForCausalLM) -> None:
-        self.model = model
-
-    def set_tok(self, tok: AutoTokenizer) -> None:
-        self.tok = tok
-
-    def get_model(self) -> AutoModelForCausalLM:
-        return self.model
-
-    def get_tok(self) -> AutoTokenizer:
-        return self.tok
+    repo_id: str = None
     
     def __init__(self):
         self.config = load_config()
@@ -43,6 +32,24 @@ class AppState:
     @property
     def remote_models(self) -> list[str]:
         return self.config.models.remote
+    
+    @property
+    def model_type(self) -> str:
+        return self.config.model
+    
+    @property
+    def is_remote(self) -> bool:
+        return self.repo_id in self.remote_models
+    
+    def check_is_remote(self, repo_id: str) -> bool:
+        return repo_id in self.remote_models
+    
+    @property
+    def is_chat(self) -> bool:
+        return (
+            self.repo_id in self.config.models.remote.chat
+            or self.repo_id in self.config.models.local.chat
+        )
     
     @property
     def globals(self) -> Dict[str, Any]:

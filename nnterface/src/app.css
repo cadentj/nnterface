@@ -23,6 +23,7 @@
     --border: 51 21% 88%;
     --input: 51 21% 88%;
     --ring: 55 10% 79%;
+
     --radius: 0.5rem;
 
     --red-primary: 3 62% 42%;
@@ -41,6 +42,10 @@
     --purple-secondary: 251 40% 64%;
     --magenta-primary: 326 55% 41%;
     --magenta-secondary: 329 54% 59%;
+
+    --ui-1: 47, 22%, 87%;
+    --ui-2: 50, 14%, 83%;
+    --ui-3: 55, 10%, 79%;
   } */
 
   :root {

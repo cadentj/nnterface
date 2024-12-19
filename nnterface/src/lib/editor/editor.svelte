@@ -43,7 +43,7 @@
         {nodes}
         {edges}
         fitView={true}
-        snapGrid={$state.snapshot(editor.snapGrid)}
+        snapGrid={editor.snapGrid}
         {defaultEdgeOptions}
         {nodeTypes}
         ondelete={({nodes, edges}) => {

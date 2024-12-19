@@ -11,15 +11,23 @@
     import Heatmap from "./heatmap.svelte";
     import { Toggle } from "$lib/components/ui/toggle/index.js";
 
-    let { type, data, ...restProps } = $props();
+    let { type, data } = $props();
 
-    data.graphData = [];
+    if (!data.graphData) {
+        data.graphData = [];
+    }
+
+    data.graphType = data.graphType || "line";
 
     function clearData() {
         data.graphData = [];
     }
 
-    let selectedGraphType = $state("line"); // Default selection
+    let selectedGraphType = $state(data.graphType);
+
+    $effect(() => {
+        data.graphType = selectedGraphType;
+    });
 </script>
 
 <div class="node overflow-hidden h-[225px] w-[350px]">

@@ -52,26 +52,23 @@ export async function animate(
     let nodeLookup = buildNodeLookup(nodes);
     order = cleanOrder(order, edges);
 
-    console.log(order);
-
     for (let nodeId of order) {
         let originalClass = '';
         nodes.update((nodes) => {
             const currentNode = nodeLookup[nodeId];
-
             originalClass = currentNode.class || '';
-            
             currentNode.class = `${originalClass} node-highlighted`.trim();
-
             return nodes;
         });
 
-        await sleep(500);
+        // Wait longer to allow the fade in and out to complete
+        await sleep(250); // Increased from 250ms to 500ms
 
         nodes.update((nodes) => {
             const currentNode = nodeLookup[nodeId];
             currentNode.class = originalClass;
             return nodes;
         });
+
     }
 }

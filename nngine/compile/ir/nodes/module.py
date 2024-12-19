@@ -22,7 +22,7 @@ class ModuleData(NodeData):
 
     variant: Literal["module"]
     module_name: str
-    location: Literal["input", "output"] = "output"
+    location: Literal["input", "output"]    
 
     variable: str
 
@@ -59,9 +59,22 @@ class ModuleNode(Node):
     append: str = "{id}_list.append({module}.{location}{index})"
     setter: str = "{module}.{location}{index} = {arg_id}"
 
+
+    def _get_index(self, set: bool = False):
+
+        if self.data.location == "output":
+            tuple_index = "[:]" if set else ""
+
+            index = "[0]" if self.data.is_tuple else ""
+            index += f"[{self.data.index}]" if self.data.index else tuple_index
+        else:
+            index = f"[{self.data.index}]" if self.data.index else ""
+
+        return index
+
+
     def _set(self, arg: Node):
-        index = "[0]" if self.data.is_tuple else ""
-        index += f"[{self.data.index}]" if self.data.index else "[:]"
+        index = self._get_index(set=True)
 
         self.code = self.setter.format(
             module=self.data.module_name,
@@ -71,8 +84,7 @@ class ModuleNode(Node):
         )
 
     def _append(self):
-        index = "[0]" if self.data.is_tuple else ""
-        index += f"[{self.data.index}]" if self.data.index else ""
+        index = self._get_index()
 
         self.code = self.append.format(
             id=self.id,
@@ -82,8 +94,7 @@ class ModuleNode(Node):
         )
 
     def _get(self):
-        index = "[0]" if self.data.is_tuple else ""
-        index += f"[{self.data.index}]" if self.data.index else ""
+        index = self._get_index()
 
         self.code = self.getter.format(
             id=self.id,

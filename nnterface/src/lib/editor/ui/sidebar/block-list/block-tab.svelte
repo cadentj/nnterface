@@ -2,11 +2,12 @@
     import type { Node } from "@xyflow/svelte";
     import { createEmptyNode } from "$lib/editor/flow/utils";
     import { modelSelector } from "@/lib/editor/handlers/states.svelte";
+    import { editor } from "@/lib/editor/handlers/states.svelte";
 
     export type BlockGroup = {
         title: string;
         blocks: string[];
-    }
+    };
 
     let { blockGroups }: { blockGroups: BlockGroup[] } = $props();
 
@@ -26,8 +27,8 @@
             } else if (newNode.type === "graph") {
                 newNode.height = 225;
                 newNode.width = 350;
-            } 
-            
+            }
+
             modelSelector.draggedType = newNode;
 
             event.dataTransfer.effectAllowed = "move";
@@ -37,15 +38,19 @@
 
 <div>
     {#each blockGroups as group}
-        <div class='mb-2'>
+        <div class="mb-2">
             <small>{group.title}</small>
             <div class="grid grid-cols-2 gap-4 pt-2">
                 {#each group.blocks as block, index}
                     <button
-                        class="p-2 h-10 bg-ui-2 border rounded-md cursor-grab"
+                        class="p-2 h-10 bg-ui-2 border rounded-md {block ===
+                            'chat' && editor.chatNodeExists
+                            ? 'opacity-50'
+                            : 'cursor-grab'}"
                         style="grid-column-start: {(index % 2) + 1};"
-                        draggable="true"
+                        draggable={!(block === "chat" && editor.chatNodeExists)}
                         ondragstart={(event) => onDragStart(event, block)}
+                        disabled={block === "chat" && editor.chatNodeExists}
                     >
                         {block}
                     </button>

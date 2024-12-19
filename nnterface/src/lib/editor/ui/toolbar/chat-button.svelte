@@ -1,6 +1,6 @@
 <script lang="ts">
     import { ControlButton } from "@xyflow/svelte";
-    import { MessageSquare, MessageSquareOff } from "lucide-svelte";
+    import { MessageSquare } from "lucide-svelte";
     import { chat, editor } from "$lib/editor/handlers/states.svelte";
 
 

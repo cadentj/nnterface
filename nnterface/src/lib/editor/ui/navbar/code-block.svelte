@@ -14,7 +14,7 @@
     }).value;
 </script>
 
-<div class="relative">
+<div class="relative w-full h-full overflow-scroll">
     <Button
         variant="outline"
         size="icon"
@@ -23,7 +23,7 @@
     >
         <Clipboard class="w-5 h-5" />
     </Button>
-    <pre class="border rounded-md p-3 text-sm overflow-scroll">
+    <pre class="border rounded-md p-3 text-sm overflow-scroll h-full">
 {@html $state.snapshot(highlightedCode)}
 </pre>
 </div>

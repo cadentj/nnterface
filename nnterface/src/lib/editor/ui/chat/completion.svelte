@@ -15,7 +15,6 @@
     const nodes = useNodes();
 
     async function generate(messages: string) {
-        console.log(messages);
         for (const n of get(nodes)) {
             if (n.type === "chat") {
                 updateNodeData(n.id, {
@@ -28,9 +27,7 @@
 
         let graphObject = exportGraph(nodes, getIntersectingNodes, toObject);
 
-        console.log(graphObject);
-
-        const response = await fetch(`${PUBLIC_BACKEND_URL}/chat`, {
+        const response = await fetch(`${PUBLIC_BACKEND_URL}/run/chat`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -53,7 +50,6 @@
 
         isLoading = true;
         const response = await generate(generationText);
-        console.log(response);
         generationText = generationText + response;
         isLoading = false;
     }
