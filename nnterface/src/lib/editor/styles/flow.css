@@ -8,6 +8,10 @@
         rounded-lg;
 }
 
+.svelte-flow__controls-button.disabled {
+    @apply hover:bg-transparent;
+}
+
 .svelte-flow__node-input {
     /* Remove all default styles */
     border: unset; 
@@ -123,7 +127,7 @@
 /* GENERAL */
 
 input {
-    @apply bg-ui-3 rounded focus-visible:ring-primary focus:outline-none focus-visible:ring-1;
+    @apply bg-ui-3 rounded focus-visible:ring-primary px-1 focus:outline-none focus-visible:ring-1;
 }
 
 textarea {

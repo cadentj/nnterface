@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { chat as chatState } from "$lib/editor/handlers/states.svelte";
+    import { chat } from "$lib/editor/handlers/states.svelte";
     import { fly } from "svelte/transition";
-    let { flow, leftSidebar, navbar, chat } = $props();
+    let { flow, leftSidebar, navbar, chatTab } = $props();
     import { cubicOut } from 'svelte/easing';
 </script>
 
@@ -18,12 +18,12 @@
         {@render flow()}
     </div>
 
-    {#if chatState.isVisible}
+    {#if chat.isVisible}
         <div 
             class="chat"
             transition:fly={{ x: 400, duration: 500, easing: cubicOut, opacity: 1 }}
         >
-            {@render chat()}
+            {@render chatTab()}
         </div>
     {/if}
 </main>

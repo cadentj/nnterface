@@ -11,10 +11,6 @@
     }
 </script>
 
-<ControlButton on:click={toggleChat} class={chat.isVisible ? "bg-ui-2" : ""}>
-    {#if editor.chatNodeExists}
-        <MessageSquare />
-    {:else}
-        <MessageSquareOff />
-    {/if}
+<ControlButton on:click={toggleChat} disabled={!editor.chatNodeExists} class={!editor.chatNodeExists ? "disabled" : ""}>
+    <MessageSquare class={editor.chatNodeExists ? "" : "text-ui-2"}/>
 </ControlButton>

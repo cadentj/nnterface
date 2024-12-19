@@ -31,7 +31,7 @@ export const connections: Record<string, string[]> = {
     ],
 }
 
-export const chat = $state({
+export let chat = $state({
     "isVisible": false,
 });
 
