@@ -12,6 +12,7 @@
 
     let code: any = $state({});
 
+    let open = $state(false);
     function updateIntersections() {
         nodes.update((nodes) => {
             nodes = clearParents(nodes);
@@ -43,25 +44,26 @@
     }
 </script>
 
-<Dialog.Root onOpenChange={() => exportGraph()}>
-    <Dialog.Trigger class={buttonVariants({ variant: "default" })}>
+<Dialog.Root onOpenChange={() => exportGraph()} bind:open>
+    <Button
+        onclick={() => (open = !open)}
+        variant="default"
+    >
         Save
         <Download class="w-5 h-5 ml-2" />
-    </Dialog.Trigger>
+    </Button>
     <Dialog.Content class="min-w-[30vw] h-[50vh]">
         <Dialog.Title>Save</Dialog.Title>
         <div class="h-full w-full overflow-scroll rounded border p-3 relative">
-
-                <Button
-                    variant="outline"
-                    size="icon"
-                    class="absolute top-2 right-2 h-8 w-8"
-                    onclick={() => navigator.clipboard.writeText(code)}
-                >
-                    <Clipboard class="w-5 h-5" />
-                </Button>
-                <pre class="whitespace-pre-wrap break-words">{code}</pre>
-
+            <Button
+                variant="outline"
+                size="icon"
+                class="absolute top-2 right-2 h-8 w-8"
+                onclick={() => navigator.clipboard.writeText(code)}
+            >
+                <Clipboard class="w-5 h-5" />
+            </Button>
+            <pre class="whitespace-pre-wrap break-words">{code}</pre>
         </div>
     </Dialog.Content>
 </Dialog.Root>

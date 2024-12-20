@@ -8,11 +8,12 @@
 
 <nav class="h-full w-full flex justify-between items-center px-6 bg-card">
     <!-- Left: Text Input -->
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
         <Button
             size="icon"
-            variant="secondary"
+            variant="ghost"
             href="/"
+            class="rounded-sm"
         >
             <ChevronLeft class="w-5 h-5" />
         </Button>

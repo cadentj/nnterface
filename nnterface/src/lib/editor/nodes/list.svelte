@@ -8,7 +8,7 @@
     }: ListNodeProps = $props();
 </script>
 
-<div class="node p-3">
+<div class="node p-3 flex justify-center">
     {type}
     <Handle
         type="target"

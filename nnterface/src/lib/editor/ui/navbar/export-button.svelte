@@ -37,7 +37,7 @@
 <Dialog.Root bind:open>
     <Button
         onclick={() => exportCode()}
-        class="bg-gradient"
+        class="bg-gradient border-none"
         variant="outline"
     >
         Export
