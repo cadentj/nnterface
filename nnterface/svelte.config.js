@@ -1,14 +1,28 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: vitePreprocess(),
-
 	kit: {
-		adapter: adapter(),
+		adapter: adapter({
+			// default options are shown. On some platforms
+			// these options are set automatically — see below
+			pages: 'build',
+			assets: 'build',
+			fallback: '200.html',
+			precompress: false,
+			strict: true
+		}),
 		alias: {
 			"@/*": "./src/*",
+		},
+		paths: {
+			base: process.argv.includes('dev') ? '' : '/nnterface'
+		},
+		// Include this to work w github pages
+		prerender: {
+			handleHttpError: 'warn',
 		}
 	}
 };
