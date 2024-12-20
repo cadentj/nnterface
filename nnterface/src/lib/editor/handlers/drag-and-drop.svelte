@@ -28,7 +28,7 @@
             y: event.clientY,
         });
 
-        const numNodes = ($nodes.length).toString();
+        const nExistingType = $nodes.filter(node => node.type === type.type).length;
 
         const className = (variant: string) => {
             switch (variant) {
@@ -41,7 +41,7 @@
 
         const newNode = {
             ...type,
-            id: `${type.type}` + numNodes,
+            id: `${type.type}` + (nExistingType + 1),
             position: position,
             origin: [0, 0],
             class: className(type.data.variant),

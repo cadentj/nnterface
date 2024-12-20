@@ -14,9 +14,9 @@ def run(graph: Graph):
 
     loc = prepare_inputs(tok, graph, state)
 
-    # exec(code, state.globals, loc)  # code, globals, locals
+    exec(code, state.globals, loc)  # code, globals, locals
 
-    # return prepare_result(tok, loc, graph, state.is_chat)
+    return prepare_result(tok, loc, graph, state.is_chat)
 
 @router.post("/order")
 def order(graph: Graph):

@@ -3,6 +3,7 @@ from typing import Literal, List, Dict
 from pydantic import model_validator
 
 from .context import ContextNode
+from .collections import ListNode
 from .base import Node, NodeData, SPACES
 
 
@@ -44,7 +45,7 @@ class FunctionNode(Node):
             body=self.data.code,
         )
 
-    def _call(self, template: str, args: List[Node]):
+    def _call(self, template: str, args: List[str]):
         typed_args = [f"{k} = {v}" for k, v in self.data.typed_args.items()]
 
         all_args = ", ".join(typed_args)
@@ -55,21 +56,28 @@ class FunctionNode(Node):
 
         return template.format(id=self.id, args=all_args)
 
-    def _set(self, args: List[Node]):
+    def _set(self, args: List[str]):
         self.code = self._call(self.code, args)
 
         return self._define()
 
-    def _append(self, args: List[Node]):
+    def _append(self, args: List[str]):
         self.code = self._call(self.append, args)
 
         return self._define()
 
     def precompile(self, args: List[Node]):
-        non_context_arg_ids = [
-            arg.id for arg in args if not isinstance(arg, ContextNode)
-        ]
-        args = ", ".join(non_context_arg_ids)
+
+        arg_ids = []
+        for arg in args:
+            if isinstance(arg, ListNode):
+                arg_ids.append(arg.name)
+                continue
+
+            if not isinstance(arg, ContextNode):
+                arg_ids.append(arg.id)
+                
+        args = ", ".join(arg_ids)
 
         indented_code = []
         for i, line in enumerate(self.data.code.split("\n")):

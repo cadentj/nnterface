@@ -26,16 +26,16 @@
                     position={Position.Left}
                     class="border-t"
                 >
-                    <div class="pl-5">
+                    <span class="pl-5">
                         {input}
-                    </div>
+                    </span>
                 </Handle>
             </div>
         {/each}
 
         {#each Object.keys($state.snapshot(typedInputs)) as input, index}
             <div class="flex items-center justify-between px-3 h-7 relative">
-                <span class="text-sm">
+                <span>
                     {input.length > 5 ? input.slice(0, 5) + "..." : input}
                 </span>
                 <input

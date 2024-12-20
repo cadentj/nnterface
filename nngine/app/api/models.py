@@ -2,7 +2,7 @@ import torch
 from nnsight import LanguageModel
 from fastapi import APIRouter
 
-from app.schemas.load_model import LoadModelRequest
+from app.schemas.models import LoadModelRequest
 from app.state import state
 from app.core.models import load_pytree
 

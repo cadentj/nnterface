@@ -53,7 +53,6 @@
         open = false;
     };
 
-    console.log(githubDark);
 </script>
 
 <Input bind:value={functionName} class="w-[95%]"/>
