@@ -11,7 +11,7 @@
     });
 </script>
 
-<div class="node flex justify-between p-3 !bg-green-950 !border-green-500">
+<div class="node flex justify-between p-3 !bg-[#935992]/30 !border-[#935992]">
     Chat
     <button>
         <MessageSquare class="h-5 w-5"/>

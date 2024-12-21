@@ -5,7 +5,7 @@
     let div: HTMLDivElement;
 
     let {
-        data,
+        dataToGraph,
     } = $props();
 
     onMount(() => {
@@ -18,14 +18,14 @@
     });
 
     function plot() {
-        if (!div || !data.length) return;
+        if (!div || !dataToGraph.length) return;
 
-        const flatData = data.flatMap((row, y) =>
+        const flatData = dataToGraph.flatMap((row, y) =>
             row.map((value, x) => ({ x, y, value }))
         );
 
-        const width = data[0].length * 25;
-        const height = data.length * 25;
+        const width = dataToGraph[0].length * 25;
+        const height = dataToGraph.length * 25;
 
         const plot = Plot.plot({
             width: width,

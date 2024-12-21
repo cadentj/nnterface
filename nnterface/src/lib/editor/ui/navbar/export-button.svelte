@@ -43,7 +43,7 @@
         Export
         <Code class="w-5 h-5 ml-2" />
     </Button>
-    <Dialog.Content class="min-w-[30vw] h-[50vh]">
+    <Dialog.Content class="min-w-[30vw] h-[50vh] flex flex-col">
         <Dialog.Title>Export Code</Dialog.Title>
         <CodeBlock {code} />
     </Dialog.Content>

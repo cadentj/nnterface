@@ -8,6 +8,7 @@ export let editor = $state({
     proximity: false,
     snapGrid: null,
     chatNodeExists: false,
+    rightSidebarVisible: true,
 });
 
 export const connections: Record<string, string[]> = {
@@ -30,11 +31,6 @@ export const connections: Record<string, string[]> = {
         ""
     ],
 }
-
-export let chat = $state({
-    "isVisible": false,
-});
-
 
 export const defaultFunctions = $state({
     "functions": [

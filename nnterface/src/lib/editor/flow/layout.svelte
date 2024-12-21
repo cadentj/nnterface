@@ -1,8 +1,6 @@
 <script lang="ts">
-    import { chat } from "$lib/editor/handlers/states.svelte";
-    import { fly } from "svelte/transition";
+    import { editor } from "$lib/editor/handlers/states.svelte";
     let { flow, leftSidebar, navbar, rightSidebar } = $props();
-    import { cubicOut } from 'svelte/easing';
 </script>
 
 <main class="layout">
@@ -14,15 +12,12 @@
         {@render leftSidebar()}
     </div>
 
-    <div class="flow">
+    <div class="flow {editor.rightSidebarVisible ? '!w-[60vw]' : '!w-[80vw]'}">
         {@render flow()}
     </div>
 
-    {#if chat.isVisible}
-        <div 
-            class="chat"
-            transition:fly={{ x: 400, duration: 500, easing: cubicOut, opacity: 1 }}
-        >
+    {#if editor.rightSidebarVisible}
+        <div class="chat">
             {@render rightSidebar()}
         </div>
     {/if}
@@ -38,7 +33,7 @@
     }
 
     .layout .flow {
-        @apply absolute left-[20%] top-[5vh] h-[95vh] w-[80vw];
+        @apply absolute left-[20%] top-[5vh] h-[95vh];
     }
 
     .layout .navbar {

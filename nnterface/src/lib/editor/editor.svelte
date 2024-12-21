@@ -15,7 +15,7 @@
     import "@xyflow/svelte/dist/base.css";
     import "$lib/editor/styles/flow.css";
 
-    import { editor, chat } from "./handlers/states.svelte";
+    import { editor } from "./handlers/states.svelte";
 
     let { project } = $props();
 
@@ -50,7 +50,7 @@
             const hasChatNode = nodes.some(node => node.id.includes('chat'));
             if (hasChatNode) {
                 editor.chatNodeExists = false;
-                chat.isVisible = false;
+                editor.rightSidebarVisible = false;
             }
         }}
         on:dragover={dragAndDropHandler.onDragOver}

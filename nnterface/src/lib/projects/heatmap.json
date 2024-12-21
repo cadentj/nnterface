@@ -1,180 +1,214 @@
 {
-    "nodes": [
-      {
-        "id": "graph1",
-        "position": {
-          "x": 386.57266100255396,
-          "y": 108.81259791391551
-        },
-        "origin": [
-          0,
-          0
-        ],
-        "type": "graph",
-        "data": {
-          "variant": "graph",
-          "graphData": [],
-          "parents": [
-            "session"
-          ]
-        },
-        "height": 225,
-        "width": 350,
-        "class": "rounded-lg",
-        "measured": {
-          "width": 350,
-          "height": 225
-        },
-        "selected": false,
-        "dragging": false
+  "nodes": [
+    {
+      "id": "list2",
+      "position": {
+        "x": 213.23932766922064,
+        "y": 200.5939186295212
       },
-      {
-        "id": "list2",
-        "position": {
-          "x": 213.23932766922064,
-          "y": 200.5939186295212
-        },
-        "origin": [
-          0,
-          0
-        ],
-        "type": "list",
-        "data": {
-          "variant": "list",
-          "parents": [
-            "session",
-            "run4"
-          ]
-        },
-        "class": "rounded-lg",
-        "measured": {
-          "width": 100,
-          "height": 38
-        },
-        "selected": false,
-        "dragging": false
+      "origin": [
+        0,
+        0
+      ],
+      "type": "list",
+      "data": {
+        "variant": "list",
+        "parents": [
+          "session",
+          "run4"
+        ]
       },
-      {
-        "id": "loop2",
-        "position": {
-          "x": -18.552534825277096,
-          "y": 119.65647302614087
-        },
-        "origin": [
-          0,
-          0
-        ],
-        "type": "loop",
-        "data": {
-          "variant": "context",
-          "start": "0",
-          "end": "5",
-          "parents": [
-            "session",
-            "run4"
-          ]
-        },
-        "height": 150,
-        "width": 200,
-        "class": "!pointer-events-none rounded-lg",
-        "measured": {
-          "width": 200,
-          "height": 150
-        },
-        "selected": false,
-        "dragging": false
+      "class": "rounded-lg",
+      "measured": {
+        "width": 100,
+        "height": 38
       },
-      {
-        "id": "function3",
-        "position": {
-          "x": 44.88534595106101,
-          "y": 175.84431028518318
-        },
-        "origin": [
-          0,
-          0
-        ],
-        "type": "function",
-        "data": {
-          "variant": "function",
-          "functionName": "heatmap",
-          "inputs": [],
-          "code": "return [1,2,3]",
-          "deletable": true,
-          "typedArgs": {},
-          "parents": [
-            "session",
-            "loop2",
-            "run4"
-          ]
-        },
-        "class": "rounded-lg",
-        "measured": {
-          "width": 100,
-          "height": 60
-        },
-        "selected": false,
-        "dragging": false
-      },
-      {
-        "id": "run4",
-        "position": {
-          "x": -51.17773065310811,
-          "y": 56.21859224980277
-        },
-        "origin": [
-          0,
-          0
-        ],
-        "type": "run",
-        "data": {
-          "variant": "context",
-          "color": "rgba(134, 25, 143, 0.3)",
-          "parents": [
-            "session"
-          ]
-        },
-        "height": 275,
-        "width": 394,
-        "class": "!pointer-events-none rounded-lg",
-        "measured": {
-          "width": 394,
-          "height": 275
-        },
-        "selected": false,
-        "dragging": false
-      }
-    ],
-    "edges": [
-      {
-        "markerEnd": {
-          "type": "arrowclosed",
-          "width": 8,
-          "height": 8
-        },
-        "style": "stroke-width: 2px; stroke: #A3A3A3",
-        "source": "list2",
-        "target": "graph1",
-        "id": "xy-edge__list2-graph1",
-        "selected": false
-      },
-      {
-        "markerEnd": {
-          "type": "arrowclosed",
-          "width": 8,
-          "height": 8
-        },
-        "style": "stroke-width: 2px; stroke: #A3A3A3",
-        "source": "function3",
-        "target": "list2",
-        "id": "xy-edge__function3-list2",
-        "selected": false
-      }
-    ],
-    "viewport": {
-      "x": 422.4716396871472,
-      "y": 229.9660636621702,
-      "zoom": 1.1034416525797555
+      "selected": false,
+      "dragging": false
     },
-    "modelId": "none"
-  }
+    {
+      "id": "loop2",
+      "position": {
+        "x": -18.552534825277096,
+        "y": 119.65647302614087
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "loop",
+      "data": {
+        "variant": "context",
+        "start": "0",
+        "end": "5",
+        "parents": [
+          "session",
+          "run4"
+        ]
+      },
+      "height": 150,
+      "width": 200,
+      "class": "!pointer-events-none rounded-lg",
+      "measured": {
+        "width": 200,
+        "height": 150
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "function3",
+      "position": {
+        "x": 44.88534595106101,
+        "y": 175.84431028518318
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "function",
+      "data": {
+        "variant": "function",
+        "functionName": "heatmap",
+        "inputs": [],
+        "code": "return [1,2,3]",
+        "deletable": true,
+        "typedArgs": {},
+        "parents": [
+          "session",
+          "loop2",
+          "run4"
+        ]
+      },
+      "class": "rounded-lg",
+      "measured": {
+        "width": 100,
+        "height": 42
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "run4",
+      "position": {
+        "x": -51.17773065310811,
+        "y": 56.21859224980277
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "run",
+      "data": {
+        "variant": "context",
+        "color": "rgba(134, 25, 143, 0.3)",
+        "parents": [
+          "session"
+        ]
+      },
+      "height": 275,
+      "width": 394,
+      "class": "!pointer-events-none rounded-lg",
+      "measured": {
+        "width": 394,
+        "height": 275
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "input1",
+      "position": {
+        "x": -234.98615537276277,
+        "y": 127.74717732462213
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "input",
+      "data": {
+        "variant": "input",
+        "text": "empty",
+        "parents": [
+          "session"
+        ]
+      },
+      "class": "",
+      "measured": {
+        "width": 156,
+        "height": 124
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "graph1",
+      "position": {
+        "x": 360.4333658055668,
+        "y": 198.69077984799756
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "graph",
+      "data": {
+        "variant": "graph",
+        "parents": [
+          "session"
+        ]
+      },
+      "class": "",
+      "measured": {
+        "width": 100,
+        "height": 38
+      },
+      "selected": true,
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 8,
+        "height": 8
+      },
+      "style": "stroke-width: 2px; stroke: #A3A3A3",
+      "source": "function3",
+      "target": "list2",
+      "id": "xy-edge__function3-list2",
+      "selected": false
+    },
+    {
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 8,
+        "height": 8
+      },
+      "style": "stroke-width: 2px; stroke: #A3A3A3",
+      "source": "input1",
+      "target": "run4",
+      "id": "xy-edge__input1-run4",
+      "selected": false
+    },
+    {
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 8,
+        "height": 8
+      },
+      "style": "stroke-width: 2px; stroke: #A3A3A3",
+      "source": "list2",
+      "target": "graph1",
+      "id": "xy-edge__list2-graph1"
+    }
+  ],
+  "viewport": {
+    "x": 377.0861507726986,
+    "y": 146.79805586091618,
+    "zoom": 1.272545054222696
+  },
+  "modelId": "none"
+}

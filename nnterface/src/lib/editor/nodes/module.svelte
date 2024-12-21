@@ -17,6 +17,8 @@
         ? data.moduleName.split(".").at(-1)
         : data.moduleName;
 
+    
+
     $effect(() => {
         data.variable = variable;
         data.index = index;

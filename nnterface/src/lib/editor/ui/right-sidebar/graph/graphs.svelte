@@ -1,79 +1,146 @@
 <script lang="ts">
-    import { useNodes, useSvelteFlow, type Node } from "@xyflow/svelte";
+    import { useNodes, type Node } from "@xyflow/svelte";
     import Line from "./line.svelte";
+    import Heatmap from "./heatmap.svelte";
     import { Button } from "$lib/components/ui/button";
+    import { X, Grid2X2, ChartLine } from "lucide-svelte";
+    import type { GraphData } from "$lib/editor/types/nodes";
+    import { Separator } from "$lib/components/ui/separator";
+
+    type GraphType = "line" | "heatmap";
 
     const nodes = useNodes();
-    const { getNode } = useSvelteFlow();
 
-    // Track selected graphs and data for each instance
-    let selectedGraphs: (string | null)[] = $state([null, null]);
-    let graphsData: any[] = $state([null, null]);
-    let selecting: boolean[] = $state([false, false]);
+    let selectedGraphs: (string | null)[] = $state([]);
+    let selectedTypes: (GraphType | null)[] = $state([]);
+    let graphsData: GraphData[] = $state([]);
+    let addingGraph = $state(false);
+    let selecting: string[] = $state([]);
 
-    let graphNodes = $derived(
-        $nodes.filter((node) => node.data.variant === "graph"),
+    let graphNodesData = $derived(
+        $nodes
+            .filter((node) => node.data.variant === "graph")
+            .map((node) => ({
+                id: node.id,
+                isEmpty: !node.data.graphData || Object.keys(node.data.graphData).length === 0,
+                data: node.data.graphData,
+            }))
     );
 
-    function toggleSelecting(idx: number) {
-        selecting[idx] = !selecting[idx];
+    function handleGraphSelect(nodeId: string, idx: number) {
+        const node = graphNodesData.find((n) => n.id === nodeId);
+        if (!node?.isEmpty) {
+            selectedGraphs[idx] = nodeId;
+            graphsData[idx] = node.data;
+            updateGraphState(idx);
+        }
     }
 
-    function handleGraphSelect(nodeId: string, idx: number) {
-        selectedGraphs[idx] = nodeId;
-        graphsData[idx] = getNode(nodeId)?.data.graphData;
+    function handleTypeSelect(type: GraphType, idx: number) {
+        selectedTypes[idx] = type;
+        selecting[idx] = "Select a graph node";
+        updateGraphState(idx);
+    }
+
+    function updateGraphState(idx: number) {
+        if (selectedGraphs[idx] && selectedTypes[idx]) {
+            addingGraph = false;
+            selecting[idx] = selectedGraphs[idx];
+        }
+    }
+
+    function addGraph() {
+        selectedGraphs = [...selectedGraphs, null];
+        selectedTypes = [...selectedTypes, null];
+        graphsData = [...graphsData, null];
+        selecting = [...selecting, "Select a graph type"];
+        addingGraph = true;
+    }
+
+    function removeGraph(idx: number) {
+        addingGraph = (addingGraph && selectedGraphs[idx] !== null) ? true : false;
+
+        selectedGraphs = selectedGraphs.filter((_, i) => i !== idx);
+        selectedTypes = selectedTypes.filter((_, i) => i !== idx);
+        graphsData = graphsData.filter((_, i) => i !== idx);
+        selecting = selecting.filter((_, i) => i !== idx);
     }
 </script>
 
-{#snippet graphSelect(idx: number)}
-    {#if !selectedGraphs[idx]}
-        <div class="border-2 border-dashed border-ui-1 rounded p-5">
-            {#if graphNodes.length === 0}
-                <div
-                    class="flex flex-col items-center justify-center text-muted-foreground/60"
-                >
-                    <span>No graphs available</span>
-                </div>
-            {:else if selecting[idx]}
-                <div class="grid grid-cols-2 gap-2">
-                    {#each graphNodes as node}
-                        <Button
-                            variant="ghost"
-                            class="flex items-center justify-center p-4 h-24 border rounded hover:bg-muted/50"
-                            onclick={() => handleGraphSelect(node.id, idx)}
-                        >
-                            {node.id}
-                        </Button>
-                    {/each}
-                </div>
-            {:else}
-                <div
-                    class="flex flex-col items-center justify-center text-muted-foreground/60"
-                >
-                    <span
-                        class="hover:text-muted-foreground"
-                        onclick={() => toggleSelecting(idx)}>Add a graph +</span
-                    >
-                </div>
-            {/if}
+{#snippet graphOptions(idx: number)}
+    <div class="grid grid-cols-2 gap-3">
+        {#each [
+            { type: "line", label: "Line Graph", icon: ChartLine },
+            { type: "heatmap", label: "Heatmap", icon: Grid2X2 }
+        ] as { type, label, icon }}
+            <Button
+                variant="outline"
+                class="p-4 h-24"
+                onclick={() => handleTypeSelect(type, idx)}
+            >
+                {label}
+                <svelte:component this={icon} class="w-4 h-4" />
+            </Button>
+        {/each}
+    </div>
+{/snippet}
+
+{#snippet nodeSelector(idx: number)}
+    {#if graphNodesData.length === 0}
+        <div class="flex flex-col items-center justify-center text-muted-foreground/60">
+            <span>No graphs available</span>
         </div>
     {:else}
-        <div class="relative">
-            <Button
-                variant="ghost"
-                size="icon"
-                class="absolute top-0 right-0 z-10"
-                onclick={() => (selectedGraphs[idx] = null)}
-            >
-                ×
-            </Button>
-            <Line dataToGraph={graphsData[idx]} />
+        <div class="grid grid-cols-2 gap-2">
+            {#each graphNodesData as node}
+                <Button
+                    variant="outline"
+                    class="p-4 h-24"
+                    onclick={() => handleGraphSelect(node.id, idx)}
+                    disabled={node.isEmpty}
+                >
+                    {node.isEmpty ? `${node.id} empty` : node.id}
+                </Button>
+            {/each}
         </div>
     {/if}
 {/snippet}
 
-<div class="p-6 flex flex-col gap-6">
-    {#each selecting as _, idx}
-        {@render graphSelect(idx)}
+{#snippet graphContent(idx: number)}
+    <div class="flex items-center justify-between px-6 pt-6 pb-2">
+        <small>{selecting[idx]}</small>
+        <button onclick={() => removeGraph(idx)}>
+            <X class="w-4 h-4" />
+        </button>
+    </div>
+    {#if !selectedTypes[idx]}
+        <div class="px-6 pb-6">
+            {@render graphOptions(idx)}
+        </div>
+    {:else if !selectedGraphs[idx]}
+        <div class="px-6 pb-6">
+            {@render nodeSelector(idx)}
+        </div>
+    {:else}
+        <div class="px-6 pb-6">
+            <svelte:component 
+            this={selectedTypes[idx] === "line" ? Line : Heatmap} 
+            dataToGraph={graphsData[idx]} 
+        />
+        </div>
+        <Separator />
+    {/if}
+{/snippet}
+
+<div class="flex flex-col">
+    {#each selectedGraphs as _, idx}
+        {@render graphContent(idx)}
     {/each}
+    
+    {#if !addingGraph}
+        <small class="p-6 cursor-pointer" onclick={addGraph}>
+            Add graph +
+        </small>
+    {/if}
+
 </div>

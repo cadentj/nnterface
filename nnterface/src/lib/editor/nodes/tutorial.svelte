@@ -31,7 +31,7 @@
 
 {#if open}
     <div
-        class="w-[175px] rounded p-3 !bg-[#AD8301] h-full"
+        class="w-[175px] rounded p-3 !bg-[#AD8301]/70 border-[#AD8301] border h-full"
         role="region"
     >
         <div class="flex justify-between">

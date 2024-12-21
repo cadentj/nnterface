@@ -1,6 +1,5 @@
 <script lang="ts">
     import { useSvelteFlow } from "@xyflow/svelte";
-    import type { InputNodeProps } from "$lib/editor/types/nodes";
     import { Textarea } from "$lib/components/ui/textarea";
     import { PUBLIC_BACKEND_URL } from "$env/static/public";
     import { Type, Pencil } from "lucide-svelte";
@@ -50,12 +49,15 @@
     .selected {
         @apply underline decoration-blue-500 bg-blue-500/20;
     }
+    .newline {
+        @apply block;
+    }
 </style>
 
 
 <div class="p-6">
     <div class="flex items-center mb-2 justify-between">
-        Prompt
+        <small>Prompt</small>
         <button onclick={tokenize}>
             {#if isTokenView}
                 <Pencil class="w-5 h-5" />
@@ -74,9 +76,10 @@
                         tabindex={idx}
                         class="hover:underline"
                         class:selected={selected === idx}
+                        class:newline={token === '\n'}
                         onclick={() => select(idx)}
                         onkeydown={(e) => e.key === "Enter" && select(idx)}
-                        >{token}</span
+                        >{token === '\n' ? '\\n' : token}</span
                     >
                 {/each}
             </div>
@@ -89,7 +92,7 @@
                 value={text}
                 on:input={(evt) =>
                     text = evt.currentTarget.value}
-                class="resize-none bg-ui-3 nodrag"
+                class="bg-secondary h-52"
             />
         {/if}
     </div>

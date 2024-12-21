@@ -5,22 +5,24 @@
     import Graph from "./graph/graphs.svelte";
     import { Separator } from "$lib/components/ui/separator/index.js";
 
+    import { editor } from "$lib/editor/handlers/states.svelte";
+
 </script>
 
 <div class='h-full bg-card'>
-    <Tabs.Root value="chat" id="sidebar">
+    <Tabs.Root value="tools" class="h-full" id="sidebar">
         <div class="px-6 py-3">
             <Tabs.List>
-                <Tabs.Trigger value="chat" class="w-full h-full">Chat</Tabs.Trigger>
-                <Tabs.Trigger value="graph" class="w-full h-full">Graph</Tabs.Trigger>
                 <Tabs.Trigger value="tools" class="w-full h-full">Tools</Tabs.Trigger>
+                <Tabs.Trigger value="graph" class="w-full h-full">Graph</Tabs.Trigger>
+                <Tabs.Trigger value="chat" class="w-full h-full" disabled={!editor.chatNodeExists}>Chat</Tabs.Trigger>
             </Tabs.List>
         </div>
 
         <Separator/>
         
-        <div>
-            <Tabs.Content value="chat">
+        <div class="h-full">
+            <Tabs.Content class="h-full" value="chat">
                 <ChatTab/>
             </Tabs.Content> 
             <Tabs.Content value="graph">

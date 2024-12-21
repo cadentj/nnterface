@@ -41,18 +41,20 @@
         let graphObject = toObject();
         graphObject["modelId"] = modelSelector.modelId;
         code = JSON.stringify(graphObject, null, 2);
+
+        open = true;
     }
 </script>
 
-<Dialog.Root onOpenChange={() => exportGraph()} bind:open>
+<Dialog.Root bind:open>
     <Button
-        onclick={() => (open = !open)}
+        onclick={() => exportGraph()}
         variant="default"
     >
         Save
         <Download class="w-5 h-5 ml-2" />
     </Button>
-    <Dialog.Content class="min-w-[30vw] h-[50vh]">
+    <Dialog.Content class="min-w-[30vw] h-[50vh] flex flex-col">
         <Dialog.Title>Save</Dialog.Title>
         <div class="h-full w-full overflow-scroll rounded border p-3 relative">
             <Button

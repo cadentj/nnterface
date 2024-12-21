@@ -10,7 +10,7 @@
 </script>
 
 <main class="bg-card h-full flex flex-col overflow-scroll">
-    <div class="p-6 border-b h-full">
+    <div class="p-6 border-b h-[70%]">
         {#if modelSelector.isChatModel}
             <Conversation {temperature} {maxNewTokens} />
         {:else}

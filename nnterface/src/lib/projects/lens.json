@@ -181,8 +181,8 @@
     {
       "id": "tutorial7",
       "position": {
-        "x": 545.0000000000001,
-        "y": 68.33333333333334
+        "x": 537.9988419926283,
+        "y": 58.2205495449073
       },
       "origin": [
         0,
@@ -203,14 +203,14 @@
         "width": 30,
         "height": 30
       },
-      "selected": false,
+      "selected": true,
       "dragging": false
     },
     {
       "id": "tutorial8",
       "position": {
-        "x": 836.1493654807442,
-        "y": 118.29389874882952
+        "x": 847.8179621596973,
+        "y": 79.39857648565247
       },
       "origin": [
         0,
@@ -221,8 +221,7 @@
         "variant": "tutorial",
         "text": "Graph accepts a list of floats/integers. We use decode to get the probability of the _Paris token.",
         "parents": [
-          "session",
-          "graph1"
+          "session"
         ]
       },
       "class": "rounded-lg",
@@ -230,7 +229,7 @@
         "width": 30,
         "height": 30
       },
-      "selected": true,
+      "selected": false,
       "dragging": false
     },
     {
@@ -312,9 +311,9 @@
     }
   ],
   "viewport": {
-    "x": -95.35611771525873,
-    "y": 274.2836050928531,
-    "zoom": 1.185969535243051
+    "x": -148.3313829225234,
+    "y": 269.6707864962606,
+    "zoom": 1.2855016256629905
   },
   "modelId": "openai-community/gpt2"
 }
