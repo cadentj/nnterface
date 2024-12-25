@@ -61,6 +61,13 @@ class Node(BaseModel):
             return SPACES * (len(self.data.parents) + extra)
         return ""
 
+    def filter_args(self, args: List["Node"], n: int = 1):
+        args = [n for n in args if n.data.variant != "context"]
+
+        assert len(args) == n
+
+        return args[0] if n == 1 else args
+
     def compile(self) -> str:
         """Compiles the node into IR code.
 

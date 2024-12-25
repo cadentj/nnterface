@@ -54,7 +54,6 @@ def resolve_dependencies(graph: Graph) -> None:
             # A connection to a node of greater depth should connect
             # to the top parent of the target node. This ensures that
             # nodes are topologically sorted correctly.
-
             case (x, y) if (x < y and not ("input" in src.id and "batch" in tar.id)):
                 other = get_top_parent(graph, tar.id, level=src.parent)
                 edges.append(Edge(source=src.id, target=other))
@@ -85,6 +84,8 @@ def unfold_edges(graph: Graph) -> None:
 
         parent_id = node.data.parents[-1]
         edge = Edge(source=parent_id, target=node.id)
+
+        print(edge)
         graph.edges.append(edge)
 
     for node in graph.nodes:
@@ -115,27 +116,40 @@ def resolve_edges(graph: Graph, sorted_nodes: List[Node]) -> None:
 
             match (src.data.variant, tar.data.variant):
                 case ("module", ("module" | "function")):
-                    src.protocol = "getter"
-                    tar.protocol = "setter"
+                    src.protocol("getter")
+                    tar.protocol("setter")
+
+                case ("function", "module"):
+                    tar.protocol("setter")
 
                 case ("module", "list"):
-                    src.protocol = "append"
-                    tar.set_input_id(src)
+                    src.protocol("getter")
 
                 case ("function", "list"):
-                    src.protocol = "append"
-                    tar.set_input_id(src)
-
-                case ("list", "list"):
-                    tar.protocol = "append"
-                    tar.set_input_id(src)
+                    src.protocol("setter") # Fix naming here
 
                 case ("context", "list"):
                     src.add_default(tar)
 
+            # Temporary
+            if tar.data.variant == "function" and edge.target_handle is not None:
+                tar.handle_dict[edge.target_handle] = src.id
+
+def fix_collections(graph: Graph): 
+
+    for edge in graph.edges:
+        src = graph.lookup[edge.source]
+        tar = graph.lookup[edge.target]
+
+        if tar.data.variant == "list":
+            tar.data.parents = src.data.parents
+            tar.parent = tar.data.parents[-1]
+
 
 def prepare(graph: Graph) -> Tuple[List[Node], Dict[str, List[Node]]]:
     """Prepare the graph for compilation."""
+
+    fix_collections(graph)
 
     # Draw extra edges between context blocks to ensure
     # dependencies are resolved correctly by topological sort.

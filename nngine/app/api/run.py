@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.core.compile import Graph, compile, prepare_inputs, prepare_result
+from app.core.compile import Graph, compile, get_order, prepare_inputs, prepare_result
 from app.state import state
 
 router = APIRouter()
@@ -20,7 +20,7 @@ def run(graph: Graph):
 
 @router.post("/order")
 def order(graph: Graph):
-    _, order = compile(graph, return_node_order=True)
+    order = get_order(graph)
 
     return {"order": order}
 

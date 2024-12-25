@@ -18,4 +18,4 @@ class GraphNode(Node):
     def precompile(self, args: List[Node]):
         input_node = [arg for arg in args if isinstance(arg, (ListNode))]
 
-        self.code = self.code.format(id=self.id, arg=input_node[0].name)
+        self.code = self.code.format(id=self.id, arg=input_node[0].id)

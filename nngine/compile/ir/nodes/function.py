@@ -17,7 +17,14 @@ class FunctionData(NodeData):
 
     @model_validator(mode="after")
     def set_inputs(self):
-        self.inputs = ", ".join(self.inputs)
+        inputs = ", ".join(self.inputs)
+
+        if self.typed_args:
+            typed_args = list(self.typed_args.keys())
+            typed_args_str = ", ".join(typed_args)
+            inputs = f"{inputs}, " + typed_args_str
+
+        self.inputs = inputs
         return self
 
 
@@ -25,23 +32,21 @@ class FunctionNode(Node):
     type: Literal["function"]
     data: FunctionData
 
-    code: str = "{id} = _{id}({args})"
+    code: str = None
     defn: str = "def _{id}({args}):\n  {body}"
-    append: str = "{id}_list.append(_{id}({args}))"
 
-    protocol: Literal["setter", "append"] = "setter"
+    handle_dict: dict = {}
+
+    def protocol(self, op: Literal["setter", "append"]):
+        self.code = {
+            "setter" : "{id} = _{id}({args})",
+            "append" : "{id}_list.append(_{id}({args}))"
+        }[op]
 
     def _define(self):
-        typed_args = list(self.data.typed_args.keys())
-        typed_args_str = ", ".join(typed_args)
-        all_args = f"{self.data.inputs}, " + typed_args_str
-
-        if len(typed_args) == 0:
-            all_args = self.data.inputs
-
         return self.defn.format(
             id=self.id,
-            args=all_args,
+            args=self.data.inputs,
             body=self.data.code,
         )
 
@@ -56,28 +61,9 @@ class FunctionNode(Node):
 
         return template.format(id=self.id, args=all_args)
 
-    def _set(self, args: List[str]):
-        self.code = self._call(self.code, args)
-
-        return self._define()
-
-    def _append(self, args: List[str]):
-        self.code = self._call(self.append, args)
-
-        return self._define()
-
     def precompile(self, args: List[Node]):
-
-        arg_ids = []
-        for arg in args:
-            if isinstance(arg, ListNode):
-                arg_ids.append(arg.name)
-                continue
-
-            if not isinstance(arg, ContextNode):
-                arg_ids.append(arg.id)
-                
-        args = ", ".join(arg_ids)
+        args_str = [f"{key} = {value}" for key, value in self.handle_dict.items()]
+        args_str = ", ".join(args_str)
 
         indented_code = []
         for i, line in enumerate(self.data.code.split("\n")):
@@ -88,7 +74,6 @@ class FunctionNode(Node):
 
         self.data.code = "\n".join(indented_code)
 
-        if self.protocol == "setter":
-            return self._set(args)
-        elif self.protocol == "append":
-            return self._append(args)
+        self.code = self._call(self.code, args_str)
+
+        return self._define()

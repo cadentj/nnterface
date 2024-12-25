@@ -22,15 +22,19 @@ def load_model(repo_id: str, dispatch: bool):
 
     print("loaded model", flush=True)
 
+gpt2_path = "/Users/caden/.cache/huggingface/hub/models--openai-community--gpt2/snapshots/607a30d783dfa663caf39e06633721c8d4cfcd7e"
+
 @router.post("/load")
 async def load(request: LoadModelRequest):
-    print(request.repo_id)
     dispatch = not state.check_is_remote(request.repo_id)
 
-    print("dispatch", dispatch)
-    load_model(request.repo_id, dispatch=dispatch)
+    print("OVERRIDING LOAD WITH LOCAL INSTALLATION")
 
-    pytree = load_pytree(request.repo_id)
+    # load_model(request.repo_id, dispatch=dispatch)
+    load_model(gpt2_path, dispatch=dispatch)
+
+    # pytree = load_pytree(request.repo_id)
+    pytree = load_pytree(gpt2_path)
 
     return {
         "pytree" : pytree

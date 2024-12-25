@@ -51,19 +51,21 @@ class ModuleNode(Node):
 
     type: Literal["module"]
     data: ModuleData
+    code: str = None
 
-    code: str = ""
+    temp: str = None
+    def protocol(self, op: Literal["getter", "setter", "append"]): 
+        self.temp = op
 
-    protocol: Literal["getter", "setter", "append"] = None
-    getter: str = "{id} = {module}.{location}{index}"
-    append: str = "{id}_list.append({module}.{location}{index})"
-    setter: str = "{module}.{location}{index} = {arg_id}"
+        self.code = {
+            "getter" : "{id} = {module}.{location}{index}",
+            "append" : "{id}_list.append({module}.{location}{index})",
+            "setter" : "{module}.{location}{index} = {id}"
+        }[op]
 
-
-    def _get_index(self, set: bool = False):
-
+    def _get_index(self, setting: bool = False):
         if self.data.location == "output":
-            tuple_index = "[:]" if set else ""
+            tuple_index = "[:]" if setting else ""
 
             index = "[0]" if self.data.is_tuple else ""
             index += f"[{self.data.index}]" if self.data.index else tuple_index
@@ -72,47 +74,22 @@ class ModuleNode(Node):
 
         return index
 
+    def build(self, arg: List[Node]):
+        setting = len(arg) != 0
+        id = self.id if not setting else arg[0].id
 
-    def _set(self, arg: Node):
-        index = self._get_index(set=True)
+        index = self._get_index(setting)
 
-        self.code = self.setter.format(
-            module=self.data.module_name,
-            location=self.data.location,
-            arg_id=arg.id,
-            index=index,
-        )
-
-    def _append(self):
-        index = self._get_index()
-
-        self.code = self.append.format(
-            id=self.id,
-            module=self.data.module_name,
-            location=self.data.location,
-            index=index,
-        )
-
-    def _get(self):
-        index = self._get_index()
-
-        self.code = self.getter.format(
-            id=self.id,
+        self.code = self.code.format(
+            id=id,
             module=self.data.module_name,
             location=self.data.location,
             index=index,
         )
 
     def precompile(self, args: List[Node]):
-        input_node = [
-            arg for arg in args if isinstance(arg, (ModuleNode, FunctionNode, ListNode))
-        ]
+        input_node = [arg for arg in args if arg.data.variant != "context"]
+        
+        assert len(input_node) <= 1, "Module node has an invalid input. Check for bugs?"
 
-        assert len(input_node) <= 1
-
-        if input_node:
-            return self._set(input_node[0])
-        elif self.protocol == "getter":
-            return self._get()
-        elif self.protocol == "append":
-            return self._append()
+        self.build(input_node)
