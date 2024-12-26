@@ -1,11 +1,19 @@
 <script lang="ts">
-    import { Position, Handle } from "@xyflow/svelte";
+    import { Position, Handle, type Connection } from "@xyflow/svelte";
     import type { FunctionNodeProps } from "$lib/editor/types/nodes";
 
     let { data }: FunctionNodeProps = $props();
 
     let inputs = data.inputs;
     let typedInputs = $state(data.typedArgs);
+    
+    // Initialize handleDict if it doesn't exist
+    data.handleDict = data.handleDict || {};
+
+    function addConnection(input: string, connection: Connection) {
+        console.log(connection.source, input);
+        data.handleDict[input] = connection.source;
+    }
 
     $effect(() => {
         data.typedArgs = typedInputs;
@@ -25,6 +33,7 @@
                     type="target"
                     position={Position.Left}
                     class="border-t"
+                    onconnect={(connection) => {addConnection(input, connection[0])}}
                 >
                     <span class="pl-5">
                         {input}

@@ -1,98 +1,10 @@
 {
   "nodes": [
     {
-      "id": "list2",
+      "id": "run1",
       "position": {
-        "x": 213.23932766922064,
-        "y": 200.5939186295212
-      },
-      "origin": [
-        0,
-        0
-      ],
-      "type": "list",
-      "data": {
-        "variant": "list",
-        "parents": [
-          "session",
-          "run4"
-        ]
-      },
-      "class": "rounded-lg",
-      "measured": {
-        "width": 100,
-        "height": 38
-      },
-      "selected": false,
-      "dragging": false
-    },
-    {
-      "id": "loop2",
-      "position": {
-        "x": -18.552534825277096,
-        "y": 119.65647302614087
-      },
-      "origin": [
-        0,
-        0
-      ],
-      "type": "loop",
-      "data": {
-        "variant": "context",
-        "start": "0",
-        "end": "5",
-        "parents": [
-          "session",
-          "run4"
-        ]
-      },
-      "height": 150,
-      "width": 200,
-      "class": "!pointer-events-none rounded-lg",
-      "measured": {
-        "width": 200,
-        "height": 150
-      },
-      "selected": false,
-      "dragging": false
-    },
-    {
-      "id": "function3",
-      "position": {
-        "x": 44.88534595106101,
-        "y": 175.84431028518318
-      },
-      "origin": [
-        0,
-        0
-      ],
-      "type": "function",
-      "data": {
-        "variant": "function",
-        "functionName": "heatmap",
-        "inputs": [],
-        "code": "return [1,2,3]",
-        "deletable": true,
-        "typedArgs": {},
-        "parents": [
-          "session",
-          "loop2",
-          "run4"
-        ]
-      },
-      "class": "rounded-lg",
-      "measured": {
-        "width": 100,
-        "height": 42
-      },
-      "selected": false,
-      "dragging": false
-    },
-    {
-      "id": "run4",
-      "position": {
-        "x": -51.17773065310811,
-        "y": 56.21859224980277
+        "x": 116,
+        "y": 201.8515625
       },
       "origin": [
         0,
@@ -106,21 +18,20 @@
           "session"
         ]
       },
-      "height": 275,
-      "width": 394,
-      "class": "!pointer-events-none rounded-lg",
+      "height": 285,
+      "width": 399,
+      "class": "!pointer-events-none",
       "measured": {
-        "width": 394,
-        "height": 275
+        "width": 399,
+        "height": 285
       },
-      "selected": false,
-      "dragging": false
+      "selected": false
     },
     {
       "id": "input1",
       "position": {
-        "x": -234.98615537276277,
-        "y": 127.74717732462213
+        "x": -82.5,
+        "y": 198.02734375
       },
       "origin": [
         0,
@@ -129,7 +40,7 @@
       "type": "input",
       "data": {
         "variant": "input",
-        "text": "empty",
+        "text": "nest",
         "parents": [
           "session"
         ]
@@ -143,10 +54,121 @@
       "dragging": false
     },
     {
+      "id": "list1",
+      "position": {
+        "x": 249.7981998488112,
+        "y": 300.3772430941622
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "list",
+      "data": {
+        "variant": "list",
+        "parents": [
+          "session",
+          "run1"
+        ]
+      },
+      "class": "",
+      "measured": {
+        "width": 100,
+        "height": 38
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "list2",
+      "position": {
+        "x": 293.88503242772913,
+        "y": 374.9857289969463
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "list",
+      "data": {
+        "variant": "list",
+        "parents": [
+          "session",
+          "run1"
+        ]
+      },
+      "class": "",
+      "measured": {
+        "width": 100,
+        "height": 38
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "list3",
+      "position": {
+        "x": 389.6891109165315,
+        "y": 430.0942697205936
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "list",
+      "data": {
+        "variant": "list",
+        "parents": [
+          "session",
+          "run1"
+        ]
+      },
+      "class": "",
+      "measured": {
+        "width": 100,
+        "height": 38
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "module1",
+      "position": {
+        "x": 134.49417618087205,
+        "y": 247.81217348083698
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "module",
+      "data": {
+        "isInput": false,
+        "variant": "module",
+        "moduleName": "model.transformer",
+        "isVariable": false,
+        "location": "output",
+        "isTuple": true,
+        "variable": "",
+        "index": "",
+        "parents": [
+          "session",
+          "run1"
+        ]
+      },
+      "class": "",
+      "measured": {
+        "width": 100,
+        "height": 38
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
       "id": "graph1",
       "position": {
-        "x": 360.4333658055668,
-        "y": 198.69077984799756
+        "x": 582.145091597577,
+        "y": 369.0509630728612
       },
       "origin": [
         0,
@@ -176,9 +198,9 @@
         "height": 8
       },
       "style": "stroke-width: 2px; stroke: #A3A3A3",
-      "source": "function3",
-      "target": "list2",
-      "id": "xy-edge__function3-list2",
+      "source": "input1",
+      "target": "run1",
+      "id": "xy-edge__input1-run1",
       "selected": false
     },
     {
@@ -188,9 +210,9 @@
         "height": 8
       },
       "style": "stroke-width: 2px; stroke: #A3A3A3",
-      "source": "input1",
-      "target": "run4",
-      "id": "xy-edge__input1-run4",
+      "source": "list1",
+      "target": "list2",
+      "id": "xy-edge__list1-list2",
       "selected": false
     },
     {
@@ -201,14 +223,39 @@
       },
       "style": "stroke-width: 2px; stroke: #A3A3A3",
       "source": "list2",
+      "target": "list3",
+      "id": "xy-edge__list2-list3",
+      "selected": false
+    },
+    {
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 8,
+        "height": 8
+      },
+      "style": "stroke-width: 2px; stroke: #A3A3A3",
+      "source": "module1",
+      "sourceHandle": "right-source",
+      "target": "list1",
+      "id": "xy-edge__module1right-source-list1",
+      "selected": false
+    },
+    {
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 8,
+        "height": 8
+      },
+      "style": "stroke-width: 2px; stroke: #A3A3A3",
+      "source": "list3",
       "target": "graph1",
-      "id": "xy-edge__list2-graph1"
+      "id": "xy-edge__list3-graph1"
     }
   ],
   "viewport": {
-    "x": 377.0861507726986,
-    "y": 146.79805586091618,
-    "zoom": 1.272545054222696
+    "x": 184.36539750533825,
+    "y": 35.55945923001707,
+    "zoom": 1.179490495419853
   },
-  "modelId": "none"
+  "modelId": "openai-community/gpt2"
 }

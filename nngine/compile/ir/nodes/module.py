@@ -51,17 +51,7 @@ class ModuleNode(Node):
 
     type: Literal["module"]
     data: ModuleData
-    code: str = None
-
-    temp: str = None
-    def protocol(self, op: Literal["getter", "setter", "append"]): 
-        self.temp = op
-
-        self.code = {
-            "getter" : "{id} = {module}.{location}{index}",
-            "append" : "{id}_list.append({module}.{location}{index})",
-            "setter" : "{module}.{location}{index} = {id}"
-        }[op]
+    code: str = "{id} = {module}.{location}{index}"
 
     def _get_index(self, setting: bool = False):
         if self.data.location == "output":
@@ -88,6 +78,11 @@ class ModuleNode(Node):
         )
 
     def precompile(self, args: List[Node]):
+        v = any([isinstance(n, ModuleNode) or isinstance(n, FunctionNode) for n in args])
+
+        if v:
+            self.code = "{module}.{location}{index} = {id}"
+
         input_node = [arg for arg in args if arg.data.variant != "context"]
         
         assert len(input_node) <= 1, "Module node has an invalid input. Check for bugs?"

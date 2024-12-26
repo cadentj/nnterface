@@ -1,39 +1,7 @@
 from typing import List, Dict, Tuple
-from collections import defaultdict
 
 from .ir import Node, Edge, Graph
-from .utils import topological_sort, get_adj_list
-
-
-def build_neighbors(graph: Graph) -> Dict[str, List[Edge]]:
-    """Build a lookup of node_ids to outgoing edges.
-
-    Args:
-        graph (Graph): Graph to build the lookup for.
-
-    Returns:
-        Dict[str, List[Edge]]: Lookup of node_ids to outgoing edges.
-    """
-    neighbors = defaultdict(list)
-
-    for edge in graph.edges:
-        neighbors[edge.source].append(edge)
-
-    return neighbors
-
-
-def get_top_parent(graph: Graph, node_id: str, level: str = "session") -> str:
-    """Get the parent id of a node at a certain depth."""
-    node = graph.lookup[node_id]
-
-    while node.parent != level:
-        if node.parent == "session":
-            return node.id
-
-        node = graph.lookup[node.parent]
-
-    return node.id
-
+from .utils import topological_sort, get_adj_list, get_top_parent
 
 def resolve_dependencies(graph: Graph) -> None:
     """Draw edges between context blocks to ensure dependencies are resolved correctly.
@@ -55,8 +23,8 @@ def resolve_dependencies(graph: Graph) -> None:
             # to the top parent of the target node. This ensures that
             # nodes are topologically sorted correctly.
             case (x, y) if (x < y and not ("input" in src.id and "batch" in tar.id)):
-                other = get_top_parent(graph, tar.id, level=src.parent)
-                edges.append(Edge(source=src.id, target=other))
+                other_id = get_top_parent(graph, tar.id, level=src.parent)
+                edges.append(Edge(source=src.id, target=other_id))
 
             # A connection to a node of equal depth within a different
             # context should resolve contexts sequentially.
@@ -77,7 +45,7 @@ def unfold_edges(graph: Graph) -> None:
     """
 
     def unfold_context(node: Node) -> None:
-        # If the parents list includes the empty 
+        # If the parents list includes the empty
         # string, this is a session node.
         if node.data.parents == [""]:
             return
@@ -85,70 +53,33 @@ def unfold_edges(graph: Graph) -> None:
         parent_id = node.data.parents[-1]
         edge = Edge(source=parent_id, target=node.id)
 
-        print(edge)
+        if node.data.variant == "list":
+            parent = graph.lookup[parent_id]
+            parent.add_default(node)
+
         graph.edges.append(edge)
 
     for node in graph.nodes:
         unfold_context(node)
 
 
-def resolve_edges(graph: Graph, sorted_nodes: List[Node]) -> None:
-    """Resolve the protocol of nodes based on their immediate connections.
-
-    Certain nodes need to know about their specific protocol, dependent
-    on their immediate connections. Loop through nodes and their neighbors,
-    then resolve their protocol.
-
-    Args:
-        graph (Graph): Graph to resolve the protocols for.
-        sorted_nodes (List[Node]): Nodes to resolve the protocols for.
-
-    Returns:
-        None
-    """
-
-    neighbors = build_neighbors(graph)
-
-    for node in sorted_nodes:
-        for edge in neighbors.get(node.id, []):
-            src = graph.lookup[edge.source]
-            tar = graph.lookup[edge.target]
-
-            match (src.data.variant, tar.data.variant):
-                case ("module", ("module" | "function")):
-                    src.protocol("getter")
-                    tar.protocol("setter")
-
-                case ("function", "module"):
-                    tar.protocol("setter")
-
-                case ("module", "list"):
-                    src.protocol("getter")
-
-                case ("function", "list"):
-                    src.protocol("setter") # Fix naming here
-
-                case ("context", "list"):
-                    src.add_default(tar)
-
-            # Temporary
-            if tar.data.variant == "function" and edge.target_handle is not None:
-                tar.handle_dict[edge.target_handle] = src.id
-
-def fix_collections(graph: Graph): 
-
+def fix_collections(graph: Graph):
     for edge in graph.edges:
         src = graph.lookup[edge.source]
         tar = graph.lookup[edge.target]
 
         if tar.data.variant == "list":
-            tar.data.parents = src.data.parents
+            top_id = get_top_parent(graph, src.id, lambda x: "loop" in x)
+            top_node = graph.lookup[top_id]
+
+            tar.data.parents = top_node.data.parents
             tar.parent = tar.data.parents[-1]
 
 
 def prepare(graph: Graph) -> Tuple[List[Node], Dict[str, List[Node]]]:
     """Prepare the graph for compilation."""
 
+    # Visually, collections should be defined outside of a loop.
     fix_collections(graph)
 
     # Draw extra edges between context blocks to ensure
@@ -165,9 +96,9 @@ def prepare(graph: Graph) -> Tuple[List[Node], Dict[str, List[Node]]]:
     return sorted_nodes, grouped
 
 
-def precompile(graph: Graph, sorted_nodes: List[Node]) -> List[str]:
+def precompile(graph: Graph) -> List[str]:
     """Compile the initial definitions and functions, as well as create the formatted IR for each node.
-    
+
     Args:
         graph (Graph): Graph to compile.
         sorted_nodes (List[Node]): Nodes to compile.
@@ -177,8 +108,6 @@ def precompile(graph: Graph, sorted_nodes: List[Node]) -> List[str]:
     """
 
     r_adj_list = get_adj_list(graph, reverse=True)
-
-    resolve_edges(graph, sorted_nodes)
 
     code = []
 

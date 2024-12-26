@@ -44,12 +44,12 @@
           "session"
         ]
       },
-      "height": 286,
-      "width": 379,
+      "height": 290,
+      "width": 346,
       "class": "!pointer-events-none rounded-lg",
       "measured": {
-        "width": 379,
-        "height": 286
+        "width": 346,
+        "height": 290
       },
       "selected": false,
       "dragging": false
@@ -87,8 +87,8 @@
     {
       "id": "module3",
       "position": {
-        "x": 555.8333333333333,
-        "y": 49.16666666666667
+        "x": 535.8333333333333,
+        "y": 27.16666666666667
       },
       "origin": [
         0,
@@ -121,8 +121,8 @@
     {
       "id": "list4",
       "position": {
-        "x": 563.5482984461545,
-        "y": 147.88164493784112
+        "x": 560.0539221328329,
+        "y": 155.36454041565412
       },
       "origin": [
         0,
@@ -193,10 +193,10 @@
         ]
       },
       "height": 397,
-      "width": 816,
+      "width": 672,
       "class": "!pointer-events-none rounded-lg",
       "measured": {
-        "width": 816,
+        "width": 672,
         "height": 397
       },
       "selected": false,
@@ -216,19 +216,19 @@
       "data": {
         "variant": "context",
         "start": "0",
-        "end": "6",
+        "end": "14",
         "parents": [
           "session",
           "run6",
           "loop7"
         ]
       },
-      "height": 315,
-      "width": 647,
+      "height": 319,
+      "width": 529,
       "class": "!pointer-events-none rounded-lg",
       "measured": {
-        "width": 647,
-        "height": 315
+        "width": 529,
+        "height": 319
       },
       "selected": false,
       "dragging": false
@@ -302,7 +302,7 @@
     {
       "id": "module14",
       "position": {
-        "x": 894.0522556640846,
+        "x": 809.400807658097,
         "y": 579.7931360160417
       },
       "origin": [
@@ -377,8 +377,7 @@
         "parents": [
           "session",
           "run6",
-          "loop7",
-          "loop8"
+          "loop7"
         ]
       },
       "class": "rounded-lg",
@@ -404,91 +403,13 @@
         "variant": "list",
         "parents": [
           "session",
-          "run6",
-          "loop7"
+          "run6"
         ]
       },
       "class": "rounded-lg",
       "measured": {
         "width": 100,
         "height": 38
-      },
-      "selected": false,
-      "dragging": false
-    },
-    {
-      "id": "function1",
-      "position": {
-        "x": 931.4066832147156,
-        "y": 457.99829587596497
-      },
-      "origin": [
-        0,
-        0
-      ],
-      "type": "function",
-      "data": {
-        "variant": "function",
-        "functionName": "Metric",
-        "inputs": [
-          "clean",
-          "corr"
-        ],
-        "code": "# _Lisa: 15378\n# _Sarah: 10490\n\ndiff = clean[:,-1,15378] - corr[:,-1,10490]\n\nreturn diff.item()",
-        "deletable": true,
-        "typedArgs": {},
-        "parents": [
-          "session",
-          "run6",
-          "loop7",
-          "loop8",
-          "batch11"
-        ]
-      },
-      "class": "",
-      "measured": {
-        "width": 100,
-        "height": 90
-      },
-      "selected": false,
-      "dragging": false
-    },
-    {
-      "id": "function2",
-      "position": {
-        "x": 691.66285492676,
-        "y": 459.5758797223058
-      },
-      "origin": [
-        0,
-        0
-      ],
-      "type": "function",
-      "data": {
-        "variant": "function",
-        "functionName": "Index",
-        "inputs": [
-          "acts",
-          "corr"
-        ],
-        "code": "# Acts is a list of activations\nlayer_act = acts[layer]\n\n# Return over the correct token\ntoken_act = layer_act[:,tok,:]\n\ncorr[:,tok,:] = token_act\n\nreturn corr",
-        "deletable": true,
-        "typedArgs": {
-          "tok": "loop8",
-          "layer": "loop7"
-        },
-        "parents": [
-          "session",
-          "run6",
-          "loop7",
-          "loop8",
-          "batch11"
-        ]
-      },
-      "class": "",
-      "measured": {
-        "width": 100,
-        "height": 144
       },
       "selected": false,
       "dragging": false
@@ -532,8 +453,8 @@
     {
       "id": "module5",
       "position": {
-        "x": 689.0853056657897,
-        "y": 156.71384155832732
+        "x": 694.6715286631795,
+        "y": 160.71384155832732
       },
       "origin": [
         0,
@@ -583,6 +504,180 @@
       "measured": {
         "width": 100,
         "height": 38
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "input3",
+      "position": {
+        "x": 249.4804964323854,
+        "y": -258.80651487050943
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "input",
+      "data": {
+        "variant": "input",
+        "text": "When Lisa and Sarah went to the cinema, Sarah gave the ticket to",
+        "parents": [
+          "session"
+        ]
+      },
+      "class": "",
+      "measured": {
+        "width": 156,
+        "height": 124
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "run3",
+      "position": {
+        "x": 493.50780347192426,
+        "y": -252.1024679738188
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "run",
+      "data": {
+        "variant": "context",
+        "color": "rgba(134, 25, 143, 0.3)",
+        "parents": [
+          "session"
+        ]
+      },
+      "height": 150,
+      "width": 250,
+      "class": "!pointer-events-none",
+      "measured": {
+        "width": 250,
+        "height": 150
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "module6",
+      "position": {
+        "x": 560.5482724388305,
+        "y": -195.78847404161755
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "module",
+      "data": {
+        "isInput": false,
+        "variant": "module",
+        "moduleName": "model.lm_head",
+        "isVariable": false,
+        "location": "output",
+        "isTuple": false,
+        "variable": "",
+        "index": "",
+        "parents": [
+          "session",
+          "run3"
+        ]
+      },
+      "class": "",
+      "measured": {
+        "width": 100,
+        "height": 38
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "function1",
+      "position": {
+        "x": 927.6708413619153,
+        "y": 446.809356659138
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "function",
+      "data": {
+        "variant": "function",
+        "functionName": "Metric",
+        "inputs": [
+          "clean",
+          "corr",
+          "restored"
+        ],
+        "code": "# _Lisa: 15378\n# _Sarah: 10490\n\n_restored = restored[:,-1,15378] - restored[:,-1,10490]\n_corr = corr[:,-1,10490] - corr[:,-1,15378]\n_clean = clean[:,-1,15378] - clean[:,-1,10490]\n\ndiff = (_restored - _corr) / (_clean - _corr)\n\nreturn diff.item()",
+        "deletable": true,
+        "typedArgs": {},
+        "parents": [
+          "session",
+          "run6",
+          "loop7",
+          "loop8",
+          "batch11"
+        ],
+        "handleDict": {
+          "clean": "module5",
+          "corr": "module6",
+          "restored": "module14"
+        }
+      },
+      "class": "",
+      "measured": {
+        "width": 100,
+        "height": 117
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "function2",
+      "position": {
+        "x": 677.3610830579801,
+        "y": 452.12764685430716
+      },
+      "origin": [
+        0,
+        0
+      ],
+      "type": "function",
+      "data": {
+        "variant": "function",
+        "functionName": "Index",
+        "inputs": [
+          "acts",
+          "corr"
+        ],
+        "code": "# Acts is a list of activations\nlayer_act = acts[layer]\n\n# Return over the correct token\ntoken_act = layer_act[:,tok,:]\n\ncorr[:,tok,:] = token_act\n\nreturn corr",
+        "deletable": true,
+        "typedArgs": {
+          "tok": "loop8",
+          "layer": "loop7"
+        },
+        "parents": [
+          "session",
+          "run6",
+          "loop7",
+          "loop8",
+          "batch11"
+        ],
+        "handleDict": {
+          "corr": "module9",
+          "acts": "list4"
+        }
+      },
+      "class": "",
+      "measured": {
+        "width": 100,
+        "height": 144
       },
       "selected": false,
       "dragging": false
@@ -646,11 +741,9 @@
         "height": 8
       },
       "style": "stroke-width: 2px; stroke: #A3A3A3",
-      "source": "module14",
-      "sourceHandle": "right-source",
-      "target": "function1",
-      "targetHandle": "corr",
-      "id": "xy-edge__module14right-source-function1corr",
+      "source": "list16",
+      "target": "graph1",
+      "id": "xy-edge__list16-graph1",
       "selected": false
     },
     {
@@ -660,9 +753,9 @@
         "height": 8
       },
       "style": "stroke-width: 2px; stroke: #A3A3A3",
-      "source": "function1",
-      "target": "list15",
-      "id": "xy-edge__function1-list15",
+      "source": "input3",
+      "target": "run3",
+      "id": "xy-edge__input3-run3",
       "selected": false
     },
     {
@@ -672,10 +765,10 @@
         "height": 8
       },
       "style": "stroke-width: 2px; stroke: #A3A3A3",
-      "source": "list4",
-      "target": "function2",
-      "targetHandle": "acts",
-      "id": "xy-edge__list4-function2acts",
+      "source": "function2",
+      "target": "module4",
+      "targetHandle": "right-target",
+      "id": "xy-edge__function2-module4right-target",
       "selected": false
     },
     {
@@ -699,6 +792,19 @@
         "height": 8
       },
       "style": "stroke-width: 2px; stroke: #A3A3A3",
+      "source": "list4",
+      "target": "function2",
+      "targetHandle": "acts",
+      "id": "xy-edge__list4-function2acts",
+      "selected": false
+    },
+    {
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 8,
+        "height": 8
+      },
+      "style": "stroke-width: 2px; stroke: #A3A3A3",
       "source": "module5",
       "sourceHandle": "right-source",
       "target": "function1",
@@ -713,10 +819,11 @@
         "height": 8
       },
       "style": "stroke-width: 2px; stroke: #A3A3A3",
-      "source": "function2",
-      "target": "module4",
-      "targetHandle": "right-target",
-      "id": "xy-edge__function2-module4right-target",
+      "source": "module6",
+      "sourceHandle": "right-source",
+      "target": "function1",
+      "targetHandle": "corr",
+      "id": "xy-edge__module6right-source-function1corr",
       "selected": false
     },
     {
@@ -726,16 +833,28 @@
         "height": 8
       },
       "style": "stroke-width: 2px; stroke: #A3A3A3",
-      "source": "list16",
-      "target": "graph1",
-      "id": "xy-edge__list16-graph1",
-      "selected": false
+      "source": "module14",
+      "sourceHandle": "right-source",
+      "target": "function1",
+      "targetHandle": "restored",
+      "id": "xy-edge__module14right-source-function1restored"
+    },
+    {
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 8,
+        "height": 8
+      },
+      "style": "stroke-width: 2px; stroke: #A3A3A3",
+      "source": "function1",
+      "target": "list15",
+      "id": "xy-edge__function1-list15"
     }
   ],
   "viewport": {
-    "x": -151.4314817786642,
-    "y": 167.04086581723573,
-    "zoom": 0.8321291298132185
+    "x": -78.73580245760888,
+    "y": 292.74499395207647,
+    "zoom": 0.5
   },
   "modelId": "openai-community/gpt2"
 }

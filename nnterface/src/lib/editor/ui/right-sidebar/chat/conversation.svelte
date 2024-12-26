@@ -10,35 +10,46 @@
     const nodes = useNodes();
 
     async function chat(messages: Array<{ content: string; role: string }>) {
-        for (const n of get(nodes)) {
-            if (n.type === "chat") {
-                updateNodeData(n.id, {
-                    messages: messages,
-                    temperature: temperature[0],
-                    maxNewTokens: maxNewTokens[0],
-                });
+        try {
+            for (const n of get(nodes)) {
+                if (n.type === "chat") {
+                    updateNodeData(n.id, {
+                        messages: messages,
+                        temperature: temperature[0],
+                        maxNewTokens: maxNewTokens[0],
+                    });
+                }
             }
+
+            let graphObject = exportGraph(nodes, getIntersectingNodes, toObject);
+
+            const response = await fetch(`${PUBLIC_BACKEND_URL}/run`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(graphObject),
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Chat failed:', response.status, errorText);
+                throw new Error(errorText);
+            }
+
+            const result = await response.json();
+
+            let assistantResponse: string = "";
+            for (const [nodeId, data] of Object.entries(result)) {
+                const parsed = JSON.parse(data as string);
+                assistantResponse = parsed.at(-1)["content"];
+            }
+
+            return assistantResponse;
+        } catch (error) {
+            console.error('Error during chat:', error);
+            throw error; // Re-throw to be handled by sendMessage
         }
-
-        let graphObject = exportGraph(nodes, getIntersectingNodes, toObject);
-
-        const response = await fetch(`${PUBLIC_BACKEND_URL}/run/chat`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(graphObject),
-        });
-
-        const result = await response.json();
-
-        let assistantResponse: string = "";
-        for (const [nodeId, data] of Object.entries(result)) {
-            const parsed = JSON.parse(data as string);
-            assistantResponse = parsed.at(-1)["content"];
-        }
-
-        return assistantResponse;
     }
 
     let messages = $state<

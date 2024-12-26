@@ -15,43 +15,59 @@
     const nodes = useNodes();
 
     async function generate(messages: string) {
-        for (const n of get(nodes)) {
-            if (n.type === "chat") {
-                updateNodeData(n.id, {
-                    messages: messages,
-                    temperature: temperature[0],
-                    maxNewTokens: maxNewTokens[0],
-                });
+        try {
+            for (const n of get(nodes)) {
+                if (n.type === "chat") {
+                    updateNodeData(n.id, {
+                        messages: messages,
+                        temperature: temperature[0],
+                        maxNewTokens: maxNewTokens[0],
+                    });
+                }
             }
+
+            let graphObject = exportGraph(nodes, getIntersectingNodes, toObject);
+
+            const response = await fetch(`${PUBLIC_BACKEND_URL}/run`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(graphObject),
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Generation failed:', response.status, errorText);
+                throw new Error(errorText);
+            }
+
+            const result = await response.json();
+
+            let r: string = "";
+            for (const [nodeId, data] of Object.entries(result)) {
+                r = data.slice(1, -1);
+            }
+
+            return r;
+        } catch (error) {
+            console.error('Error during generation:', error);
+            throw error;
         }
-
-        let graphObject = exportGraph(nodes, getIntersectingNodes, toObject);
-
-        const response = await fetch(`${PUBLIC_BACKEND_URL}/run/chat`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(graphObject),
-        });
-
-        const result = await response.json();
-
-        let r: string = "";
-        for (const [nodeId, data] of Object.entries(result)) {
-            r = data.slice(1, -1);
-        }
-
-        return r;
     }
 
     async function generateText() {
         if (isLoading) return;
 
         isLoading = true;
-        const response = await generate(generationText);
-        generationText = generationText + response;
-        isLoading = false;
+        try {
+            const response = await generate(generationText);
+            generationText = generationText + response;
+        } catch (error) {
+            console.error('Generate text error:', error);
+        } finally {
+            isLoading = false;
+        }
     }
 </script>
 

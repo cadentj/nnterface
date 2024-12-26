@@ -2,8 +2,6 @@ from typing import Literal, List, Dict
 
 from pydantic import model_validator
 
-from .context import ContextNode
-from .collections import ListNode
 from .base import Node, NodeData, SPACES
 
 
@@ -14,6 +12,8 @@ class FunctionData(NodeData):
     code: str
     inputs: List[str]
     typed_args: Dict[str, str]
+
+    handle_dict: Dict[str, str]
 
     @model_validator(mode="after")
     def set_inputs(self):
@@ -32,16 +32,8 @@ class FunctionNode(Node):
     type: Literal["function"]
     data: FunctionData
 
-    code: str = None
+    code: str = "{id} = _{id}({args})"
     defn: str = "def _{id}({args}):\n  {body}"
-
-    handle_dict: dict = {}
-
-    def protocol(self, op: Literal["setter", "append"]):
-        self.code = {
-            "setter" : "{id} = _{id}({args})",
-            "append" : "{id}_list.append(_{id}({args}))"
-        }[op]
 
     def _define(self):
         return self.defn.format(
@@ -62,7 +54,7 @@ class FunctionNode(Node):
         return template.format(id=self.id, args=all_args)
 
     def precompile(self, args: List[Node]):
-        args_str = [f"{key} = {value}" for key, value in self.handle_dict.items()]
+        args_str = [f"{key} = {value}" for key, value in self.data.handle_dict.items()]
         args_str = ", ".join(args_str)
 
         indented_code = []

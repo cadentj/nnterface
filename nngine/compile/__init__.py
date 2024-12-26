@@ -1,10 +1,9 @@
 from .execute import prepare_inputs, prepare_result
-from .compile import compile, get_order
+from .compile import compile
 from .ir import Graph, Node, Edge
 
 __all__ = [
     "compile",
-    "get_order",
     "Graph",
     "Node",
     "Edge",

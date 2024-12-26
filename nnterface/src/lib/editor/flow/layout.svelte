@@ -16,6 +16,8 @@
         {@render flow()}
     </div>
 
+
+
     {#if editor.rightSidebarVisible}
         <div class="chat">
             {@render rightSidebar()}

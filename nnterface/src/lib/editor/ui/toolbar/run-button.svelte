@@ -29,30 +29,40 @@
     }
 
     async function run() {
-        const graphObject = exportGraph(
-            nodes,
-            getIntersectingNodes,
-            toObject,
-        );
+        try {
+            const graphObject = exportGraph(
+                nodes,
+                getIntersectingNodes,
+                toObject,
+            );
 
-        animateOrder(graphObject);
+            await animateOrder(graphObject);
 
-        const response = await fetch(`${PUBLIC_BACKEND_URL}/run`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(graphObject),
-        });
+            const response = await fetch(`${PUBLIC_BACKEND_URL}/run`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(graphObject),
+            });
 
-        const result = await response.json();
-
-        for (const [nodeId, data] of Object.entries(result)) {
-            if (nodeId.includes("graph")) {
-                updateNodeData(nodeId, { graphData: JSON.parse(data) });
-            } else {
-                updateNodeData(nodeId, { messages: JSON.parse(data) });
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Run failed:', response.status, errorText);
+                return;
             }
+
+            const result = await response.json();
+
+            for (const [nodeId, data] of Object.entries(result)) {
+                if (nodeId.includes("graph")) {
+                    updateNodeData(nodeId, { graphData: JSON.parse(data) });
+                } else {
+                    updateNodeData(nodeId, { messages: JSON.parse(data) });
+                }
+            }
+        } catch (error) {
+            console.error('Error during run:', error);
         }
     }
 </script>

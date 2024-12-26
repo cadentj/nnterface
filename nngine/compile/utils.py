@@ -1,5 +1,5 @@
 from collections import defaultdict, deque
-from typing import List
+from typing import List, Callable
 
 from .ir import Graph
 
@@ -15,6 +15,23 @@ def get_adj_list(graph: Graph, reverse: bool = False) -> dict:
 
     return adj_list
 
+
+def get_top_parent(
+    graph: Graph, node_id: str, level: str | Callable = "session"
+) -> str:
+    """Get the parent id of a node at a certain depth."""
+    node = graph.lookup[node_id]
+
+    if isinstance(level, str):
+        level = lambda x: x == level
+    
+    while not level(node.parent):
+        if node.parent == "session":
+            return node.id
+
+        node = graph.lookup[node.parent]
+
+    return node.id
 
 def get_in_degree(graph: Graph) -> dict:
     """Compute the in-degree of each node."""

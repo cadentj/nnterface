@@ -6,6 +6,7 @@ model = LanguageModel(gpt2_path, dispatch=True)
 
 remote = False
 input0 = "When Lisa and Sarah went to the cinema, Lisa gave the ticket to"
+
 input15 = "When Lisa and Sarah went to the cinema, Sarah gave the ticket to"
 input3 = "When Lisa and Sarah went to the cinema, Sarah gave the ticket to"
 
@@ -54,7 +55,7 @@ with model.session(remote=remote) as session:
                 with tracer.invoke(input15):
                     module9 = model.transformer.h[loop7].output[0]
                     function2 = _function2(
-                        acts=list4, corr=module9, tok=loop8, layer=loop7
+                        corr=module9, acts=list4, tok=loop8, layer=loop7
                     )
                     model.transformer.h[loop7].output[0][:] = function2
                     module14 = model.lm_head.output
