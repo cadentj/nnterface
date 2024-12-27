@@ -9,6 +9,7 @@ export let editor = $state({
     snapGrid: null,
     chatNodeExists: false,
     rightSidebarVisible: true,
+    status: "offline",
 });
 
 export const connections: Record<string, string[]> = {

@@ -14,10 +14,11 @@
     orientation="vertical"
     position="bottom-left"
     class="flex gap-2 bg-card p-2 rounded-lg border"
+    showZoom={false}
 >
     <ProximityButton/>
-    <ChatButton/>
     <SnapButton/>
+    <ChatButton/>
     <div class="!border-t pt-2">
         <RunButton />
     </div>

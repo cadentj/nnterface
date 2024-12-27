@@ -39,6 +39,7 @@
         onclick={() => exportCode()}
         class="bg-gradient border-none"
         variant="outline"
+        size="xs"
     >
         Export
         <Code class="w-5 h-5 ml-2" />

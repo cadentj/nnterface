@@ -50,6 +50,7 @@
     <Button
         onclick={() => exportGraph()}
         variant="default"
+        size="xs"
     >
         Save
         <Download class="w-5 h-5 ml-2" />

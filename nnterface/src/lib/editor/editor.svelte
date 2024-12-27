@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { SvelteFlow, SvelteFlowProvider } from "@xyflow/svelte";
+    import { SvelteFlow, SvelteFlowProvider, SelectionMode } from "@xyflow/svelte";
     import { defaultEdgeOptions, nodeTypes, load } from "./flow";
 
     import Layout from "./flow/layout.svelte";
+
     import Toolbar from "./ui/toolbar/toolbar.svelte";
     import LeftSidebar from "./ui/left-sidebar/left-sidebar.svelte";
     import RightSidebar from "./ui/right-sidebar/right-sidebar.svelte";
@@ -28,6 +29,7 @@
     let dragAndDropHandler: any;
     let connectionHandler: any;
     let proximityHandler: any;
+
 </script>
 
 <svelte:head>
@@ -43,6 +45,7 @@
         {nodes}
         {edges}
         fitView={true}
+
         snapGrid={editor.snapGrid}
         {defaultEdgeOptions}
         {nodeTypes}

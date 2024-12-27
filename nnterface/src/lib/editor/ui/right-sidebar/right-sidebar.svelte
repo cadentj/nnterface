@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Tokenizer from "./tokenizer.svelte";
+    import ToolsTab from "./tools/tools.svelte";
     import ChatTab from "./chat/chat-tab.svelte";
     import * as Tabs from "$lib/components/ui/tabs";
     import Graph from "./graph/graphs.svelte";
@@ -29,7 +29,7 @@
                 <Graph/>
             </Tabs.Content>
             <Tabs.Content value="tools">
-                <Tokenizer/>
+                <ToolsTab/>
             </Tabs.Content>
         </div>
     </Tabs.Root>

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { ControlButton } from "@xyflow/svelte";
-    import { MessageSquare } from "lucide-svelte";
+    import { Wrench } from "lucide-svelte";
     import { editor } from "$lib/editor/handlers/states.svelte";
 
 
@@ -10,5 +10,5 @@
 </script>
 
 <ControlButton on:click={toggleChat} >
-    <MessageSquare/>
+    <Wrench/>
 </ControlButton>

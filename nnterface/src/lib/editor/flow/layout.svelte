@@ -39,7 +39,7 @@
     }
 
     .layout .navbar {
-        @apply absolute top-0 left-0 w-full h-[5vh] z-20 border-b;
+        @apply absolute top-0 left-0 w-full h-[5vh] z-20;
     }
 
     .layout .chat {

@@ -57,7 +57,8 @@
         <Select.Trigger class="margin mb-4 mt-2">
             {value}
         </Select.Trigger>
-        
+
+
         <Select.Content>
             {@render group("Base Models", baseModels)}
             {@render group("Chat Models", chatModels)}
