@@ -10,6 +10,8 @@
     import { PUBLIC_BACKEND_URL } from '$env/static/public';
     import { animate } from "@/lib/editor/flow/animate";
 
+    import { editor } from "$lib/editor/handlers/states.svelte";
+
     const { toObject, updateNodeData, getIntersectingNodes } = useSvelteFlow();
     const nodes = useNodes();
     const edges = useEdges();
@@ -29,7 +31,11 @@
     }
 
     async function run() {
+        editor.status = "running";
+
         try {
+
+
             const graphObject = exportGraph(
                 nodes,
                 getIntersectingNodes,
@@ -64,6 +70,8 @@
         } catch (error) {
             console.error('Error during run:', error);
         }
+
+        editor.status = "online";
     }
 </script>
 

@@ -5,4 +5,4 @@
 
 </script>
 
-<Editor project={data} />
+<Editor project={data.project} status={data.status} />

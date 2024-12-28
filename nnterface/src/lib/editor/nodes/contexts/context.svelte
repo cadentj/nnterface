@@ -10,7 +10,7 @@
 
 <div class="context">
     <div 
-        class="flex items-center border-b px-3 py-2 h-auto draggable"
+        class="flex items-center border-b px-3 py-2 h-9 draggable"
         class:border-gradient={label == 'run' || label == 'batch'}
     >
         <GripVertical class="h-5 w-5 mr-2" />

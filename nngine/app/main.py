@@ -20,3 +20,8 @@ app.include_router(run.router, prefix="/run", tags=["Run"])
 app.include_router(models.router, prefix="/models", tags=["Load and display models"])
 app.include_router(export.router, prefix="/code", tags=["code"])
 app.include_router(tools.router, prefix="/tools", tags=["Tools"])
+
+
+@app.get("/ping")
+async def ping():
+    return {"status": "online"}

@@ -12,7 +12,7 @@
     });
 </script>
 
-<Accordion.Root type="multiple" value={["Info", "Tokenizer"]}>
+<Accordion.Root type="multiple">
     <Accordion.Item value="Info">
         <Accordion.Trigger class="px-6 ">Info</Accordion.Trigger>
         <Accordion.Content>

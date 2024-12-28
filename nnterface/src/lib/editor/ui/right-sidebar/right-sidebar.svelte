@@ -9,7 +9,7 @@
 
 </script>
 
-<div class='h-full bg-card'>
+<div class='h-full bg-card overflow-scroll'>
     <Tabs.Root value="tools" class="h-full" id="sidebar">
         <div class="px-6 py-3">
             <Tabs.List>

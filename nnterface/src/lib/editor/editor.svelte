@@ -14,11 +14,13 @@
     import ProximityHandler from "./handlers/proximity.svelte";
     
     import "@xyflow/svelte/dist/base.css";
-    import "$lib/editor/styles/flow.css";
+    import "$lib/editor/flow.css";
 
     import { editor } from "./handlers/states.svelte";
 
-    let { project } = $props();
+    let { project, status } = $props();
+
+    editor.status = status;
 
     let { 
         nodes, 
@@ -45,7 +47,7 @@
         {nodes}
         {edges}
         fitView={true}
-
+        selectionMode={SelectionMode.Full}
         snapGrid={editor.snapGrid}
         {defaultEdgeOptions}
         {nodeTypes}
