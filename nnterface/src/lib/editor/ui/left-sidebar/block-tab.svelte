@@ -35,10 +35,10 @@
     }
 </script>
 
-<div class="p-6">
+<div class="px-6 py-3">
     {#each blockGroups as group}
-        <div class="mb-4">
-            <small>{group.title}</small>
+        <div class="py-1.5 mb-1.5">
+            <span class="text-sm">{group.title}</span>
             <div class="grid grid-cols-2 gap-3 mt-2">
                 {#each group.blocks as block}
                     <button
@@ -57,6 +57,6 @@
 </div>
 
 <Separator />
-<div class="p-6">
+<div class="px-6 py-3">
     <FunctionTab />
 </div>

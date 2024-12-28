@@ -71,6 +71,7 @@ const defaultEdgeOptions: DefaultEdgeOptions = {
         height: 8,
     },
     style: 'stroke-width: 2px; stroke: #A3A3A3',
+
 };
 
 export { nodeTypes, defaultEdgeOptions };

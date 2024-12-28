@@ -50,9 +50,9 @@
     </Select.Group>
 {/snippet}
 
-<div class="mb-2">
+<div class="my-1.5">
     <Select.Root type="single" bind:value onValueChange={(model) => loadModel(model)}>
-        <small>Model</small>
+        <span class="text-sm">Model</span>
 
         <Select.Trigger class="margin mb-4 mt-2">
             {value}

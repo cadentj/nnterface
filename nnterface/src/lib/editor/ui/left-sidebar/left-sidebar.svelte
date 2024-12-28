@@ -2,7 +2,6 @@
     import BlockList from "./block-tab.svelte";
     import type { BlockGroup } from "./block-tab.svelte";
     import ModelSelector from "./model-selector/model-tab.svelte";
-    import FunctionTab from "./function-builder/function-tab.svelte";
     import * as Tabs from "$lib/components/ui/tabs";
     import { Separator } from "$lib/components/ui/separator/index.js";
 
@@ -34,22 +33,18 @@
             <Tabs.List>
                 <Tabs.Trigger value="model" class="w-full h-full">Model</Tabs.Trigger>
                 <Tabs.Trigger value="blocks" class="w-full h-full">Blocks</Tabs.Trigger>
-                <!-- <Tabs.Trigger value="functions" class="w-full h-full">Functions</Tabs.Trigger> -->
             </Tabs.List>
         </div>
 
         <Separator/>
         
         <div>
-            <Tabs.Content class="p-6" value="model">
+            <Tabs.Content class="px-6 py-3" value="model">
                 <ModelSelector/>
             </Tabs.Content> 
             <Tabs.Content value="blocks">
                 <BlockList blockGroups={demoBlocks} />
             </Tabs.Content>
-            <!-- <Tabs.Content value="functions">
-                <FunctionTab />
-            </Tabs.Content> -->
         </div>
     </Tabs.Root>
 </div>

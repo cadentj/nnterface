@@ -129,8 +129,9 @@
     bind:open 
     onOpenChange={(isOpen) => !isOpen && handleClose()}
 >
-    <div class="flex justify-between items-center mb-2">
-        <small>Functions</small>
+    <div class="flex justify-between items-center mb-2 py-1.5">
+        <span class="text-sm">Functions</span>
+
         <div class="flex gap-3">
             {@render menuButtons(isDeleteMode, isEditMode)}
         </div>

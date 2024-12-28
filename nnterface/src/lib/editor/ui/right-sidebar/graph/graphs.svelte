@@ -132,15 +132,15 @@
     {/if}
 {/snippet}
 
-<div class="flex flex-col">
+<div class="flex flex-col py-3">
     {#each selectedGraphs as _, idx}
         {@render graphContent(idx)}
     {/each}
     
     {#if !addingGraph}
-        <small class="p-6 cursor-pointer" onclick={addGraph}>
+        <span class="px-6 py-1.5 text-sm cursor-pointer" onclick={addGraph}>
             Add graph +
-        </small>
+        </span>
     {/if}
 
 </div>

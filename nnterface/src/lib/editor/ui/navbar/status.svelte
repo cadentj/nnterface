@@ -3,10 +3,10 @@
     import { editor } from "$lib/editor/handlers/states.svelte";
 
     const statusColor: Record<string, string> = {
-        "online": "bg-green-500/60",
+        "online": "bg-[#00CA50]/20 text-[#00CA50]",
         "offline": "bg-muted",
-        "connecting": "bg-yellow-500/60",
-        "running": "bg-blue-500/60",
+        "error": "bg-[#D14D41]/20 text-[#D14D41]",
+        "running": "bg-[#47A8FF]/20 text-[#47A8FF]",
     }
 
     const color = $derived(statusColor[editor.status]);
