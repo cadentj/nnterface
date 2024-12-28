@@ -45,43 +45,47 @@
     }
 </script>
 
-<div class="flex items-center mb-2 justify-between">
-    <small>Prompt</small>
-    <button onclick={tokenize}>
+<div class="mx-6 mb-3 mt-2 relative"> 
+    <div>
+        {#if isTokenView}
+            <div class="p-2 border rounded bg-muted min-h-20 relative">
+                <div class="cursor-pointer">
+                    {#each tokens as token, idx}
+                        <span
+                            role="button"
+                            tabindex={idx}
+                            class="hover:underline"
+                            class:selected={selected === idx}
+                            class:newline={token === "\n"}
+                            onclick={() => select(idx)}
+                            onkeydown={(e) => e.key === "Enter" && select(idx)}
+                            >{token === "\n" ? "\\n" : token}</span
+                        >
+                    {/each}
+                </div>
+                <div>
+                    <small class="text-muted-foreground">Count: {tokens.length}</small>
+                    <small class="text-muted-foreground"
+                        >Selected: {tokenIds[selected] ? tokenIds[selected] : "None"}</small
+                    >
+                </div>
+            </div>
+        {:else}
+            <Textarea
+                value={text}
+                on:input={(evt) => (text = evt.currentTarget.value)}
+                class="bg-secondary h-52"
+            />
+        {/if}
+    </div>
+
+    <button onclick={tokenize} class="absolute top-2 right-2 w-8 h-8 rounded bg-ui-2 flex items-center justify-center focus:outline-none focus:ring-1">
         {#if isTokenView}
             <Pencil class="w-5 h-5" />
         {:else}
             <Type class="w-5 h-5" />
         {/if}
     </button>
-</div>
-<div>
-    {#if isTokenView}
-        <div class="cursor-pointer">
-            {#each tokens as token, idx}
-                <span
-                    role="button"
-                    tabindex={idx}
-                    class="hover:underline"
-                    class:selected={selected === idx}
-                    class:newline={token === "\n"}
-                    onclick={() => select(idx)}
-                    onkeydown={(e) => e.key === "Enter" && select(idx)}
-                    >{token === "\n" ? "\\n" : token}</span
-                >
-            {/each}
-        </div>
-        <small class="text-muted-foreground">Count: {tokens.length}</small>
-        <small class="text-muted-foreground"
-            >Selected: {tokenIds[selected] ? tokenIds[selected] : "None"}</small
-        >
-    {:else}
-        <Textarea
-            value={text}
-            on:input={(evt) => (text = evt.currentTarget.value)}
-            class="bg-secondary h-52"
-        />
-    {/if}
 </div>
 
 <style lang="postcss">
